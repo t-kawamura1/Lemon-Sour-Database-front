@@ -1,9 +1,9 @@
-describe('your Vue app', () => {
+describe("your Vue app", () => {
   beforeAll(async () => {
-    await page.goto('http://localhost:8080');
+    await page.goto("http://localhost:8080");
   });
 
-  it('can be tested with jest and puppeteer', async () => {
-    await expect(page).toMatchElement('button', 'RailsからAPIを取得する');
+  it("can be tested with jest and puppeteer", async () => {
+    await expect(page).toMatchElement("button", "RailsからAPIを取得する");
   });
 });
