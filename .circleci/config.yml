@@ -1,0 +1,22 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.5.0
+jobs:
+  test:
+    executor: node/default
+    tag: '14.7.0'
+    steps:
+      - checkout
+      - node/install-packages
+          # cache-path: ~/project/node_modules
+          # override-ci-command: npm install
+      - run:
+          name: Unit test
+          command: npm run test:unit
+      - run:
+          name: E2E test
+          command: npm run test:e2e
+workflows:
+  test_my_app:
+    jobs:
+      - test
