@@ -13,7 +13,7 @@ jobs:
           override-ci-command: npm install
       - run:
           name: Unit test
-          command: npm run test:unit
+          command: npm run test
       - run:
           name: E2E test
           command: npm run test:e2e
