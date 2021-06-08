@@ -21,20 +21,17 @@ jobs:
           name: E2E test
           command: npm run test:e2e
 
-  deploy:
-    executor: heroku/default
-    steps:
-      - checkout
-      - heroku/install
-      - run:
-          name: heroku buildpacks
-          command: heroku buildpacks -a lsdb-front-v1-circleci
-      - heroku/deploy-via-git
+  # deploy:
+  #   executor: heroku/default
+  #   steps:
+  #     - checkout
+  #     - heroku/install
+  #     - heroku/deploy-via-git
 
 workflows:
   test_and_deploy:
     jobs:
       - test
-      - deploy:
+      - heroku/deploy-via-git:
           requires:
             - test
