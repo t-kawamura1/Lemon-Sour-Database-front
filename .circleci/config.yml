@@ -17,9 +17,9 @@ jobs:
       #     cache-path: ~/project/node_modules
       #     override-ci-command: npm install
       - puppeteer/install
-      - run:
-          name: Unit test
-          command: npm run test:unit
+      # - run:
+      #     name: Unit test
+      #     command: npm run test:unit
       - run:
           name: E2E test
           command: npm run test:e2e
