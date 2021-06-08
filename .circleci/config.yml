@@ -6,8 +6,8 @@ jobs:
   test:
     docker:
       - image: circleci/node:14.17.0
-        environment:
-          NODE_ENV: development
+        # environment:
+        #   NODE_ENV: development
     # executor:
     #   name: node/default
     #   tag: 14.7.0
