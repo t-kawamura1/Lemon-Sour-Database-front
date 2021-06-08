@@ -26,6 +26,9 @@ jobs:
     steps:
       - checkout
       - heroku/install
+      - run:
+          name: heroku buildpacks
+          command: heroku buildpacks
       - heroku/deploy-via-git
 
 workflows:
