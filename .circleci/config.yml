@@ -16,9 +16,7 @@ jobs:
       - node/install-packages:
           cache-path: ~/project/node_modules
           override-ci-command: npm install
-      - run:
-          name: Install puppeteer and headless chrome
-          command: puppeteer/install
+      - puppeteer/install
       - run:
           name: Unit test
           command: npm run test
