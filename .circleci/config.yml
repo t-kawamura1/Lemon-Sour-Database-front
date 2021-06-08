@@ -10,9 +10,9 @@ jobs:
       - image: circleci/node:14.17.0
     steps:
       - checkout
-      - node/install-packages:
-          cache-path: ~/project/node_modules
-          override-ci-command: npm install
+      - node/install-packages
+          # cache-path: ~/project/node_modules
+          # override-ci-command: npm install
       - puppeteer/install
       - run:
           name: Unit test
