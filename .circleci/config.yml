@@ -16,16 +16,13 @@ jobs:
       # - node/install-packages:
       #     cache-path: ~/project/node_modules
       #     override-ci-command: npm install
-      # - run:
-      #     name: sudo apt-get update
-      #     command: apt-get update
-      - puppeteer/install
+      # - puppeteer/install
       # - run:
       #     name: Unit test
       #     command: npm run test
-      # - run:
-      #     name: E2E test
-      #     command: npm run test:e2e
+      - run:
+          name: E2E test
+          command: npm run test:e2e
 workflows:
   test_my_app:
     jobs:
