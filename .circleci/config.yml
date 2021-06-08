@@ -21,13 +21,6 @@ jobs:
           name: E2E test
           command: npm run test:e2e
 
-  # deploy:
-  #   executor: heroku/default
-  #   steps:
-  #     - checkout
-  #     - heroku/install
-  #     - heroku/deploy-via-git
-
 workflows:
   test_and_deploy:
     jobs:
