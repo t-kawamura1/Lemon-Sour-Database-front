@@ -25,6 +25,9 @@ jobs:
     executor: heroku/default
     steps:
       - checkout
+      - run:
+          name: npm install
+          command: npm install
       - heroku/install
       - heroku/deploy-via-git
 
