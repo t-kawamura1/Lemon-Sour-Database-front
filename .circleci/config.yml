@@ -28,7 +28,7 @@ jobs:
       - heroku/install
       - run:
           name: heroku buildpacks
-          command: heroku buildpacks
+          command: heroku buildpacks -a lsdb-front-v1-circleci
       - heroku/deploy-via-git
 
 workflows:
