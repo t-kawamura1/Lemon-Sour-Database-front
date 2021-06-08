@@ -16,7 +16,7 @@ jobs:
       - node/install-packages:
           cache-path: ~/project/node_modules
           override-ci-command: npm install
-      run:
+      - run:
           name: apt-get update
           command: apt-get update
       - puppeteer/install
