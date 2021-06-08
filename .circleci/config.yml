@@ -1,8 +1,13 @@
 version: 2.1
 orbs:
   node: circleci/node@4.5.0
+  puppeteer: threetreeslight/puppeteer@0.1.2
 jobs:
   test:
+    docker:
+      - image: cimg/node:14.17.0
+        environment:
+          NODE_ENV: development
     executor:
       name: node/default
       tag: 14.7.0
@@ -11,6 +16,9 @@ jobs:
       - node/install-packages:
           cache-path: ~/project/node_modules
           override-ci-command: npm install
+      - run:
+          name: Install puppeteer and headless chrome
+          command: puppeteer/install
       - run:
           name: Unit test
           command: npm run test
