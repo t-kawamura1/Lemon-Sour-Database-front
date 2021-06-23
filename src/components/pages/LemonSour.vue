@@ -22,9 +22,7 @@
           ></sour-display>
         </template>
         <template v-slot:sour-flags>
-          <sour-flags
-            :flag-attributes="sourFlagsAttributes"
-          ></sour-flags>
+          <sour-flags :flag-attributes="sourFlagsAttributes"></sour-flags>
         </template>
         <template v-slot:sour-attributes>
           <sour-attributes
@@ -83,17 +81,14 @@ export default {
         "ユーザー情報",
       ],
       lemonSour: {},
-      sourFlagsAttributes:[
-        ["糖類ゼロ"],
-        ["甘味料ゼロ"],
-      ],
+      sourFlagsAttributes: [["糖類ゼロ"], ["甘味料ゼロ"]],
       sourAttributesTable: [
         ["メーカー"],
         ["アルコール度数 (%)"],
         ["純アルコール量 (g)"],
         ["カロリー (kcal)"],
         ["果汁 (%)"],
-      ]
+      ],
     };
   },
   created() {

@@ -1,6 +1,9 @@
 <template>
   <div class="sour-flags">
-    <div v-for="(flagAttribute, index) in flagAttributes" :key="`flag-${index}`">
+    <div
+      v-for="(flagAttribute, index) in flagAttributes"
+      :key="`flag-${index}`"
+    >
       <zero-flag :flag-set="flagAttribute"></zero-flag>
     </div>
   </div>
@@ -15,7 +18,7 @@ export default {
   },
   props: {
     flagAttributes: Array,
-  }
+  },
 };
 </script>
 
@@ -23,6 +26,6 @@ export default {
 .sour-flags {
   display: flex;
   width: 400px;
-  justify-content: space-around
+  justify-content: space-around;
 }
 </style>

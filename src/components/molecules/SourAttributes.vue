@@ -1,6 +1,9 @@
 <template>
   <div class="sour-attributes">
-    <table v-for="(tableAttribute, index) in tableAttributes" :key="`table-${index}`">
+    <table
+      v-for="(tableAttribute, index) in tableAttributes"
+      :key="`table-${index}`"
+    >
       <sour-attribute :attribute-set="tableAttribute"></sour-attribute>
     </table>
   </div>
@@ -15,7 +18,7 @@ export default {
   },
   props: {
     tableAttributes: Array,
-  }
+  },
 };
 </script>
 
