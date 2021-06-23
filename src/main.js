@@ -3,11 +3,20 @@ import App from "@/App.vue";
 import router from "@/router";
 import axios from "axios";
 import VueI18n from "vue-i18n";
+import VueMq from "vue-mq";
 
 axios.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT;
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 Vue.use(VueI18n);
+Vue.use(VueMq, {
+  breakpoints: {
+    sp: 768,
+    pc: 769,
+  },
+});
+
+require("@/assets/style/common.scss")
 
 const i18n = new VueI18n({
   locale: "ja",
