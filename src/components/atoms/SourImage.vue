@@ -1,11 +1,15 @@
 <template>
   <div>
-    <img src="" alt="" />
+    <img :src="sourImageUrl" alt="レモンサワーの画像" />
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    sourImageUrl: String,
+  },
+};
 </script>
 
 <style scoped lang="scss"></style>

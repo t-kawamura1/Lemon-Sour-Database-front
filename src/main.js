@@ -16,7 +16,7 @@ Vue.use(VueMq, {
   },
 });
 
-require("@/assets/style/common.scss")
+require("@/assets/style/common.scss");
 
 const i18n = new VueI18n({
   locale: "ja",

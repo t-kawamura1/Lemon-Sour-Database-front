@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <p>ふぁぼ</p>
-  </div>
+  <div></div>
 </template>
 
 <script>

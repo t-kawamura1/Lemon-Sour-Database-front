@@ -16,10 +16,20 @@
     <template v-slot:sour-container>
       <sour-container>
         <template v-slot:sour-display>
-          <sour-display></sour-display>
+          <sour-display
+            :sour-name="lemonSour.name"
+            :sour-image="lemonSour.sour_image.url"
+          ></sour-display>
+        </template>
+        <template v-slot:sour-flags>
+          <sour-flags
+            :flag-attributes="sourFlagsAttributes"
+          ></sour-flags>
         </template>
         <template v-slot:sour-attributes>
-          <sour-attributes></sour-attributes>
+          <sour-attributes
+            :table-attributes="sourAttributesTable"
+          ></sour-attributes>
         </template>
         <template v-slot:sour-favorite>
           <sour-favorite></sour-favorite>
@@ -42,11 +52,12 @@ import SourContainer from "@/components/organisms/SourContainer";
 import ReviewContainer from "@/components/organisms/ReviewContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import TheSidebar from "@/components/organisms/TheSidebar";
+import SidebarMenus from "@/components/molecules/SidebarMenus";
 import SourDisplay from "@/components/molecules/SourDisplay";
+import SourFlags from "@/components/molecules/SourFlags";
 import SourAttributes from "@/components/molecules/SourAttributes";
 import SourFavorite from "@/components/molecules/SourFavorite";
 import AppTitle from "@/components/atoms/AppTitle";
-import SidebarMenus from "@/components/molecules/SidebarMenus";
 
 export default {
   components: {
@@ -56,11 +67,12 @@ export default {
     ReviewContainer,
     TheFooter,
     TheSidebar,
+    SidebarMenus,
     SourDisplay,
+    SourFlags,
     SourAttributes,
     SourFavorite,
     AppTitle,
-    SidebarMenus,
   },
   data() {
     return {
@@ -70,8 +82,37 @@ export default {
         "摂取量記録カレンダー",
         "ユーザー情報",
       ],
-    }
-  }
+      lemonSour: {},
+      sourFlagsAttributes:[
+        ["糖類ゼロ"],
+        ["甘味料ゼロ"],
+      ],
+      sourAttributesTable: [
+        ["メーカー"],
+        ["アルコール度数 (%)"],
+        ["純アルコール量 (g)"],
+        ["カロリー (kcal)"],
+        ["果汁 (%)"],
+      ]
+    };
+  },
+  created() {
+    this.$axios
+      .get(`/api/v1/lemon_sours/${this.$route.params.id}`)
+      .then((res) => {
+        this.lemonSour = res.data.data;
+        this.sourFlagsAttributes[0].push(this.lemonSour.zero_sugar);
+        this.sourFlagsAttributes[1].push(this.lemonSour.zero_sweetener);
+        this.sourAttributesTable[0].push(this.lemonSour.manufacturer);
+        this.sourAttributesTable[1].push(this.lemonSour.alcohol_content);
+        this.sourAttributesTable[2].push(this.lemonSour.pure_alcohol);
+        this.sourAttributesTable[3].push(this.lemonSour.calories);
+        this.sourAttributesTable[4].push(this.lemonSour.fruit_juice);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
 };
 </script>
 

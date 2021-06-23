@@ -1,5 +1,5 @@
 <template>
-  <a href="#">{{ menuNameText }}</a>
+  <a href="#" class="sidebar-menu">{{ menuNameText }}</a>
 </template>
 
 <script>

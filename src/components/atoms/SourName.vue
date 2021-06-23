@@ -1,11 +1,20 @@
 <template>
-  <div>
-    <div>こだわり酒場のレモンサワー</div>
-  </div>
+  <div class="sour-name">{{ sourNameText }}</div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    sourNameText: String,
+  },
+};
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.sour-name {
+  font-size: 3rem;
+  font-weight: 700;
+  color: $font-color-bg-white;
+  letter-spacing: 1.5px;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="lemon-sour-layout">
-    <div class="sidebar" v-if="$mq === 'pc'">
+    <div v-if="$mq === 'pc'">
       <slot name="sidebar"></slot>
     </div>
     <div v-if="$mq === 'sp'">
@@ -25,9 +25,5 @@ export default {};
 <style scoped lang="scss">
 .lemon-sour-layout {
   display: flex;
-  .sidebar {
-    width: 300px;
-    height: 800px;
-  }
 }
 </style>

@@ -1,12 +1,18 @@
 <template>
-  <div>
-    <div>
+  <div class="sour-container">
+    <div class="display">
       <slot name="sour-display"></slot>
     </div>
-    <div>
-      <slot name="sour-attributes"></slot>
+    <!-- ↓↓flexboxの配置調整のために一枚入れる -->
+    <div class="attributes-box">
+      <div class="flags">
+        <slot name="sour-flags"></slot>
+      </div>
+      <div class="attributes">
+        <slot name="sour-attributes"></slot>
+      </div>
     </div>
-    <div>
+    <div class="favorite">
       <slot name="sour-favorite"></slot>
     </div>
   </div>
@@ -16,4 +22,16 @@
 export default {};
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.sour-container {
+  padding: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  .display {
+    margin-right: 45px;
+  }
+  .flags {
+    margin-bottom: 30px;
+  }
+}
+</style>
