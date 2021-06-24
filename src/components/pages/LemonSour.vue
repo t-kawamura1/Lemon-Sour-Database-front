@@ -26,7 +26,7 @@
         </template>
         <template v-slot:sour-attributes>
           <sour-attributes
-            :table-attributes="sourAttributesTable"
+            :table-attributes="sourTableAttributes"
           ></sour-attributes>
         </template>
         <template v-slot:sour-favorite>
@@ -82,7 +82,7 @@ export default {
       ],
       lemonSour: {},
       sourFlagsAttributes: [["糖類ゼロ"], ["甘味料ゼロ"]],
-      sourAttributesTable: [
+      sourTableAttributes: [
         ["メーカー"],
         ["アルコール度数 (%)"],
         ["純アルコール量 (g)"],
@@ -96,13 +96,14 @@ export default {
       .get(`/api/v1/lemon_sours/${this.$route.params.id}`)
       .then((res) => {
         this.lemonSour = res.data.data;
+        console.log(this.lemonSour);
         this.sourFlagsAttributes[0].push(this.lemonSour.zero_sugar);
         this.sourFlagsAttributes[1].push(this.lemonSour.zero_sweetener);
-        this.sourAttributesTable[0].push(this.lemonSour.manufacturer);
-        this.sourAttributesTable[1].push(this.lemonSour.alcohol_content);
-        this.sourAttributesTable[2].push(this.lemonSour.pure_alcohol);
-        this.sourAttributesTable[3].push(this.lemonSour.calories);
-        this.sourAttributesTable[4].push(this.lemonSour.fruit_juice);
+        this.sourTableAttributes[0].push(this.lemonSour.manufacturer);
+        this.sourTableAttributes[1].push(this.lemonSour.alcohol_content);
+        this.sourTableAttributes[2].push(this.lemonSour.pure_alcohol);
+        this.sourTableAttributes[3].push(this.lemonSour.calories);
+        this.sourTableAttributes[4].push(this.lemonSour.fruit_juice);
       })
       .catch((err) => {
         console.log(err);

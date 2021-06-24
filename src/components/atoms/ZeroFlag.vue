@@ -1,5 +1,5 @@
 <template>
-  <div class="zero-flag" v-show="flagSet[1]">
+  <div class="zero-flag" v-if="flagSet[1]">
     {{ flagSet[0] }}
   </div>
 </template>
@@ -19,10 +19,9 @@ export default {
   width: 180px;
   height: 30px;
   line-height: 30px;
-  color: #0c5f41;
-  // font-weight: 700;
+  color: $dark-green;
   letter-spacing: 2px;
-  border-right: solid 3px #8dc21f;
-  border-bottom: solid 3px #8dc21f;
+  border-right: solid 3px $light-green;
+  border-bottom: solid 3px $light-green;
 }
 </style>

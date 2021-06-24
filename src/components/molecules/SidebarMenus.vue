@@ -16,7 +16,6 @@ export default {
   props: {
     menuNames: {
       type: Array,
-      required: true,
     },
   },
 };
