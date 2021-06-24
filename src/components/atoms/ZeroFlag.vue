@@ -1,0 +1,27 @@
+<template>
+  <div class="zero-flag" v-if="flagSet[1]">
+    {{ flagSet[0] }}
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    flagSet: Array,
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.zero-flag {
+  display: inline-block;
+  background: $base-yellow;
+  width: 180px;
+  height: 30px;
+  line-height: 30px;
+  color: $dark-green;
+  letter-spacing: 2px;
+  border-right: solid 3px $light-green;
+  border-bottom: solid 3px $light-green;
+}
+</style>

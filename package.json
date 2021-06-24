@@ -22,6 +22,7 @@
     "vue": "^2.6.11",
     "vue-i18n": "^8.24.4",
     "vue-jest": "^3.0.7",
+    "vue-mq": "^1.0.1",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {

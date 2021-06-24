@@ -1,14 +1,25 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Index from "@/views/Index.vue";
+import LemonSoursIndex from "@/components/pages/LemonSoursIndex.vue";
+import LemonSour from "@/components/pages/LemonSour.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  // {
+  //   path: "/",
+  //   name: "top",
+  //   component: Index,
+  // },
   {
-    path: "/",
-    name: "Index",
-    component: Index,
+    path: "/lemon_sours",
+    name: "LemonSoursIndex",
+    component: LemonSoursIndex,
+  },
+  {
+    path: "/lemon_sours/:id",
+    name: "lemonSour",
+    component: LemonSour,
   },
 ];
 
