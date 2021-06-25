@@ -1,6 +1,10 @@
 <template>
   <div class="sour-attributes">
-    <table v-for="(tableAttribute, index) in tableAttributes" :key="index">
+    <table
+      v-for="(tableAttribute, index) in tableAttributes"
+      :key="index"
+      class="attributes-table"
+    >
       <sour-attribute :attribute-set="tableAttribute"></sour-attribute>
     </table>
   </div>
@@ -21,7 +25,7 @@ export default {
 
 <style scoped lang="scss">
 .sour-attributes {
-  table {
+  .attributes-table {
     border-collapse: collapse;
     margin: 0 auto;
     padding: 0;

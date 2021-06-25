@@ -45,11 +45,11 @@
 
 <script>
 import LemonSour from "@/components/templates/LemonSour";
+import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
 import SourContainer from "@/components/organisms/SourContainer";
 import ReviewContainer from "@/components/organisms/ReviewContainer";
 import TheFooter from "@/components/organisms/TheFooter";
-import TheSidebar from "@/components/organisms/TheSidebar";
 import SidebarMenus from "@/components/molecules/SidebarMenus";
 import SourDisplay from "@/components/molecules/SourDisplay";
 import SourFlags from "@/components/molecules/SourFlags";
@@ -60,11 +60,11 @@ import AppTitle from "@/components/atoms/AppTitle";
 export default {
   components: {
     LemonSour,
+    TheSidebar,
     TheHeader,
     SourContainer,
     ReviewContainer,
     TheFooter,
-    TheSidebar,
     SidebarMenus,
     SourDisplay,
     SourFlags,
@@ -96,7 +96,7 @@ export default {
       .get(`/api/v1/lemon_sours/${this.$route.params.id}`)
       .then((res) => {
         this.lemonSour = res.data.data;
-        console.log(this.lemonSour);
+        console.log(`status_code: ${res.data.status}`);
         this.sourFlagsAttributes[0].push(this.lemonSour.zero_sugar);
         this.sourFlagsAttributes[1].push(this.lemonSour.zero_sweetener);
         this.sourTableAttributes[0].push(this.lemonSour.manufacturer);

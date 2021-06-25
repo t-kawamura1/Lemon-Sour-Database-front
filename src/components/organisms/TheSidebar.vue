@@ -15,7 +15,7 @@ export default {};
 
 <style scoped lang="scss">
 .sidebar {
-  width: 300px;
+  width: $sidebar-width;
   height: 100vh;
   background: radial-gradient(
     circle farthest-corner at -50px -100px,

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sour-image">
     <img :src="sourImageUrl" alt="レモンサワーの画像" />
   </div>
 </template>
