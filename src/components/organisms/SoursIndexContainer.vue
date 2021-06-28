@@ -26,7 +26,7 @@ export default {};
     margin-bottom: 60px;
   }
   .container-selects-set {
-    margin-bottom: 30px;
+    margin-bottom: 45px;
   }
 }
 </style>

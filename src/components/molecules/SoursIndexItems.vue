@@ -1,8 +1,15 @@
 <template>
   <div class="sours-index-items">
-    <div v-for="(lemonSour, index) in lemonSours" :key="index" class="index-item">
+    <div
+      v-for="(lemonSour, index) in lemonSours"
+      :key="index"
+      class="index-item"
+    >
       <sour-name class="item-name" :sour-name-text="lemonSour.name"></sour-name>
-      <sour-image class="item-image" :sour-image-url="lemonSour.sour_image.url"></sour-image>
+      <sour-image
+        class="item-image"
+        :sour-image-url="lemonSour.sour_image.url"
+      ></sour-image>
     </div>
   </div>
 </template>

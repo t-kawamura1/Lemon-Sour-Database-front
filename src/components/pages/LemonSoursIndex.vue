@@ -19,7 +19,13 @@
           <the-heading :heading-text="heading"></the-heading>
         </template>
         <template v-slot:selects-set>
-          <selects-set></selects-set>
+          <selects-set
+            :selects-types="sortTypes"
+            :selects-manufacturers="manufacturers"
+            :selects-ingredients="ingredients"
+            :selects-orders="sortOrders"
+            @sortBy="searchBy"
+          ></selects-set>
         </template>
         <template v-slot:sours-index-items>
           <sours-index-items :lemon-sours="lemonSours"></sours-index-items>
@@ -66,8 +72,45 @@ export default {
         "ユーザー情報",
       ],
       heading: "市販レモンサワーデータベース",
+      sortTypes: ["メーカー", "成分", "並び順"],
+      manufacturers: [
+        "すべて",
+        "アサヒ",
+        "キリン",
+        "コカ・コーラ",
+        "サッポロ",
+        "サントリー",
+        "宝酒造",
+      ],
+      ingredients: ["ー", "糖類ゼロ", "甘味料ゼロ"],
+      sortOrders: [
+        "新着順",
+        "度数の高い順",
+        "度数の低い順",
+        "カロリーの高い順",
+        "カロリーの低い順",
+        "果汁の多い順",
+        "果汁の少ない順",
+      ],
       lemonSours: [],
     };
+  },
+  methods: {
+    searchBy(value) {
+      const params = value;
+      console.log(params);
+      this.$axios
+        .get(
+          `/api/v1/lemon_sours/search_by_manufacturer?manufacturer=${params}`
+        )
+        .then((res) => {
+          this.lemonSours = res.data.data;
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
     this.$axios
