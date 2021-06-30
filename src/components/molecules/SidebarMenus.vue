@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-for="menuName in menuNames" :key="menuName" class="menu">
+  <div class="sidebar-menus">
+    <div v-for="(menuName, index) in menuNames" :key="index" class="menu">
       <sidebar-menu :menu-name-text="menuName"></sidebar-menu>
     </div>
   </div>

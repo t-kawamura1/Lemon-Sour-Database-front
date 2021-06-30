@@ -1,5 +1,7 @@
 <template>
-  <div class="icon"></div>
+  <div class="icon">
+    <!-- ヘッダー、フッター実装時に書く -->
+  </div>
 </template>
 
 <script>

@@ -97,7 +97,9 @@ export default {
   },
   methods: {
     searchBy(values) {
-      console.log(values);
+      // if (values === []) {
+
+      // }
       this.$axios
         .get("/api/v1/lemon_sours/search_by", {
           params: {

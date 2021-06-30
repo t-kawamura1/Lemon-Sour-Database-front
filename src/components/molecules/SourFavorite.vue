@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sour-favorite">
     <button-favorite></button-favorite>
   </div>
 </template>

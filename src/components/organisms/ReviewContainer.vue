@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="review-container"></div>
 </template>
 
 <script>

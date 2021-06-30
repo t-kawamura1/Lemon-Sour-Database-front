@@ -1,5 +1,7 @@
 <template>
-  <div class="button-favorite"></div>
+  <div class="button-favorite">
+  <!-- ユーザー実装後に書く -->
+  </div>
 </template>
 
 <script>

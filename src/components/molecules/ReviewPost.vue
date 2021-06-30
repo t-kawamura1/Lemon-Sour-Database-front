@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div class="review-post">
+    <!-- ユーザー実装後に書く -->
+  </div>
 </template>
 
 <script>
