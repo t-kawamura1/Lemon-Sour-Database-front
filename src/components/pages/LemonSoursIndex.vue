@@ -24,11 +24,15 @@
             :selects-manufacturers="manufacturers"
             :selects-ingredients="ingredients"
             :selects-orders="sortOrders"
+            :error-messages="sortErrors"
             @sortBy="searchBy"
           ></selects-set>
         </template>
         <template v-slot:sours-index-items>
-          <sours-index-items :lemon-sours="lemonSours"></sours-index-items>
+          <sours-index-items
+            :lemon-sours="lemonSours"
+            :error-message="noContentsError"
+          ></sours-index-items>
         </template>
       </sours-index-container>
     </template>
@@ -92,29 +96,36 @@ export default {
         "果汁の多い順",
         "果汁の少ない順",
       ],
+      sortErrors: [],
+      noContentsError: "該当するデータがありません",
       lemonSours: [],
     };
   },
   methods: {
     searchBy(values) {
-      // if (values === []) {
-
-      // }
-      this.$axios
-        .get("/api/v1/lemon_sours/search_by", {
-          params: {
-            manufacturer: values[0],
-            ingredient: values[1],
-            order: values[2],
-          },
-        })
-        .then((res) => {
-          this.lemonSours = res.data;
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      console.log(values)
+      // values == ["", "", ""]はtrueにならない。__ob__: Observerが配列の末尾にあるため。
+      // 解決策がわからないため、冗長に条件を書く。
+      if (values[0] == "" && values[1] == "" && values[2] == "") {
+        this.sortErrors = ["少なくとも１つ選択して検索してください"];
+      } else {
+        this.sortErrors = []
+        this.$axios
+          .get("/api/v1/lemon_sours/search_by", {
+            params: {
+              manufacturer: values[0],
+              ingredient: values[1],
+              order: values[2],
+            },
+          })
+          .then((res) => {
+            this.lemonSours = res.data;
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   },
   created() {

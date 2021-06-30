@@ -1,33 +1,40 @@
 <template>
-  <form class="selects-set" @submit.prevent="packSelectedValues">
-    <input-select
-      :sort-type="selectsTypes[0]"
-      :sort-values="selectsManufacturers"
-      :value="selectedManufacturer"
-      @input="selectedManufacturer = $event"
-    ></input-select>
-    <input-select
-      :sort-type="selectsTypes[1]"
-      :sort-values="selectsIngredients"
-      :value="selectedIngredient"
-      @input="selectedIngredient = $event"
-    ></input-select>
-    <input-select
-      :sort-type="selectsTypes[2]"
-      :sort-values="selectsOrders"
-      :value="selectedOrder"
-      @input="selectedOrder = $event"
-    ></input-select>
-    <button type="submit">検索</button>
-  </form>
+  <div class="selects-set">
+    <form class="selects-form" @submit.prevent="packSelectedValues">
+      <input-select
+        :sort-type="selectsTypes[0]"
+        :sort-values="selectsManufacturers"
+        :value="selectedManufacturer"
+        @input="selectedManufacturer = $event"
+      ></input-select>
+      <input-select
+        :sort-type="selectsTypes[1]"
+        :sort-values="selectsIngredients"
+        :value="selectedIngredient"
+        @input="selectedIngredient = $event"
+      ></input-select>
+      <input-select
+        :sort-type="selectsTypes[2]"
+        :sort-values="selectsOrders"
+        :value="selectedOrder"
+        @input="selectedOrder = $event"
+      ></input-select>
+      <button type="submit">検索</button>
+    </form>
+    <div class="selects-errors" v-for="(errorMessage, index) in errorMessages" :key="index">
+      <error-message :error-message-text="errorMessage"></error-message>
+    </div>
+  </div>
 </template>
 
 <script>
 import InputSelect from "@/components/atoms/InputSelect";
+import ErrorMessage from "@/components/atoms/ErrorMessage";
 
 export default {
   components: {
     InputSelect,
+    ErrorMessage,
   },
   data() {
     return {
@@ -42,6 +49,7 @@ export default {
     selectsManufacturers: Array,
     selectsIngredients: Array,
     selectsOrders: Array,
+    errorMessages: Array,
   },
   methods: {
     packSelectedValues() {
@@ -57,6 +65,13 @@ export default {
 
 <style scoped lang="scss">
 .selects-set {
-  display: flex;
+  .selects-form {
+    display: flex;
+    margin-bottom: 15px;
+  }
+  .selects-errors {
+    text-align: left;
+    padding-left: 15px;
+  }
 }
 </style>
