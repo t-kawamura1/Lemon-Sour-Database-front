@@ -1,21 +1,25 @@
 <template>
-  <div class="selects-set">
+  <form class="selects-set" @submit.prevent="packSelectedValues">
     <input-select
       :sort-type="selectsTypes[0]"
       :sort-values="selectsManufacturers"
-      @input="$emit('sortBy', $event)"
+      :value="selectedManufacturer"
+      @input="selectedManufacturer = $event"
     ></input-select>
     <input-select
       :sort-type="selectsTypes[1]"
       :sort-values="selectsIngredients"
-      @input="$emit('sortBy', $event)"
+      :value="selectedIngredient"
+      @input="selectedIngredient = $event"
     ></input-select>
     <input-select
       :sort-type="selectsTypes[2]"
       :sort-values="selectsOrders"
-      @input="$emit('sortBy', $event)"
+      :value="selectedOrder"
+      @input="selectedOrder = $event"
     ></input-select>
-  </div>
+    <button type="submit">検索</button>
+  </form>
 </template>
 
 <script>
@@ -25,11 +29,28 @@ export default {
   components: {
     InputSelect,
   },
+  data() {
+    return {
+      selectedManufacturer: "",
+      selectedIngredient: "",
+      selectedOrder: "",
+      selectedValues: [],
+    };
+  },
   props: {
     selectsTypes: Array,
     selectsManufacturers: Array,
     selectsIngredients: Array,
     selectsOrders: Array,
+  },
+  methods: {
+    packSelectedValues() {
+      this.selectedValues.push(this.selectedManufacturer);
+      this.selectedValues.push(this.selectedIngredient);
+      this.selectedValues.push(this.selectedOrder);
+      this.$emit("sortBy", this.selectedValues);
+      this.selectedValues = [];
+    },
   },
 };
 </script>

@@ -95,8 +95,9 @@ export default {
     this.$axios
       .get(`/api/v1/lemon_sours/${this.$route.params.id}`)
       .then((res) => {
-        this.lemonSour = res.data.data;
-        console.log(`status_code: ${res.data.status}`);
+        this.lemonSour = res.data;
+        console.log(res);
+        // 以下、レモンサワーの属性表示用に、取得した値をdataにpush
         this.sourFlagsAttributes[0].push(this.lemonSour.zero_sugar);
         this.sourFlagsAttributes[1].push(this.lemonSour.zero_sweetener);
         this.sourTableAttributes[0].push(this.lemonSour.manufacturer);

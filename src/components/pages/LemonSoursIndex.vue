@@ -96,15 +96,18 @@ export default {
     };
   },
   methods: {
-    searchBy(value) {
-      const params = value;
-      console.log(params);
+    searchBy(values) {
+      console.log(values);
       this.$axios
-        .get(
-          `/api/v1/lemon_sours/search_by_manufacturer?manufacturer=${params}`
-        )
+        .get("/api/v1/lemon_sours/search_by", {
+          params: {
+            manufacturer: values[0],
+            ingredient: values[1],
+            order: values[2],
+          },
+        })
         .then((res) => {
-          this.lemonSours = res.data.data;
+          this.lemonSours = res.data;
           console.log(res.data);
         })
         .catch((err) => {
@@ -116,9 +119,8 @@ export default {
     this.$axios
       .get("/api/v1/lemon_sours")
       .then((res) => {
-        this.lemonSours = res.data.data;
-        console.log(`status_code: ${res.data.status}`);
-        console.log(res.data.data);
+        this.lemonSours = res.data;
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);

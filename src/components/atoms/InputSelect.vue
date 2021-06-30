@@ -1,6 +1,6 @@
 <template>
   <div class="input-select">
-    <select @change="onChangeValue">
+    <select :value="selected" @change="$emit('input', $event.target.value)">
       <option disabled value="">{{ sortType }}</option>
       <option
         v-for="(sortValue, index) in sortValues"
@@ -15,15 +15,14 @@
 
 <script>
 export default {
+  data() {
+    return {
+      selected: "",
+    };
+  },
   props: {
     sortType: String,
     sortValues: Array,
-  },
-  methods: {
-    onChangeValue() {
-      const selected = event.target.value;
-      this.$emit("input", selected);
-    },
   },
 };
 </script>
