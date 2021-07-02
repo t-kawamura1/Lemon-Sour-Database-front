@@ -4,24 +4,25 @@
       <input-select
         :sort-type="selectsTypes[0]"
         :sort-values="selectsManufacturers"
-        :value="selectedManufacturer"
         @input="selectedManufacturer = $event"
       ></input-select>
       <input-select
         :sort-type="selectsTypes[1]"
         :sort-values="selectsIngredients"
-        :value="selectedIngredient"
         @input="selectedIngredient = $event"
       ></input-select>
       <input-select
         :sort-type="selectsTypes[2]"
         :sort-values="selectsOrders"
-        :value="selectedOrder"
         @input="selectedOrder = $event"
       ></input-select>
       <button type="submit">検索</button>
     </form>
-    <div class="selects-errors" v-for="(errorMessage, index) in errorMessages" :key="index">
+    <div
+      class="selects-errors"
+      v-for="(errorMessage, index) in errorMessages"
+      :key="index"
+    >
       <error-message :error-message-text="errorMessage"></error-message>
     </div>
   </div>

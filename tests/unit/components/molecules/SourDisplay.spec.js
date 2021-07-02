@@ -2,7 +2,7 @@ import { mount } from "@vue/test-utils";
 import SourDisplay from "@/components/molecules/SourDisplay";
 
 describe("SourDisplay component test", () => {
-  it("menuNamesの要素の数だけ、リストレンダリングする", () => {
+  it("sourName props, sourImage propsを子コンポーネントに渡している", () => {
     const wrapper = mount(SourDisplay, {
       propsData: {
         sourName: "ストロングゼロ",

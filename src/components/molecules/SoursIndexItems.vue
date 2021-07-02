@@ -5,10 +5,7 @@
       :key="index"
       class="index-item"
     >
-      <sour-name
-        class="item-name"
-        :sour-name-text="lemonSour.name"
-      ></sour-name>
+      <sour-name class="item-name" :sour-name-text="lemonSour.name"></sour-name>
       <sour-image
         class="item-image"
         :sour-image-url="lemonSour.sour_image.url"
@@ -16,7 +13,7 @@
     </div>
     <error-message
       :error-message-text="errorMessage"
-      v-show="showNoContents"
+      v-show="isActive"
     ></error-message>
   </div>
 </template>
@@ -37,10 +34,10 @@ export default {
     errorMessage: String,
   },
   computed: {
-    showNoContents() {
-      return this.lemonSours.length == 0
-    }
-  }
+    isActive() {
+      return this.lemonSours.length == 0;
+    },
+  },
 };
 </script>
 

@@ -8,7 +8,7 @@
 export default {
   props: {
     errorMessageText: String,
-  }
+  },
 };
 </script>
 

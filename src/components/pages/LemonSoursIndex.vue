@@ -86,7 +86,7 @@ export default {
         "サントリー",
         "宝酒造",
       ],
-      ingredients: ["ー", "糖類ゼロ", "甘味料ゼロ"],
+      ingredients: ["すべて", "糖類ゼロ", "甘味料ゼロ"],
       sortOrders: [
         "新着順",
         "度数の高い順",
@@ -97,19 +97,19 @@ export default {
         "果汁の少ない順",
       ],
       sortErrors: [],
-      noContentsError: "該当するデータがありません",
+      // 初期描画時。データ更新時にメッセージを変える
+      noContentsError: "データを取得中",
       lemonSours: [],
     };
   },
   methods: {
     searchBy(values) {
-      console.log(values)
       // values == ["", "", ""]はtrueにならない。__ob__: Observerが配列の末尾にあるため。
       // 解決策がわからないため、冗長に条件を書く。
       if (values[0] == "" && values[1] == "" && values[2] == "") {
         this.sortErrors = ["少なくとも１つ選択して検索してください"];
       } else {
-        this.sortErrors = []
+        this.sortErrors = [];
         this.$axios
           .get("/api/v1/lemon_sours/search_by", {
             params: {
@@ -120,11 +120,12 @@ export default {
           })
           .then((res) => {
             this.lemonSours = res.data;
-            console.log(res.data);
+            console.log(res);
           })
           .catch((err) => {
             console.log(err);
           });
+        this.noContentsError = "該当するデータがありません";
       }
     },
   },
