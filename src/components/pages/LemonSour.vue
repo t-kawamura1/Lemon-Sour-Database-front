@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import LemonSour from "@/components/templates/LemonSour";
 import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
@@ -92,7 +93,7 @@ export default {
     };
   },
   created() {
-    this.$axios
+    axios
       .get(`/api/v1/lemon_sours/${this.$route.params.id}`)
       .then((res) => {
         this.lemonSour = res.data;

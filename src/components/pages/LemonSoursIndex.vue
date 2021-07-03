@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import LemonSoursIndex from "@/components/templates/LemonSoursIndex";
 import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
@@ -110,7 +111,7 @@ export default {
         this.sortErrors = ["少なくとも１つ選択して検索してください"];
       } else {
         this.sortErrors = [];
-        this.$axios
+        axios
           .get("/api/v1/lemon_sours/search_by", {
             params: {
               manufacturer: values[0],
@@ -130,7 +131,7 @@ export default {
     },
   },
   created() {
-    this.$axios
+    axios
       .get("/api/v1/lemon_sours")
       .then((res) => {
         this.lemonSours = res.data;
