@@ -1,10 +1,7 @@
 <template>
   <div class="header">
-    <div class="header-home-icon">
-      <slot name="home-icon"></slot>
-    </div>
-    <div class="header-user-icon">
-      <slot name="user-icon"></slot>
+    <div class="header-icons">
+      <slot name="header-icons"></slot>
     </div>
   </div>
 </template>

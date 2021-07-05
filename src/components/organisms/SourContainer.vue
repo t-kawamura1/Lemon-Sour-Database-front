@@ -24,10 +24,8 @@ export default {};
 
 <style scoped lang="scss">
 .sour-container {
-  padding: 60px;
   display: flex;
   flex-wrap: wrap;
-  margin-left: $sidebar-width;
   .display {
     margin-right: 45px;
   }

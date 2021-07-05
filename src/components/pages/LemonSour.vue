@@ -1,76 +1,125 @@
 <template>
-  <lemon-sour>
-    <template v-slot:sidebar v-if="$mq === 'pc'">
-      <the-sidebar>
-        <template v-slot:title>
-          <app-title></app-title>
-        </template>
-        <template v-slot:menus>
-          <sidebar-menus :menu-names="sidebarMenus"></sidebar-menus>
-        </template>
-      </the-sidebar>
-    </template>
-    <template v-slot:header v-if="$mq === 'sp'">
-      <the-header></the-header>
-    </template>
-    <template v-slot:sour-container>
-      <sour-container>
-        <template v-slot:sour-display>
-          <sour-display
-            :sour-name="lemonSour.name"
-            :sour-image="lemonSour.sour_image.url"
-          ></sour-display>
-        </template>
-        <template v-slot:sour-flags>
-          <sour-flags :flag-attributes="sourFlagsAttributes"></sour-flags>
-        </template>
-        <template v-slot:sour-attributes>
-          <sour-attributes
-            :table-attributes="sourTableAttributes"
-          ></sour-attributes>
-        </template>
-        <template v-slot:sour-favorite>
-          <sour-favorite></sour-favorite>
-        </template>
-      </sour-container>
-    </template>
-    <template v-slot:review-container>
-      <review-container></review-container>
-    </template>
-    <template v-slot:footer v-if="$mq === 'sp'">
-      <the-footer></the-footer>
-    </template>
-  </lemon-sour>
+  <div class="page-lemon-sour">
+    <!-- sidplay pc -->
+    <pc-lemon-sour v-if="$mq === 'pc'">
+      <!-- sidebar -->
+      <template v-slot:sidebar>
+        <the-sidebar>
+          <template v-slot:title>
+            <app-title></app-title>
+          </template>
+          <template v-slot:menus>
+            <sidebar-menus :menu-names="sidebarMenus"></sidebar-menus>
+          </template>
+        </the-sidebar>
+      </template>
+      <!-- sour-container -->
+      <template v-slot:sour-container>
+        <sour-container>
+          <template v-slot:sour-display>
+            <sour-display
+              :sour-name="lemonSour.name"
+              :sour-image="lemonSour.sour_image.url"
+            ></sour-display>
+          </template>
+          <template v-slot:sour-flags>
+            <sour-flags :flag-attributes="sourFlagsAttributes"></sour-flags>
+          </template>
+          <template v-slot:sour-attributes>
+            <sour-attributes
+              :table-attributes="sourTableAttributes"
+            ></sour-attributes>
+          </template>
+          <template v-slot:sour-favorite>
+            <sour-favorite></sour-favorite>
+          </template>
+        </sour-container>
+      </template>
+      <template v-slot:review-container>
+        <review-container></review-container>
+      </template>
+    </pc-lemon-sour>
+    <!-- display sp -->
+    <sp-lemon-sour v-if="$mq === 'sp'">
+      <!-- header -->
+      <template v-slot:header>
+        <the-header>
+          <template v-slot:header-icons>
+            <header-icons></header-icons>
+          </template>
+        </the-header>
+      </template>
+      <!-- sour-container -->
+      <template v-slot:sour-container>
+        <sour-container>
+          <template v-slot:sour-display>
+            <sour-display
+              :sour-name="lemonSour.name"
+              :sour-image="lemonSour.sour_image.url"
+            ></sour-display>
+          </template>
+          <template v-slot:sour-flags>
+            <sour-flags :flag-attributes="sourFlagsAttributes"></sour-flags>
+          </template>
+          <template v-slot:sour-attributes>
+            <sour-attributes
+              :table-attributes="sourTableAttributes"
+            ></sour-attributes>
+          </template>
+          <template v-slot:sour-favorite>
+            <sour-favorite></sour-favorite>
+          </template>
+        </sour-container>
+      </template>
+      <template v-slot:review-container>
+        <review-container></review-container>
+      </template>
+      <!-- footer -->
+      <template v-slot:footer>
+        <the-footer>
+          <template v-slot:footer-icons>
+            <footer-icons></footer-icons>
+          </template>
+        </the-footer>
+      </template>
+    </sp-lemon-sour>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-import LemonSour from "@/components/templates/LemonSour";
+import PcLemonSour from "@/components/templates/pc/LemonSour";
+import SpLemonSour from "@/components/templates/sp/LemonSour";
 import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
 import SourContainer from "@/components/organisms/SourContainer";
 import ReviewContainer from "@/components/organisms/ReviewContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import SidebarMenus from "@/components/molecules/SidebarMenus";
+import HeaderIcons from "@/components/molecules/HeaderIcons";
 import SourDisplay from "@/components/molecules/SourDisplay";
 import SourFlags from "@/components/molecules/SourFlags";
 import SourAttributes from "@/components/molecules/SourAttributes";
 import SourFavorite from "@/components/molecules/SourFavorite";
+import FooterIcons from "@/components/molecules/FooterIcons";
 import AppTitle from "@/components/atoms/AppTitle";
 
 export default {
   components: {
-    LemonSour,
+    PcLemonSour,
+    SpLemonSour,
     TheSidebar,
     TheHeader,
     SourContainer,
     ReviewContainer,
     TheFooter,
     SidebarMenus,
+    HeaderIcons,
     SourDisplay,
     SourFlags,
     SourAttributes,
     SourFavorite,
+    FooterIcons,
     AppTitle,
   },
   data() {

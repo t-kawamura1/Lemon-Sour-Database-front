@@ -18,7 +18,6 @@ export default {};
 
 <style scoped lang="scss">
 .sours-index-container {
-  padding: 60px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
