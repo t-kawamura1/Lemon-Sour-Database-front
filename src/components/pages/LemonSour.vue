@@ -1,8 +1,8 @@
 <template>
   <div class="page-lemon-sour">
-    <!-- sidplay pc -->
+    <!-- DISPLAY PC -->
     <pc-lemon-sour v-if="$mq === 'pc'">
-      <!-- sidebar -->
+      <!-- SIDEBAR -->
       <template v-slot:sidebar>
         <the-sidebar>
           <template v-slot:title>
@@ -13,7 +13,7 @@
           </template>
         </the-sidebar>
       </template>
-      <!-- sour-container -->
+      <!-- SOUR-CONTAINER -->
       <template v-slot:sour-container>
         <sour-container>
           <template v-slot:sour-display>
@@ -39,17 +39,17 @@
         <review-container></review-container>
       </template>
     </pc-lemon-sour>
-    <!-- display sp -->
+    <!-- DISPLAY SP -->
     <sp-lemon-sour v-if="$mq === 'sp'">
-      <!-- header -->
+      <!-- HEADER -->
       <template v-slot:header>
         <the-header>
           <template v-slot:header-icons>
-            <header-icons></header-icons>
+            <header-icons :header-icons="headerIcons"></header-icons>
           </template>
         </the-header>
       </template>
-      <!-- sour-container -->
+      <!-- SOUR-CONTAINER -->
       <template v-slot:sour-container>
         <sour-container>
           <template v-slot:sour-display>
@@ -74,11 +74,11 @@
       <template v-slot:review-container>
         <review-container></review-container>
       </template>
-      <!-- footer -->
+      <!-- FOOTER -->
       <template v-slot:footer>
         <the-footer>
           <template v-slot:footer-icons>
-            <footer-icons></footer-icons>
+            <footer-icons :footer-icons="footerIcons"></footer-icons>
           </template>
         </the-footer>
       </template>
@@ -130,6 +130,7 @@ export default {
         "摂取量記録カレンダー",
         "ユーザー情報",
       ],
+      headerIcons: ["lemon", "address-card"],
       lemonSour: {},
       sourFlagsAttributes: [["糖類ゼロ"], ["甘味料ゼロ"]],
       sourTableAttributes: [
@@ -138,6 +139,11 @@ export default {
         ["純アルコール量 (g)"],
         ["カロリー (kcal)"],
         ["果汁 (%)"],
+      ],
+      footerIcons: [
+        ["database", "LSDB"],
+        ["calculator", "アルコール量計算"],
+        ["calendar-alt", "摂取量記録"],
       ],
     };
   },

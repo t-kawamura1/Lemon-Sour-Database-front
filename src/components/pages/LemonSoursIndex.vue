@@ -44,7 +44,7 @@
       <template v-slot:header>
         <the-header>
           <template v-slot:header-icons>
-            <header-icons></header-icons>
+            <header-icons :header-icons="headerIcons"></header-icons>
           </template>
         </the-header>
       </template>
@@ -76,7 +76,7 @@
       <template v-slot:footer>
         <the-footer>
           <template v-slot:footer-icons>
-            <footer-icons></footer-icons>
+            <footer-icons :footer-icons="footerIcons"></footer-icons>
           </template>
         </the-footer>
       </template>
@@ -124,6 +124,7 @@ export default {
         "摂取量記録カレンダー",
         "ユーザー情報",
       ],
+      headerIcons: ["lemon", "address-card"],
       heading: "市販レモンサワーデータベース",
       sortTypes: ["メーカー", "成分", "並び順"],
       manufacturers: [
@@ -148,6 +149,11 @@ export default {
       sortErrors: [],
       // 初期描画時。データ更新時にメッセージを変える
       noContentsError: "データを取得中",
+      footerIcons: [
+        ["database", "LSDB"],
+        ["calculator", "アルコール量計算"],
+        ["calendar-alt", "摂取量記録"],
+      ],
       lemonSours: [],
     };
   },

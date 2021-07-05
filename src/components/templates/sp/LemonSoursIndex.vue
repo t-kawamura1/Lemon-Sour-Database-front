@@ -23,7 +23,6 @@ export default {};
     position: fixed;
     width: 100%;
     height: $header-height;
-    background-color: gray;
     z-index: 10;
   }
   .sp-sours-index-container-layout {
@@ -34,7 +33,6 @@ export default {};
     position: fixed;
     width: 100%;
     height: $footer-height;
-    background-color: gray;
     z-index: 10;
     bottom: 0;
   }
