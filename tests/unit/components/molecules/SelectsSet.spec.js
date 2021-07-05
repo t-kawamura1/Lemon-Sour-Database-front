@@ -62,9 +62,6 @@ describe("SelectsSet component test", () => {
     });
 
     it("検索ボタンをクリックすると、packSelectedValuesメソッドが呼び出され、sortByイベントとそれらの各valueがemitされる", async () => {
-      selects.at(0).vm.$emit("input", "テストリー");
-      selects.at(1).vm.$emit("input", "甘味料ゼロ");
-      selects.at(2).vm.$emit("input", "カロリー高い順");
       await wrapper.find("button").trigger("click");
       await wrapper.find("form").trigger("submit");
       expect(wrapper.emitted().sortBy).toBeTruthy();
