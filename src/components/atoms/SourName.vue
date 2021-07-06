@@ -12,7 +12,7 @@ export default {
 
 <style scoped lang="scss">
 .sour-name {
-  font-size: 3rem;
+  font-size: 2.7rem;
   font-weight: 700;
   color: $font-color-bg-white;
   letter-spacing: 1.5px;

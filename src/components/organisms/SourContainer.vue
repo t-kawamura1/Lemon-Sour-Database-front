@@ -26,11 +26,16 @@ export default {};
 .sour-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   .display {
-    margin-right: 45px;
+    width: $sour-column-width;
+    padding: 0 15px;
   }
-  .flags {
-    margin-bottom: 30px;
+  .attributes-box {
+    width: $sour-column-width;
+    .flags {
+      margin-bottom: 30px;
+    }
   }
 }
 </style>

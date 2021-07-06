@@ -29,7 +29,7 @@ export default {
     border-collapse: collapse;
     margin: 0 auto;
     padding: 0;
-    width: 380px;
+    width: $sour-column-width;
   }
 }
 </style>

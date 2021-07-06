@@ -25,7 +25,7 @@ export default {};
     position: fixed;
   }
   .pc-lemon-sour-main {
-    padding: 60px;
+    padding: 60px 30px;
     .pc-sour-container {
       margin-left: $sidebar-width;
     }

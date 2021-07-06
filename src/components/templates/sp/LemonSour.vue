@@ -29,12 +29,10 @@ export default {};
     position: fixed;
     width: 100%;
     height: $header-height;
-    background-color: gray;
     z-index: 10;
   }
   .sp-lemon-sour-main {
     margin-top: $header-height;
-    height: 1000px;
     .sp-sour-container {
       padding: 30px;
     }
@@ -43,7 +41,6 @@ export default {};
     position: fixed;
     width: 100%;
     height: $footer-height;
-    background-color: gray;
     z-index: 10;
     bottom: 0;
   }
