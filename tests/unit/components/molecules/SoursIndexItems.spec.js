@@ -1,5 +1,6 @@
 import { mount } from "@vue/test-utils";
-import SoursIndexItems from "@/components/molecules/SoursIndexItems";
+// spも表示内容は同じため、テストは省略
+import SoursIndexItems from "@/components/molecules/pc/SoursIndexItems";
 
 describe("SoursIndexItems component test", () => {
   describe("初期描画時、lemonSoursにデータが入っている場合", () => {
