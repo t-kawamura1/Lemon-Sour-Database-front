@@ -58,6 +58,11 @@ export default {
     .pc-item-name {
       font-size: 1.8rem;
     }
+    .pc-item-image {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+    }
   }
 }
 </style>
