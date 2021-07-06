@@ -1,10 +1,10 @@
 <template>
   <div class="template-pc-lemon-sours-index">
-    <div class="pc-sidebar-layout">
+    <div class="pc-sidebar">
       <slot name="sidebar"></slot>
     </div>
-    <div class="pc-sours-index-container-layout">
-      <slot name="sours-index-container"></slot>
+    <div class="pc-sours-index-main">
+      <slot name="pc-sours-index-container"></slot>
     </div>
   </div>
 </template>
@@ -16,12 +16,12 @@ export default {};
 <style scoped lang="scss">
 .template-pc-lemon-sours-index {
   display: flex;
-  .pc-sidebar-layout {
+  .pc-sidebar {
     position: fixed;
   }
-  .pc-sours-index-container-layout {
+  .pc-sours-index-main {
     margin-left: $sidebar-width;
-    padding: 60px;
+    padding: 60px 30px;
   }
 }
 </style>

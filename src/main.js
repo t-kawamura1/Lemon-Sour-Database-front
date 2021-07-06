@@ -4,10 +4,10 @@ import router from "@/router";
 import axios from "axios";
 import VueI18n from "vue-i18n";
 import VueMq from "vue-mq";
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fas } from "@fortawesome/free-solid-svg-icons"
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 // Vue.prototype.$axios = axios; 及び
 // コンポーネント中で this.$axios とすると、テストでモック化が機能しないので、ここでは記述しない。
@@ -21,8 +21,8 @@ Vue.use(VueMq, {
   },
 });
 
-library.add(fas, fab)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+library.add(fas, fab);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 require("@/assets/style/common.scss");
 

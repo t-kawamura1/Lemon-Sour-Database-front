@@ -12,4 +12,10 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.sour-image {
+  img {
+    width: 100%;
+  }
+}
+</style>

@@ -20,10 +20,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.input-select {
-  font-size: 1.6rem;
-  padding: 5px 8px;
-  width: 150px;
-}
-</style>
+<style scoped lang="scss"></style>

@@ -1,13 +1,16 @@
 <template>
-  <div class="sours-index-items">
+  <div class="pc-sours-index-items">
     <div
       v-for="(lemonSour, index) in lemonSours"
       :key="index"
-      class="index-item"
+      class="pc-index-item"
     >
-      <sour-name class="item-name" :sour-name-text="lemonSour.name"></sour-name>
+      <sour-name
+        class="pc-item-name"
+        :sour-name-text="lemonSour.name"
+      ></sour-name>
       <sour-image
-        class="item-image"
+        class="pc-item-image"
         :sour-image-url="lemonSour.sour_image.url"
       ></sour-image>
     </div>
@@ -42,17 +45,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.sours-index-items {
+.pc-sours-index-items {
   display: flex;
   flex-wrap: wrap;
-  .index-item {
+  .pc-index-item {
     width: 240px;
     height: 240px;
     border: solid 1px gray;
     border-radius: 5%;
     padding: 10px;
-    margin: 0 20px 20px 0;
-    .item-name {
+    margin: 0 10px 20px 0;
+    .pc-item-name {
       font-size: 1.8rem;
     }
   }

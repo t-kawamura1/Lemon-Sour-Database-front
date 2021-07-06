@@ -1,6 +1,6 @@
 <template>
   <div class="template-sp-lemon-sour">
-    <div class="sp-header-layout">
+    <div class="sp-header">
       <slot name="header"></slot>
     </div>
     <div class="sp-lemon-sour-main">
@@ -11,7 +11,7 @@
         <slot name="review-container"></slot>
       </div>
     </div>
-    <div class="sp-footer-layout">
+    <div class="sp-footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -25,7 +25,7 @@ export default {};
 .template-sp-lemon-sour {
   display: flex;
   flex-wrap: wrap;
-  .sp-header-layout {
+  .sp-header {
     position: fixed;
     width: 100%;
     height: $header-height;
@@ -34,10 +34,10 @@ export default {};
   .sp-lemon-sour-main {
     margin-top: $header-height;
     .sp-sour-container {
-      padding: 30px;
+      padding: 30px 0;
     }
   }
-  .sp-footer-layout {
+  .sp-footer {
     position: fixed;
     width: 100%;
     height: $footer-height;

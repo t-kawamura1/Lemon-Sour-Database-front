@@ -1,12 +1,12 @@
 <template>
   <div class="template-sp-lemon-sours-index">
-    <div class="sp-header-layout">
+    <div class="sp-header">
       <slot name="header"></slot>
     </div>
-    <div class="sp-sours-index-container-layout">
-      <slot name="sours-index-container"></slot>
+    <div class="sp-sours-index-main">
+      <slot name="sp-sours-index-container"></slot>
     </div>
-    <div class="sp-footer-layout">
+    <div class="sp-footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -19,17 +19,18 @@ export default {};
 <style scoped lang="scss">
 .template-sp-lemon-sours-index {
   display: flex;
-  .sp-header-layout {
+  .sp-header {
     position: fixed;
     width: 100%;
     height: $header-height;
     z-index: 10;
   }
-  .sp-sours-index-container-layout {
+  .sp-sours-index-main {
     margin-top: $header-height;
+    width: 100%;
     padding: 30px;
   }
-  .sp-footer-layout {
+  .sp-footer {
     position: fixed;
     width: 100%;
     height: $footer-height;

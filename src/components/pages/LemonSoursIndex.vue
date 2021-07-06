@@ -1,7 +1,7 @@
 <template>
   <div class="page-lemon-sours-index">
     <!-- DISPLAY PC-->
-    <pc-lemon-sours-index  v-if="$mq === 'pc'">
+    <pc-lemon-sours-index v-if="$mq === 'pc'">
       <!-- SIDEBAR -->
       <template v-slot:sidebar>
         <the-sidebar>
@@ -14,28 +14,28 @@
         </the-sidebar>
       </template>
       <!-- SOURS-INDEX-CONTAINER -->
-      <template v-slot:sours-index-container>
-        <sours-index-container>
-          <template v-slot:heading>
+      <template v-slot:pc-sours-index-container>
+        <pc-sours-index-container>
+          <template v-slot:pc-heading>
             <the-heading :heading-text="heading"></the-heading>
           </template>
-          <template v-slot:selects-set>
-            <selects-set
+          <template v-slot:pc-selects-set>
+            <pc-selects-set
               :selects-types="sortTypes"
               :selects-manufacturers="manufacturers"
               :selects-ingredients="ingredients"
               :selects-orders="sortOrders"
               :error-messages="sortErrors"
               @sortBy="searchBy"
-            ></selects-set>
+            ></pc-selects-set>
           </template>
-          <template v-slot:sours-index-items>
-            <sours-index-items
+          <template v-slot:pc-sours-index-items>
+            <pc-sours-index-items
               :lemon-sours="lemonSours"
               :error-message="noContentsError"
-            ></sours-index-items>
+            ></pc-sours-index-items>
           </template>
-        </sours-index-container>
+        </pc-sours-index-container>
       </template>
     </pc-lemon-sours-index>
     <!-- DISPLAY SP -->
@@ -49,28 +49,28 @@
         </the-header>
       </template>
       <!-- SOURS-INDEX-CONTAINER -->
-      <template v-slot:sours-index-container>
-        <sours-index-container>
-          <template v-slot:heading>
+      <template v-slot:sp-sours-index-container>
+        <sp-sours-index-container>
+          <template v-slot:sp-heading>
             <the-heading :heading-text="heading"></the-heading>
           </template>
-          <template v-slot:selects-set>
-            <selects-set
+          <template v-slot:sp-selects-set>
+            <sp-selects-set
               :selects-types="sortTypes"
               :selects-manufacturers="manufacturers"
               :selects-ingredients="ingredients"
               :selects-orders="sortOrders"
               :error-messages="sortErrors"
               @sortBy="searchBy"
-            ></selects-set>
+            ></sp-selects-set>
           </template>
-          <template v-slot:sours-index-items>
-            <sours-index-items
+          <template v-slot:sp-sours-index-items>
+            <sp-sours-index-items
               :lemon-sours="lemonSours"
               :error-message="noContentsError"
-            ></sours-index-items>
+            ></sp-sours-index-items>
           </template>
-        </sours-index-container>
+        </sp-sours-index-container>
       </template>
       <!-- FOOTER -->
       <template v-slot:footer>
@@ -90,12 +90,15 @@ import PcLemonSoursIndex from "@/components/templates/pc/LemonSoursIndex";
 import SpLemonSoursIndex from "@/components/templates/sp/LemonSoursIndex";
 import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
-import SoursIndexContainer from "@/components/organisms/SoursIndexContainer";
+import PcSoursIndexContainer from "@/components/organisms/PcSoursIndexContainer";
+import SpSoursIndexContainer from "@/components/organisms/SpSoursIndexContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import SidebarMenus from "@/components/molecules/SidebarMenus";
 import HeaderIcons from "@/components/molecules/HeaderIcons";
-import SelectsSet from "@/components/molecules/SelectsSet";
-import SoursIndexItems from "@/components/molecules/SoursIndexItems";
+import PcSelectsSet from "@/components/molecules/PcSelectsSet";
+import SpSelectsSet from "@/components/molecules/SpSelectsSet";
+import PcSoursIndexItems from "@/components/molecules/PcSoursIndexItems";
+import SpSoursIndexItems from "@/components/molecules/SpSoursIndexItems";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import AppTitle from "@/components/atoms/AppTitle";
 import TheHeading from "@/components/atoms/TheHeading";
@@ -106,12 +109,15 @@ export default {
     SpLemonSoursIndex,
     TheSidebar,
     TheHeader,
-    SoursIndexContainer,
+    PcSoursIndexContainer,
+    SpSoursIndexContainer,
     TheFooter,
     SidebarMenus,
     HeaderIcons,
-    SelectsSet,
-    SoursIndexItems,
+    PcSelectsSet,
+    SpSelectsSet,
+    PcSoursIndexItems,
+    SpSoursIndexItems,
     FooterIcons,
     AppTitle,
     TheHeading,

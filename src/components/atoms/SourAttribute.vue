@@ -18,7 +18,7 @@ export default {
   border: 1px solid gray;
   color: $font-color-bg-white;
   .attr-name {
-    padding: 9px 0;
+    padding: 10px 0;
     border-right: 1px solid gray;
     width: $sour-column-width / 2;
   }

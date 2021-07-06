@@ -1,6 +1,6 @@
 <template>
   <div class="template-pc-lemon-sour">
-    <div class="pc-sidebar-layout">
+    <div class="pc-sidebar">
       <slot name="sidebar"></slot>
     </div>
     <div class="pc-lemon-sour-main">
@@ -21,7 +21,7 @@ export default {};
 <style scoped lang="scss">
 .template-pc-lemon-sour {
   display: flex;
-  .pc-sidebar-layout {
+  .pc-sidebar {
     position: fixed;
   }
   .pc-lemon-sour-main {
