@@ -6,7 +6,7 @@
       <template v-slot:sidebar>
         <the-sidebar>
           <template v-slot:title>
-            <app-title></app-title>
+            <app-title @link="toPageView"></app-title>
           </template>
           <template v-slot:menus>
             <sidebar-menus
@@ -160,6 +160,7 @@ export default {
     toPageView(destination) {
       console.log(destination);
       switch (destination) {
+        case "toHome":
         case this.headerIcons[0]:
           // ホームへ。実装後に追加
           break;

@@ -6,7 +6,7 @@
       <template v-slot:sidebar>
         <the-sidebar>
           <template v-slot:title>
-            <app-title></app-title>
+            <app-title @link="toPageView"></app-title>
           </template>
           <template v-slot:menus>
             <sidebar-menus
@@ -180,19 +180,24 @@ export default {
         this.$router.push(`/lemon_sours/${destination[1]}`);
       }
       switch (destination) {
+        case "toHome":
         case this.headerIcons[0]:
           // ホームへ。実装後に追加
           break;
-        case this.sidebarMenus[0] || this.footerIcons[0][0]:
+        case this.sidebarMenus[0]:
+        case this.footerIcons[0][0]:
           // 同一ページへのリンクのため処理は書かない。
           break;
-        case this.sidebarMenus[1] || this.footerIcons[1][0]:
+        case this.sidebarMenus[1]:
+        case this.footerIcons[1][0]:
           // 計算画面へ。実装後に追加
           break;
-        case this.sidebarMenus[2] || this.footerIcons[2][0]:
+        case this.sidebarMenus[2]:
+        case this.footerIcons[2][0]:
           // カレンダーへ。実装後に追加
           break;
-        case this.sidebarMenus[3] || this.headerIcons[1]:
+        case this.sidebarMenus[3]:
+        case this.headerIcons[1]:
           // ユーザー画面へ。実装後に追加
           break;
       }
