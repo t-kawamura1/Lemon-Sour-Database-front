@@ -55,7 +55,6 @@ describe("(pc display) LemonSoursIndex component test", () => {
 
     it("レモンサワーのデータを全件取得して表示する", async () => {
       await flushPromises();
-      console.log(wrapper.html());
       expect(wrapper.findAll(".sour-name").at(0).text()).toBe("テストサワー");
       expect(wrapper.findAll(".sour-name")).toHaveLength(2);
     });
@@ -89,6 +88,7 @@ describe("(sp display) LemonSoursIndex component test", () => {
       mocks: {
         $mq,
       },
+      stubs: ["font-awesome-icon"],
     });
   });
 
@@ -99,7 +99,6 @@ describe("(sp display) LemonSoursIndex component test", () => {
 
     it("レモンサワーのデータを全件取得して表示する", async () => {
       await flushPromises();
-      console.log(wrapper.html());
       expect(wrapper.findAll(".sour-name").at(0).text()).toBe("テストサワー");
       expect(wrapper.findAll(".sour-name")).toHaveLength(2);
     });

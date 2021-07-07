@@ -24,8 +24,8 @@ describe("SoursIndexItems component test", () => {
     });
 
     it("lemonSours内のオブジェクトの数だけ、sourName,sourImageコンポーネントをリストレンダリングする", () => {
-      expect(wrapper.findAll(".item-name")).toHaveLength(2);
-      expect(wrapper.findAll(".item-image")).toHaveLength(2);
+      expect(wrapper.findAll(".pc-item-name")).toHaveLength(2);
+      expect(wrapper.findAll(".pc-item-image")).toHaveLength(2);
     });
 
     it("errorMessage propsを渡し、表示する", () => {
@@ -45,7 +45,7 @@ describe("SoursIndexItems component test", () => {
     });
 
     it("一つもレモンサワーを表示しない", () => {
-      expect(wrapper.findAll(".index-item")).toHaveLength(0);
+      expect(wrapper.findAll(".pc-index-item")).toHaveLength(0);
     });
 
     it("errorMessage propsを渡し、表示する", () => {
