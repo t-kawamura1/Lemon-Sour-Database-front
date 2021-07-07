@@ -1,6 +1,10 @@
 <template>
   <div class="footer-icons">
-    <div v-for="(footerIcon, index) in footerIcons" :key="index">
+    <div
+      v-for="(footerIcon, index) in footerIcons"
+      :key="index"
+      @click="$emit('link', footerIcon[0])"
+    >
       <icon :icon-text="footerIcon[0]" class="footer-icon"></icon>
       <span class="footer-icon-title">{{ footerIcon[1] }}</span>
     </div>

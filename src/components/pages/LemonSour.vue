@@ -48,7 +48,10 @@
       <template v-slot:header>
         <the-header>
           <template v-slot:header-icons>
-            <header-icons :header-icons="headerIcons"></header-icons>
+            <header-icons
+              :header-icons="headerIcons"
+              @link="toPageView"
+            ></header-icons>
           </template>
         </the-header>
       </template>
@@ -81,7 +84,10 @@
       <template v-slot:footer>
         <the-footer>
           <template v-slot:footer-icons>
-            <footer-icons :footer-icons="footerIcons"></footer-icons>
+            <footer-icons
+              :footer-icons="footerIcons"
+              @link="toPageView"
+            ></footer-icons>
           </template>
         </the-footer>
       </template>
@@ -152,18 +158,26 @@ export default {
   },
   methods: {
     toPageView(destination) {
+      console.log(destination);
       switch (destination) {
+        case this.headerIcons[0]:
+          // ホームへ。実装後に追加
+          break;
         case this.sidebarMenus[0]:
+        case this.footerIcons[0][0]:
           this.$router.push("/lemon_sours");
           break;
         case this.sidebarMenus[1]:
-          // 実装後に追加
+        case this.footerIcons[1][0]:
+          // 計算画面へ。実装後に追加
           break;
         case this.sidebarMenus[2]:
-          // 実装後に追加
+        case this.footerIcons[2][0]:
+          // カレンダーへ。実装後に追加
           break;
         case this.sidebarMenus[3]:
-          // 実装後に追加
+        case this.headerIcons[1]:
+          // ユーザー画面へ。実装後に追加
           break;
       }
     },

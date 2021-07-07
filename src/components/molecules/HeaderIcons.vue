@@ -1,6 +1,11 @@
 <template>
   <div class="header-icons">
-    <div v-for="(headerIcon, index) in headerIcons" :key="index">
+    <div
+      class="header-icon"
+      v-for="(headerIcon, index) in headerIcons"
+      :key="index"
+      @click="$emit('link', headerIcon)"
+    >
       <icon :icon-text="headerIcon"></icon>
     </div>
   </div>
