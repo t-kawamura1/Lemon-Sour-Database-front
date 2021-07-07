@@ -76,10 +76,16 @@ export default {
       padding: 9px 0 9px 3px;
       width: 150px;
       font-size: 1.5rem;
+      &:hover {
+        cursor: pointer;
+      }
     }
     .pc-search-button {
       width: 50px;
       font-size: 1.5rem;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
   .pc-selects-errors {

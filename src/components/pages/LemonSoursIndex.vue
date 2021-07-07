@@ -9,7 +9,10 @@
             <app-title></app-title>
           </template>
           <template v-slot:menus>
-            <sidebar-menus :menu-names="sidebarMenus"></sidebar-menus>
+            <sidebar-menus
+              :menu-names="sidebarMenus"
+              @link="toPageView"
+            ></sidebar-menus>
           </template>
         </the-sidebar>
       </template>
@@ -167,8 +170,21 @@ export default {
   },
   methods: {
     toPageView(destination) {
-      if (destination[0] == "toLemonSour") {
-        this.$router.push(`/lemon_sours/${destination[1]}`)
+      if (typeof destination === "object" && destination[0] == "toLemonSour") {
+        this.$router.push(`/lemon_sours/${destination[1]}`);
+      }
+      switch (destination) {
+        case this.sidebarMenus[0]:
+          break;
+        case this.sidebarMenus[1]:
+          // 実装後に追加
+          break;
+        case this.sidebarMenus[2]:
+          // 実装後に追加
+          break;
+        case this.sidebarMenus[3]:
+          // 実装後に追加
+          break;
       }
     },
     searchBy(values) {

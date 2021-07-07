@@ -1,20 +1,19 @@
 <template>
   <div class="pc-sours-index-items">
     <div
+      class="pc-index-item"
       v-for="(lemonSour, index) in lemonSours"
       :key="index"
-      class="pc-index-item"
+      @click="$emit('link', ['toLemonSour', lemonSour.id])"
     >
-      <div class="pc-index-item-link" @click="$emit('link', ['toLemonSour', lemonSour.id])">
-        <sour-name
-          class="pc-item-name"
-          :sour-name-text="lemonSour.name"
-        ></sour-name>
-        <sour-image
-          class="pc-item-image"
-          :sour-image-url="lemonSour.sour_image.url"
-        ></sour-image>
-      </div>
+      <sour-name
+        class="pc-item-name"
+        :sour-name-text="lemonSour.name"
+      ></sour-name>
+      <sour-image
+        class="pc-item-image"
+        :sour-image-url="lemonSour.sour_image.url"
+      ></sour-image>
     </div>
     <error-message
       :error-message-text="errorMessage"
@@ -57,15 +56,16 @@ export default {
     border-radius: 5%;
     padding: 10px;
     margin: 0 10px 20px 0;
-    .pc-index-item-link {
-      .pc-item-name {
-        font-size: 1.8rem;
-      }
-      .pc-item-image {
-        width: 180px;
-        height: 180px;
-        margin: 0 auto;
-      }
+    .pc-item-name {
+      font-size: 1.8rem;
+    }
+    .pc-item-image {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+    }
+    &:hover {
+      cursor: pointer;
     }
   }
 }

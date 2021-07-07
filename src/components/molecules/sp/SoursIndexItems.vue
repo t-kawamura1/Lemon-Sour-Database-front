@@ -1,20 +1,19 @@
 <template>
   <div class="sp-sours-index-items">
     <div
+      class="sp-index-item"
       v-for="(lemonSour, index) in lemonSours"
       :key="index"
-      class="sp-index-item"
+      @click="$emit('link', ['toLemonSour', lemonSour.id])"
     >
-      <div class="sp-index-item-link" @click="$emit('link', lemonSour.id)">
-        <sour-name
-          class="sp-item-name"
-          :sour-name-text="lemonSour.name"
-        ></sour-name>
-        <sour-image
-          class="sp-item-image"
-          :sour-image-url="lemonSour.sour_image.url"
-        ></sour-image>
-      </div>
+      <sour-name
+        class="sp-item-name"
+        :sour-name-text="lemonSour.name"
+      ></sour-name>
+      <sour-image
+        class="sp-item-image"
+        :sour-image-url="lemonSour.sour_image.url"
+      ></sour-image>
     </div>
     <error-message
       :error-message-text="errorMessage"
@@ -59,15 +58,13 @@ export default {
     border-radius: 5%;
     padding: 3px 1px;
     margin-bottom: 15px;
-    .sp-index-item-link {
-      .sp-item-name {
-        font-size: 1.8rem;
-      }
-      .sp-item-image {
-        width: 180px;
-        height: 180px;
-        margin: 0 auto;
-      }
+    .sp-item-name {
+      font-size: 1.8rem;
+    }
+    .sp-item-image {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
     }
   }
 }
