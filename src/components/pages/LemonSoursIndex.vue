@@ -33,6 +33,7 @@
             <pc-sours-index-items
               :lemon-sours="lemonSours"
               :error-message="noContentsError"
+              @link="toPageView"
             ></pc-sours-index-items>
           </template>
         </pc-sours-index-container>
@@ -68,6 +69,7 @@
             <sp-sours-index-items
               :lemon-sours="lemonSours"
               :error-message="noContentsError"
+              @link="toPageView"
             ></sp-sours-index-items>
           </template>
         </sp-sours-index-container>
@@ -164,6 +166,11 @@ export default {
     };
   },
   methods: {
+    toPageView(destination) {
+      if (destination[0] == "toLemonSour") {
+        this.$router.push(`/lemon_sours/${destination[1]}`)
+      }
+    },
     searchBy(values) {
       // values == ["", "", ""]はtrueにならない。__ob__: Observerが配列の末尾にあるため。
       // 解決策がわからないため、冗長に条件を書く。

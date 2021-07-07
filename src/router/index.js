@@ -13,7 +13,7 @@ const routes = [
   // },
   {
     path: "/lemon_sours",
-    name: "LemonSoursIndex",
+    name: "lemonSoursIndex",
     component: LemonSoursIndex,
   },
   {

@@ -5,14 +5,16 @@
       :key="index"
       class="sp-index-item"
     >
-      <sour-name
-        class="sp-item-name"
-        :sour-name-text="lemonSour.name"
-      ></sour-name>
-      <sour-image
-        class="sp-item-image"
-        :sour-image-url="lemonSour.sour_image.url"
-      ></sour-image>
+      <div class="sp-index-item-link" @click="$emit('link', lemonSour.id)">
+        <sour-name
+          class="sp-item-name"
+          :sour-name-text="lemonSour.name"
+        ></sour-name>
+        <sour-image
+          class="sp-item-image"
+          :sour-image-url="lemonSour.sour_image.url"
+        ></sour-image>
+      </div>
     </div>
     <error-message
       :error-message-text="errorMessage"
@@ -57,14 +59,15 @@ export default {
     border-radius: 5%;
     padding: 3px 1px;
     margin-bottom: 15px;
-    .sp-item-name {
-      font-size: 1rem;
-      letter-spacing: 0.3px;
-    }
-    .sp-item-image {
-      width: 90px;
-      height: 90px;
-      margin: 0 auto;
+    .sp-index-item-link {
+      .sp-item-name {
+        font-size: 1.8rem;
+      }
+      .sp-item-image {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+      }
     }
   }
 }
