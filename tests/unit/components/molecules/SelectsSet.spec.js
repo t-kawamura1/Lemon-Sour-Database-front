@@ -1,7 +1,8 @@
 import { mount } from "@vue/test-utils";
-import SelectsSet from "@/components/molecules/SelectsSet";
+// spも表示内容は同じため、テストは省略
+import SelectsSet from "@/components/molecules/pc/SelectsSet";
 
-describe("SelectsSet component test", () => {
+describe("PcSelectsSet component test", () => {
   let wrapper;
   let selects;
   let optionsManufacturers;

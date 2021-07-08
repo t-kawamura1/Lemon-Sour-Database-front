@@ -17,7 +17,7 @@ export default {
 .zero-flag {
   display: inline-block;
   background: $base-yellow;
-  width: 180px;
+  width: $sour-column-width / 2 - 10px;
   height: 30px;
   line-height: 30px;
   color: $dark-green;

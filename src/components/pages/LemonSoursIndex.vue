@@ -1,70 +1,135 @@
 <template>
-  <lemon-sours-index>
-    <template v-slot:sidebar v-if="$mq === 'pc'">
-      <the-sidebar>
-        <template v-slot:title>
-          <app-title></app-title>
-        </template>
-        <template v-slot:menus>
-          <sidebar-menus :menu-names="sidebarMenus"></sidebar-menus>
-        </template>
-      </the-sidebar>
-    </template>
-    <template v-slot:header v-if="$mq === 'sp'">
-      <the-header></the-header>
-    </template>
-    <template v-slot:sours-index-container>
-      <sours-index-container>
-        <template v-slot:heading>
-          <the-heading :heading-text="heading"></the-heading>
-        </template>
-        <template v-slot:selects-set>
-          <selects-set
-            :selects-types="sortTypes"
-            :selects-manufacturers="manufacturers"
-            :selects-ingredients="ingredients"
-            :selects-orders="sortOrders"
-            :error-messages="sortErrors"
-            @sortBy="searchBy"
-          ></selects-set>
-        </template>
-        <template v-slot:sours-index-items>
-          <sours-index-items
-            :lemon-sours="lemonSours"
-            :error-message="noContentsError"
-          ></sours-index-items>
-        </template>
-      </sours-index-container>
-    </template>
-    <template v-slot:footer v-if="$mq === 'sp'">
-      <the-footer></the-footer>
-    </template>
-  </lemon-sours-index>
+  <div class="page-lemon-sours-index">
+    <!-- DISPLAY PC-->
+    <pc-lemon-sours-index v-if="$mq === 'pc'">
+      <!-- SIDEBAR -->
+      <template v-slot:sidebar>
+        <the-sidebar>
+          <template v-slot:title>
+            <app-title @link="toPageView"></app-title>
+          </template>
+          <template v-slot:menus>
+            <sidebar-menus
+              :menu-names="sidebarMenus"
+              @link="toPageView"
+            ></sidebar-menus>
+          </template>
+        </the-sidebar>
+      </template>
+      <!-- SOURS-INDEX-CONTAINER -->
+      <template v-slot:pc-sours-index-container>
+        <pc-sours-index-container>
+          <template v-slot:pc-heading>
+            <the-heading :heading-text="heading"></the-heading>
+          </template>
+          <template v-slot:pc-selects-set>
+            <pc-selects-set
+              :selects-types="sortTypes"
+              :selects-manufacturers="manufacturers"
+              :selects-ingredients="ingredients"
+              :selects-orders="sortOrders"
+              :error-messages="sortErrors"
+              @sortBy="searchBy"
+            ></pc-selects-set>
+          </template>
+          <template v-slot:pc-sours-index-items>
+            <pc-sours-index-items
+              :lemon-sours="lemonSours"
+              :error-message="noContentsError"
+              @link="toPageView"
+            ></pc-sours-index-items>
+          </template>
+        </pc-sours-index-container>
+      </template>
+    </pc-lemon-sours-index>
+    <!-- DISPLAY SP -->
+    <sp-lemon-sours-index v-if="$mq === 'sp'">
+      <!-- HEADER -->
+      <template v-slot:header>
+        <the-header>
+          <template v-slot:header-icons>
+            <header-icons
+              :header-icons="headerIcons"
+              @link="toPageView"
+            ></header-icons>
+          </template>
+        </the-header>
+      </template>
+      <!-- SOURS-INDEX-CONTAINER -->
+      <template v-slot:sp-sours-index-container>
+        <sp-sours-index-container>
+          <template v-slot:sp-heading>
+            <the-heading :heading-text="heading"></the-heading>
+          </template>
+          <template v-slot:sp-selects-set>
+            <sp-selects-set
+              :selects-types="sortTypes"
+              :selects-manufacturers="manufacturers"
+              :selects-ingredients="ingredients"
+              :selects-orders="sortOrders"
+              :error-messages="sortErrors"
+              @sortBy="searchBy"
+            ></sp-selects-set>
+          </template>
+          <template v-slot:sp-sours-index-items>
+            <sp-sours-index-items
+              :lemon-sours="lemonSours"
+              :error-message="noContentsError"
+              @link="toPageView"
+            ></sp-sours-index-items>
+          </template>
+        </sp-sours-index-container>
+      </template>
+      <!-- FOOTER -->
+      <template v-slot:footer>
+        <the-footer>
+          <template v-slot:footer-icons>
+            <footer-icons
+              :footer-icons="footerIcons"
+              @link="toPageView"
+            ></footer-icons>
+          </template>
+        </the-footer>
+      </template>
+    </sp-lemon-sours-index>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-import LemonSoursIndex from "@/components/templates/LemonSoursIndex";
+import PcLemonSoursIndex from "@/components/templates/pc/LemonSoursIndex";
+import SpLemonSoursIndex from "@/components/templates/sp/LemonSoursIndex";
 import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
-import SoursIndexContainer from "@/components/organisms/SoursIndexContainer";
+import PcSoursIndexContainer from "@/components/organisms/pc/SoursIndexContainer";
+import SpSoursIndexContainer from "@/components/organisms/sp/SoursIndexContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import SidebarMenus from "@/components/molecules/SidebarMenus";
-import SelectsSet from "@/components/molecules/SelectsSet";
-import SoursIndexItems from "@/components/molecules/SoursIndexItems";
+import HeaderIcons from "@/components/molecules/HeaderIcons";
+import PcSelectsSet from "@/components/molecules/pc/SelectsSet";
+import SpSelectsSet from "@/components/molecules/sp/SelectsSet";
+import PcSoursIndexItems from "@/components/molecules/pc/SoursIndexItems";
+import SpSoursIndexItems from "@/components/molecules/sp/SoursIndexItems";
+import FooterIcons from "@/components/molecules/FooterIcons";
 import AppTitle from "@/components/atoms/AppTitle";
 import TheHeading from "@/components/atoms/TheHeading";
 
 export default {
   components: {
-    LemonSoursIndex,
+    PcLemonSoursIndex,
+    SpLemonSoursIndex,
     TheSidebar,
     TheHeader,
-    SoursIndexContainer,
+    PcSoursIndexContainer,
+    SpSoursIndexContainer,
     TheFooter,
     SidebarMenus,
-    SelectsSet,
-    SoursIndexItems,
+    HeaderIcons,
+    PcSelectsSet,
+    SpSelectsSet,
+    PcSoursIndexItems,
+    SpSoursIndexItems,
+    FooterIcons,
     AppTitle,
     TheHeading,
   },
@@ -76,6 +141,7 @@ export default {
         "摂取量記録カレンダー",
         "ユーザー情報",
       ],
+      headerIcons: ["lemon", "address-card"],
       heading: "市販レモンサワーデータベース",
       sortTypes: ["メーカー", "成分", "並び順"],
       manufacturers: [
@@ -100,10 +166,42 @@ export default {
       sortErrors: [],
       // 初期描画時。データ更新時にメッセージを変える
       noContentsError: "データを取得中",
+      footerIcons: [
+        ["database", "LSDB"],
+        ["calculator", "アルコール量計算"],
+        ["calendar-alt", "摂取量記録"],
+      ],
       lemonSours: [],
     };
   },
   methods: {
+    toPageView(destination) {
+      if (typeof destination === "object" && destination[0] == "toLemonSour") {
+        this.$router.push(`/lemon_sours/${destination[1]}`);
+      }
+      switch (destination) {
+        case "toHome":
+        case this.headerIcons[0]:
+          // ホームへ。実装後に追加
+          break;
+        case this.sidebarMenus[0]:
+        case this.footerIcons[0][0]:
+          // 同一ページへのリンクのため処理は書かない。
+          break;
+        case this.sidebarMenus[1]:
+        case this.footerIcons[1][0]:
+          // 計算画面へ。実装後に追加
+          break;
+        case this.sidebarMenus[2]:
+        case this.footerIcons[2][0]:
+          // カレンダーへ。実装後に追加
+          break;
+        case this.sidebarMenus[3]:
+        case this.headerIcons[1]:
+          // ユーザー画面へ。実装後に追加
+          break;
+      }
+    },
     searchBy(values) {
       // values == ["", "", ""]はtrueにならない。__ob__: Observerが配列の末尾にあるため。
       // 解決策がわからないため、冗長に条件を書く。

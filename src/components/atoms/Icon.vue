@@ -1,11 +1,15 @@
 <template>
   <div class="icon">
-    <!-- ヘッダー、フッター実装時に書く -->
+    <font-awesome-icon :icon="iconText" />
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    iconText: String,
+  },
+};
 </script>
 
 <style scoped lang="scss"></style>

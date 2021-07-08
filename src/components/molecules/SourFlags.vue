@@ -22,7 +22,6 @@ export default {
 <style scoped lang="scss">
 .sour-flags {
   display: flex;
-  width: 400px;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 </style>

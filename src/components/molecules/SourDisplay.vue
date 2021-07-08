@@ -24,7 +24,7 @@ export default {
 <style scoped lang="scss">
 .sour-display {
   .display-name {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
 }
 </style>

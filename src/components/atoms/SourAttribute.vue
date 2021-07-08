@@ -18,14 +18,13 @@ export default {
   border: 1px solid gray;
   color: $font-color-bg-white;
   .attr-name {
-    padding: 10px;
+    padding: 10px 0;
     border-right: 1px solid gray;
-    width: 210px;
+    width: $sour-column-width / 2;
   }
   .attr-value {
     text-align: right;
     padding-right: 15px;
-    width: 180px;
   }
 }
 </style>

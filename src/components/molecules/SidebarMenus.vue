@@ -1,6 +1,11 @@
 <template>
   <div class="sidebar-menus">
-    <div v-for="(menuName, index) in menuNames" :key="index" class="menu">
+    <div
+      class="menu"
+      v-for="(menuName, index) in menuNames"
+      :key="index"
+      @click="$emit('link', menuName)"
+    >
       <sidebar-menu :menu-name-text="menuName"></sidebar-menu>
     </div>
   </div>
@@ -24,5 +29,8 @@ export default {
 <style scoped lang="scss">
 .menu {
   margin-bottom: 45px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 </style>
