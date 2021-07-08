@@ -24,4 +24,10 @@ describe("FooterIcons component test", () => {
     expect(wrapper.findAll(".footer-icon-title")).toHaveLength(3);
     expect(wrapper.findAll(".footer-icon-title").at(0).text()).toBe("LSDB");
   });
+
+  it("どれか一つアイコンをクリックすると、linkイベントとそのアイコン名がemitされる", async () => {
+    await wrapper.findAll(".footer-icon").at(0).trigger("click");
+    expect(wrapper.emitted().link).toBeTruthy();
+    expect(wrapper.emitted().link[0][0]).toStrictEqual("database");
+  });
 });

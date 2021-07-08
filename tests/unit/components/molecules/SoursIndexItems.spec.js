@@ -10,10 +10,12 @@ describe("SoursIndexItems component test", () => {
         propsData: {
           lemonSours: [
             {
+              id: 1,
               name: "テストサワー１",
               sour_image: "@/assets/test/ls_test_sample.png",
             },
             {
+              id: 2,
               name: "テストサワー２",
               sour_image: "@/assets/test/ls_test_sample.png",
             },
@@ -30,6 +32,12 @@ describe("SoursIndexItems component test", () => {
 
     it("errorMessage propsを渡し、表示する", () => {
       expect(wrapper.find(".error-message").text()).toBe("データを取得中");
+    });
+
+    it("どれか一つレモンサワーをクリックすると、linkイベントと、toLemonSourとそのレモンサワーのIDが入った配列がemitされる", async () => {
+      await wrapper.findAll(".pc-index-item").at(0).trigger("click");
+      expect(wrapper.emitted().link).toBeTruthy();
+      expect(wrapper.emitted().link[0]).toStrictEqual([["toLemonSour", 1]]);
     });
   });
 
