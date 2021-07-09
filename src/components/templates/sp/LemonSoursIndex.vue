@@ -1,5 +1,8 @@
 <template>
   <div class="template-sp-lemon-sours-index">
+    <div class="sp-modal">
+      <slot name="modal"></slot>
+    </div>
     <div class="sp-header">
       <slot name="header"></slot>
     </div>

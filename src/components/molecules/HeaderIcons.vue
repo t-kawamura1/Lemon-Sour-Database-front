@@ -1,25 +1,46 @@
 <template>
   <div class="header-icons">
-    <div
-      class="header-icon"
-      v-for="(headerIcon, index) in headerIcons"
-      :key="index"
-      @click="$emit('link', headerIcon)"
-    >
-      <icon :icon-text="headerIcon"></icon>
+    <div class="header-icon" @click="$emit('link', headerIcons[0])">
+      <icon :icon-text="headerIcons[0]"></icon>
+    </div>
+    <div class="header-icon" @click="dropdown">
+      <icon :icon-text="headerIcons[1]"></icon>
+      <ul class="header-icon-dropdown" :class="{ isActive }">
+        <li
+          class="header-icon-dropdown-list"
+          v-for="(dropdownFunction, index) in dropdownFunctions"
+          :key="index"
+          @click="$emit('modal', dropdownFunction)"
+        >
+          <list-dropdown :dropdown-text="dropdownFunction"></list-dropdown>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
 import Icon from "@/components/atoms/Icon";
+import ListDropdown from "@/components/atoms/ListDropdown";
 
 export default {
   components: {
     Icon,
+    ListDropdown,
   },
   props: {
     headerIcons: Array,
+    dropdownFunctions: Array,
+  },
+  data() {
+    return {
+      isActive: false,
+    };
+  },
+  methods: {
+    dropdown() {
+      return (this.isActive = !this.isActive);
+    },
   },
 };
 </script>
@@ -34,5 +55,27 @@ export default {
   font-size: 4rem;
   color: $base-yellow;
   background-color: $font-color-bg-yellow;
+  .header-icon {
+    position: relative;
+    .header-icon-dropdown {
+      position: absolute;
+      display: none;
+      background-color: $base-yellow;
+      color: $font-color-bg-yellow;
+      right: 0;
+      list-style: none;
+      padding: 0;
+      .header-icon-dropdown-list {
+        padding: 6px 12px;
+        cursor: pointer;
+        &:first-child {
+          border-bottom: 1px solid $font-color-bg-yellow;
+        }
+      }
+    }
+    .isActive {
+      display: block;
+    }
+  }
 }
 </style>

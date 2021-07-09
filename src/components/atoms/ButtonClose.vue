@@ -1,0 +1,15 @@
+<template>
+  <button class="button-close" @click="$emit('close')">
+    <font-awesome-icon icon="times" />
+  </button>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style scoped lang="scss">
+.button-close {
+  cursor: pointer;
+}
+</style>
