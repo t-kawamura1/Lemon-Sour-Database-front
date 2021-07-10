@@ -35,7 +35,7 @@ describe("ModalUserRegistration component test", () => {
     expect(wrapper.find(".button-user-submit").exists()).toBeTruthy();
   });
 
-  it("input-textに入力され、submitボタンが押されると、registrationイベントとuserDataがemitされる", async () => {
+  it("input-textに入力されると、userDataが更新される", async () => {
     const nameInput = wrapper.findAll("input").at(0);
     const emailInput = wrapper.findAll("input").at(1);
     const passwordInput = wrapper.findAll("input").at(2);
@@ -45,13 +45,11 @@ describe("ModalUserRegistration component test", () => {
     nameInput.vm.$emit("input", nameInput.element.value);
     emailInput.vm.$emit("input", emailInput.element.value);
     passwordInput.vm.$emit("input", passwordInput.element.value);
-    await wrapper.find(".button-close").trigger("click");
-    await wrapper.find("form").trigger("submit");
-    expect(wrapper.emitted().registration).toBeTruthy();
-    expect(wrapper.emitted().registration[0][0]).toStrictEqual([
+    expect(wrapper.vm.userData).toStrictEqual([
       "大垣千明",
       "sima@rin.com",
       "aoi@inuyama3",
     ]);
+    // submit以降はメソッドのロジック実装後に書く。
   });
 });

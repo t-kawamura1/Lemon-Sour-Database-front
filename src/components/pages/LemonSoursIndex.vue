@@ -2,6 +2,18 @@
   <div class="page-lemon-sours-index">
     <!-- DISPLAY PC-->
     <pc-lemon-sours-index v-if="$mq === 'pc'">
+      <!-- MODAL -->
+      <template v-slot:modal>
+        <the-modal>
+          <template v-slot:modal-user-registration>
+            <modal-user-registration
+              :modal-user-registration-contents="userRegistrationContents"
+              v-show="showUserRegistrationModal"
+              @modal="closeModal"
+            ></modal-user-registration>
+          </template>
+        </the-modal>
+      </template>
       <!-- SIDEBAR -->
       <template v-slot:sidebar>
         <the-sidebar>
@@ -11,7 +23,9 @@
           <template v-slot:menus>
             <sidebar-menus
               :menu-names="sidebarMenus"
+              :dropdown-functions="userFunctions"
               @link="toPageView"
+              @modal="openModal"
             ></sidebar-menus>
           </template>
         </the-sidebar>
@@ -52,7 +66,6 @@
               :modal-user-registration-contents="userRegistrationContents"
               v-show="showUserRegistrationModal"
               @modal="closeModal"
-              @registration="registrateUser"
             ></modal-user-registration>
           </template>
         </the-modal>
@@ -166,10 +179,10 @@ export default {
         "登録",
       ],
       sidebarMenus: [
-        "市販レモンサワーデータベース",
-        "アルコール摂取量計算",
-        "摂取量記録カレンダー",
-        "ユーザー情報",
+        { name: "市販レモンサワーデータベース" },
+        { name: "アルコール摂取量計算" },
+        { name: "摂取量記録カレンダー" },
+        { name: "ユーザー登録・ログイン", dropdown: true },
       ],
       headerIcons: ["lemon", "address-card"],
       userFunctions: ["ユーザー登録", "ログイン"],
@@ -249,9 +262,6 @@ export default {
       } // else if (type == this.userLoginContents[1]) {
       //   this.showUserLoginModal = false;
       // }
-    },
-    registrateUser(userData) {
-      console.log(userData);
     },
     searchBy(values) {
       // values == ["", "", ""]はtrueにならない。__ob__: Observerが配列の末尾にあるため。

@@ -2,6 +2,18 @@
   <div class="page-lemon-sour">
     <!-- DISPLAY PC -->
     <pc-lemon-sour v-if="$mq === 'pc'">
+      <!-- MODAL -->
+      <template v-slot:modal>
+        <the-modal>
+          <template v-slot:modal-user-registration>
+            <modal-user-registration
+              :modal-user-registration-contents="userRegistrationContents"
+              v-show="showUserRegistrationModal"
+              @modal="closeModal"
+            ></modal-user-registration>
+          </template>
+        </the-modal>
+      </template>
       <!-- SIDEBAR -->
       <template v-slot:sidebar>
         <the-sidebar>
@@ -11,7 +23,9 @@
           <template v-slot:menus>
             <sidebar-menus
               :menu-names="sidebarMenus"
+              :dropdown-functions="userFunctions"
               @link="toPageView"
+              @modal="openModal"
             ></sidebar-menus>
           </template>
         </the-sidebar>
@@ -44,13 +58,27 @@
     </pc-lemon-sour>
     <!-- DISPLAY SP -->
     <sp-lemon-sour v-if="$mq === 'sp'">
+      <!-- MODAL -->
+      <template v-slot:modal>
+        <the-modal>
+          <template v-slot:modal-user-registration>
+            <modal-user-registration
+              :modal-user-registration-contents="userRegistrationContents"
+              v-show="showUserRegistrationModal"
+              @modal="closeModal"
+            ></modal-user-registration>
+          </template>
+        </the-modal>
+      </template>
       <!-- HEADER -->
       <template v-slot:header>
         <the-header>
           <template v-slot:header-icons>
             <header-icons
               :header-icons="headerIcons"
+              :dropdown-functions="userFunctions"
               @link="toPageView"
+              @modal="openModal"
             ></header-icons>
           </template>
         </the-header>
@@ -99,11 +127,13 @@
 import axios from "axios";
 import PcLemonSour from "@/components/templates/pc/LemonSour";
 import SpLemonSour from "@/components/templates/sp/LemonSour";
+import TheModal from "@/components/organisms/TheModal";
 import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
 import SourContainer from "@/components/organisms/SourContainer";
 import ReviewContainer from "@/components/organisms/ReviewContainer";
 import TheFooter from "@/components/organisms/TheFooter";
+import ModalUserRegistration from "@/components/molecules/ModalUserRegistration";
 import SidebarMenus from "@/components/molecules/SidebarMenus";
 import HeaderIcons from "@/components/molecules/HeaderIcons";
 import SourDisplay from "@/components/molecules/SourDisplay";
@@ -117,11 +147,13 @@ export default {
   components: {
     PcLemonSour,
     SpLemonSour,
+    TheModal,
     TheSidebar,
     TheHeader,
     SourContainer,
     ReviewContainer,
     TheFooter,
+    ModalUserRegistration,
     SidebarMenus,
     HeaderIcons,
     SourDisplay,
@@ -133,13 +165,27 @@ export default {
   },
   data() {
     return {
+      showUserRegistrationModal: false,
+      showUserLoginModal: false,
+      userRegistrationContents: [
+        "ユーザー登録",
+        [
+          ["text", "ユーザー名"],
+          ["email", "メールアドレス"],
+          ["password", "パスワード"],
+        ],
+        "登録",
+      ],
       sidebarMenus: [
-        "市販レモンサワーデータベース",
-        "アルコール摂取量計算",
-        "摂取量記録カレンダー",
-        "ユーザー情報",
+        { name: "市販レモンサワーデータベース" },
+        { name: "アルコール摂取量計算" },
+        { name: "摂取量記録カレンダー" },
+        { name: "ユーザー登録・ログイン", dropdown: true },
       ],
       headerIcons: ["lemon", "address-card"],
+      userFunctions: ["ユーザー登録", "ログイン"],
+      showUserRegistration: false,
+      showUserLogin: false,
       lemonSour: {},
       sourFlagsAttributes: [["糖類ゼロ"], ["甘味料ゼロ"]],
       sourTableAttributes: [
@@ -181,6 +227,21 @@ export default {
           // ユーザー画面へ。実装後に追加
           break;
       }
+    },
+    openModal(type) {
+      if (type == this.userFunctions[0]) {
+        this.showUserRegistrationModal = true;
+      } // else if (type == this.userFunctions[1]) {
+      //   this.showUserLoginModal = true;
+      // }
+      // ログインモーダル作成後に実装
+    },
+    closeModal(type) {
+      if (type == this.userRegistrationContents[0]) {
+        this.showUserRegistrationModal = false;
+      } // else if (type == this.userLoginContents[1]) {
+      //   this.showUserLoginModal = false;
+      // }
     },
   },
   created() {

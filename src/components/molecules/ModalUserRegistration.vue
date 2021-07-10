@@ -12,7 +12,7 @@
         ></modal-title>
         <form
           class="modal-user-registration-form"
-          @submit.prevent="$emit('registration', userData)"
+          @submit.prevent="registrateUser"
         >
           <input-text
             class="modal-user-registration-input-text"
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+// import axios from "axios";
 import Overlay from "@/components/atoms/Overlay";
 import ButtonClose from "@/components/atoms/ButtonClose";
 import ModalTitle from "@/components/atoms/ModalTitle";
@@ -55,6 +56,13 @@ export default {
     return {
       userData: [],
     };
+  },
+  methods: {
+    // pagesに担当させるとpagesごとに書かないといけないので、モーダルのsubmitはmoleculeで担当する。
+    // ロジックはサーバーサイド実装後に書く。
+    registrateUser() {
+      console.log(this.userData);
+    },
   },
 };
 </script>

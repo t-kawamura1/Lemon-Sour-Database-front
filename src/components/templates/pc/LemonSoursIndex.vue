@@ -1,5 +1,8 @@
 <template>
   <div class="template-pc-lemon-sours-index">
+    <div class="pc-modal">
+      <slot name="modal"></slot>
+    </div>
     <div class="pc-sidebar">
       <slot name="sidebar"></slot>
     </div>
