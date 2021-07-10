@@ -6,6 +6,7 @@ describe("HeaderIcons component test", () => {
   wrapper = mount(HeaderIcons, {
     propsData: {
       headerIcons: ["lemon", "address-card"],
+      dropdownFunctions: ["テスト登録", "テストログイン"],
     },
     stubs: ["font-awesome-icon"],
   });
@@ -14,9 +15,24 @@ describe("HeaderIcons component test", () => {
     expect(wrapper.findAll(".icon")).toHaveLength(2);
   });
 
-  it("どれか一つアイコンをクリックすると、linkイベントとそのアイコン名がemitされる", async () => {
-    await wrapper.findAll(".header-icon").at(0).trigger("click");
+  it("dropdownFunctionsの要素の数だけ、リストレンダリングする", () => {
+    expect(wrapper.findAll(".list-dropdown")).toHaveLength(2);
+  });
+
+  it("最初のアイコンをクリックすると、linkイベントとそのアイコン名がemitされる", async () => {
+    await wrapper.findAll(".icon").at(0).trigger("click");
     expect(wrapper.emitted().link).toBeTruthy();
     expect(wrapper.emitted().link[0][0]).toStrictEqual("lemon");
+  });
+
+  it("2つ目のアイコンをクリックすると、isActiveがtrueになる", async () => {
+    await wrapper.findAll(".header-icon").at(1).trigger("click");
+    expect(wrapper.vm.isActive).toBe(true);
+  });
+
+  it("ドロップダウンリストをクリックすると、modalイベントとその機能名がemitされる", async () => {
+    await wrapper.findAll(".header-icon-dropdown-list").at(0).trigger("click");
+    expect(wrapper.emitted().modal).toBeTruthy();
+    expect(wrapper.emitted().modal[0][0]).toStrictEqual("テスト登録");
   });
 });
