@@ -1,7 +1,11 @@
 <template>
   <div class="sidebar-menus">
     <div class="menu" v-for="(menuName, index) in menuNames" :key="index">
-      <div v-if="!menuName.dropdown" @click="$emit('link', menuName.name)">
+      <div
+        class="menu-without-dropdown"
+        v-if="!menuName.dropdown"
+        @click="$emit('link', menuName.name)"
+      >
         <sidebar-menu :menu-name-text="menuName.name"></sidebar-menu>
       </div>
       <div class="menu-with-dropdown" v-else @click="dropdown">

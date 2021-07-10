@@ -182,7 +182,7 @@ export default {
         { name: "市販レモンサワーデータベース" },
         { name: "アルコール摂取量計算" },
         { name: "摂取量記録カレンダー" },
-        { name: "ユーザー登録・ログイン", dropdown: true },
+        { name: "ユーザー登録・ログイン", dropdown: "enabled" },
       ],
       headerIcons: ["lemon", "address-card"],
       userFunctions: ["ユーザー登録", "ログイン"],

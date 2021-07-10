@@ -19,7 +19,6 @@ describe("InputText component test", () => {
   it("inputに値が入力されると、inputイベントとその入力された値がemitされる", async () => {
     await wrapper.find("input").setValue("ゆるキャン");
     const emittedValue = wrapper.find("input").element.value;
-    console.log(wrapper.find("input").element.value);
     wrapper.find("input").vm.$emit("input", emittedValue);
     expect(wrapper.emitted().input).toBeTruthy();
     expect(wrapper.emitted().input[0][0]).toBe("ゆるキャン");

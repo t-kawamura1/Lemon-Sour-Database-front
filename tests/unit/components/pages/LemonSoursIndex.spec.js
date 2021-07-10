@@ -45,6 +45,7 @@ describe("(pc display) LemonSoursIndex component test", () => {
       mocks: {
         $mq,
       },
+      stubs: ["font-awesome-icon"],
     });
   });
 
