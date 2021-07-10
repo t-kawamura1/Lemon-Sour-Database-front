@@ -48,6 +48,10 @@ describe("ModalUserRegistration component test", () => {
     await wrapper.find(".button-close").trigger("click");
     await wrapper.find("form").trigger("submit");
     expect(wrapper.emitted().registration).toBeTruthy();
-    expect(wrapper.emitted().registration[0][0]).toStrictEqual(["大垣千明", "sima@rin.com", "aoi@inuyama3"]);
+    expect(wrapper.emitted().registration[0][0]).toStrictEqual([
+      "大垣千明",
+      "sima@rin.com",
+      "aoi@inuyama3",
+    ]);
   });
 });

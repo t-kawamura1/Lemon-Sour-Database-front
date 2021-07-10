@@ -61,8 +61,8 @@ describe("(pc display) LemonSoursIndex component test", () => {
 
     it("何も選択しないまま検索ボタンを押すと、エラーメッセージが表示される", async () => {
       await flushPromises();
-      await wrapper.find("button").trigger("click");
-      await wrapper.find("form").trigger("submit");
+      await wrapper.find(".pc-search-button").trigger("click");
+      await wrapper.find(".pc-selects-form").trigger("submit");
       expect(wrapper.find(".pc-selects-errors").text()).toBe(
         "少なくとも１つ選択して検索してください"
       );
@@ -105,8 +105,8 @@ describe("(sp display) LemonSoursIndex component test", () => {
 
     it("何も選択しないまま検索ボタンを押すと、エラーメッセージが表示される", async () => {
       await flushPromises();
-      await wrapper.find("button").trigger("click");
-      await wrapper.find("form").trigger("submit");
+      await wrapper.find(".sp-search-button").trigger("click");
+      await wrapper.find(".sp-selects-form").trigger("submit");
       expect(wrapper.find(".sp-selects-errors").text()).toBe(
         "少なくとも１つ選択して検索してください"
       );
