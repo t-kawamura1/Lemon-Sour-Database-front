@@ -238,16 +238,17 @@ export default {
     openModal(type) {
       if (type == this.userFunctions[0]) {
         this.showUserRegistrationModal = true;
-      } else if (type == this.userFunctions[1]) {
-        this.showUserLoginModal = true;
-      }
+      } // else if (type == this.userFunctions[1]) {
+      //   this.showUserLoginModal = true;
+      // }
+      // ログインモーダル作成後に実装
     },
     closeModal(type) {
       if (type == this.userRegistrationContents[0]) {
         this.showUserRegistrationModal = false;
-      } else if (type == this.userLoginContents[1]) {
-        this.showUserLoginModal = false;
-      }
+      } // else if (type == this.userLoginContents[1]) {
+      //   this.showUserLoginModal = false;
+      // }
     },
     registrateUser(userData) {
       console.log(userData);
