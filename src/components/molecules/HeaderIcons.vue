@@ -1,9 +1,9 @@
 <template>
   <div class="header-icons">
-    <div class="header-icon" @click="$emit('link', headerIcons[0])">
+    <div class="header-icon1" @click="$emit('link', headerIcons[0])">
       <icon :icon-text="headerIcons[0]"></icon>
     </div>
-    <div class="header-icon" @click="dropdown">
+    <div class="header-icon2" @click="dropdown">
       <icon :icon-text="headerIcons[1]"></icon>
       <ul class="header-icon-dropdown" :class="{ isActive }">
         <li
@@ -55,7 +55,7 @@ export default {
   font-size: 4rem;
   color: $base-yellow;
   background-color: $font-color-bg-yellow;
-  .header-icon {
+  .header-icon2 {
     position: relative;
     .header-icon-dropdown {
       position: absolute;

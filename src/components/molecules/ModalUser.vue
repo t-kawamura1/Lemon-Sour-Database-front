@@ -1,31 +1,30 @@
 <template>
-  <div class="modal-user-registration">
+  <div class="modal-user">
     <overlay>
-      <div class="modal-user-registration-content">
+      <div class="modal-user-content">
         <button-close
-          class="modal-user-registration-button-close"
-          @close="$emit('modal', modalUserRegistrationContents[0])"
+          class="modal-user-button-close"
+          @close="$emit('modal', modalUserContents[0])"
         ></button-close>
         <modal-title
-          class="modal-user-registration-title"
-          :modal-title-text="modalUserRegistrationContents[0]"
+          class="modal-user-title"
+          :modal-title-text="modalUserContents[0]"
         ></modal-title>
         <form
-          class="modal-user-registration-form"
-          @submit.prevent="registrateUser"
+          class="modal-user-form"
+          @submit.prevent="$emit('submitUser', userData)"
         >
           <input-text
-            class="modal-user-registration-input-text"
-            v-for="(
-              inputAttributesArray, index
-            ) in modalUserRegistrationContents[1]"
+            class="modal-user-input-text"
+            ref="focusThis"
+            v-for="(inputAttributesArray, index) in modalUserContents[1]"
             :key="index"
             :input-attributes="inputAttributesArray"
             @input="userData.push($event)"
           ></input-text>
           <button-user-submit
-            class="modal-user-registration-button-submit"
-            :user-submit-text="modalUserRegistrationContents[2]"
+            class="modal-user-button-submit"
+            :user-submit-text="modalUserContents[2]"
           ></button-user-submit>
         </form>
       </div>
@@ -50,26 +49,25 @@ export default {
     ButtonUserSubmit,
   },
   props: {
-    modalUserRegistrationContents: Array,
+    modalUserContents: Array,
   },
   data() {
     return {
       userData: [],
     };
   },
-  methods: {
-    // pagesに担当させるとpagesごとに書かないといけないので、モーダルのsubmitはmoleculeで担当する。
-    // ロジックはサーバーサイド実装後に書く。
-    registrateUser() {
-      console.log(this.userData);
-    },
+  // 親でv-ifにした上で、このタイミング + nextTickでしかfocusされなかった。
+  beforeMount() {
+    this.$nextTick(() => {
+      this.$refs.focusThis[0].$el.focus();
+    });
   },
 };
 </script>
 
 <style scoped lang="scss">
-.modal-user-registration {
-  .modal-user-registration-content {
+.modal-user {
+  .modal-user-content {
     color: $font-color-bg-yellow;
     background-color: white;
     width: 300px;
@@ -77,22 +75,22 @@ export default {
     z-index: 21;
     position: relative;
     padding: 30px;
-    .modal-user-registration-button-close {
+    .modal-user-button-close {
       position: absolute;
       top: 10px;
       right: 10px;
     }
-    .modal-user-registration-title {
+    .modal-user-title {
       margin-bottom: 30px;
     }
-    .modal-user-registration-form {
+    .modal-user-form {
       display: flex;
       flex-flow: column;
       justify-content: center;
-      .modal-user-registration-input-text {
+      .modal-user-input-text {
         margin-top: 6px;
       }
-      .modal-user-registration-button-submit {
+      .modal-user-button-submit {
         margin-top: 15px;
       }
     }
