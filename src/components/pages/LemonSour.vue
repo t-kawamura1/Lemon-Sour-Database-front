@@ -6,11 +6,21 @@
       <template v-slot:modal>
         <the-modal>
           <template v-slot:modal-user-registration>
-            <modal-user-registration
-              :modal-user-registration-contents="userRegistrationContents"
-              v-show="showUserRegistrationModal"
+            <!-- v-showにすべきだが、focusの効くタイミングがv-if + beforeMountしかなかった。 -->
+            <modal-user
+              :modal-user-contents="userRegistrationContents"
+              v-if="showUserRegistrationModal"
               @modal="closeModal"
-            ></modal-user-registration>
+              @submitUser="registrateUser"
+            ></modal-user>
+          </template>
+          <template v-slot:modal-user-login>
+            <modal-user
+              :modal-user-contents="userLoginContents"
+              v-if="showUserLoginModal"
+              @modal="closeModal"
+              @submitUser="login"
+            ></modal-user>
           </template>
         </the-modal>
       </template>
@@ -62,11 +72,20 @@
       <template v-slot:modal>
         <the-modal>
           <template v-slot:modal-user-registration>
-            <modal-user-registration
-              :modal-user-registration-contents="userRegistrationContents"
-              v-show="showUserRegistrationModal"
+            <modal-user
+              :modal-user-contents="userRegistrationContents"
+              v-if="showUserRegistrationModal"
               @modal="closeModal"
-            ></modal-user-registration>
+              @submitUser="registrateUser"
+            ></modal-user>
+          </template>
+          <template v-slot:modal-user-login>
+            <modal-user
+              :modal-user-contents="userLoginContents"
+              v-if="showUserLoginModal"
+              @modal="closeModal"
+              @submitUser="login"
+            ></modal-user>
           </template>
         </the-modal>
       </template>
@@ -133,7 +152,7 @@ import TheHeader from "@/components/organisms/TheHeader";
 import SourContainer from "@/components/organisms/SourContainer";
 import ReviewContainer from "@/components/organisms/ReviewContainer";
 import TheFooter from "@/components/organisms/TheFooter";
-import ModalUserRegistration from "@/components/molecules/ModalUserRegistration";
+import ModalUser from "@/components/molecules/ModalUser";
 import SidebarMenus from "@/components/molecules/SidebarMenus";
 import HeaderIcons from "@/components/molecules/HeaderIcons";
 import SourDisplay from "@/components/molecules/SourDisplay";
@@ -153,7 +172,7 @@ export default {
     SourContainer,
     ReviewContainer,
     TheFooter,
-    ModalUserRegistration,
+    ModalUser,
     SidebarMenus,
     HeaderIcons,
     SourDisplay,
@@ -175,6 +194,14 @@ export default {
           ["password", "パスワード"],
         ],
         "登録",
+      ],
+      userLoginContents: [
+        "ユーザーログイン",
+        [
+          ["email", "メールアドレス"],
+          ["password", "パスワード"],
+        ],
+        "ログイン",
       ],
       sidebarMenus: [
         { name: "市販レモンサワーデータベース" },
@@ -231,17 +258,26 @@ export default {
     openModal(type) {
       if (type == this.userFunctions[0]) {
         this.showUserRegistrationModal = true;
-      } // else if (type == this.userFunctions[1]) {
-      //   this.showUserLoginModal = true;
-      // }
-      // ログインモーダル作成後に実装
+      } else if (type == this.userFunctions[1]) {
+        this.showUserLoginModal = true;
+      }
     },
     closeModal(type) {
       if (type == this.userRegistrationContents[0]) {
         this.showUserRegistrationModal = false;
-      } // else if (type == this.userLoginContents[1]) {
-      //   this.showUserLoginModal = false;
-      // }
+      } else if (type == this.userLoginContents[0]) {
+        this.showUserLoginModal = false;
+      }
+    },
+    registrateUser(userData) {
+      // サーバーサイド実装後に実装
+      // フォームバリデーション、ボタン押下後の空処理書くこと
+      console.log(userData);
+    },
+    login(userData) {
+      // サーバーサイド実装後に実装
+      // フォームバリデーション、ボタン押下後の空処理書くこと
+      console.log(userData);
     },
   },
   created() {
