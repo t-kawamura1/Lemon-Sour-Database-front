@@ -59,8 +59,8 @@ export default {
   // 親でv-ifにした上で、このタイミング + nextTickでしかfocusされなかった。
   beforeMount() {
     this.$nextTick(() => {
-      this.$refs.focusThis[0].$el.focus()
-    })
+      this.$refs.focusThis[0].$el.focus();
+    });
   },
 };
 </script>
