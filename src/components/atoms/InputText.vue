@@ -3,7 +3,8 @@
     class="input-text"
     :type="inputAttributes[0]"
     :placeholder="inputAttributes[1]"
-    @change="$emit('input', $event.target.value)"
+    :name="inputAttributes[2]"
+    @change="$emit('input', $event)"
   />
 </template>
 

@@ -20,7 +20,7 @@
             v-for="(inputAttributesArray, index) in modalUserContents[1]"
             :key="index"
             :input-attributes="inputAttributesArray"
-            @input="userData.push($event)"
+            @input="substituteUserData"
           ></input-text>
           <button-user-submit
             class="modal-user-button-submit"
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-// import axios from "axios";
 import Overlay from "@/components/atoms/Overlay";
 import ButtonClose from "@/components/atoms/ButtonClose";
 import ModalTitle from "@/components/atoms/ModalTitle";
@@ -53,8 +52,23 @@ export default {
   },
   data() {
     return {
-      userData: [],
+      userData: {
+        name: "" ,
+        email: "" ,
+        password: "" ,
+      },
     };
+  },
+  methods: {
+    substituteUserData($event) {
+      if ($event.target.name == "name") {
+        this.userData.name = $event.target.value;
+      } else if ($event.target.name == "email") {
+        this.userData.email = $event.target.value;
+      } else if ($event.target.name == "password") {
+        this.userData.password = $event.target.value;
+      }
+    },
   },
   // 親でv-ifにした上で、このタイミング + nextTickでしかfocusされなかった。
   beforeMount() {

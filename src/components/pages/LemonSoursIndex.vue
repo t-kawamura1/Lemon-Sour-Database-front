@@ -191,17 +191,17 @@ export default {
       userRegistrationContents: [
         "ユーザー登録",
         [
-          ["text", "ユーザー名"],
-          ["email", "メールアドレス"],
-          ["password", "パスワード"],
+          ["text", "ユーザー名", "name"],
+          ["email", "メールアドレス", "email"],
+          ["password", "パスワード", "password"],
         ],
         "登録",
       ],
       userLoginContents: [
         "ユーザーログイン",
         [
-          ["email", "メールアドレス"],
-          ["password", "パスワード"],
+          ["email", "メールアドレス", "email"],
+          ["password", "パスワード", "password"],
         ],
         "ログイン",
       ],
@@ -275,16 +275,6 @@ export default {
           break;
       }
     },
-    registrateUser(userData) {
-      // サーバーサイド実装後に実装
-      // フォームバリデーション、ボタン押下後の空処理書くこと
-      console.log(userData);
-    },
-    login(userData) {
-      // サーバーサイド実装後に実装
-      // フォームバリデーション、ボタン押下後の空処理書くこと
-      console.log(userData);
-    },
     openModal(type) {
       if (type == this.userFunctions[0]) {
         this.showUserRegistrationModal = true;
@@ -298,6 +288,24 @@ export default {
       } else if (type == this.userLoginContents[0]) {
         this.showUserLoginModal = false;
       }
+    },
+    registrateUser(data) {
+      // サーバーサイド実装後に実装
+      // フォームバリデーション、ボタン押下後の空処理書くこと
+      axios
+        .post("/api/v1/auth", data)
+        .then((res) => {
+          console.log(res);
+          console.log(res.errors);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    login(data) {
+      // サーバーサイド実装後に実装
+      // フォームバリデーション、ボタン押下後の空処理書くこと
+      delete data.name
     },
     searchBy(values) {
       // values == ["", "", ""]はtrueにならない。__ob__: Observerが配列の末尾にあるため。

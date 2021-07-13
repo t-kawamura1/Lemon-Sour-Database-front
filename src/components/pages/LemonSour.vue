@@ -189,17 +189,17 @@ export default {
       userRegistrationContents: [
         "ユーザー登録",
         [
-          ["text", "ユーザー名"],
-          ["email", "メールアドレス"],
-          ["password", "パスワード"],
+          ["text", "ユーザー名", "name"],
+          ["email", "メールアドレス", "email"],
+          ["password", "パスワード", "password"],
         ],
         "登録",
       ],
       userLoginContents: [
         "ユーザーログイン",
         [
-          ["email", "メールアドレス"],
-          ["password", "パスワード"],
+          ["email", "メールアドレス", "email"],
+          ["password", "パスワード", "password"],
         ],
         "ログイン",
       ],
