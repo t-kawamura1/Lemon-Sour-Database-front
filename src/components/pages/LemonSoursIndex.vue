@@ -323,8 +323,18 @@ export default {
           }, 3000);
         })
         .catch((err) => {
-          console.log(err.response.data.errors);
-          this.userRegistrationErrors = err.response.data.errors.full_messages;
+          console.log(err);
+          const errorMessages = err.response.data.errors.full_messages;
+          const unsecureMessage = "メールアドレスが既に登録されています"
+          if (errorMessages.includes(unsecureMessage)) {
+            const filteredMessages = errorMessages.filter((errorMessage) => {
+              return errorMessage !== unsecureMessage;
+            });
+            filteredMessages.splice(1, 0, "メールアドレスは有効ではありません");
+            this.userRegistrationErrors = filteredMessages
+          } else {
+            this.userRegistrationErrors = errorMessages;
+          }
         });
     },
     login(data) {
