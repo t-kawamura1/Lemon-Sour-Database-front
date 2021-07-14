@@ -275,11 +275,15 @@ export default {
       }
     },
     registrateUser(inputData) {
-      // フォームバリデーション、ボタン押下後の空処理書くこと
       axios
         .post("/api/v1/auth", inputData)
         .then((res) => {
           console.log(res);
+          this.showUserRegistrationModal = false;
+          this.registrationSuccess = "ユーザー登録が成功しました！";
+          setTimeout(() => {
+            this.registrationSuccess = ""
+          }, 3000);
         })
         .catch((err) => {
           console.log(err.response.data.errors);

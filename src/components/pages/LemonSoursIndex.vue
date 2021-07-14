@@ -42,6 +42,13 @@
           </template>
         </the-sidebar>
       </template>
+      <!-- NOTICE -->
+      <template v-slot:notice>
+        <the-notice
+          :notice-text="registrationSuccess"
+          v-if="registrationSuccess.length !== 0"
+        ></the-notice>
+      </template>
       <!-- SOURS-INDEX-CONTAINER -->
       <template v-slot:pc-sours-index-container>
         <pc-sours-index-container>
@@ -106,6 +113,13 @@
           </template>
         </the-header>
       </template>
+      <!-- NOTICE -->
+      <template v-slot:notice>
+        <the-notice
+          :notice-text="registrationSuccess"
+          v-if="registrationSuccess.length !== 0"
+        ></the-notice>
+      </template>
       <!-- SOURS-INDEX-CONTAINER -->
       <template v-slot:sp-sours-index-container>
         <sp-sours-index-container>
@@ -165,6 +179,7 @@ import PcSoursIndexItems from "@/components/molecules/pc/SoursIndexItems";
 import SpSoursIndexItems from "@/components/molecules/sp/SoursIndexItems";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import AppTitle from "@/components/atoms/AppTitle";
+import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
 
 export default {
@@ -186,6 +201,7 @@ export default {
     SpSoursIndexItems,
     FooterIcons,
     AppTitle,
+    TheNotice,
     TheHeading,
   },
   data() {
@@ -197,16 +213,17 @@ export default {
         [
           ["text", "ユーザー名", "name"],
           ["email", "メールアドレス", "email"],
-          ["password", "パスワード", "password"],
+          ["password", "パスワード(8文字以上)", "password"],
         ],
         "登録",
       ],
+      registrationSuccess: "",
       userRegistrationErrors: [],
       userLoginContents: [
         "ユーザーログイン",
         [
           ["email", "メールアドレス", "email"],
-          ["password", "パスワード", "password"],
+          ["password", "パスワード(8文字以上)", "password"],
         ],
         "ログイン",
       ],
@@ -295,11 +312,15 @@ export default {
       }
     },
     registrateUser(inputData) {
-      // フォームバリデーション、ボタン押下後の空処理書くこと
       axios
         .post("/api/v1/auth", inputData)
         .then((res) => {
           console.log(res);
+          this.showUserRegistrationModal = false;
+          this.registrationSuccess = "ユーザー登録が成功しました！";
+          setTimeout(() => {
+            this.registrationSuccess = ""
+          }, 3000);
         })
         .catch((err) => {
           console.log(err.response.data.errors);
@@ -308,7 +329,6 @@ export default {
     },
     login(data) {
       // サーバーサイド実装後に実装
-      // フォームバリデーション、ボタン押下後の空処理書くこと
       delete data.name
     },
     searchBy(values) {

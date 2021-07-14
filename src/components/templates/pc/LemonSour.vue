@@ -6,6 +6,9 @@
     <div class="pc-sidebar">
       <slot name="sidebar"></slot>
     </div>
+    <div class="pc-notice">
+      <slot name="notice"></slot>
+    </div>
     <div class="pc-lemon-sour-main">
       <div class="pc-sour-container">
         <slot name="sour-container"></slot>
@@ -24,8 +27,12 @@ export default {};
 <style scoped lang="scss">
 .template-pc-lemon-sour {
   display: flex;
+  flex-direction: column;
   .pc-sidebar {
     position: fixed;
+  }
+  .pc-notice {
+    margin-left: $sidebar-width;
   }
   .pc-lemon-sour-main {
     padding: 60px 30px;
