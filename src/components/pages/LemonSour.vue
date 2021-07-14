@@ -9,6 +9,7 @@
             <!-- v-showにすべきだが、focusの効くタイミングがv-if + beforeMountしかなかった。 -->
             <modal-user
               :modal-user-contents="userRegistrationContents"
+              :error-messages="userRegistrationErrors"
               v-if="showUserRegistrationModal"
               @modal="closeModal"
               @submitUser="registrateUser"
@@ -17,6 +18,7 @@
           <template v-slot:modal-user-login>
             <modal-user
               :modal-user-contents="userLoginContents"
+              :error-messages="userRegistrationErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
@@ -74,6 +76,7 @@
           <template v-slot:modal-user-registration>
             <modal-user
               :modal-user-contents="userRegistrationContents"
+              :error-messages="userRegistrationErrors"
               v-if="showUserRegistrationModal"
               @modal="closeModal"
               @submitUser="registrateUser"
@@ -82,6 +85,7 @@
           <template v-slot:modal-user-login>
             <modal-user
               :modal-user-contents="userLoginContents"
+              :error-messages="userRegistrationErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
@@ -195,6 +199,7 @@ export default {
         ],
         "登録",
       ],
+      userRegistrationErrors: [],
       userLoginContents: [
         "ユーザーログイン",
         [
@@ -269,10 +274,17 @@ export default {
         this.showUserLoginModal = false;
       }
     },
-    registrateUser(userData) {
-      // サーバーサイド実装後に実装
+    registrateUser(inputData) {
       // フォームバリデーション、ボタン押下後の空処理書くこと
-      console.log(userData);
+      axios
+        .post("/api/v1/auth", inputData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err.response.data.errors);
+          this.userRegistrationErrors = err.response.data.errors.full_messages;
+        });
     },
     login(userData) {
       // サーバーサイド実装後に実装
