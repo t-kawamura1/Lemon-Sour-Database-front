@@ -62,9 +62,9 @@ export default {
   data() {
     return {
       userData: {
-        name: "" ,
-        email: "" ,
-        password: "" ,
+        name: "",
+        email: "",
+        password: "",
       },
     };
   },

@@ -148,6 +148,8 @@
 
 <script>
 import axios from "axios";
+import CommonLayoutData from "@/mixins/common-layout-data.js";
+import LemonSourDBMethods from "@/mixins/lemon-sour-DB-methods";
 import PcLemonSour from "@/components/templates/pc/LemonSour";
 import SpLemonSour from "@/components/templates/sp/LemonSour";
 import TheModal from "@/components/organisms/TheModal";
@@ -167,6 +169,7 @@ import FooterIcons from "@/components/molecules/FooterIcons";
 import AppTitle from "@/components/atoms/AppTitle";
 
 export default {
+  mixins: [CommonLayoutData, LemonSourDBMethods],
   components: {
     PcLemonSour,
     SpLemonSour,
@@ -188,36 +191,6 @@ export default {
   },
   data() {
     return {
-      showUserRegistrationModal: false,
-      showUserLoginModal: false,
-      userRegistrationContents: [
-        "ユーザー登録",
-        [
-          ["text", "ユーザー名", "name"],
-          ["email", "メールアドレス", "email"],
-          ["password", "パスワード", "password"],
-        ],
-        "登録",
-      ],
-      userRegistrationErrors: [],
-      userLoginContents: [
-        "ユーザーログイン",
-        [
-          ["email", "メールアドレス", "email"],
-          ["password", "パスワード", "password"],
-        ],
-        "ログイン",
-      ],
-      sidebarMenus: [
-        { name: "市販レモンサワーデータベース" },
-        { name: "アルコール摂取量計算" },
-        { name: "摂取量記録カレンダー" },
-        { name: "ユーザー登録・ログイン", dropdown: "enabled" },
-      ],
-      headerIcons: ["lemon", "address-card"],
-      userFunctions: ["ユーザー登録", "ログイン"],
-      showUserRegistration: false,
-      showUserLogin: false,
       lemonSour: {},
       sourFlagsAttributes: [["糖類ゼロ"], ["甘味料ゼロ"]],
       sourTableAttributes: [
@@ -226,11 +199,6 @@ export default {
         ["純アルコール量 (g)"],
         ["カロリー (kcal)"],
         ["果汁 (%)"],
-      ],
-      footerIcons: [
-        ["database", "LSDB"],
-        ["calculator", "アルコール量計算"],
-        ["calendar-alt", "摂取量記録"],
       ],
     };
   },
@@ -259,41 +227,6 @@ export default {
           // ユーザー画面へ。実装後に追加
           break;
       }
-    },
-    openModal(type) {
-      if (type == this.userFunctions[0]) {
-        this.showUserRegistrationModal = true;
-      } else if (type == this.userFunctions[1]) {
-        this.showUserLoginModal = true;
-      }
-    },
-    closeModal(type) {
-      if (type == this.userRegistrationContents[0]) {
-        this.showUserRegistrationModal = false;
-      } else if (type == this.userLoginContents[0]) {
-        this.showUserLoginModal = false;
-      }
-    },
-    registrateUser(inputData) {
-      axios
-        .post("/api/v1/auth", inputData)
-        .then((res) => {
-          console.log(res);
-          this.showUserRegistrationModal = false;
-          this.registrationSuccess = "ユーザー登録が成功しました！";
-          setTimeout(() => {
-            this.registrationSuccess = ""
-          }, 3000);
-        })
-        .catch((err) => {
-          console.log(err.response.data.errors);
-          this.userRegistrationErrors = err.response.data.errors.full_messages;
-        });
-    },
-    login(userData) {
-      // サーバーサイド実装後に実装
-      // フォームバリデーション、ボタン押下後の空処理書くこと
-      console.log(userData);
     },
   },
   created() {

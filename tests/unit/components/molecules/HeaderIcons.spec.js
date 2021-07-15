@@ -26,7 +26,7 @@ describe("HeaderIcons component test", () => {
   });
 
   it("2つ目のアイコンをクリックすると、isActiveがtrueになる", async () => {
-    await wrapper.findAll(".header-icon").at(1).trigger("click");
+    await wrapper.findAll(".header-icon2").trigger("click");
     expect(wrapper.vm.isActive).toBe(true);
   });
 

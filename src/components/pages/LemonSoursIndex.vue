@@ -162,6 +162,8 @@
 
 <script>
 import axios from "axios";
+import CommonLayoutData from "@/mixins/common-layout-data.js";
+import LemonSourDBMethods from "@/mixins/lemon-sour-DB-methods";
 import PcLemonSoursIndex from "@/components/templates/pc/LemonSoursIndex";
 import SpLemonSoursIndex from "@/components/templates/sp/LemonSoursIndex";
 import TheModal from "@/components/organisms/TheModal";
@@ -183,6 +185,7 @@ import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
 
 export default {
+  mixins: [CommonLayoutData, LemonSourDBMethods],
   components: {
     PcLemonSoursIndex,
     SpLemonSoursIndex,
@@ -206,37 +209,6 @@ export default {
   },
   data() {
     return {
-      showUserRegistrationModal: false,
-      showUserLoginModal: false,
-      userRegistrationContents: [
-        "ユーザー登録",
-        [
-          ["text", "ユーザー名", "name"],
-          ["email", "メールアドレス", "email"],
-          ["password", "パスワード(8文字以上)", "password"],
-        ],
-        "登録",
-      ],
-      registrationSuccess: "",
-      userRegistrationErrors: [],
-      userLoginContents: [
-        "ユーザーログイン",
-        [
-          ["email", "メールアドレス", "email"],
-          ["password", "パスワード(8文字以上)", "password"],
-        ],
-        "ログイン",
-      ],
-      sidebarMenus: [
-        { name: "市販レモンサワーデータベース" },
-        { name: "アルコール摂取量計算" },
-        { name: "摂取量記録カレンダー" },
-        { name: "ユーザー登録・ログイン", dropdown: "enabled" },
-      ],
-      headerIcons: ["lemon", "address-card"],
-      userFunctions: ["ユーザー登録", "ログイン"],
-      showUserRegistration: false,
-      showUserLogin: false,
       heading: "市販レモンサワーデータベース",
       sortTypes: ["メーカー", "成分", "並び順"],
       manufacturers: [
@@ -261,11 +233,6 @@ export default {
       sortErrors: [],
       // 初期描画時。データ更新時にメッセージを変える
       noContentsError: "データを取得中",
-      footerIcons: [
-        ["database", "LSDB"],
-        ["calculator", "アルコール量計算"],
-        ["calendar-alt", "摂取量記録"],
-      ],
       lemonSours: [],
     };
   },
@@ -296,50 +263,6 @@ export default {
           // ユーザー画面へ。実装後に追加
           break;
       }
-    },
-    openModal(type) {
-      if (type == this.userFunctions[0]) {
-        this.showUserRegistrationModal = true;
-      } else if (type == this.userFunctions[1]) {
-        this.showUserLoginModal = true;
-      }
-    },
-    closeModal(type) {
-      if (type == this.userRegistrationContents[0]) {
-        this.showUserRegistrationModal = false;
-      } else if (type == this.userLoginContents[0]) {
-        this.showUserLoginModal = false;
-      }
-    },
-    registrateUser(inputData) {
-      axios
-        .post("/api/v1/auth", inputData)
-        .then((res) => {
-          console.log(res);
-          this.showUserRegistrationModal = false;
-          this.registrationSuccess = "ユーザー登録が成功しました！";
-          setTimeout(() => {
-            this.registrationSuccess = ""
-          }, 3000);
-        })
-        .catch((err) => {
-          console.log(err);
-          const errorMessages = err.response.data.errors.full_messages;
-          const unsecureMessage = "メールアドレスが既に登録されています"
-          if (errorMessages.includes(unsecureMessage)) {
-            const filteredMessages = errorMessages.filter((errorMessage) => {
-              return errorMessage !== unsecureMessage;
-            });
-            filteredMessages.splice(1, 0, "メールアドレスは有効ではありません");
-            this.userRegistrationErrors = filteredMessages
-          } else {
-            this.userRegistrationErrors = errorMessages;
-          }
-        });
-    },
-    login(data) {
-      // サーバーサイド実装後に実装
-      delete data.name
     },
     searchBy(values) {
       // values == ["", "", ""]はtrueにならない。__ob__: Observerが配列の末尾にあるため。
