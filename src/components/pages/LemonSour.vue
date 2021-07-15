@@ -149,7 +149,7 @@
 <script>
 import axios from "axios";
 import CommonLayoutData from "@/mixins/common-layout-data.js";
-import LemonSourDBMethods from "@/mixins/lemon-sour-DB-methods";
+import CommonMethods from "@/mixins/common-methods";
 import PcLemonSour from "@/components/templates/pc/LemonSour";
 import SpLemonSour from "@/components/templates/sp/LemonSour";
 import TheModal from "@/components/organisms/TheModal";
@@ -169,7 +169,7 @@ import FooterIcons from "@/components/molecules/FooterIcons";
 import AppTitle from "@/components/atoms/AppTitle";
 
 export default {
-  mixins: [CommonLayoutData, LemonSourDBMethods],
+  mixins: [CommonLayoutData, CommonMethods],
   components: {
     PcLemonSour,
     SpLemonSour,

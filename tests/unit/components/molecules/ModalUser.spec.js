@@ -15,9 +15,14 @@ describe("ModalUser component test", () => {
           ],
           "入部",
         ],
+        errorMessages: ["だめだ", "セキュアじゃない", "やりなおせ"],
       },
       stubs: ["font-awesome-icon"],
     });
+  });
+
+  it("errorMessagesの要素の数だけ、error-messageコンポーネントをリストレンダリングする", () => {
+    expect(wrapper.findAll(".error-message")).toHaveLength(3);
   });
 
   it("modalUserContents[1]の要素の数（配列の数）だけ、input-textコンポーネントをリストレンダリングする", () => {

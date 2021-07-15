@@ -162,8 +162,8 @@
 
 <script>
 import axios from "axios";
-import CommonLayoutData from "@/mixins/common-layout-data.js";
-import LemonSourDBMethods from "@/mixins/lemon-sour-DB-methods";
+import CommonLayoutData from "@/mixins/common-layout-data";
+import CommonMethods from "@/mixins/common-methods";
 import PcLemonSoursIndex from "@/components/templates/pc/LemonSoursIndex";
 import SpLemonSoursIndex from "@/components/templates/sp/LemonSoursIndex";
 import TheModal from "@/components/organisms/TheModal";
@@ -185,7 +185,7 @@ import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
 
 export default {
-  mixins: [CommonLayoutData, LemonSourDBMethods],
+  mixins: [CommonLayoutData, CommonMethods],
   components: {
     PcLemonSoursIndex,
     SpLemonSoursIndex,
