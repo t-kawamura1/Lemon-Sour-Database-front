@@ -104,12 +104,20 @@
       <template v-slot:header>
         <the-header>
           <template v-slot:header-icons>
-            <header-icons
+            <header-icons-authenticated
+              v-if="isAuthenticated"
               :header-icons="headerIcons"
-              :dropdown-functions="userFunctions"
+              :dropdown-functions="authenticatedUserFunctions"
+              @link="toPageView"
+              @submitUser="logout"
+            ></header-icons-authenticated>
+            <header-icons-unauthenticated
+              v-else
+              :header-icons="headerIcons"
+              :dropdown-functions="unauthenticatedUserFunctions"
               @link="toPageView"
               @modal="openModal"
-            ></header-icons>
+            ></header-icons-unauthenticated>
           </template>
         </the-header>
       </template>
@@ -174,7 +182,8 @@ import SpSoursIndexContainer from "@/components/organisms/sp/SoursIndexContainer
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
 import SidebarMenus from "@/components/molecules/SidebarMenus";
-import HeaderIcons from "@/components/molecules/HeaderIcons";
+import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
+import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauthenticated";
 import PcSelectsSet from "@/components/molecules/pc/SelectsSet";
 import SpSelectsSet from "@/components/molecules/sp/SelectsSet";
 import PcSoursIndexItems from "@/components/molecules/pc/SoursIndexItems";
@@ -197,7 +206,8 @@ export default {
     TheFooter,
     ModalUser,
     SidebarMenus,
-    HeaderIcons,
+    HeaderIconsAuthenticated,
+    HeaderIconsUnauthenticated,
     PcSelectsSet,
     SpSelectsSet,
     PcSoursIndexItems,

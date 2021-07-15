@@ -3,17 +3,29 @@ import axios from "axios";
 export default {
   methods: {
     openModal(type) {
-      if (type == this.userFunctions[0]) {
-        this.showUserRegistrationModal = true;
-      } else if (type == this.userFunctions[1]) {
-        this.showUserLoginModal = true;
+      switch (type) {
+        case "ユーザー登録":
+          this.showUserRegistrationModal = true;
+          break;
+        case "ログイン":
+          this.showUserLoginModal = true;
+          break;
+        case "ログアウト":
+          this.showUserLogoutModal = true;
+          break;
       }
     },
     closeModal(type) {
-      if (type == this.userRegistrationContents[0]) {
-        this.showUserRegistrationModal = false;
-      } else if (type == this.userLoginContents[0]) {
-        this.showUserLoginModal = false;
+      switch (type) {
+        case "ユーザー登録":
+          this.showUserRegistrationModal = false;
+          break;
+        case "ユーザーログイン":
+          this.showUserLoginModal = false;
+          break;
+        case "ユーザーログアウト":
+          this.showUserLogoutModal = false;
+          break;
       }
     },
     registrateUser(inputData) {
@@ -21,9 +33,12 @@ export default {
         .post("/api/v1/auth", inputData)
         .then((res) => {
           console.log(res.headers);
+          // const authHeaders = res.headers;
+          // this.$cookies.set("auth-headers", authHeaders);
+          // console.log(this.$cookies.get("auth-headers"));
           this.showUserRegistrationModal = false;
           this.registrationSuccess = "ユーザー登録が成功しました！";
-          this.userRegistrationErrors = ""
+          this.userRegistrationErrors = "";
           setTimeout(() => {
             this.registrationSuccess = "";
           }, 5000);
@@ -36,7 +51,7 @@ export default {
           if (errorMessages.includes(unsecureMessage)) {
             const filteredMessages = errorMessages.filter((errMsg) => {
               return errMsg !== unsecureMessage;
-            })
+            });
             filteredMessages.splice(1, 0, "メールアドレスは有効ではありません");
             this.userRegistrationErrors = filteredMessages;
           } else {
@@ -44,9 +59,9 @@ export default {
           }
         });
     },
-    login(data) {
-      // サーバーサイド実装後に実装
-      delete data.name;
+    login(inputData) {
+      delete inputData.name;
     },
+    logout() {},
   },
 };

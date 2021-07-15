@@ -22,7 +22,7 @@ Vue.use(VueMq, {
   },
 });
 Vue.use(VueCookies);
-Vue.$cookies.config("30d", "", "", true)
+Vue.$cookies.config("30d", "", "", true);
 
 library.add(fas, fab);
 Vue.component("font-awesome-icon", FontAwesomeIcon);

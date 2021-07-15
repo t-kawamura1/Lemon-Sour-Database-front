@@ -12,7 +12,7 @@ export default {
         ],
         "登録",
       ],
-      registrationSuccess: "なんで？",
+      registrationSuccess: "",
       userRegistrationErrors: [],
       userLoginContents: [
         "ユーザーログイン",
@@ -29,9 +29,9 @@ export default {
         { name: "ユーザー登録・ログイン", dropdown: "enabled" },
       ],
       headerIcons: ["lemon", "address-card"],
-      userFunctions: ["ユーザー登録", "ログイン"],
-      showUserRegistration: false,
-      showUserLogin: false,
+      authenticatedUserFunctions: ["ユーザー機能", "ログアウト"],
+      unauthenticatedUserFunctions: ["ユーザー登録", "ログイン"],
+      isAuthenticated: false,
       footerIcons: [
         ["database", "LSDB"],
         ["calculator", "アルコール量計算"],

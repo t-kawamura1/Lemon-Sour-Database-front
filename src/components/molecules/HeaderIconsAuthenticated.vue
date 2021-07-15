@@ -1,18 +1,25 @@
 <template>
-  <div class="header-icons">
-    <div class="header-icon1" @click="$emit('link', headerIcons[0])">
+  <div class="authenticated-header-icons">
+    <div
+      class="authenticated-header-icon1"
+      @click="$emit('link', headerIcons[0])"
+    >
       <icon :icon-text="headerIcons[0]"></icon>
     </div>
-    <div class="header-icon2" @click="dropdown">
+    <div class="authenticated-header-icon2" @click="dropdown">
       <icon :icon-text="headerIcons[1]"></icon>
-      <ul class="header-icon-dropdown" :class="{ isActive }">
+      <ul class="authenticated-header-icon-dropdown" :class="{ isActive }">
         <li
-          class="header-icon-dropdown-list"
-          v-for="(dropdownFunction, index) in dropdownFunctions"
-          :key="index"
-          @click="$emit('modal', dropdownFunction)"
+          class="authenticated-header-icon-dropdown-list"
+          @click="$emit('link', dropdownFunctions[0])"
         >
-          <list-dropdown :dropdown-text="dropdownFunction"></list-dropdown>
+          <list-dropdown :dropdown-text="dropdownFunctions[0]"></list-dropdown>
+        </li>
+        <li
+          class="authenticated-header-icon-dropdown-list"
+          @click="$emit('submitUser')"
+        >
+          <list-dropdown :dropdown-text="dropdownFunctions[1]"></list-dropdown>
         </li>
       </ul>
     </div>
@@ -46,7 +53,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.header-icons {
+.authenticated-header-icons {
   display: flex;
   height: $header-height;
   padding: 0 15px;
@@ -55,9 +62,9 @@ export default {
   font-size: 4rem;
   color: $base-yellow;
   background-color: $font-color-bg-yellow;
-  .header-icon2 {
+  .authenticated-header-icon2 {
     position: relative;
-    .header-icon-dropdown {
+    .authenticated-header-icon-dropdown {
       position: absolute;
       display: none;
       background-color: $base-yellow;
@@ -65,7 +72,7 @@ export default {
       right: 0;
       list-style: none;
       padding: 0;
-      .header-icon-dropdown-list {
+      .authenticated-header-icon-dropdown-list {
         padding: 6px 12px;
         cursor: pointer;
         &:first-child {

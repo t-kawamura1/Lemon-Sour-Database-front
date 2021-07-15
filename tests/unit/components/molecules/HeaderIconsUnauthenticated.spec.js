@@ -1,9 +1,9 @@
 import { mount } from "@vue/test-utils";
-import HeaderIcons from "@/components/molecules/HeaderIcons";
+import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauthenticated";
 
-describe("HeaderIcons component test", () => {
+describe("HeaderIconsUnauthenticated component test", () => {
   let wrapper;
-  wrapper = mount(HeaderIcons, {
+  wrapper = mount(HeaderIconsUnauthenticated, {
     propsData: {
       headerIcons: ["lemon", "address-card"],
       dropdownFunctions: ["テスト登録", "テストログイン"],
@@ -26,12 +26,15 @@ describe("HeaderIcons component test", () => {
   });
 
   it("2つ目のアイコンをクリックすると、isActiveがtrueになる", async () => {
-    await wrapper.findAll(".header-icon2").trigger("click");
+    await wrapper.findAll(".unauthenticated-header-icon2").trigger("click");
     expect(wrapper.vm.isActive).toBe(true);
   });
 
   it("ドロップダウンリストをクリックすると、modalイベントとその機能名がemitされる", async () => {
-    await wrapper.findAll(".header-icon-dropdown-list").at(0).trigger("click");
+    await wrapper
+      .findAll(".unauthenticated-header-icon-dropdown-list")
+      .at(0)
+      .trigger("click");
     expect(wrapper.emitted().modal).toBeTruthy();
     expect(wrapper.emitted().modal[0][0]).toStrictEqual("テスト登録");
   });

@@ -104,12 +104,19 @@
       <template v-slot:header>
         <the-header>
           <template v-slot:header-icons>
-            <header-icons
+            <header-icons-authenticated
+              v-if="isAuthenticated"
               :header-icons="headerIcons"
-              :dropdown-functions="userFunctions"
+              :dropdown-functions="authenticatedUserFunctions"
+              @link="toPageView"
+              @submitUser="logout"
+            ></header-icons-authenticated>
+            <header-icons-unauthenticated
+              :header-icons="headerIcons"
+              :dropdown-functions="unauthenticatedUserFunctions"
               @link="toPageView"
               @modal="openModal"
-            ></header-icons>
+            ></header-icons-unauthenticated>
           </template>
         </the-header>
       </template>
@@ -174,7 +181,8 @@ import ReviewContainer from "@/components/organisms/ReviewContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
 import SidebarMenus from "@/components/molecules/SidebarMenus";
-import HeaderIcons from "@/components/molecules/HeaderIcons";
+import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
+import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauthenticated";
 import SourDisplay from "@/components/molecules/SourDisplay";
 import SourFlags from "@/components/molecules/SourFlags";
 import SourAttributes from "@/components/molecules/SourAttributes";
@@ -196,7 +204,8 @@ export default {
     TheFooter,
     ModalUser,
     SidebarMenus,
-    HeaderIcons,
+    HeaderIconsAuthenticated,
+    HeaderIconsUnauthenticated,
     SourDisplay,
     SourFlags,
     SourAttributes,
