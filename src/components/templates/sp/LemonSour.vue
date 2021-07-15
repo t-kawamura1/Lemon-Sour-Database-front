@@ -6,6 +6,9 @@
     <div class="sp-header">
       <slot name="header"></slot>
     </div>
+    <div class="sp-notice">
+      <slot name="notice"></slot>
+    </div>
     <div class="sp-lemon-sour-main">
       <div class="sp-sour-container">
         <slot name="sour-container"></slot>
@@ -28,11 +31,15 @@ export default {};
 .template-sp-lemon-sour {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   .sp-header {
     position: fixed;
     width: 100%;
     height: $header-height;
     z-index: 10;
+  }
+  .sp-notice {
+    margin-top: $header-height;
   }
   .sp-lemon-sour-main {
     margin-top: $header-height;

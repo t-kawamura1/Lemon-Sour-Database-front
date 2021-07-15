@@ -9,6 +9,7 @@
             <!-- v-showにすべきだが、focusの効くタイミングがv-if + beforeMountしかなかった。 -->
             <modal-user
               :modal-user-contents="userRegistrationContents"
+              :error-messages="userRegistrationErrors"
               v-if="showUserRegistrationModal"
               @modal="closeModal"
               @submitUser="registrateUser"
@@ -17,6 +18,7 @@
           <template v-slot:modal-user-login>
             <modal-user
               :modal-user-contents="userLoginContents"
+              :error-messages="userRegistrationErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
@@ -39,6 +41,13 @@
             ></sidebar-menus>
           </template>
         </the-sidebar>
+      </template>
+      <!-- NOTICE -->
+      <template v-slot:notice>
+        <the-notice
+          :notice-text="registrationSuccess"
+          v-if="registrationSuccess.length !== 0"
+        ></the-notice>
       </template>
       <!-- SOUR-CONTAINER -->
       <template v-slot:sour-container>
@@ -74,6 +83,7 @@
           <template v-slot:modal-user-registration>
             <modal-user
               :modal-user-contents="userRegistrationContents"
+              :error-messages="userRegistrationErrors"
               v-if="showUserRegistrationModal"
               @modal="closeModal"
               @submitUser="registrateUser"
@@ -82,6 +92,7 @@
           <template v-slot:modal-user-login>
             <modal-user
               :modal-user-contents="userLoginContents"
+              :error-messages="userRegistrationErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
@@ -93,14 +104,28 @@
       <template v-slot:header>
         <the-header>
           <template v-slot:header-icons>
-            <header-icons
+            <header-icons-authenticated
+              v-if="isAuthenticated"
               :header-icons="headerIcons"
-              :dropdown-functions="userFunctions"
+              :dropdown-functions="authenticatedUserFunctions"
+              @link="toPageView"
+              @submitUser="logout"
+            ></header-icons-authenticated>
+            <header-icons-unauthenticated
+              :header-icons="headerIcons"
+              :dropdown-functions="unauthenticatedUserFunctions"
               @link="toPageView"
               @modal="openModal"
-            ></header-icons>
+            ></header-icons-unauthenticated>
           </template>
         </the-header>
+      </template>
+      <!-- NOTICE -->
+      <template v-slot:notice>
+        <the-notice
+          :notice-text="registrationSuccess"
+          v-if="registrationSuccess.length !== 0"
+        ></the-notice>
       </template>
       <!-- SOUR-CONTAINER -->
       <template v-slot:sour-container>
@@ -144,6 +169,8 @@
 
 <script>
 import axios from "axios";
+import CommonLayoutData from "@/mixins/common-layout-data";
+import CommonMethods from "@/mixins/common-methods";
 import PcLemonSour from "@/components/templates/pc/LemonSour";
 import SpLemonSour from "@/components/templates/sp/LemonSour";
 import TheModal from "@/components/organisms/TheModal";
@@ -154,15 +181,18 @@ import ReviewContainer from "@/components/organisms/ReviewContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
 import SidebarMenus from "@/components/molecules/SidebarMenus";
-import HeaderIcons from "@/components/molecules/HeaderIcons";
+import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
+import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauthenticated";
 import SourDisplay from "@/components/molecules/SourDisplay";
 import SourFlags from "@/components/molecules/SourFlags";
 import SourAttributes from "@/components/molecules/SourAttributes";
 import SourFavorite from "@/components/molecules/SourFavorite";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import AppTitle from "@/components/atoms/AppTitle";
+import TheNotice from "@/components/atoms/TheNotice";
 
 export default {
+  mixins: [CommonLayoutData, CommonMethods],
   components: {
     PcLemonSour,
     SpLemonSour,
@@ -174,45 +204,18 @@ export default {
     TheFooter,
     ModalUser,
     SidebarMenus,
-    HeaderIcons,
+    HeaderIconsAuthenticated,
+    HeaderIconsUnauthenticated,
     SourDisplay,
     SourFlags,
     SourAttributes,
     SourFavorite,
     FooterIcons,
     AppTitle,
+    TheNotice,
   },
   data() {
     return {
-      showUserRegistrationModal: false,
-      showUserLoginModal: false,
-      userRegistrationContents: [
-        "ユーザー登録",
-        [
-          ["text", "ユーザー名"],
-          ["email", "メールアドレス"],
-          ["password", "パスワード"],
-        ],
-        "登録",
-      ],
-      userLoginContents: [
-        "ユーザーログイン",
-        [
-          ["email", "メールアドレス"],
-          ["password", "パスワード"],
-        ],
-        "ログイン",
-      ],
-      sidebarMenus: [
-        { name: "市販レモンサワーデータベース" },
-        { name: "アルコール摂取量計算" },
-        { name: "摂取量記録カレンダー" },
-        { name: "ユーザー登録・ログイン", dropdown: "enabled" },
-      ],
-      headerIcons: ["lemon", "address-card"],
-      userFunctions: ["ユーザー登録", "ログイン"],
-      showUserRegistration: false,
-      showUserLogin: false,
       lemonSour: {},
       sourFlagsAttributes: [["糖類ゼロ"], ["甘味料ゼロ"]],
       sourTableAttributes: [
@@ -221,11 +224,6 @@ export default {
         ["純アルコール量 (g)"],
         ["カロリー (kcal)"],
         ["果汁 (%)"],
-      ],
-      footerIcons: [
-        ["database", "LSDB"],
-        ["calculator", "アルコール量計算"],
-        ["calendar-alt", "摂取量記録"],
       ],
     };
   },
@@ -254,30 +252,6 @@ export default {
           // ユーザー画面へ。実装後に追加
           break;
       }
-    },
-    openModal(type) {
-      if (type == this.userFunctions[0]) {
-        this.showUserRegistrationModal = true;
-      } else if (type == this.userFunctions[1]) {
-        this.showUserLoginModal = true;
-      }
-    },
-    closeModal(type) {
-      if (type == this.userRegistrationContents[0]) {
-        this.showUserRegistrationModal = false;
-      } else if (type == this.userLoginContents[0]) {
-        this.showUserLoginModal = false;
-      }
-    },
-    registrateUser(userData) {
-      // サーバーサイド実装後に実装
-      // フォームバリデーション、ボタン押下後の空処理書くこと
-      console.log(userData);
-    },
-    login(userData) {
-      // サーバーサイド実装後に実装
-      // フォームバリデーション、ボタン押下後の空処理書くこと
-      console.log(userData);
     },
   },
   created() {

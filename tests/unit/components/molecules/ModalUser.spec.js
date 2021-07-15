@@ -9,15 +9,20 @@ describe("ModalUser component test", () => {
         modalUserContents: [
           "ゆるキャン登録",
           [
-            ["text", "しまりん"],
-            ["email", "nadesiko@yuno.com"],
-            ["password", "inuko"],
+            ["text", "しまりん", "name"],
+            ["email", "nadesiko@yuno.com", "email"],
+            ["password", "inuko", "password"],
           ],
           "入部",
         ],
+        errorMessages: ["だめだ", "セキュアじゃない", "やりなおせ"],
       },
       stubs: ["font-awesome-icon"],
     });
+  });
+
+  it("errorMessagesの要素の数だけ、error-messageコンポーネントをリストレンダリングする", () => {
+    expect(wrapper.findAll(".error-message")).toHaveLength(3);
   });
 
   it("modalUserContents[1]の要素の数（配列の数）だけ、input-textコンポーネントをリストレンダリングする", () => {
@@ -45,13 +50,16 @@ describe("ModalUser component test", () => {
     nameInput.vm.$emit("input", nameInput.element.value);
     emailInput.vm.$emit("input", emailInput.element.value);
     passwordInput.vm.$emit("input", passwordInput.element.value);
+    wrapper.vm.userData.name = nameInput.element.value;
+    wrapper.vm.userData.email = emailInput.element.value;
+    wrapper.vm.userData.password = passwordInput.element.value;
     await wrapper.find(".button-user-submit").trigger("click");
     await wrapper.find(".modal-user-form").trigger("submit");
     expect(wrapper.emitted().submitUser).toBeTruthy();
-    expect(wrapper.emitted().submitUser[0][0]).toStrictEqual([
-      "大垣千明",
-      "sima@rin.com",
-      "aoi@inuyama3",
-    ]);
+    expect(wrapper.emitted().submitUser[0][0]).toStrictEqual({
+      name: "大垣千明",
+      email: "sima@rin.com",
+      password: "aoi@inuyama3",
+    });
   });
 });

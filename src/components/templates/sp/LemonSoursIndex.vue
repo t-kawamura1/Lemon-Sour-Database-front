@@ -6,6 +6,9 @@
     <div class="sp-header">
       <slot name="header"></slot>
     </div>
+    <div class="sp-notice">
+      <slot name="notice"></slot>
+    </div>
     <div class="sp-sours-index-main">
       <slot name="sp-sours-index-container"></slot>
     </div>
@@ -22,15 +25,17 @@ export default {};
 <style scoped lang="scss">
 .template-sp-lemon-sours-index {
   display: flex;
+  flex-direction: column;
   .sp-header {
     position: fixed;
     width: 100%;
     height: $header-height;
     z-index: 10;
   }
-  .sp-sours-index-main {
+  .sp-notice {
     margin-top: $header-height;
-    width: 100%;
+  }
+  .sp-sours-index-main {
     padding: 30px;
   }
   .sp-footer {

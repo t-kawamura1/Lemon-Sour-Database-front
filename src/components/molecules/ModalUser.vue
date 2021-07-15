@@ -14,13 +14,19 @@
           class="modal-user-form"
           @submit.prevent="$emit('submitUser', userData)"
         >
+          <error-message
+            class="modal-user-error-message"
+            v-for="(errorMessage, index) in errorMessages"
+            :key="`error-${index}`"
+            :error-message-text="errorMessage"
+          ></error-message>
           <input-text
             class="modal-user-input-text"
             ref="focusThis"
             v-for="(inputAttributesArray, index) in modalUserContents[1]"
-            :key="index"
+            :key="`input-${index}`"
             :input-attributes="inputAttributesArray"
-            @input="userData.push($event)"
+            @input="substituteUserData"
           ></input-text>
           <button-user-submit
             class="modal-user-button-submit"
@@ -33,12 +39,12 @@
 </template>
 
 <script>
-// import axios from "axios";
 import Overlay from "@/components/atoms/Overlay";
 import ButtonClose from "@/components/atoms/ButtonClose";
 import ModalTitle from "@/components/atoms/ModalTitle";
 import InputText from "@/components/atoms/InputText";
 import ButtonUserSubmit from "@/components/atoms/ButtonUserSubmit";
+import ErrorMessage from "@/components/atoms/ErrorMessage";
 
 export default {
   components: {
@@ -47,14 +53,31 @@ export default {
     ModalTitle,
     InputText,
     ButtonUserSubmit,
+    ErrorMessage,
   },
   props: {
     modalUserContents: Array,
+    errorMessages: Array,
   },
   data() {
     return {
-      userData: [],
+      userData: {
+        name: "",
+        email: "",
+        password: "",
+      },
     };
+  },
+  methods: {
+    substituteUserData($event) {
+      if ($event.target.name == "name") {
+        this.userData.name = $event.target.value;
+      } else if ($event.target.name == "email") {
+        this.userData.email = $event.target.value;
+      } else if ($event.target.name == "password") {
+        this.userData.password = $event.target.value;
+      }
+    },
   },
   // 親でv-ifにした上で、このタイミング + nextTickでしかfocusされなかった。
   beforeMount() {
@@ -87,6 +110,10 @@ export default {
       display: flex;
       flex-flow: column;
       justify-content: center;
+      .modal-user-error-message {
+        font-size: 1.3rem;
+        text-align: left;
+      }
       .modal-user-input-text {
         margin-top: 6px;
       }
