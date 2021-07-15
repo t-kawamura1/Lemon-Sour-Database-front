@@ -20,9 +20,10 @@ export default {
       axios
         .post("/api/v1/auth", inputData)
         .then((res) => {
-          console.log(res);
+          console.log(res.headers);
           this.showUserRegistrationModal = false;
           this.registrationSuccess = "ユーザー登録が成功しました！";
+          this.userRegistrationErrors = ""
           setTimeout(() => {
             this.registrationSuccess = "";
           }, 5000);
@@ -33,8 +34,11 @@ export default {
             err.response.data.errors.full_messages.reverse();
           const unsecureMessage = "メールアドレスが既に登録されています";
           if (errorMessages.includes(unsecureMessage)) {
-            errorMessages.splice(1, 1, "メールアドレスは有効ではありません");
-            this.userRegistrationErrors = errorMessages;
+            const filteredMessages = errorMessages.filter((errMsg) => {
+              return errMsg !== unsecureMessage;
+            })
+            filteredMessages.splice(1, 0, "メールアドレスは有効ではありません");
+            this.userRegistrationErrors = filteredMessages;
           } else {
             this.userRegistrationErrors = errorMessages;
           }

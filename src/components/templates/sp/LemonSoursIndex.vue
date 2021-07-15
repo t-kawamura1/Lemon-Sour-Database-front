@@ -36,7 +36,6 @@ export default {};
     margin-top: $header-height;
   }
   .sp-sours-index-main {
-    width: 100%;
     padding: 30px;
   }
   .sp-footer {

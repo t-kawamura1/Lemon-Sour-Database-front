@@ -12,7 +12,7 @@ export default {
         ],
         "登録",
       ],
-      registrationSuccess: "",
+      registrationSuccess: "なんで？",
       userRegistrationErrors: [],
       userLoginContents: [
         "ユーザーログイン",

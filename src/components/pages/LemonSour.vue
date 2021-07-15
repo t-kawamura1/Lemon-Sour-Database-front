@@ -42,6 +42,13 @@
           </template>
         </the-sidebar>
       </template>
+      <!-- NOTICE -->
+      <template v-slot:notice>
+        <the-notice
+          :notice-text="registrationSuccess"
+          v-if="registrationSuccess.length !== 0"
+        ></the-notice>
+      </template>
       <!-- SOUR-CONTAINER -->
       <template v-slot:sour-container>
         <sour-container>
@@ -106,6 +113,13 @@
           </template>
         </the-header>
       </template>
+      <!-- NOTICE -->
+      <template v-slot:notice>
+        <the-notice
+          :notice-text="registrationSuccess"
+          v-if="registrationSuccess.length !== 0"
+        ></the-notice>
+      </template>
       <!-- SOUR-CONTAINER -->
       <template v-slot:sour-container>
         <sour-container>
@@ -148,7 +162,7 @@
 
 <script>
 import axios from "axios";
-import CommonLayoutData from "@/mixins/common-layout-data.js";
+import CommonLayoutData from "@/mixins/common-layout-data";
 import CommonMethods from "@/mixins/common-methods";
 import PcLemonSour from "@/components/templates/pc/LemonSour";
 import SpLemonSour from "@/components/templates/sp/LemonSour";
@@ -167,6 +181,7 @@ import SourAttributes from "@/components/molecules/SourAttributes";
 import SourFavorite from "@/components/molecules/SourFavorite";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import AppTitle from "@/components/atoms/AppTitle";
+import TheNotice from "@/components/atoms/TheNotice";
 
 export default {
   mixins: [CommonLayoutData, CommonMethods],
@@ -188,6 +203,7 @@ export default {
     SourFavorite,
     FooterIcons,
     AppTitle,
+    TheNotice,
   },
   data() {
     return {
