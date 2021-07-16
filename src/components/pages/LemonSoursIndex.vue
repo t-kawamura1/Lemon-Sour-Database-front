@@ -9,7 +9,7 @@
             <!-- v-showにすべきだが、focusの効くタイミングがv-if + beforeMountしかなかった。 -->
             <modal-user
               :modal-user-contents="userRegistrationContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserRegistrationModal"
               @modal="closeModal"
               @submitUser="registrateUser"
@@ -18,7 +18,7 @@
           <template v-slot:modal-user-login>
             <modal-user
               :modal-user-contents="userLoginContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
@@ -45,8 +45,8 @@
       <!-- NOTICE -->
       <template v-slot:notice>
         <the-notice
-          :notice-text="registrationSuccess"
-          v-if="registrationSuccess.length !== 0"
+          :notice-text="noticeMessage"
+          v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
       <!-- SOURS-INDEX-CONTAINER -->
@@ -83,7 +83,7 @@
           <template v-slot:modal-user-registration>
             <modal-user
               :modal-user-contents="userRegistrationContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserRegistrationModal"
               @modal="closeModal"
               @submitUser="registrateUser"
@@ -92,7 +92,7 @@
           <template v-slot:modal-user-login>
             <modal-user
               :modal-user-contents="userLoginContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
@@ -124,8 +124,8 @@
       <!-- NOTICE -->
       <template v-slot:notice>
         <the-notice
-          :notice-text="registrationSuccess"
-          v-if="registrationSuccess.length !== 0"
+          :notice-text="noticeMessage"
+          v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
       <!-- SOURS-INDEX-CONTAINER -->
@@ -170,7 +170,7 @@
 
 <script>
 import axios from "axios";
-import CommonLayoutData from "@/mixins/common-layout-data";
+import CommonData from "@/mixins/common-data";
 import CommonMethods from "@/mixins/common-methods";
 import PcLemonSoursIndex from "@/components/templates/pc/LemonSoursIndex";
 import SpLemonSoursIndex from "@/components/templates/sp/LemonSoursIndex";
@@ -194,7 +194,7 @@ import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
 
 export default {
-  mixins: [CommonLayoutData, CommonMethods],
+  mixins: [CommonData, CommonMethods],
   components: {
     PcLemonSoursIndex,
     SpLemonSoursIndex,
@@ -310,6 +310,7 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+    this.whetherAuthenticated();
   },
 };
 </script>

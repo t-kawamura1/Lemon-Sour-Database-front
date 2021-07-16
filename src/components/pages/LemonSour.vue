@@ -9,7 +9,7 @@
             <!-- v-showにすべきだが、focusの効くタイミングがv-if + beforeMountしかなかった。 -->
             <modal-user
               :modal-user-contents="userRegistrationContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserRegistrationModal"
               @modal="closeModal"
               @submitUser="registrateUser"
@@ -18,7 +18,7 @@
           <template v-slot:modal-user-login>
             <modal-user
               :modal-user-contents="userLoginContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
@@ -45,8 +45,8 @@
       <!-- NOTICE -->
       <template v-slot:notice>
         <the-notice
-          :notice-text="registrationSuccess"
-          v-if="registrationSuccess.length !== 0"
+          :notice-text="noticeMessage"
+          v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
       <!-- SOUR-CONTAINER -->
@@ -83,7 +83,7 @@
           <template v-slot:modal-user-registration>
             <modal-user
               :modal-user-contents="userRegistrationContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserRegistrationModal"
               @modal="closeModal"
               @submitUser="registrateUser"
@@ -92,7 +92,7 @@
           <template v-slot:modal-user-login>
             <modal-user
               :modal-user-contents="userLoginContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
@@ -123,8 +123,8 @@
       <!-- NOTICE -->
       <template v-slot:notice>
         <the-notice
-          :notice-text="registrationSuccess"
-          v-if="registrationSuccess.length !== 0"
+          :notice-text="noticeMessage"
+          v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
       <!-- SOUR-CONTAINER -->
@@ -169,7 +169,7 @@
 
 <script>
 import axios from "axios";
-import CommonLayoutData from "@/mixins/common-layout-data";
+import CommonData from "@/mixins/common-data";
 import CommonMethods from "@/mixins/common-methods";
 import PcLemonSour from "@/components/templates/pc/LemonSour";
 import SpLemonSour from "@/components/templates/sp/LemonSour";
@@ -192,7 +192,7 @@ import AppTitle from "@/components/atoms/AppTitle";
 import TheNotice from "@/components/atoms/TheNotice";
 
 export default {
-  mixins: [CommonLayoutData, CommonMethods],
+  mixins: [CommonData, CommonMethods],
   components: {
     PcLemonSour,
     SpLemonSour,

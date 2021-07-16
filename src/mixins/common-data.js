@@ -3,6 +3,8 @@ export default {
     return {
       showUserRegistrationModal: false,
       showUserLoginModal: false,
+      noticeMessage: "",
+      userModalErrors: [],
       userRegistrationContents: [
         "ユーザー登録",
         [
@@ -12,8 +14,6 @@ export default {
         ],
         "登録",
       ],
-      registrationSuccess: "",
-      userRegistrationErrors: [],
       userLoginContents: [
         "ユーザーログイン",
         [
@@ -22,6 +22,14 @@ export default {
         ],
         "ログイン",
       ],
+      authenticatedUserFunctions: ["ユーザー機能", "ログアウト"],
+      unauthenticatedUserFunctions: ["ユーザー登録", "ログイン"],
+      authHeader: {
+        "access-token": "",
+        "client": "",
+        "uid": "",
+      },
+      isAuthenticated: false,
       sidebarMenus: [
         { name: "市販レモンサワーデータベース" },
         { name: "アルコール摂取量計算" },
@@ -29,9 +37,6 @@ export default {
         { name: "ユーザー登録・ログイン", dropdown: "enabled" },
       ],
       headerIcons: ["lemon", "address-card"],
-      authenticatedUserFunctions: ["ユーザー機能", "ログアウト"],
-      unauthenticatedUserFunctions: ["ユーザー登録", "ログイン"],
-      isAuthenticated: false,
       footerIcons: [
         ["database", "LSDB"],
         ["calculator", "アルコール量計算"],
