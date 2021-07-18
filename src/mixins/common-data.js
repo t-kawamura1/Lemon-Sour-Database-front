@@ -26,8 +26,8 @@ export default {
       unauthenticatedUserFunctions: ["ユーザー登録", "ログイン"],
       authHeader: {
         "access-token": "",
-        "client": "",
-        "uid": "",
+        client: "",
+        uid: "",
       },
       isAuthenticated: false,
       sidebarMenus: [

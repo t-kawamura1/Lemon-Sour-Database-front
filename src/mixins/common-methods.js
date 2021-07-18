@@ -1,4 +1,5 @@
 import axios from "axios";
+import crypto from "crypto-js";
 
 export default {
   methods: {
@@ -42,7 +43,8 @@ export default {
         })
         .catch((err) => {
           console.log(err.response);
-          const errorMessages = err.response.data.errors.full_messages.reverse();
+          const errorMessages =
+            err.response.data.errors.full_messages.reverse();
           const unsecureMessage = "メールアドレスが既に登録されています";
           if (errorMessages.includes(unsecureMessage)) {
             const filteredMessages = errorMessages.filter((errMsg) => {
@@ -60,12 +62,22 @@ export default {
       axios
         .post("/api/v1/auth/sign_in", inputData)
         .then((res) => {
-          console.log(res.headers)
-          this.authHeader["access-token"] = res.headers["access-token"];
-          this.authHeader["client"] = res.headers["client"];
-          this.authHeader["uid"] = res.headers["uid"];
+          const encryptedAccessToken = crypto.AES.encrypt(
+            res.headers["access-token"],
+            this.$encryptKey
+          ).toString();
+          const encryptedClient = crypto.AES.encrypt(
+            res.headers["client"],
+            this.$encryptKey
+          ).toString();
+          const encryptedUid = crypto.AES.encrypt(
+            res.headers["uid"],
+            this.$encryptKey
+          ).toString();
+          this.authHeader["access-token"] = encryptedAccessToken;
+          this.authHeader["client"] = encryptedClient;
+          this.authHeader["uid"] = encryptedUid;
           this.$cookies.set("auth-header", this.authHeader);
-          console.log(this.$cookies.get("auth-header"));
           this.showUserLoginModal = false;
           this.isAuthenticated = true;
           this.noticeMessage = "ログインに成功しました！";
@@ -76,14 +88,31 @@ export default {
         })
         .catch((err) => {
           console.log(err.response);
-          this.userModalErrors = err.response.data.errors;
+          this.userModalErrors.push(err.response.data.errors);
         });
     },
     logout() {
+      const decryptedAccessToken = crypto.AES.decrypt(
+        this.$cookies.get("auth-header")["access-token"],
+        this.$encryptKey
+      ).toString(crypto.enc.Utf8);
+      const decryptedClient = crypto.AES.decrypt(
+        this.$cookies.get("auth-header")["client"],
+        this.$encryptKey
+      ).toString(crypto.enc.Utf8);
+      const decryptedUid = crypto.AES.decrypt(
+        this.$cookies.get("auth-header")["uid"],
+        this.$encryptKey
+      ).toString(crypto.enc.Utf8);
+      this.authHeader["access-token"] = decryptedAccessToken;
+      this.authHeader["client"] = decryptedClient;
+      this.authHeader["uid"] = decryptedUid;
       axios
-        .delete("/api/v1/auth/sign_out", {headers: this.$cookies.get("auth-header")})
+        .delete("/api/v1/auth/sign_out", {
+          headers: this.authHeader,
+        })
         .then((res) => {
-          console.log(res)
+          console.log(res);
           this.$cookies.remove("auth-header");
           this.isAuthenticated = false;
           this.noticeMessage = "ログアウトしました。";
@@ -93,6 +122,7 @@ export default {
         })
         .catch((err) => {
           console.log(err.response);
+          this.userModalErrors.push(err.response.data.errors);
         });
     },
     whetherAuthenticated() {
@@ -101,6 +131,6 @@ export default {
       } else {
         this.isAuthenticated = false;
       }
-    }
+    },
   },
 };
