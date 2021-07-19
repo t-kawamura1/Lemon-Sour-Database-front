@@ -33,12 +33,20 @@
             <app-title @link="toPageView"></app-title>
           </template>
           <template v-slot:menus>
-            <sidebar-menus
-              :menu-names="sidebarMenus"
-              :dropdown-functions="userFunctions"
+            <sidebar-menus-authenticated
+              v-if="isAuthenticated"
+              :menu-names="authenticatedSidebarMenus"
+              :dropdown-functions="authenticatedUserFunctions"
+              @link="toPageView"
+              @submitUser="logout"
+            ></sidebar-menus-authenticated>
+            <sidebar-menus-unauthenticated
+              v-else
+              :menu-names="unauthenticatedSidebarMenus"
+              :dropdown-functions="unauthenticatedUserFunctions"
               @link="toPageView"
               @modal="openModal"
-            ></sidebar-menus>
+            ></sidebar-menus-unauthenticated>
           </template>
         </the-sidebar>
       </template>
@@ -181,7 +189,8 @@ import PcSoursIndexContainer from "@/components/organisms/pc/SoursIndexContainer
 import SpSoursIndexContainer from "@/components/organisms/sp/SoursIndexContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
-import SidebarMenus from "@/components/molecules/SidebarMenus";
+import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
+import SidebarMenusUnauthenticated from "@/components/molecules/SidebarMenusUnauthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauthenticated";
 import PcSelectsSet from "@/components/molecules/pc/SelectsSet";
@@ -205,7 +214,8 @@ export default {
     SpSoursIndexContainer,
     TheFooter,
     ModalUser,
-    SidebarMenus,
+    SidebarMenusAuthenticated,
+    SidebarMenusUnauthenticated,
     HeaderIconsAuthenticated,
     HeaderIconsUnauthenticated,
     PcSelectsSet,
@@ -215,7 +225,7 @@ export default {
     FooterIcons,
     AppTitle,
     TheNotice,
-    TheHeading,
+    TheHeading
   },
   data() {
     return {

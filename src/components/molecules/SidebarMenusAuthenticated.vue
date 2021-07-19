@@ -1,23 +1,31 @@
 <template>
-  <div class="sidebar-menus">
-    <div class="menu" v-for="(menuName, index) in menuNames" :key="index">
+  <div class="authenticated-sidebar-menus">
+    <div class="authenticated-menu" v-for="(menuName, index) in menuNames" :key="index">
       <div
-        class="menu-without-dropdown"
+        class="authenticated-menu-without-dropdown"
         v-if="!menuName.dropdown"
         @click="$emit('link', menuName.name)"
       >
         <sidebar-menu :menu-name-text="menuName.name"></sidebar-menu>
       </div>
-      <div class="menu-with-dropdown" v-else @click="dropdown">
+      <div
+        class="authenticated-menu-with-dropdown"
+        v-else
+        @click="dropdown"
+      >
         <sidebar-menu :menu-name-text="menuName.name"></sidebar-menu>
-        <ul class="menu-dropdown" :class="{ isActive }">
+        <ul class="authenticated-menu-dropdown" :class="{ isActive }">
           <li
-            class="menu-dropdown-list"
-            v-for="(dropdownFunction, index) in dropdownFunctions"
-            :key="index"
-            @click="$emit('modal', dropdownFunction)"
+            class="authenticated-menu-dropdown-list"
+            @click="$emit('linkl', dropdownFunctions[0])"
           >
-            <list-dropdown :dropdown-text="dropdownFunction"></list-dropdown>
+            <list-dropdown :dropdown-text="dropdownFunctions[0]"></list-dropdown>
+          </li>
+          <li
+            class="authenticated-menu-dropdown-list"
+            @click="$emit('submitUser')"
+          >
+            <list-dropdown :dropdown-text="dropdownFunctions[1]"></list-dropdown>
           </li>
         </ul>
       </div>
@@ -52,14 +60,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.menu {
+.authenticated-menu {
   margin-bottom: 45px;
   &:hover {
     cursor: pointer;
   }
-  .menu-with-dropdown {
+  .authenticated-menu-with-dropdown {
     position: relative;
-    .menu-dropdown {
+    .authenticated-menu-dropdown {
       position: absolute;
       display: none;
       background-color: $base-yellow;
@@ -68,7 +76,7 @@ export default {
       right: -20px;
       list-style: none;
       padding: 0;
-      .menu-dropdown-list {
+      .authenticated-menu-dropdown-list {
         padding: 6px 12px;
         cursor: pointer;
         &:first-child {

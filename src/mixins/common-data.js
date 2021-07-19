@@ -22,7 +22,7 @@ export default {
         ],
         "ログイン",
       ],
-      authenticatedUserFunctions: ["ユーザー機能", "ログアウト"],
+      authenticatedUserFunctions: ["プロフィール編集", "ログアウト"],
       unauthenticatedUserFunctions: ["ユーザー登録", "ログイン"],
       authHeader: {
         "access-token": "",
@@ -30,7 +30,13 @@ export default {
         uid: "",
       },
       isAuthenticated: false,
-      sidebarMenus: [
+      authenticatedSidebarMenus: [
+        { name: "市販レモンサワーデータベース" },
+        { name: "アルコール摂取量計算" },
+        { name: "摂取量記録カレンダー" },
+        { name: "ユーザー情報", dropdown: "enabled" },
+      ],
+      unauthenticatedSidebarMenus: [
         { name: "市販レモンサワーデータベース" },
         { name: "アルコール摂取量計算" },
         { name: "摂取量記録カレンダー" },

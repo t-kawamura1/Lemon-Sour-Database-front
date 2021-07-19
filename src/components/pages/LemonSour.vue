@@ -33,12 +33,20 @@
             <app-title @link="toPageView"></app-title>
           </template>
           <template v-slot:menus>
-            <sidebar-menus
-              :menu-names="sidebarMenus"
-              :dropdown-functions="userFunctions"
+            <sidebar-menus-authenticated
+              v-if="isAuthenticated"
+              :menu-names="authenticatedSidebarMenus"
+              :dropdown-functions="authenticatedUserFunctions"
+              @link="toPageView"
+              @submitUser="logout"
+            ></sidebar-menus-authenticated>
+            <sidebar-menus-unauthenticated
+              v-else
+              :menu-names="unauthenticatedSidebarMenus"
+              :dropdown-functions="unauthenticatedUserFunctions"
               @link="toPageView"
               @modal="openModal"
-            ></sidebar-menus>
+            ></sidebar-menus-unauthenticated>
           </template>
         </the-sidebar>
       </template>
@@ -112,6 +120,7 @@
               @submitUser="logout"
             ></header-icons-authenticated>
             <header-icons-unauthenticated
+              v-else
               :header-icons="headerIcons"
               :dropdown-functions="unauthenticatedUserFunctions"
               @link="toPageView"
@@ -180,7 +189,8 @@ import SourContainer from "@/components/organisms/SourContainer";
 import ReviewContainer from "@/components/organisms/ReviewContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
-import SidebarMenus from "@/components/molecules/SidebarMenus";
+import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
+import SidebarMenusUnauthenticated from "@/components/molecules/SidebarMenusUnauthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauthenticated";
 import SourDisplay from "@/components/molecules/SourDisplay";
@@ -203,7 +213,8 @@ export default {
     ReviewContainer,
     TheFooter,
     ModalUser,
-    SidebarMenus,
+    SidebarMenusAuthenticated,
+    SidebarMenusUnauthenticated,
     HeaderIconsAuthenticated,
     HeaderIconsUnauthenticated,
     SourDisplay,
@@ -272,6 +283,7 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+    this.checkAuthenticated();
   },
 };
 </script>
