@@ -1,7 +1,5 @@
 <template>
-  <div class="user-container">
-    ゆーざー
-  </div>
+  <div class="user-container">ゆーざー</div>
 </template>
 
 <script>
