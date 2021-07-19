@@ -1,18 +1,22 @@
 <template>
-  <div class="sidebar-menus">
-    <div class="menu" v-for="(menuName, index) in menuNames" :key="index">
+  <div class="unauthenticated-sidebar-menus">
+    <div
+      class="unauthenticated-sidebar-menu"
+      v-for="(menuName, index) in menuNames"
+      :key="index"
+    >
       <div
-        class="menu-without-dropdown"
+        class="unauthenticated-menu-without-dropdown"
         v-if="!menuName.dropdown"
         @click="$emit('link', menuName.name)"
       >
         <sidebar-menu :menu-name-text="menuName.name"></sidebar-menu>
       </div>
-      <div class="menu-with-dropdown" v-else @click="dropdown">
+      <div class="unauthenticated-menu-with-dropdown" v-else @click="dropdown">
         <sidebar-menu :menu-name-text="menuName.name"></sidebar-menu>
-        <ul class="menu-dropdown" :class="{ isActive }">
+        <ul class="unauthenticated-menu-dropdown" :class="{ isActive }">
           <li
-            class="menu-dropdown-list"
+            class="unauthenticated-menu-dropdown-list"
             v-for="(dropdownFunction, index) in dropdownFunctions"
             :key="index"
             @click="$emit('modal', dropdownFunction)"
@@ -52,14 +56,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.menu {
+.unauthenticated-sidebar-menu {
   margin-bottom: 45px;
   &:hover {
     cursor: pointer;
   }
-  .menu-with-dropdown {
+  .unauthenticated-menu-with-dropdown {
     position: relative;
-    .menu-dropdown {
+    .unauthenticated-menu-dropdown {
       position: absolute;
       display: none;
       background-color: $base-yellow;
@@ -68,7 +72,7 @@ export default {
       right: -20px;
       list-style: none;
       padding: 0;
-      .menu-dropdown-list {
+      .unauthenticated-menu-dropdown-list {
         padding: 6px 12px;
         cursor: pointer;
         &:first-child {

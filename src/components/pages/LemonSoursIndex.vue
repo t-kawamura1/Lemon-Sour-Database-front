@@ -9,7 +9,7 @@
             <!-- v-showにすべきだが、focusの効くタイミングがv-if + beforeMountしかなかった。 -->
             <modal-user
               :modal-user-contents="userRegistrationContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserRegistrationModal"
               @modal="closeModal"
               @submitUser="registrateUser"
@@ -18,7 +18,7 @@
           <template v-slot:modal-user-login>
             <modal-user
               :modal-user-contents="userLoginContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
@@ -33,20 +33,28 @@
             <app-title @link="toPageView"></app-title>
           </template>
           <template v-slot:menus>
-            <sidebar-menus
-              :menu-names="sidebarMenus"
-              :dropdown-functions="userFunctions"
+            <sidebar-menus-authenticated
+              v-if="isAuthenticated"
+              :menu-names="authenticatedSidebarMenus"
+              :dropdown-functions="authenticatedUserFunctions"
+              @link="toPageView"
+              @submitUser="logout"
+            ></sidebar-menus-authenticated>
+            <sidebar-menus-unauthenticated
+              v-else
+              :menu-names="unauthenticatedSidebarMenus"
+              :dropdown-functions="unauthenticatedUserFunctions"
               @link="toPageView"
               @modal="openModal"
-            ></sidebar-menus>
+            ></sidebar-menus-unauthenticated>
           </template>
         </the-sidebar>
       </template>
       <!-- NOTICE -->
       <template v-slot:notice>
         <the-notice
-          :notice-text="registrationSuccess"
-          v-if="registrationSuccess.length !== 0"
+          :notice-text="noticeMessage"
+          v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
       <!-- SOURS-INDEX-CONTAINER -->
@@ -83,7 +91,7 @@
           <template v-slot:modal-user-registration>
             <modal-user
               :modal-user-contents="userRegistrationContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserRegistrationModal"
               @modal="closeModal"
               @submitUser="registrateUser"
@@ -92,7 +100,7 @@
           <template v-slot:modal-user-login>
             <modal-user
               :modal-user-contents="userLoginContents"
-              :error-messages="userRegistrationErrors"
+              :error-messages="userModalErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
@@ -124,8 +132,8 @@
       <!-- NOTICE -->
       <template v-slot:notice>
         <the-notice
-          :notice-text="registrationSuccess"
-          v-if="registrationSuccess.length !== 0"
+          :notice-text="noticeMessage"
+          v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
       <!-- SOURS-INDEX-CONTAINER -->
@@ -170,7 +178,7 @@
 
 <script>
 import axios from "axios";
-import CommonLayoutData from "@/mixins/common-layout-data";
+import CommonData from "@/mixins/common-data";
 import CommonMethods from "@/mixins/common-methods";
 import PcLemonSoursIndex from "@/components/templates/pc/LemonSoursIndex";
 import SpLemonSoursIndex from "@/components/templates/sp/LemonSoursIndex";
@@ -181,7 +189,8 @@ import PcSoursIndexContainer from "@/components/organisms/pc/SoursIndexContainer
 import SpSoursIndexContainer from "@/components/organisms/sp/SoursIndexContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
-import SidebarMenus from "@/components/molecules/SidebarMenus";
+import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
+import SidebarMenusUnauthenticated from "@/components/molecules/SidebarMenusUnauthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauthenticated";
 import PcSelectsSet from "@/components/molecules/pc/SelectsSet";
@@ -194,7 +203,7 @@ import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
 
 export default {
-  mixins: [CommonLayoutData, CommonMethods],
+  mixins: [CommonData, CommonMethods],
   components: {
     PcLemonSoursIndex,
     SpLemonSoursIndex,
@@ -205,7 +214,8 @@ export default {
     SpSoursIndexContainer,
     TheFooter,
     ModalUser,
-    SidebarMenus,
+    SidebarMenusAuthenticated,
+    SidebarMenusUnauthenticated,
     HeaderIconsAuthenticated,
     HeaderIconsUnauthenticated,
     PcSelectsSet,
@@ -310,6 +320,7 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+    this.checkAuthenticated();
   },
 };
 </script>

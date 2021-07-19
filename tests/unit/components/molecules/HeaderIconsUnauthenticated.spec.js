@@ -3,12 +3,14 @@ import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauth
 
 describe("HeaderIconsUnauthenticated component test", () => {
   let wrapper;
-  wrapper = mount(HeaderIconsUnauthenticated, {
-    propsData: {
-      headerIcons: ["lemon", "address-card"],
-      dropdownFunctions: ["テスト登録", "テストログイン"],
-    },
-    stubs: ["font-awesome-icon"],
+  beforeEach(() => {
+    wrapper = mount(HeaderIconsUnauthenticated, {
+      propsData: {
+        headerIcons: ["lemon", "address-card"],
+        dropdownFunctions: ["テスト登録", "テストログイン"],
+      },
+      stubs: ["font-awesome-icon"],
+    });
   });
 
   it("headerIconsの要素の数だけ、リストレンダリングする", () => {
