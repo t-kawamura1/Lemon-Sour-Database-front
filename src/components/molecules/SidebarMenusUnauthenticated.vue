@@ -1,6 +1,10 @@
 <template>
   <div class="unauthenticated-sidebar-menus">
-    <div class="unauthenticated-menu" v-for="(menuName, index) in menuNames" :key="index">
+    <div
+      class="unauthenticated-sidebar-menu"
+      v-for="(menuName, index) in menuNames"
+      :key="index"
+    >
       <div
         class="unauthenticated-menu-without-dropdown"
         v-if="!menuName.dropdown"
@@ -8,11 +12,7 @@
       >
         <sidebar-menu :menu-name-text="menuName.name"></sidebar-menu>
       </div>
-      <div
-        class="unauthenticated-menu-with-dropdown"
-        v-else
-        @click="dropdown"
-      >
+      <div class="unauthenticated-menu-with-dropdown" v-else @click="dropdown">
         <sidebar-menu :menu-name-text="menuName.name"></sidebar-menu>
         <ul class="unauthenticated-menu-dropdown" :class="{ isActive }">
           <li
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.unauthenticated-menu {
+.unauthenticated-sidebar-menu {
   margin-bottom: 45px;
   &:hover {
     cursor: pointer;

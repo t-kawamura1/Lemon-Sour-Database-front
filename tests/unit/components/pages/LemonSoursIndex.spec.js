@@ -1,6 +1,7 @@
-import { mount } from "@vue/test-utils";
+import { mount, createLocalVue } from "@vue/test-utils";
 import LemonSoursIndex from "@/components/pages/LemonSoursIndex";
 import flushPromises from "flush-promises";
+import VueCookies from "vue-cookies";
 
 jest.mock("axios", () => ({
   get: jest.fn(() =>
@@ -20,6 +21,11 @@ jest.mock("axios", () => ({
     })
   ),
 }));
+
+// 以下がないとテスト全体が落ちる。
+// axiosの挙動を変える必要があるため、認証判定ロジックはここではテストしない。
+const localVue = createLocalVue();
+localVue.use(VueCookies);
 
 // この記述がないとTypeErrorが出る。下記公式参照。
 // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
@@ -42,6 +48,7 @@ describe("(pc display) LemonSoursIndex component test", () => {
   beforeEach(() => {
     $mq = "pc";
     wrapper = mount(LemonSoursIndex, {
+      localVue,
       mocks: {
         $mq,
       },
@@ -86,6 +93,7 @@ describe("(sp display) LemonSoursIndex component test", () => {
   beforeEach(() => {
     $mq = "sp";
     wrapper = mount(LemonSoursIndex, {
+      localVue,
       mocks: {
         $mq,
       },

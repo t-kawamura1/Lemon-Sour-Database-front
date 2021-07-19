@@ -1,6 +1,10 @@
 <template>
   <div class="authenticated-sidebar-menus">
-    <div class="authenticated-menu" v-for="(menuName, index) in menuNames" :key="index">
+    <div
+      class="authenticated-sidebar-menu"
+      v-for="(menuName, index) in menuNames"
+      :key="index"
+    >
       <div
         class="authenticated-menu-without-dropdown"
         v-if="!menuName.dropdown"
@@ -8,24 +12,24 @@
       >
         <sidebar-menu :menu-name-text="menuName.name"></sidebar-menu>
       </div>
-      <div
-        class="authenticated-menu-with-dropdown"
-        v-else
-        @click="dropdown"
-      >
+      <div class="authenticated-menu-with-dropdown" v-else @click="dropdown">
         <sidebar-menu :menu-name-text="menuName.name"></sidebar-menu>
         <ul class="authenticated-menu-dropdown" :class="{ isActive }">
           <li
             class="authenticated-menu-dropdown-list"
-            @click="$emit('linkl', dropdownFunctions[0])"
+            @click="$emit('link', dropdownFunctions[0])"
           >
-            <list-dropdown :dropdown-text="dropdownFunctions[0]"></list-dropdown>
+            <list-dropdown
+              :dropdown-text="dropdownFunctions[0]"
+            ></list-dropdown>
           </li>
           <li
             class="authenticated-menu-dropdown-list"
             @click="$emit('submitUser')"
           >
-            <list-dropdown :dropdown-text="dropdownFunctions[1]"></list-dropdown>
+            <list-dropdown
+              :dropdown-text="dropdownFunctions[1]"
+            ></list-dropdown>
           </li>
         </ul>
       </div>
@@ -60,7 +64,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.authenticated-menu {
+.authenticated-sidebar-menu {
   margin-bottom: 45px;
   &:hover {
     cursor: pointer;

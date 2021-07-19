@@ -3,12 +3,14 @@ import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenti
 
 describe("HeaderIconsAuthenticated component test", () => {
   let wrapper;
-  wrapper = mount(HeaderIconsAuthenticated, {
-    propsData: {
-      headerIcons: ["lemon", "address-card"],
-      dropdownFunctions: ["テストユーザー機能", "テストログアウト"],
-    },
-    stubs: ["font-awesome-icon"],
+  beforeEach(() => {
+    wrapper = mount(HeaderIconsAuthenticated, {
+      propsData: {
+        headerIcons: ["lemon", "address-card"],
+        dropdownFunctions: ["テストユーザー機能", "テストログアウト"],
+      },
+      stubs: ["font-awesome-icon"],
+    });
   });
 
   it("headerIconsの要素の数だけ、リストレンダリングする", () => {
@@ -36,7 +38,7 @@ describe("HeaderIconsAuthenticated component test", () => {
       .at(0)
       .trigger("click");
     expect(wrapper.emitted().link).toBeTruthy();
-    expect(wrapper.emitted().link[1][0]).toStrictEqual("テストユーザー機能");
+    expect(wrapper.emitted().link[0][0]).toStrictEqual("テストユーザー機能");
   });
 
   it("2つ目のドロップダウンリストをクリックすると、submitUserイベントがemitされる", async () => {

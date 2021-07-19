@@ -225,7 +225,7 @@ export default {
     FooterIcons,
     AppTitle,
     TheNotice,
-    TheHeading
+    TheHeading,
   },
   data() {
     return {
