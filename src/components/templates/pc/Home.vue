@@ -1,13 +1,16 @@
 <template>
-  <div class="template-pc-user">
+  <div class="template-pc-home">
+    <div class="pc-modal">
+      <slot name="modal"></slot>
+    </div>
     <div class="pc-sidebar">
       <slot name="sidebar"></slot>
     </div>
     <div class="pc-notice">
       <slot name="notice"></slot>
     </div>
-    <div class="pc-user-main">
-      <slot name="user-container"></slot>
+    <div class="pc-home-main">
+      <slot name="home-container"></slot>
     </div>
   </div>
 </template>
@@ -17,7 +20,7 @@ export default {};
 </script>
 
 <style scoped lang="scss">
-.template-pc-user {
+.template-pc-home {
   display: flex;
   flex-direction: column;
   .pc-sidebar {
@@ -26,9 +29,9 @@ export default {};
   .pc-notice {
     margin-left: $sidebar-width;
   }
-  .pc-user-main {
+  .pc-home-main {
     padding: 60px 30px;
-    .pc-user-container {
+    .pc-home-container {
       margin-left: $sidebar-width;
     }
   }

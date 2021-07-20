@@ -4,29 +4,17 @@ import crypto from "crypto-js";
 export default {
   methods: {
     openModal(type) {
-      switch (type) {
-        case "ユーザー登録":
-          this.showUserRegistrationModal = true;
-          break;
-        case "ログイン":
-          this.showUserLoginModal = true;
-          break;
-        case "ログアウト":
-          this.showUserLogoutModal = true;
-          break;
+      if (type == "ユーザー登録") {
+        this.showUserRegistrationModal = true;
+      } else if (type == "ログイン") {
+        this.showUserLoginModal = true;
       }
     },
     closeModal(type) {
-      switch (type) {
-        case "ユーザー登録":
-          this.showUserRegistrationModal = false;
-          break;
-        case "ユーザーログイン":
-          this.showUserLoginModal = false;
-          break;
-        case "ユーザーログアウト":
-          this.showUserLogoutModal = false;
-          break;
+      if (type == "ユーザー登録") {
+        this.showUserRegistrationModal = false;
+      } else if (type == "ログイン") {
+        this.showUserLoginModal = false;
       }
     },
     encryptHeaders(res) {
@@ -102,6 +90,7 @@ export default {
           this.encryptHeaders(res);
           this.showUserLoginModal = false;
           this.isAuthenticated = true;
+          this.userId = res.data.data.id;
           this.noticeMessage = "ログインに成功しました！";
           this.userModalErrors = [];
           setTimeout(() => {
@@ -122,16 +111,24 @@ export default {
         .then((res) => {
           console.log(res);
           this.$cookies.remove("auth-header");
-          this.isAuthenticated = false;
-          this.noticeMessage = "ログアウトしました。";
-          setTimeout(() => {
-            this.noticeMessage = "";
-          }, 5000);
+          this.userId = "";
+          this.routingAfterLogout(this.$route.name);
         })
         .catch((err) => {
           console.log(err.response);
-          this.userModalErrors.push(err.response.data.errors);
+          // this.$router.push("/エラーページ");
         });
+    },
+    routingAfterLogout(routeName) {
+      if (this.authRequiredRoutes.includes(routeName)) {
+        this.$router.push("/");
+      } else {
+        this.isAuthenticated = false;
+        this.noticeMessage = "ログアウトしました。";
+        setTimeout(() => {
+          this.noticeMessage = "";
+        }, 5000);
+      }
     },
     checkAuthenticated() {
       if (this.$cookies.isKey("auth-header")) {
@@ -143,6 +140,8 @@ export default {
           .then((res) => {
             if (res.data.success == true) {
               this.isAuthenticated = true;
+              this.userId = res.data.data.id;
+              this.authHeader = { "access-token": "", client: "", uid: "" };
             }
           })
           .catch((err) => {

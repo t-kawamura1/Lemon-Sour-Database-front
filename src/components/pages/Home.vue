@@ -1,7 +1,7 @@
 <template>
-  <div class="page-lemon-sour">
+  <div class="page-user">
     <!-- DISPLAY PC -->
-    <pc-lemon-sour v-if="$mq === 'pc'">
+    <pc-home v-if="$mq === 'pc'">
       <!-- MODAL -->
       <template v-slot:modal>
         <the-modal>
@@ -57,34 +57,14 @@
           v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
-      <!-- SOUR-CONTAINER -->
-      <template v-slot:sour-container>
-        <sour-container>
-          <template v-slot:sour-display>
-            <sour-display
-              :sour-name="lemonSour.name"
-              :sour-image="lemonSour.sour_image.url"
-            ></sour-display>
-          </template>
-          <template v-slot:sour-flags>
-            <sour-flags :flag-attributes="sourFlagsAttributes"></sour-flags>
-          </template>
-          <template v-slot:sour-attributes>
-            <sour-attributes
-              :table-attributes="sourTableAttributes"
-            ></sour-attributes>
-          </template>
-          <template v-slot:sour-favorite>
-            <sour-favorite></sour-favorite>
-          </template>
-        </sour-container>
+      <!-- HOME-CONTAINER -->
+      <template v-slot:home-container>
+        <home-container></home-container>
       </template>
-      <template v-slot:review-container>
-        <review-container></review-container>
-      </template>
-    </pc-lemon-sour>
+    </pc-home>
     <!-- DISPLAY SP -->
-    <sp-lemon-sour v-if="$mq === 'sp'">
+    <sp-home v-if="$mq === 'sp'"
+      >]
       <!-- MODAL -->
       <template v-slot:modal>
         <the-modal>
@@ -136,30 +116,9 @@
           v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
-      <!-- SOUR-CONTAINER -->
-      <template v-slot:sour-container>
-        <sour-container>
-          <template v-slot:sour-display>
-            <sour-display
-              :sour-name="lemonSour.name"
-              :sour-image="lemonSour.sour_image.url"
-            ></sour-display>
-          </template>
-          <template v-slot:sour-flags>
-            <sour-flags :flag-attributes="sourFlagsAttributes"></sour-flags>
-          </template>
-          <template v-slot:sour-attributes>
-            <sour-attributes
-              :table-attributes="sourTableAttributes"
-            ></sour-attributes>
-          </template>
-          <template v-slot:sour-favorite>
-            <sour-favorite></sour-favorite>
-          </template>
-        </sour-container>
-      </template>
-      <template v-slot:review-container>
-        <review-container></review-container>
+      <!-- HOME-CONTAINER -->
+      <template v-slot:home-container>
+        <home-container></home-container>
       </template>
       <!-- FOOTER -->
       <template v-slot:footer>
@@ -172,31 +131,26 @@
           </template>
         </the-footer>
       </template>
-    </sp-lemon-sour>
+    </sp-home>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import CommonData from "@/mixins/common-data";
 import CommonMethods from "@/mixins/common-methods";
-import PcLemonSour from "@/components/templates/pc/LemonSour";
-import SpLemonSour from "@/components/templates/sp/LemonSour";
+import PcHome from "@/components/templates/pc/Home";
+import SpHome from "@/components/templates/sp/Home";
 import TheModal from "@/components/organisms/TheModal";
 import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
-import SourContainer from "@/components/organisms/SourContainer";
-import ReviewContainer from "@/components/organisms/ReviewContainer";
+import HomeContainer from "@/components/organisms/HomeContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import SidebarMenusUnauthenticated from "@/components/molecules/SidebarMenusUnauthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauthenticated";
-import SourDisplay from "@/components/molecules/SourDisplay";
-import SourFlags from "@/components/molecules/SourFlags";
-import SourAttributes from "@/components/molecules/SourAttributes";
-import SourFavorite from "@/components/molecules/SourFavorite";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import AppTitle from "@/components/atoms/AppTitle";
 import TheNotice from "@/components/atoms/TheNotice";
@@ -204,38 +158,25 @@ import TheNotice from "@/components/atoms/TheNotice";
 export default {
   mixins: [CommonData, CommonMethods],
   components: {
-    PcLemonSour,
-    SpLemonSour,
+    PcHome,
+    SpHome,
     TheModal,
     TheSidebar,
     TheHeader,
-    SourContainer,
-    ReviewContainer,
+    HomeContainer,
     TheFooter,
     ModalUser,
     SidebarMenusAuthenticated,
     SidebarMenusUnauthenticated,
     HeaderIconsAuthenticated,
     HeaderIconsUnauthenticated,
-    SourDisplay,
-    SourFlags,
-    SourAttributes,
-    SourFavorite,
     FooterIcons,
     AppTitle,
     TheNotice,
   },
   data() {
     return {
-      lemonSour: {},
-      sourFlagsAttributes: [["糖類ゼロ"], ["甘味料ゼロ"]],
-      sourTableAttributes: [
-        ["メーカー"],
-        ["アルコール度数 (%)"],
-        ["純アルコール量 (g)"],
-        ["カロリー (kcal)"],
-        ["果汁 (%)"],
-      ],
+      // currentUser: {},
     };
   },
   methods: {
@@ -243,7 +184,6 @@ export default {
       switch (destination) {
         case "toHome":
         case this.headerIcons[0]:
-          this.$router.push("/");
           break;
         case this.unauthenticatedSidebarMenus[0].name:
         case this.footerIcons[0][0]:
@@ -263,24 +203,18 @@ export default {
       }
     },
   },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (vm.authRequiredRoutes.includes(from.name)) {
+        vm.isAuthenticated = false;
+        vm.noticeMessage = "ログアウトしました。";
+        setTimeout(() => {
+          vm.noticeMessage = "";
+        }, 5000);
+      }
+    });
+  },
   created() {
-    axios
-      .get(`/api/v1/lemon_sours/${this.$route.params.id}`)
-      .then((res) => {
-        this.lemonSour = res.data;
-        console.log(res);
-        // 以下、レモンサワーの属性表示用に、取得した値をdataにpush
-        this.sourFlagsAttributes[0].push(this.lemonSour.zero_sugar);
-        this.sourFlagsAttributes[1].push(this.lemonSour.zero_sweetener);
-        this.sourTableAttributes[0].push(this.lemonSour.manufacturer);
-        this.sourTableAttributes[1].push(this.lemonSour.alcohol_content);
-        this.sourTableAttributes[2].push(this.lemonSour.pure_alcohol);
-        this.sourTableAttributes[3].push(this.lemonSour.calories);
-        this.sourTableAttributes[4].push(this.lemonSour.fruit_juice);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     this.checkAuthenticated();
   },
 };

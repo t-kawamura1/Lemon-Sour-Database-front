@@ -109,56 +109,28 @@ export default {
   },
   methods: {
     toPageView(destination) {
-      console.log(destination);
       switch (destination) {
         case "toHome":
         case this.headerIcons[0]:
-          // ホームへ。実装後に追加
+          this.$router.push("/");
           break;
-        case this.sidebarMenus[0]:
+        case this.unauthenticatedSidebarMenus[0]:
         case this.footerIcons[0][0]:
           this.$router.push("/lemon_sours");
           break;
-        case this.sidebarMenus[1]:
+        case this.unauthenticatedSidebarMenus[1]:
         case this.footerIcons[1][0]:
           // 計算画面へ。実装後に追加
           break;
-        case this.sidebarMenus[2]:
+        case this.unauthenticatedSidebarMenus[2]:
         case this.footerIcons[2][0]:
           // カレンダーへ。実装後に追加
           break;
-        case this.sidebarMenus[3]:
-        case this.headerIcons[1]:
-          // ユーザー画面へ。実装後に追加
+        case this.authenticatedUserFunctions[0]:
           break;
       }
     },
   },
-  // beforeRouteEnter (to, from, next) {
-  //   next(vm => {
-  //     if (vm.$cookies.isKey("auth-header")) {
-  //       vm.decryptHeaders();
-  //       axios
-  //         .get("/api/v1/auth/validate_token", {
-  //           headers: vm.authHeader,
-  //         })
-  //         .then((res) => {
-  //           if (res.data.data.id == vm.$route.params.id) {
-  //             console.log(res);
-  //             vm.isAuthenticated = true;
-  //           } else {
-  //             throw "認証失敗"
-  //           }
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //           vm.$router.push(from);
-  //         });
-  //     } else {
-  //       vm.$router.push(from);
-  //     }
-  //   })
-  // },
   // created() {
   //   this.checkAuthenticated();
   // },
