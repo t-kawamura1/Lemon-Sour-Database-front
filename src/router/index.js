@@ -31,6 +31,7 @@ const routes = [
     beforeEnter: (to, from, next) => {
       RouterAuth.guardAccessToUser(Vue, to, from, next);
     },
+    props: { currentUser: RouterAuth.currentUser },
   },
 ];
 

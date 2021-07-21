@@ -27,7 +27,18 @@
       </template>
       <!-- USER-CONTAINER -->
       <template v-slot:user-container>
-        <user-container></user-container>
+        <user-container>
+          <template v-slot:user-heading>
+            <the-heading :heading-text="heading"></the-heading>
+          </template>
+          <template v-slot:user-edit>
+            <user-edit
+              :edit-contents="userEditContents"
+              :error-messages="userEditErrors"
+              @submitUser="editUser"
+            ></user-edit>
+          </template>
+        </user-container>
       </template>
     </pc-user>
     <!-- DISPLAY SP -->
@@ -54,7 +65,18 @@
       </template>
       <!-- USER-CONTAINER -->
       <template v-slot:user-container>
-        <user-container></user-container>
+        <user-container>
+          <template v-slot:user-heading>
+            <the-heading :heading-text="heading"></the-heading>
+          </template>
+          <template v-slot:user-edit>
+            <user-edit
+              :edit-contents="userEditContents"
+              :error-messages="userEditErrors"
+              @submitUser="editUser"
+            ></user-edit>
+          </template>
+        </user-container>
       </template>
       <!-- FOOTER -->
       <template v-slot:footer>
@@ -72,7 +94,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 import CommonData from "@/mixins/common-data";
 import CommonMethods from "@/mixins/common-methods";
 import PcUser from "@/components/templates/pc/User";
@@ -83,9 +105,11 @@ import UserContainer from "@/components/organisms/UserContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
+import UserEdit from "@/components/molecules/UserEdit.vue";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import AppTitle from "@/components/atoms/AppTitle";
 import TheNotice from "@/components/atoms/TheNotice";
+import TheHeading from "@/components/atoms/TheHeading";
 
 export default {
   mixins: [CommonData, CommonMethods],
@@ -98,13 +122,28 @@ export default {
     TheFooter,
     SidebarMenusAuthenticated,
     HeaderIconsAuthenticated,
+    UserEdit,
     FooterIcons,
     AppTitle,
     TheNotice,
+    TheHeading,
+  },
+  props: {
+    currentUser: Object,
   },
   data() {
     return {
-      currentUser: {},
+      heading: "プロフィール編集",
+      userEditErrors: [],
+      userEditContents: [
+        [
+          ["text", "ユーザー名", "name", this.currentUser.name],
+          ["email", "メールアドレス", "email", this.currentUser.email],
+          ["password", "現在のパスワード", "current_password"],
+          ["password", "新しいパスワード(8文字以上)", "password"],
+        ],
+        "登録"
+      ],
     };
   },
   methods: {
@@ -114,15 +153,15 @@ export default {
         case this.headerIcons[0]:
           this.$router.push("/");
           break;
-        case this.unauthenticatedSidebarMenus[0]:
+        case this.unauthenticatedSidebarMenus[0].name:
         case this.footerIcons[0][0]:
           this.$router.push("/lemon_sours");
           break;
-        case this.unauthenticatedSidebarMenus[1]:
+        case this.unauthenticatedSidebarMenus[1].name:
         case this.footerIcons[1][0]:
           // 計算画面へ。実装後に追加
           break;
-        case this.unauthenticatedSidebarMenus[2]:
+        case this.unauthenticatedSidebarMenus[2].name:
         case this.footerIcons[2][0]:
           // カレンダーへ。実装後に追加
           break;
@@ -130,10 +169,27 @@ export default {
           break;
       }
     },
+    editUser(inputData) {
+      console.log(inputData)
+      this.decryptHeaders();
+      axios
+        .put("/api/v1/auth", inputData, {
+          headers: this.authHeader,
+        })
+        .then((res) => {
+          this.encryptHeaders(res)
+          this.userEditErrors = [];
+          this.noticeMessage = "登録が完了しました。";
+          setTimeout(() => {
+            this.noticeMessage = "";
+          }, 5000);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          this.userEditErrors = err.response.data.errors.full_messages;
+        });
+    }
   },
-  // created() {
-  //   this.checkAuthenticated();
-  // },
 };
 </script>
 

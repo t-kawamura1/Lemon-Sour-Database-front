@@ -28,9 +28,7 @@ export default {};
   }
   .pc-user-main {
     padding: 60px 30px;
-    .pc-user-container {
-      margin-left: $sidebar-width;
-    }
+    margin-left: $sidebar-width;
   }
 }
 </style>

@@ -35,7 +35,7 @@ export default {};
   }
   .sp-user-main {
     margin-top: $header-height;
-    padding: 30px 0;
+    padding: 30px;
   }
   .sp-footer {
     position: fixed;

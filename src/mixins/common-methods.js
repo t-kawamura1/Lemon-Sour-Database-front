@@ -56,9 +56,9 @@ export default {
       axios
         .post("/api/v1/auth", inputData)
         .then((res) => {
-          console.log(res.headers);
           this.encryptHeaders(res);
           this.isAuthenticated = true;
+          this.userId = res.data.data.id;
           this.showUserRegistrationModal = false;
           this.noticeMessage = "ユーザー登録が成功しました！";
           this.userModalErrors = [];
@@ -99,7 +99,7 @@ export default {
         })
         .catch((err) => {
           console.log(err.response);
-          this.userModalErrors.push(err.response.data.errors);
+          this.userModalErrors = err.response.data.errors;
         });
     },
     logout() {
@@ -108,8 +108,7 @@ export default {
         .delete("/api/v1/auth/sign_out", {
           headers: this.authHeader,
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           this.$cookies.remove("auth-header");
           this.userId = "";
           this.routingAfterLogout(this.$route.name);

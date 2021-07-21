@@ -7,6 +7,10 @@ export default {
     client: "",
     uid: "",
   },
+  currentUser: {
+    name: "",
+    email: "",
+  },
   guardAccessToUser(Vue, to, from, next) {
     if (Vue.$cookies.isKey("auth-header")) {
       const decryptedAccessToken = crypto.AES.decrypt(
@@ -29,8 +33,10 @@ export default {
           headers: this.authHeader,
         })
         .then((res) => {
-          console.log(res);
-          if (res.data.data.id == to.params.id) {
+          if (res.data.data.id == to.params.id && to.params.id !== "") {
+            this.authHeader = { "access-token": "", client: "", uid: "" };
+            this.currentUser.name = res.data.data.name
+            this.currentUser.email = res.data.data.email
             next();
           } else {
             throw "認証失敗";

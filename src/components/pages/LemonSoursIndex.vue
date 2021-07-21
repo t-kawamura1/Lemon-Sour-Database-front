@@ -299,7 +299,6 @@ export default {
           })
           .then((res) => {
             this.lemonSours = res.data;
-            console.log(res);
           })
           .catch((err) => {
             console.log(err);
@@ -313,7 +312,6 @@ export default {
       .get("/api/v1/lemon_sours")
       .then((res) => {
         this.lemonSours = res.data;
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
