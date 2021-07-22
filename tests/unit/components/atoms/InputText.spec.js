@@ -6,15 +6,17 @@ describe("InputText component test", () => {
   beforeEach(() => {
     wrapper = mount(InputText, {
       propsData: {
-        inputAttributes: ["text", "テストだよ", "name"],
+        inputAttributes: ["text", "テストだよ", "name", "ストロングおじさん"],
       },
     });
   });
 
-  it("inputタグのtype,placeholder,name属性に、inputAttributes propsがそれぞれ入る", () => {
+  it("inputタグのtype,placeholder,name,value属性に、inputAttributes propsがそれぞれ入る", () => {
     expect(wrapper.find("input").attributes("type")).toBe("text");
     expect(wrapper.find("input").attributes("placeholder")).toBe("テストだよ");
     expect(wrapper.find("input").attributes("name")).toBe("name");
+    wrapper.find("input").setValue("ストロングおじさん");
+    expect(wrapper.find("input").element.value).toBe("ストロングおじさん");
   });
 
   it("inputに値が入力されると、inputイベントとその入力された値がemitされる", async () => {

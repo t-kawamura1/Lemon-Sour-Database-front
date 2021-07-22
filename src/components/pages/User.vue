@@ -142,7 +142,7 @@ export default {
           ["password", "現在のパスワード", "current_password"],
           ["password", "新しいパスワード(8文字以上)", "password"],
         ],
-        "登録"
+        "登録",
       ],
     };
   },
@@ -170,16 +170,15 @@ export default {
       }
     },
     editUser(inputData) {
-      console.log(inputData)
       this.decryptHeaders();
       axios
         .put("/api/v1/auth", inputData, {
           headers: this.authHeader,
         })
         .then((res) => {
-          this.encryptHeaders(res)
+          this.encryptHeaders(res);
           this.userEditErrors = [];
-          this.noticeMessage = "登録が完了しました。";
+          this.noticeMessage = "変更を受け付けました。";
           setTimeout(() => {
             this.noticeMessage = "";
           }, 5000);
@@ -188,7 +187,7 @@ export default {
           console.log(err.response);
           this.userEditErrors = err.response.data.errors.full_messages;
         });
-    }
+    },
   },
 };
 </script>

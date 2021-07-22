@@ -35,8 +35,8 @@ export default {
         .then((res) => {
           if (res.data.data.id == to.params.id && to.params.id !== "") {
             this.authHeader = { "access-token": "", client: "", uid: "" };
-            this.currentUser.name = res.data.data.name
-            this.currentUser.email = res.data.data.email
+            this.currentUser.name = res.data.data.name;
+            this.currentUser.email = res.data.data.email;
             next();
           } else {
             throw "認証失敗";

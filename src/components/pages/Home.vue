@@ -205,7 +205,10 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      if (!vm.$cookies.isKey("auth-header") && vm.authRequiredRoutes.includes(from.name)) {
+      if (
+        !vm.$cookies.isKey("auth-header") &&
+        vm.authRequiredRoutes.includes(from.name)
+      ) {
         vm.isAuthenticated = false;
         vm.noticeMessage = "ログアウトしました。";
         setTimeout(() => {
