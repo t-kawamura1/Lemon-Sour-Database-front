@@ -1,7 +1,7 @@
 <template>
-  <div class="page-lemon-sours-index">
-    <!-- DISPLAY PC-->
-    <pc-lemon-sours-index v-if="$mq === 'pc'">
+  <div class="page-user">
+    <!-- DISPLAY PC -->
+    <pc-home v-if="$mq === 'pc'">
       <!-- MODAL -->
       <template v-slot:modal>
         <the-modal>
@@ -57,34 +57,14 @@
           v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
-      <!-- SOURS-INDEX-CONTAINER -->
-      <template v-slot:pc-sours-index-container>
-        <pc-sours-index-container>
-          <template v-slot:pc-heading>
-            <the-heading :heading-text="heading"></the-heading>
-          </template>
-          <template v-slot:pc-selects-set>
-            <pc-selects-set
-              :selects-types="sortTypes"
-              :selects-manufacturers="manufacturers"
-              :selects-ingredients="ingredients"
-              :selects-orders="sortOrders"
-              :error-messages="sortErrors"
-              @sortBy="searchBy"
-            ></pc-selects-set>
-          </template>
-          <template v-slot:pc-sours-index-items>
-            <pc-sours-index-items
-              :lemon-sours="lemonSours"
-              :error-message="noContentsError"
-              @link="toPageView"
-            ></pc-sours-index-items>
-          </template>
-        </pc-sours-index-container>
+      <!-- HOME-CONTAINER -->
+      <template v-slot:home-container>
+        <home-container></home-container>
       </template>
-    </pc-lemon-sours-index>
+    </pc-home>
     <!-- DISPLAY SP -->
-    <sp-lemon-sours-index v-if="$mq === 'sp'">
+    <sp-home v-if="$mq === 'sp'"
+      >]
       <!-- MODAL -->
       <template v-slot:modal>
         <the-modal>
@@ -136,30 +116,9 @@
           v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
-      <!-- SOURS-INDEX-CONTAINER -->
-      <template v-slot:sp-sours-index-container>
-        <sp-sours-index-container>
-          <template v-slot:sp-heading>
-            <the-heading :heading-text="heading"></the-heading>
-          </template>
-          <template v-slot:sp-selects-set>
-            <sp-selects-set
-              :selects-types="sortTypes"
-              :selects-manufacturers="manufacturers"
-              :selects-ingredients="ingredients"
-              :selects-orders="sortOrders"
-              :error-messages="sortErrors"
-              @sortBy="searchBy"
-            ></sp-selects-set>
-          </template>
-          <template v-slot:sp-sours-index-items>
-            <sp-sours-index-items
-              :lemon-sours="lemonSours"
-              :error-message="noContentsError"
-              @link="toPageView"
-            ></sp-sours-index-items>
-          </template>
-        </sp-sours-index-container>
+      <!-- HOME-CONTAINER -->
+      <template v-slot:home-container>
+        <home-container></home-container>
       </template>
       <!-- FOOTER -->
       <template v-slot:footer>
@@ -172,102 +131,63 @@
           </template>
         </the-footer>
       </template>
-    </sp-lemon-sours-index>
+    </sp-home>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import CommonData from "@/mixins/common-data";
 import CommonMethods from "@/mixins/common-methods";
-import PcLemonSoursIndex from "@/components/templates/pc/LemonSoursIndex";
-import SpLemonSoursIndex from "@/components/templates/sp/LemonSoursIndex";
+import PcHome from "@/components/templates/pc/Home";
+import SpHome from "@/components/templates/sp/Home";
 import TheModal from "@/components/organisms/TheModal";
 import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
-import PcSoursIndexContainer from "@/components/organisms/pc/SoursIndexContainer";
-import SpSoursIndexContainer from "@/components/organisms/sp/SoursIndexContainer";
+import HomeContainer from "@/components/organisms/HomeContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import SidebarMenusUnauthenticated from "@/components/molecules/SidebarMenusUnauthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauthenticated";
-import PcSelectsSet from "@/components/molecules/pc/SelectsSet";
-import SpSelectsSet from "@/components/molecules/sp/SelectsSet";
-import PcSoursIndexItems from "@/components/molecules/pc/SoursIndexItems";
-import SpSoursIndexItems from "@/components/molecules/sp/SoursIndexItems";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import AppTitle from "@/components/atoms/AppTitle";
 import TheNotice from "@/components/atoms/TheNotice";
-import TheHeading from "@/components/atoms/TheHeading";
 
 export default {
   mixins: [CommonData, CommonMethods],
   components: {
-    PcLemonSoursIndex,
-    SpLemonSoursIndex,
+    PcHome,
+    SpHome,
     TheModal,
     TheSidebar,
     TheHeader,
-    PcSoursIndexContainer,
-    SpSoursIndexContainer,
+    HomeContainer,
     TheFooter,
     ModalUser,
     SidebarMenusAuthenticated,
     SidebarMenusUnauthenticated,
     HeaderIconsAuthenticated,
     HeaderIconsUnauthenticated,
-    PcSelectsSet,
-    SpSelectsSet,
-    PcSoursIndexItems,
-    SpSoursIndexItems,
     FooterIcons,
     AppTitle,
     TheNotice,
-    TheHeading,
   },
   data() {
     return {
-      heading: "市販レモンサワーデータベース",
-      sortTypes: ["メーカー", "成分", "並び順"],
-      manufacturers: [
-        "すべて",
-        "アサヒ",
-        "キリン",
-        "コカ・コーラ",
-        "サッポロ",
-        "サントリー",
-        "宝酒造",
-      ],
-      ingredients: ["すべて", "糖類ゼロ", "甘味料ゼロ"],
-      sortOrders: [
-        "新着順",
-        "度数の高い順",
-        "度数の低い順",
-        "カロリーの高い順",
-        "カロリーの低い順",
-        "果汁の多い順",
-        "果汁の少ない順",
-      ],
-      sortErrors: [],
-      // 初期描画時。データ更新時にメッセージを変える
-      noContentsError: "データを取得中",
-      lemonSours: [],
+      // currentUser: {},
     };
   },
   methods: {
     toPageView(destination) {
-      if (typeof destination === "object" && destination[0] == "toLemonSour") {
-        this.$router.push(`/lemon_sours/${destination[1]}`);
-      }
       switch (destination) {
         case "toHome":
         case this.headerIcons[0]:
-          this.$router.push("/");
           break;
         case this.unauthenticatedSidebarMenus[0].name:
         case this.footerIcons[0][0]:
+          this.$router.push("/lemon_sours");
           break;
         case this.unauthenticatedSidebarMenus[1].name:
         case this.footerIcons[1][0]:
@@ -282,40 +202,22 @@ export default {
           break;
       }
     },
-    searchBy(values) {
-      // values == ["", "", ""]はtrueにならない。__ob__: Observerが配列の末尾にあるため。
-      // 解決策がわからないため、冗長に条件を書く。
-      if (values[0] == "" && values[1] == "" && values[2] == "") {
-        this.sortErrors = ["少なくとも１つ選択して検索してください"];
-      } else {
-        this.sortErrors = [];
-        axios
-          .get("/api/v1/lemon_sours/search_by", {
-            params: {
-              manufacturer: values[0],
-              ingredient: values[1],
-              order: values[2],
-            },
-          })
-          .then((res) => {
-            this.lemonSours = res.data;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        this.noContentsError = "該当するデータがありません";
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (
+        !vm.$cookies.isKey("auth-header") &&
+        vm.authRequiredRoutes.includes(from.name)
+      ) {
+        vm.isAuthenticated = false;
+        vm.noticeMessage = "ログアウトしました。";
+        setTimeout(() => {
+          vm.noticeMessage = "";
+        }, 5000);
       }
-    },
+    });
   },
   created() {
-    axios
-      .get("/api/v1/lemon_sours")
-      .then((res) => {
-        this.lemonSours = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     this.checkAuthenticated();
   },
 };

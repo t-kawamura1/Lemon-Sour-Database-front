@@ -240,27 +240,25 @@ export default {
   },
   methods: {
     toPageView(destination) {
-      console.log(destination);
       switch (destination) {
         case "toHome":
         case this.headerIcons[0]:
-          // ホームへ。実装後に追加
+          this.$router.push("/");
           break;
-        case this.sidebarMenus[0]:
+        case this.unauthenticatedSidebarMenus[0].name:
         case this.footerIcons[0][0]:
           this.$router.push("/lemon_sours");
           break;
-        case this.sidebarMenus[1]:
+        case this.unauthenticatedSidebarMenus[1].name:
         case this.footerIcons[1][0]:
           // 計算画面へ。実装後に追加
           break;
-        case this.sidebarMenus[2]:
+        case this.unauthenticatedSidebarMenus[2].name:
         case this.footerIcons[2][0]:
           // カレンダーへ。実装後に追加
           break;
-        case this.sidebarMenus[3]:
-        case this.headerIcons[1]:
-          // ユーザー画面へ。実装後に追加
+        case this.authenticatedUserFunctions[0]:
+          this.$router.push(`/users/${this.userId}`);
           break;
       }
     },
@@ -270,7 +268,6 @@ export default {
       .get(`/api/v1/lemon_sours/${this.$route.params.id}`)
       .then((res) => {
         this.lemonSour = res.data;
-        console.log(res);
         // 以下、レモンサワーの属性表示用に、取得した値をdataにpush
         this.sourFlagsAttributes[0].push(this.lemonSour.zero_sugar);
         this.sourFlagsAttributes[1].push(this.lemonSour.zero_sweetener);

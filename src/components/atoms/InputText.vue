@@ -4,6 +4,7 @@
     :type="inputAttributes[0]"
     :placeholder="inputAttributes[1]"
     :name="inputAttributes[2]"
+    :value="inputAttributes[3]"
     @change="$emit('input', $event)"
   />
 </template>
@@ -17,6 +18,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.input-text {
-}
+// .input-text {
+// }
 </style>

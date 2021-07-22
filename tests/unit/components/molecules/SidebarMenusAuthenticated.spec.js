@@ -41,7 +41,6 @@ describe("SidebarMenusAuthenticated component test", () => {
       .at(0)
       .trigger("click");
     expect(wrapper.emitted().link).toBeTruthy();
-    console.log(wrapper.emitted().link);
     expect(wrapper.emitted().link[0][0]).toStrictEqual("テストユーザー機能");
   });
 

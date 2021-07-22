@@ -15,7 +15,7 @@ export default {
         "登録",
       ],
       userLoginContents: [
-        "ユーザーログイン",
+        "ログイン",
         [
           ["email", "メールアドレス", "email"],
           ["password", "パスワード(8文字以上)", "password"],
@@ -29,7 +29,9 @@ export default {
         client: "",
         uid: "",
       },
+      authRequiredRoutes: ["calendar", "user"],
       isAuthenticated: false,
+      userId: "",
       authenticatedSidebarMenus: [
         { name: "市販レモンサワーデータベース" },
         { name: "アルコール摂取量計算" },
