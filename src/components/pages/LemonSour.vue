@@ -19,9 +19,11 @@
             <modal-user
               :modal-user-contents="userLoginContents"
               :error-messages="userModalErrors"
+              :error-messages-reset="userModalResetErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
+              @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
         </the-modal>
@@ -101,9 +103,11 @@
             <modal-user
               :modal-user-contents="userLoginContents"
               :error-messages="userModalErrors"
+              :error-messages-reset="userModalResetErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
+              @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
         </the-modal>

@@ -33,6 +33,32 @@
             :user-submit-text="modalUserContents[2]"
           ></button-user-submit>
         </form>
+        <div v-if="modalUserContents[0] == 'ログイン'">
+          <div class="modal-user-forgot-password" @click="isActive = !isActive">
+            パスワードをお忘れですか？
+          </div>
+          <form
+            v-show="isActive"
+            class="modal-user-form-reset"
+            @submit.prevent="$emit('resetPassword', userEmailForReset)"
+          >
+            <error-message
+              class="modal-user-error-message"
+              v-for="(errorMessageReset, index) in errorMessagesReset"
+              :key="`error-reset-${index}`"
+              :error-message-text="errorMessageReset"
+            ></error-message>
+            <input-text
+              class="modal-user-input-text"
+              :input-attributes="modalUserContents[1][0]"
+              @input="substituteUserEmail"
+            ></input-text>
+            <button-user-submit
+              class="modal-user-button-submit-reset"
+              :user-submit-text="modalUserContents[3]"
+            ></button-user-submit>
+          </form>
+        </div>
       </div>
     </overlay>
   </div>
@@ -58,6 +84,7 @@ export default {
   props: {
     modalUserContents: Array,
     errorMessages: Array,
+    errorMessagesReset: Array,
   },
   data() {
     return {
@@ -66,6 +93,8 @@ export default {
         email: "",
         password: "",
       },
+      userEmailForReset: "",
+      isActive: false,
     };
   },
   methods: {
@@ -77,6 +106,9 @@ export default {
       } else if ($event.target.name == "password") {
         this.userData.password = $event.target.value;
       }
+    },
+    substituteUserEmail($event) {
+      this.userEmailForReset = $event.target.value;
     },
   },
   // 親でv-ifにした上で、このタイミング + nextTickでしかfocusされなかった。
@@ -110,8 +142,9 @@ export default {
       display: flex;
       flex-flow: column;
       justify-content: center;
+      margin-bottom: 15px;
       .modal-user-error-message {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         text-align: left;
       }
       .modal-user-input-text {
@@ -119,6 +152,24 @@ export default {
       }
       .modal-user-button-submit {
         margin-top: 15px;
+      }
+    }
+    .modal-user-forgot-password {
+      cursor: pointer;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+    .modal-user-form-reset {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      .modal-user-error-message {
+        font-size: 1.4rem;
+        text-align: left;
+        margin-bottom: 6px;
+      }
+      .modal-user-button-submit-reset {
+        margin-top: 6px;
       }
     }
   }

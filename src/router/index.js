@@ -4,6 +4,7 @@ import Home from "@/components/pages/Home";
 import LemonSoursIndex from "@/components/pages/LemonSoursIndex";
 import LemonSour from "@/components/pages/LemonSour";
 import User from "@/components/pages/User";
+import UserPasswordReset from "@/components/pages/UserPasswordReset";
 import RouterAuth from "@/modules/router-auth";
 
 Vue.use(VueRouter);
@@ -32,6 +33,11 @@ const routes = [
       RouterAuth.guardAccessToUser(Vue, to, from, next);
     },
     props: { currentUser: RouterAuth.currentUser },
+  },
+  {
+    path: "/user/password_reset",
+    name: "userPasswordReset",
+    component: UserPasswordReset,
   },
 ];
 
