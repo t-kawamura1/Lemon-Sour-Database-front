@@ -4,6 +4,16 @@ import flushPromises from "flush-promises";
 
 let wrapper;
 let $mq;
+let userData;
+
+beforeEach(() => {
+  userData = {
+    name: "テストユーザー",
+    email: "test@sample.com",
+    current_password: "",
+    password: "",
+  };
+});
 
 describe("(pc display) User component test", () => {
   beforeEach(() => {
@@ -23,12 +33,6 @@ describe("(pc display) User component test", () => {
   });
 
   it("入力欄に現在のパスワードが入力されていないとエラーが表示される", async () => {
-    const userData = {
-      name: "テストユーザー",
-      email: "tes@sample.com",
-      current_password: "",
-      password: "",
-    };
     const editUser = jest
       .spyOn(User.methods, "editUser")
       .mockImplementation(() => {
@@ -45,13 +49,33 @@ describe("(pc display) User component test", () => {
     );
   });
 
-  it("入力欄に現在のパスワードが入力されていないとエラーが表示される", async () => {
-    const userData = {
-      name: "テストユーザー",
-      email: "tes@sample.com",
-      current_password: "testpassword",
-      password: "testpassword",
-    };
+  it("ユーザー名、メールアドレスが入力されていないとエラーが表示される", async () => {
+    userData.name = "";
+    userData.email = "";
+    userData.current_password = "testpassword";
+    const editUser = jest
+      .spyOn(User.methods, "editUser")
+      .mockImplementation(() => {
+        wrapper.setData({
+          userEditErrors: ["ユーザー名未入力", "メルアド未入力"],
+        });
+      });
+    await wrapper.find(".user-edit-form").trigger("submit");
+    wrapper.find(".user-edit").vm.$emit("submitUser", userData);
+    editUser();
+    expect(editUser).toHaveBeenCalled();
+    await flushPromises();
+    expect(wrapper.findAll(".user-edit-error-message")).toHaveLength(2);
+    expect(wrapper.findAll(".user-edit-error-message").at(0).text()).toBe(
+      "ユーザー名未入力"
+    );
+    expect(wrapper.findAll(".user-edit-error-message").at(1).text()).toBe(
+      "メルアド未入力"
+    );
+  });
+
+  it("現在のパスワードを入力すると、変更が受け付けられる", async () => {
+    userData.current_password = "testpassword";
     const editUser = jest
       .spyOn(User.methods, "editUser")
       .mockImplementation(() => {
@@ -84,12 +108,6 @@ describe("(sp display) User component test", () => {
   });
 
   it("入力欄に現在のパスワードが入力されていないとエラーが表示される", async () => {
-    const userData = {
-      name: "テストユーザー",
-      email: "tes@sample.com",
-      current_password: "",
-      password: "",
-    };
     const editUser = jest
       .spyOn(User.methods, "editUser")
       .mockImplementation(() => {
@@ -105,13 +123,33 @@ describe("(sp display) User component test", () => {
     );
   });
 
-  it("入力欄に現在のパスワードが入力されていないとエラーが表示される", async () => {
-    const userData = {
-      name: "テストユーザー",
-      email: "tes@sample.com",
-      current_password: "testpassword",
-      password: "testpassword",
-    };
+  it("ユーザー名、メールアドレスが入力されていないとエラーが表示される", async () => {
+    userData.name = "";
+    userData.email = "";
+    userData.current_password = "testpassword";
+    const editUser = jest
+      .spyOn(User.methods, "editUser")
+      .mockImplementation(() => {
+        wrapper.setData({
+          userEditErrors: ["ユーザー名未入力", "メルアド未入力"],
+        });
+      });
+    await wrapper.find(".user-edit-form").trigger("submit");
+    wrapper.find(".user-edit").vm.$emit("submitUser", userData);
+    editUser();
+    expect(editUser).toHaveBeenCalled();
+    await flushPromises();
+    expect(wrapper.findAll(".user-edit-error-message")).toHaveLength(2);
+    expect(wrapper.findAll(".user-edit-error-message").at(0).text()).toBe(
+      "ユーザー名未入力"
+    );
+    expect(wrapper.findAll(".user-edit-error-message").at(1).text()).toBe(
+      "メルアド未入力"
+    );
+  });
+
+  it("現在のパスワードを入力すると、変更が受け付けられる", async () => {
+    userData.current_password = "testpassword";
     const editUser = jest
       .spyOn(User.methods, "editUser")
       .mockImplementation(() => {

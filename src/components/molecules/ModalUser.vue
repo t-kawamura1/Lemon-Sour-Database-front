@@ -43,13 +43,13 @@
             @submit.prevent="$emit('resetPassword', userEmailForReset)"
           >
             <error-message
-              class="modal-user-error-message"
+              class="modal-user-error-message-reset"
               v-for="(errorMessageReset, index) in errorMessagesReset"
               :key="`error-reset-${index}`"
               :error-message-text="errorMessageReset"
             ></error-message>
             <input-text
-              class="modal-user-input-text"
+              class="modal-user-input-text-reset"
               :input-attributes="modalUserContents[1][0]"
               @input="substituteUserEmail"
             ></input-text>
@@ -163,7 +163,7 @@ export default {
       display: flex;
       flex-flow: column;
       justify-content: center;
-      .modal-user-error-message {
+      .modal-user-error-message-reset {
         font-size: 1.4rem;
         text-align: left;
         margin-bottom: 6px;

@@ -63,7 +63,9 @@
       <template v-slot:sour-container>
         <sour-container>
           <template v-slot:sour-display>
+            <!-- vue warnを出さないために、v-ifでaxiosのデータ取得を待っている。 -->
             <sour-display
+              v-if="lemonSour.sour_image"
               :sour-name="lemonSour.name"
               :sour-image="lemonSour.sour_image.url"
             ></sour-display>
@@ -145,6 +147,7 @@
         <sour-container>
           <template v-slot:sour-display>
             <sour-display
+              v-if="lemonSour.sour_image"
               :sour-name="lemonSour.name"
               :sour-image="lemonSour.sour_image.url"
             ></sour-display>

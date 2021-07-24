@@ -108,7 +108,16 @@ export default {
         })
         .catch((err) => {
           console.log(err.response);
-          this.passwordResetErrors = err.response.data.errors.full_messages;
+          const errorMessages = err.response.data.errors.full_messages;
+          if (errorMessages.includes("現在のパスワードを入力してください")) {
+            const filteredMessages = errorMessages.filter((errMsg) => {
+              return errMsg !== "現在のパスワードを入力してください";
+            });
+            filteredMessages.splice(0, 0, "新しいパスワードを入力してください");
+            this.passwordResetErrors = filteredMessages;
+          } else {
+            this.passwordResetErrors = errorMessages;
+          }
         });
     },
   },
