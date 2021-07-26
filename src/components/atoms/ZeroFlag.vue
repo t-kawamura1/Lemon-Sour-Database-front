@@ -1,6 +1,5 @@
 <template>
   <div class="zero-flag" v-if="flagSet[1]">
-    <!-- flagSet[0]は表示する内容、flagSet[1]は真偽値 -->
     {{ flagSet[0] }}
   </div>
 </template>

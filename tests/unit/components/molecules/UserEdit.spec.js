@@ -14,6 +14,7 @@ describe("UserEdit component test", () => {
             ["password", "新しいパスワード(8文字以上)", "password"],
           ],
           "登録",
+          "アカウント削除だ！",
         ],
         errorMessages: ["だめだ", "セキュアじゃない", "やりなおせ"],
       },
@@ -58,5 +59,12 @@ describe("UserEdit component test", () => {
       current_password: "aoi@inuyama3",
       password: "newaoi@inuyama3",
     });
+  });
+
+  it("editContents props[2]を表示し、それをクリックすると、modalイベントとそのprops自身がemitされる", async () => {
+    expect(wrapper.find(".user-edit-delete").text()).toBe("アカウント削除だ！");
+    await wrapper.find(".user-edit-delete").trigger("click");
+    expect(wrapper.emitted().modal).toBeTruthy();
+    expect(wrapper.emitted().modal[0][0]).toStrictEqual("アカウント削除だ！");
   });
 });

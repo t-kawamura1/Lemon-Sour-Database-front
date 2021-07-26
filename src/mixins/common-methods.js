@@ -8,6 +8,8 @@ export default {
         this.showUserRegistrationModal = true;
       } else if (type == "ログイン") {
         this.showUserLoginModal = true;
+      } else if (type == "ユーザーアカウント削除") {
+        this.showUserDeleteModal = true;
       }
     },
     closeModal(type) {
@@ -15,6 +17,8 @@ export default {
         this.showUserRegistrationModal = false;
       } else if (type == "ログイン") {
         this.showUserLoginModal = false;
+      } else if (type == "ユーザーアカウント削除") {
+        this.showUserDeleteModal = false;
       }
     },
     encryptHeaders(res) {
@@ -128,6 +132,27 @@ export default {
           this.noticeMessage = "";
         }, 5000);
       }
+    },
+    sendResetPasswordEmail(inputData) {
+      axios
+        .post("/api/v1/auth/password", {
+          email: inputData,
+          redirect_url: process.env.VUE_APP_RESET_REDIRECT_URL,
+        })
+        .then(() => {
+          this.showUserLoginModal = false;
+          this.noticeMessage =
+            "入力されたアドレスにパスワードリセットの案内を送信しました。ご確認ください。";
+          this.userModalErrors = [];
+          setTimeout(() => {
+            this.noticeMessage = "";
+          }, 5000);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          // メールアドレスの登録有無をエラーメッセージに吐き出すのは適切でないので、サーバーからのエラーメッセージは使わない。
+          this.userModalResetErrors = ["不正なメールアドレスです。"];
+        });
     },
     checkAuthenticated() {
       if (this.$cookies.isKey("auth-header")) {

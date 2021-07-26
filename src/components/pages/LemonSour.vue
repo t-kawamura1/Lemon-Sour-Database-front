@@ -19,9 +19,11 @@
             <modal-user
               :modal-user-contents="userLoginContents"
               :error-messages="userModalErrors"
+              :error-messages-reset="userModalResetErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
+              @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
         </the-modal>
@@ -61,7 +63,9 @@
       <template v-slot:sour-container>
         <sour-container>
           <template v-slot:sour-display>
+            <!-- vue warnを出さないために、v-ifでaxiosのデータ取得を待っている。 -->
             <sour-display
+              v-if="lemonSour.sour_image"
               :sour-name="lemonSour.name"
               :sour-image="lemonSour.sour_image.url"
             ></sour-display>
@@ -101,9 +105,11 @@
             <modal-user
               :modal-user-contents="userLoginContents"
               :error-messages="userModalErrors"
+              :error-messages-reset="userModalResetErrors"
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
+              @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
         </the-modal>
@@ -141,6 +147,7 @@
         <sour-container>
           <template v-slot:sour-display>
             <sour-display
+              v-if="lemonSour.sour_image"
               :sour-name="lemonSour.name"
               :sour-image="lemonSour.sour_image.url"
             ></sour-display>

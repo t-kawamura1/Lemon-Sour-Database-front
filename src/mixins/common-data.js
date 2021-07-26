@@ -3,8 +3,10 @@ export default {
     return {
       showUserRegistrationModal: false,
       showUserLoginModal: false,
+      showUserDeleteModal: false,
       noticeMessage: "",
       userModalErrors: [],
+      userModalResetErrors: [],
       userRegistrationContents: [
         "ユーザー登録",
         [
@@ -21,6 +23,7 @@ export default {
           ["password", "パスワード(8文字以上)", "password"],
         ],
         "ログイン",
+        "パスワードリセット",
       ],
       authenticatedUserFunctions: ["プロフィール編集", "ログアウト"],
       unauthenticatedUserFunctions: ["ユーザー登録", "ログイン"],

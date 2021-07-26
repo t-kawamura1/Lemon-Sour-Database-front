@@ -2,6 +2,19 @@
   <div class="page-user">
     <!-- DISPLAY PC -->
     <pc-user v-if="$mq === 'pc'">
+      <!-- MODAL -->
+      <template v-slot:modal>
+        <the-modal>
+          <template v-slot:modal-user-delete>
+            <modal-delete-user
+              :modal-delete-user-contents="userDeleteContents"
+              v-if="showUserDeleteModal"
+              @modal="closeModal"
+              @submitUser="deleteUser"
+            ></modal-delete-user>
+          </template>
+        </the-modal>
+      </template>
       <!-- SIDEBAR -->
       <template v-slot:sidebar>
         <the-sidebar>
@@ -36,6 +49,7 @@
               :edit-contents="userEditContents"
               :error-messages="userEditErrors"
               @submitUser="editUser"
+              @modal="openModal"
             ></user-edit>
           </template>
         </user-container>
@@ -43,6 +57,19 @@
     </pc-user>
     <!-- DISPLAY SP -->
     <sp-user v-if="$mq === 'sp'">
+      <!-- MODAL -->
+      <template v-slot:modal>
+        <the-modal>
+          <template v-slot:modal-user-delete>
+            <modal-delete-user
+              :modal-delete-user-contents="userDeleteContents"
+              v-if="showUserDeleteModal"
+              @modal="closeModal"
+              @submitUser="deleteUser"
+            ></modal-delete-user>
+          </template>
+        </the-modal>
+      </template>
       <!-- HEADER -->
       <template v-slot:header>
         <the-header>
@@ -74,6 +101,7 @@
               :edit-contents="userEditContents"
               :error-messages="userEditErrors"
               @submitUser="editUser"
+              @modal="openModal"
             ></user-edit>
           </template>
         </user-container>
@@ -99,10 +127,12 @@ import CommonData from "@/mixins/common-data";
 import CommonMethods from "@/mixins/common-methods";
 import PcUser from "@/components/templates/pc/User";
 import SpUser from "@/components/templates/sp/User";
+import TheModal from "@/components/organisms/TheModal";
 import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
 import UserContainer from "@/components/organisms/UserContainer";
 import TheFooter from "@/components/organisms/TheFooter";
+import ModalDeleteUser from "@/components/molecules/ModalDeleteUser";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import UserEdit from "@/components/molecules/UserEdit.vue";
@@ -116,10 +146,12 @@ export default {
   components: {
     PcUser,
     SpUser,
+    TheModal,
     TheSidebar,
     TheHeader,
     UserContainer,
     TheFooter,
+    ModalDeleteUser,
     SidebarMenusAuthenticated,
     HeaderIconsAuthenticated,
     UserEdit,
@@ -143,6 +175,12 @@ export default {
           ["password", "新しいパスワード(8文字以上)", "password"],
         ],
         "登録",
+        "ユーザーアカウント削除",
+      ],
+      userDeleteContents: [
+        "ユーザーアカウント削除",
+        "本当に削除しますか？",
+        "削除する",
       ],
     };
   },
@@ -186,6 +224,21 @@ export default {
         .catch((err) => {
           console.log(err.response);
           this.userEditErrors = err.response.data.errors.full_messages;
+        });
+    },
+    deleteUser() {
+      this.decryptHeaders();
+      axios
+        .delete("/api/v1/auth", {
+          headers: this.authHeader,
+        })
+        .then(() => {
+          this.$cookies.remove("auth-header");
+          this.userId = "";
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          console.log(err.response);
         });
     },
   },

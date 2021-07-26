@@ -1,16 +1,10 @@
 <template>
-  <div class="template-pc-user">
-    <div class="pc-modal">
-      <slot name="modal"></slot>
-    </div>
-    <div class="pc-sidebar">
-      <slot name="sidebar"></slot>
-    </div>
+  <div class="template-pc-user-password-reset">
     <div class="pc-notice">
       <slot name="notice"></slot>
     </div>
-    <div class="pc-user-main">
-      <slot name="user-container"></slot>
+    <div class="pc-user-password-reset-main">
+      <slot name="user-password-reset-container"></slot>
     </div>
   </div>
 </template>
@@ -20,7 +14,7 @@ export default {};
 </script>
 
 <style scoped lang="scss">
-.template-pc-user {
+.template-pc-user-password-reset {
   display: flex;
   flex-direction: column;
   .pc-sidebar {
@@ -29,7 +23,7 @@ export default {};
   .pc-notice {
     margin-left: $sidebar-width;
   }
-  .pc-user-main {
+  .pc-user-password-reset-main {
     padding: 60px 30px;
     margin-left: $sidebar-width;
   }
