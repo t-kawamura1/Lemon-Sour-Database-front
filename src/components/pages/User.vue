@@ -213,9 +213,9 @@ export default {
         .put("/api/v1/auth", inputData, {
           headers: this.authHeader,
         })
-        .then((res) => {
-          this.encryptHeaders(res);
+        .then(() => {
           this.userEditErrors = [];
+          this.authHeader = { "access-token": "", client: "", uid: "" };
           this.noticeMessage = "変更を受け付けました。";
           setTimeout(() => {
             this.noticeMessage = "";
