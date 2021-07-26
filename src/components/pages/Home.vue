@@ -90,6 +90,14 @@
               @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
+          <template v-slot:modal-user-delete>
+            <modal-delete-user
+              :modal-delete-user-contents="userDeleteContents"
+              v-if="showUserDeleteModal"
+              @modal="closeModal"
+              @submitUser="deleteUser"
+            ></modal-delete-user>
+          </template>
         </the-modal>
       </template>
       <!-- HEADER -->
@@ -207,6 +215,7 @@ export default {
       }
     },
   },
+  // 条件が同じため、アカウント削除後もログアウトメッセージになってしまう。要検討。
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       if (

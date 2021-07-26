@@ -3,6 +3,7 @@ export default {
     return {
       showUserRegistrationModal: false,
       showUserLoginModal: false,
+      showUserDeleteModal: false,
       noticeMessage: "",
       userModalErrors: [],
       userModalResetErrors: [],

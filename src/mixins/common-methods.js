@@ -8,6 +8,8 @@ export default {
         this.showUserRegistrationModal = true;
       } else if (type == "ログイン") {
         this.showUserLoginModal = true;
+      } else if (type == "ユーザーアカウント削除") {
+        this.showUserDeleteModal = true;
       }
     },
     closeModal(type) {
@@ -15,6 +17,8 @@ export default {
         this.showUserRegistrationModal = false;
       } else if (type == "ログイン") {
         this.showUserLoginModal = false;
+      } else if (type == "ユーザーアカウント削除") {
+        this.showUserDeleteModal = false;
       }
     },
     encryptHeaders(res) {

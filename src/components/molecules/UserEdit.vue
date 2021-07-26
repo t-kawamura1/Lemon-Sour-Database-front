@@ -23,6 +23,9 @@
         :user-submit-text="editContents[1]"
       ></button-user-submit>
     </form>
+    <div @click="$emit('modal', editContents[2])" class="user-edit-delete">
+      {{ editContents[2] }}
+    </div>
   </div>
 </template>
 
@@ -76,10 +79,10 @@ export default {
 <style scoped lang="scss">
 .user-edit {
   color: $font-color-bg-yellow;
+  width: 300px;
   .user-edit-form {
     display: flex;
     flex-direction: column;
-    width: 300px;
     .user-edit-error-message {
       font-size: 1.3rem;
       text-align: left;
@@ -90,6 +93,11 @@ export default {
     .user-edit-button-submit {
       margin-top: 15px;
     }
+  }
+  .user-edit-delete {
+    margin-top: 30px;
+    cursor: pointer;
+    text-align: right;
   }
 }
 </style>

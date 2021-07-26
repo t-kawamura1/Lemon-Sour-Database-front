@@ -4,9 +4,13 @@ import flushPromises from "flush-promises";
 
 let wrapper;
 let $mq;
+let $router;
 let userData;
 
 beforeEach(() => {
+  $router = {
+    path: "",
+  };
   userData = {
     name: "テストユーザー",
     email: "test@sample.com",
@@ -21,6 +25,7 @@ describe("(pc display) User component test", () => {
     wrapper = mount(User, {
       mocks: {
         $mq,
+        $router,
       },
       stubs: ["font-awesome-icon"],
       propsData: {
@@ -88,6 +93,20 @@ describe("(pc display) User component test", () => {
     await flushPromises();
     expect(wrapper.find(".the-notice").text()).toBe("変更受付");
   });
+
+  it("「ユーザーアカウント削除」をクリックするとモーダルが現れ、削除ボタンを押すとホームページへ遷移する", async () => {
+    const deleteUser = jest
+      .spyOn(User.methods, "deleteUser")
+      .mockImplementation(() => {
+        wrapper.vm.$router.path = "/";
+      });
+    await wrapper.find(".user-edit-delete").trigger("click");
+    expect(wrapper.find(".modal-delete-user").exists()).toBeTruthy();
+    await wrapper.find(".modal-delete-user-button-submit").trigger("click");
+    deleteUser();
+    expect(deleteUser).toHaveBeenCalled();
+    expect(wrapper.vm.$router.path).toBe("/");
+  });
 });
 
 describe("(sp display) User component test", () => {
@@ -96,6 +115,7 @@ describe("(sp display) User component test", () => {
     wrapper = mount(User, {
       mocks: {
         $mq,
+        $router,
       },
       stubs: ["font-awesome-icon"],
       propsData: {
@@ -161,5 +181,19 @@ describe("(sp display) User component test", () => {
     expect(editUser).toHaveBeenCalled();
     await flushPromises();
     expect(wrapper.find(".the-notice").text()).toBe("変更受付");
+  });
+
+  it("「ユーザーアカウント削除」をクリックするとモーダルが現れ、削除ボタンを押すとホームページへ遷移する", async () => {
+    const deleteUser = jest
+      .spyOn(User.methods, "deleteUser")
+      .mockImplementation(() => {
+        wrapper.vm.$router.path = "/";
+      });
+    await wrapper.find(".user-edit-delete").trigger("click");
+    expect(wrapper.find(".modal-delete-user").exists()).toBeTruthy();
+    await wrapper.find(".modal-delete-user-button-submit").trigger("click");
+    deleteUser();
+    expect(deleteUser).toHaveBeenCalled();
+    expect(wrapper.vm.$router.path).toBe("/");
   });
 });
