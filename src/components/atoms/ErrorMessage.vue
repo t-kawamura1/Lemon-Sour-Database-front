@@ -14,6 +14,6 @@ export default {
 
 <style scoped lang="scss">
 .error-message {
-  color: $font-color-error;
+  color: $error-red;
 }
 </style>

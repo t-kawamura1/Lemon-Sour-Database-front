@@ -45,11 +45,11 @@ export default {
 <style scoped lang="scss">
 .modal-delete-user {
   .modal-delete-user-content {
-    color: $font-color-bg-yellow;
+    color: $second-dark-yellow;
     background-color: white;
     width: 300px;
     height: 200px;
-    z-index: 21;
+    z-index: $z-modal;
     position: relative;
     padding: 30px;
     .modal-delete-user-button-close {

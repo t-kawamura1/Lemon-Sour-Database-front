@@ -31,7 +31,7 @@ export default {
   padding: 0 15px;
   justify-content: space-around;
   align-items: center;
-  color: $font-color-bg-yellow;
+  color: $second-dark-yellow;
   background-color: $base-yellow;
   .footer-icon {
     font-size: 4.5rem;

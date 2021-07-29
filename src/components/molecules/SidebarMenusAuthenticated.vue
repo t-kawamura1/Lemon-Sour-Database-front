@@ -65,7 +65,7 @@ export default {
 
 <style scoped lang="scss">
 .authenticated-sidebar-menu {
-  margin-bottom: 45px;
+  margin-bottom: 54px;
   &:hover {
     cursor: pointer;
   }
@@ -75,17 +75,16 @@ export default {
       position: absolute;
       display: none;
       background-color: $base-yellow;
-      color: $font-color-bg-yellow;
-      top: 50px;
+      color: $second-dark-yellow;
+      top: 54px;
       right: -20px;
       list-style: none;
       padding: 0;
       .authenticated-menu-dropdown-list {
-        padding: 6px 12px;
+        padding: 9px 12px;
         cursor: pointer;
-        &:first-child {
-          border-bottom: 1px solid $font-color-bg-yellow;
-        }
+        font-weight: 700;
+        border-bottom: 1px solid $aged-yellow;
       }
     }
     .isActive {

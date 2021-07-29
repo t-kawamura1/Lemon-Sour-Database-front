@@ -60,24 +60,24 @@ export default {
   justify-content: space-between;
   align-items: center;
   font-size: 4rem;
-  color: $base-yellow;
-  background-color: $font-color-bg-yellow;
+  .authenticated-header-icon1 {
+    color: $little-deep-yellow;
+  }
   .authenticated-header-icon2 {
     position: relative;
+    color: $second-dark-yellow;
     .authenticated-header-icon-dropdown {
       position: absolute;
       display: none;
       background-color: $base-yellow;
-      color: $font-color-bg-yellow;
+      color: $second-dark-yellow;
       right: 0;
       list-style: none;
       padding: 0;
       .authenticated-header-icon-dropdown-list {
         padding: 6px 12px;
         cursor: pointer;
-        &:first-child {
-          border-bottom: 1px solid $font-color-bg-yellow;
-        }
+        border-bottom: 1px solid $second-dark-yellow;
       }
     }
     .isActive {

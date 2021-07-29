@@ -10,7 +10,7 @@ export default {};
 
 <style scoped lang="scss">
 .overlay {
-  z-index: 20;
+  z-index: $z-overlay;
   position: fixed;
   top: 0;
   left: 0;

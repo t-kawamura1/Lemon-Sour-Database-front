@@ -32,7 +32,10 @@
       <template v-slot:sidebar>
         <the-sidebar>
           <template v-slot:title>
-            <app-title @link="toPageView"></app-title>
+            <app-title
+              :sidebar-icon-text="sidebarIcon"
+              @link="toPageView"
+            ></app-title>
           </template>
           <template v-slot:menus>
             <sidebar-menus-authenticated
@@ -193,6 +196,7 @@ import PcSoursIndexContainer from "@/components/organisms/pc/SoursIndexContainer
 import SpSoursIndexContainer from "@/components/organisms/sp/SoursIndexContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
+import AppTitle from "@/components/molecules/AppTitle";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import SidebarMenusUnauthenticated from "@/components/molecules/SidebarMenusUnauthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
@@ -202,7 +206,6 @@ import SpSelectsSet from "@/components/molecules/sp/SelectsSet";
 import PcSoursIndexItems from "@/components/molecules/pc/SoursIndexItems";
 import SpSoursIndexItems from "@/components/molecules/sp/SoursIndexItems";
 import FooterIcons from "@/components/molecules/FooterIcons";
-import AppTitle from "@/components/atoms/AppTitle";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
 
@@ -271,13 +274,16 @@ export default {
           this.$router.push("/");
           break;
         case this.unauthenticatedSidebarMenus[0].name:
+        case this.authenticatedSidebarMenus[0].name:
         case this.footerIcons[0][0]:
           break;
         case this.unauthenticatedSidebarMenus[1].name:
+        case this.authenticatedSidebarMenus[1].name:
         case this.footerIcons[1][0]:
           // 計算画面へ。実装後に追加
           break;
         case this.unauthenticatedSidebarMenus[2].name:
+        case this.authenticatedSidebarMenus[2].name:
         case this.footerIcons[2][0]:
           // カレンダーへ。実装後に追加
           break;
@@ -324,5 +330,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss"></style>

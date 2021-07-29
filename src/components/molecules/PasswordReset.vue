@@ -68,7 +68,7 @@ export default {
 
 <style scoped lang="scss">
 .password-reset {
-  color: $font-color-bg-yellow;
+  color: $second-dark-yellow;
   .password-reset-form {
     display: flex;
     flex-direction: column;

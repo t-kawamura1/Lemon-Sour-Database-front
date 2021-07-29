@@ -123,11 +123,11 @@ export default {
 <style scoped lang="scss">
 .modal-user {
   .modal-user-content {
-    color: $font-color-bg-yellow;
+    color: $second-dark-yellow;
     background-color: white;
     width: 300px;
     height: 400px;
-    z-index: 21;
+    z-index: $z-modal;
     position: relative;
     padding: 30px;
     .modal-user-button-close {

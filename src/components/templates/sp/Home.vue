@@ -31,10 +31,13 @@ export default {};
     position: fixed;
     width: 100%;
     height: $header-height;
-    z-index: 10;
+    z-index: $z-header;
   }
   .sp-notice {
-    margin-top: $header-height;
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    width: 100%;
   }
   .sp-home-main {
     margin-top: $header-height;
@@ -44,7 +47,7 @@ export default {};
     position: fixed;
     width: 100%;
     height: $footer-height;
-    z-index: 10;
+    z-index: $z-footer;
     bottom: 0;
   }
 }

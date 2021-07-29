@@ -78,7 +78,7 @@ export default {
 
 <style scoped lang="scss">
 .user-edit {
-  color: $font-color-bg-yellow;
+  color: $second-dark-yellow;
   width: 300px;
   .user-edit-form {
     display: flex;

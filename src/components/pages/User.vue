@@ -19,7 +19,10 @@
       <template v-slot:sidebar>
         <the-sidebar>
           <template v-slot:title>
-            <app-title @link="toPageView"></app-title>
+            <app-title
+              :sidebar-icon-text="sidebarIcon"
+              @link="toPageView"
+            ></app-title>
           </template>
           <template v-slot:menus>
             <sidebar-menus-authenticated
@@ -133,11 +136,11 @@ import TheHeader from "@/components/organisms/TheHeader";
 import UserContainer from "@/components/organisms/UserContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalDeleteUser from "@/components/molecules/ModalDeleteUser";
+import AppTitle from "@/components/molecules/AppTitle";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import UserEdit from "@/components/molecules/UserEdit.vue";
 import FooterIcons from "@/components/molecules/FooterIcons";
-import AppTitle from "@/components/atoms/AppTitle";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
 
@@ -244,5 +247,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss"></style>
