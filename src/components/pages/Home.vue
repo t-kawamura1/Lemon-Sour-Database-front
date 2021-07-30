@@ -42,6 +42,7 @@
               v-if="isAuthenticated"
               :menu-names="authenticatedSidebarMenus"
               :dropdown-functions="authenticatedUserFunctions"
+              :current-page="currentPageName"
               @link="toPageView"
               @submitUser="logout"
             ></sidebar-menus-authenticated>
@@ -49,6 +50,7 @@
               v-else
               :menu-names="unauthenticatedSidebarMenus"
               :dropdown-functions="unauthenticatedUserFunctions"
+              :current-page="currentPageName"
               @link="toPageView"
               @modal="openModal"
             ></sidebar-menus-unauthenticated>
@@ -141,6 +143,7 @@
           <template v-slot:footer-icons>
             <footer-icons
               :footer-icons="footerIcons"
+              :current-page="currentPageName"
               @link="toPageView"
             ></footer-icons>
           </template>
@@ -238,6 +241,7 @@ export default {
   },
   created() {
     this.checkAuthenticated();
+    this.markCurrentPage();
   },
 };
 </script>

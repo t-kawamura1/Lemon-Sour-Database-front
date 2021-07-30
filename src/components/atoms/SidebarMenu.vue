@@ -20,7 +20,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  color: $second-dark-yellow;
   font-size: 1.8rem;
   font-weight: 700;
   &::after {

@@ -43,7 +43,7 @@ export default {
       ],
       unauthenticatedSidebarMenus: [
         { name: ["市販レモンサワー", "データベース"] },
-        { name: ["アルコール", "摂取量計算"] },
+        { name: ["アルコール摂取量", "計算"] },
         { name: ["摂取量記録", "カレンダー"] },
         { name: ["ユーザー登録", "ログイン"], dropdown: "enabled" },
       ],
@@ -54,6 +54,7 @@ export default {
         ["calculator", "アルコール量計算"],
         ["calendar-alt", "摂取量記録"],
       ],
+      currentPageName: "",
     };
   },
 };

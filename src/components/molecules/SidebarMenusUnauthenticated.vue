@@ -41,6 +41,7 @@ export default {
   props: {
     menuNames: Array,
     dropdownFunctions: Array,
+    currentPage: String,
   },
   data() {
     return {
@@ -52,11 +53,26 @@ export default {
       return (this.isActive = !this.isActive);
     },
   },
+  mounted() {
+    const otherMenus = document.querySelectorAll(".unauthenticated-menu-without-dropdown")
+    const userMenu = document.querySelector(".unauthenticated-menu-with-dropdown")
+    if (this.currentPage == "データベース") {
+      otherMenus[0].classList.add("isCurrentPage")
+    } else if (this.currentPage == "計算") {
+      otherMenus[1].classList.add("isCurrentPage")
+    } else if (this.currentPage == "記録") {
+      otherMenus[2].classList.add("isCurrentPage")
+    }
+    if (this.currentPage == "ユーザー") {
+      userMenu.classList.add("isCurrentPage")
+    }
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .unauthenticated-sidebar-menu {
+  color: $second-dark-yellow;
   margin-bottom: 54px;
   &:hover {
     cursor: pointer;
@@ -81,6 +97,9 @@ export default {
     .isActive {
       display: block;
     }
+  }
+  .isCurrentPage {
+    color: $aged-yellow;
   }
 }
 </style>
