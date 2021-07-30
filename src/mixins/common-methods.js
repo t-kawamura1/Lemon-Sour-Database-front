@@ -129,7 +129,7 @@ export default {
         this.isAuthenticated = false;
         this.noticeMessage = "ログアウトしました。";
         // setTimeout(() => {
-          // this.noticeMessage = "";
+        // this.noticeMessage = "";
         // }, 5000);
       }
     },
@@ -183,8 +183,8 @@ export default {
       } else if (this.$route.name.includes("records")) {
         this.currentPageName = "記録";
       } else if (this.$route.name.includes("user")) {
-        this.currentPageName = "ユーザー"
+        this.currentPageName = "ユーザー";
       }
-    }
+    },
   },
 };

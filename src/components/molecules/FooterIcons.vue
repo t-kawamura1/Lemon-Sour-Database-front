@@ -24,13 +24,13 @@ export default {
     currentPage: String,
   },
   mounted() {
-    const footerMenus = document.querySelectorAll(".footer-icons-set")
+    const footerMenus = document.querySelectorAll(".footer-icons-set");
     if (this.currentPage == "データベース") {
-      footerMenus[0].classList.add("isCurrentPage")
+      footerMenus[0].classList.add("isCurrentPage");
     } else if (this.currentPage == "計算") {
-      footerMenus[1].classList.add("isCurrentPage")
+      footerMenus[1].classList.add("isCurrentPage");
     } else if (this.currentPage == "記録") {
-      footerMenus[2].classList.add("isCurrentPage")
+      footerMenus[2].classList.add("isCurrentPage");
     }
   },
 };

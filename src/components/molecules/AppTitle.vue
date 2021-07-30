@@ -1,9 +1,7 @@
 <template>
   <h1 class="app-title" @click="$emit('link', 'toHome')">
     <icon class="app-title-logo" :icon-text="sidebarIconText"></icon>
-    <div class="app-title-line1">
-      <span>L</span>emon
-    </div>
+    <div class="app-title-line1"><span>L</span>emon</div>
     <div class="app-title-line2">
       <span>S</span><span>our</span>
       <span>DB</span>
@@ -20,7 +18,7 @@ export default {
   },
   props: {
     sidebarIconText: String,
-  }
+  },
 };
 </script>
 

@@ -59,6 +59,10 @@
           </template>
         </user-container>
       </template>
+      <!-- SIDE-BLANK -->
+      <template v-slot:side-blank>
+        <blank-side></blank-side>
+      </template>
     </pc-user>
     <!-- DISPLAY SP -->
     <sp-user v-if="$mq === 'sp'">
@@ -146,6 +150,7 @@ import UserEdit from "@/components/molecules/UserEdit.vue";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
+import BlankSide from "@/components/atoms/BlankSide";
 
 export default {
   mixins: [CommonData, CommonMethods],
@@ -165,6 +170,7 @@ export default {
     AppTitle,
     TheNotice,
     TheHeading,
+    BlankSide,
   },
   props: {
     currentUser: Object,
@@ -175,10 +181,21 @@ export default {
       userEditErrors: [],
       userEditContents: [
         [
-          ["text", "ユーザー名", "name", this.currentUser.name],
-          ["email", "メールアドレス", "email", this.currentUser.email],
-          ["password", "現在のパスワード", "current_password"],
-          ["password", "新しいパスワード(8文字以上)", "password"],
+          [
+            "ユーザー名",
+            ["text", "ユーザー名", "name", this.currentUser.name]],
+          [
+            "メールアドレス",
+            ["email", "メールアドレス", "email", this.currentUser.email],
+          ],
+          [
+            "ユーザー名・パスワードを変更する場合は必須",
+            ["password", "現在のパスワード", "current_password"],
+          ],
+          [
+            "現在のパスワードを変更する場合は入力してください",
+            ["password", "新しいパスワード(8文字以上)", "password"],
+          ],
         ],
         "登録",
         "ユーザーアカウント削除",

@@ -24,7 +24,7 @@ export default {
   font-weight: 700;
   letter-spacing: 1px;
   &::after {
-    content: '';
+    content: "";
     display: inline-block;
     width: 12px;
     height: 12px;

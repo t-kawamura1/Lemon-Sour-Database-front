@@ -15,8 +15,9 @@ export default {
   font-size: 2rem;
   font-weight: 700;
   color: $font-color-bg-white;
-  &::before, &::after {
-    content: '';
+  &::before,
+  &::after {
+    content: "";
     display: inline-block;
     vertical-align: top;
     background-color: $little-deep-yellow;

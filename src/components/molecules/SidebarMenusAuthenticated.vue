@@ -62,17 +62,21 @@ export default {
     },
   },
   mounted() {
-    const otherMenus = document.querySelectorAll(".authenticated-menu-without-dropdown")
-    const userMenu = document.querySelector(".authenticated-menu-with-dropdown")
+    const otherMenus = document.querySelectorAll(
+      ".authenticated-menu-without-dropdown"
+    );
+    const userMenu = document.querySelector(
+      ".authenticated-menu-with-dropdown"
+    );
     if (this.currentPage == "データベース") {
-      otherMenus[0].classList.add("isCurrentPage")
+      otherMenus[0].classList.add("isCurrentPage");
     } else if (this.currentPage == "計算") {
-      otherMenus[1].classList.add("isCurrentPage")
+      otherMenus[1].classList.add("isCurrentPage");
     } else if (this.currentPage == "記録") {
-      otherMenus[2].classList.add("isCurrentPage")
+      otherMenus[2].classList.add("isCurrentPage");
     }
     if (this.currentPage == "ユーザー") {
-      userMenu.classList.add("isCurrentPage")
+      userMenu.classList.add("isCurrentPage");
     }
   },
 };
@@ -84,7 +88,7 @@ export default {
   margin-bottom: 54px;
   &:hover {
     cursor: pointer;
-      color: $aged-yellow;
+    color: $aged-yellow;
   }
   .authenticated-menu-with-dropdown {
     position: relative;
