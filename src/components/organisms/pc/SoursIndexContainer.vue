@@ -21,6 +21,7 @@ export default {};
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  align-items: flex-start;
   .pc-container-heading {
     font-size: 2.7rem;
     margin-bottom: 45px;
