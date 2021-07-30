@@ -91,7 +91,7 @@ export default {
       .unauthenticated-menu-dropdown-list {
         padding: 6px 12px;
         cursor: pointer;
-        border-bottom: 1px solid $second-dark-yellow;
+        border-bottom: 1px solid $aged-yellow;
       }
     }
     .isActive {

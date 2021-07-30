@@ -22,6 +22,7 @@ export default {
   justify-content: flex-end;
   font-size: 1.8rem;
   font-weight: 700;
+  letter-spacing: 1px;
   &::after {
     content: '';
     display: inline-block;

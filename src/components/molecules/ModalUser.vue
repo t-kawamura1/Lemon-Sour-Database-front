@@ -126,10 +126,10 @@ export default {
     color: $second-dark-yellow;
     background-color: white;
     width: 300px;
-    height: 400px;
     z-index: $z-modal;
     position: relative;
-    padding: 30px;
+    padding: 36px 30px;
+    border-radius: 3%;
     .modal-user-button-close {
       position: absolute;
       top: 10px;
@@ -141,7 +141,7 @@ export default {
     .modal-user-form {
       display: flex;
       flex-flow: column;
-      justify-content: center;
+      align-items: center;
       margin-bottom: 15px;
       .modal-user-error-message {
         font-size: 1.4rem;
@@ -157,19 +157,23 @@ export default {
     .modal-user-forgot-password {
       cursor: pointer;
       font-size: 1.4rem;
-      margin-bottom: 20px;
+      margin: 20px auto 20px;
+      width: 190px;
+      &:hover {
+        color: $darkest-yellow;
+      }
     }
     .modal-user-form-reset {
       display: flex;
       flex-flow: column;
-      justify-content: center;
+      align-items: center;
       .modal-user-error-message-reset {
         font-size: 1.4rem;
         text-align: left;
         margin-bottom: 6px;
       }
       .modal-user-button-submit-reset {
-        margin-top: 6px;
+        margin-top: 15px;
       }
     }
   }

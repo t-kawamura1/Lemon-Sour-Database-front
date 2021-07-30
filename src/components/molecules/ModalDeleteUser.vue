@@ -48,10 +48,9 @@ export default {
     color: $second-dark-yellow;
     background-color: white;
     width: 300px;
-    height: 200px;
     z-index: $z-modal;
     position: relative;
-    padding: 30px;
+    padding: 45px 0;
     .modal-delete-user-button-close {
       position: absolute;
       top: 10px;

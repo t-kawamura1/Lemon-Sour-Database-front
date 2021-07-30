@@ -18,6 +18,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// .input-text {
-// }
+.input-text {
+  width: 100%;
+  height: 40px;
+  border: 1px solid $second-dark-yellow;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  padding: 0 10px;
+}
 </style>
