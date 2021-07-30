@@ -97,9 +97,9 @@ export default {
           this.userId = res.data.data.id;
           this.noticeMessage = "ログインに成功しました！";
           this.userModalErrors = [];
-          // setTimeout(() => {
-          //   this.noticeMessage = "";
-          // }, 5000);
+          setTimeout(() => {
+            this.noticeMessage = "";
+          }, 5000);
         })
         .catch((err) => {
           console.log(err.response);
@@ -128,9 +128,9 @@ export default {
       } else {
         this.isAuthenticated = false;
         this.noticeMessage = "ログアウトしました。";
-        // setTimeout(() => {
-        // this.noticeMessage = "";
-        // }, 5000);
+        setTimeout(() => {
+          this.noticeMessage = "";
+        }, 5000);
       }
     },
     sendResetPasswordEmail(inputData) {

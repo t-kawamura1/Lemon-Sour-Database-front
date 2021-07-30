@@ -181,9 +181,7 @@ export default {
       userEditErrors: [],
       userEditContents: [
         [
-          [
-            "ユーザー名",
-            ["text", "ユーザー名", "name", this.currentUser.name]],
+          ["ユーザー名", ["text", "ユーザー名", "name", this.currentUser.name]],
           [
             "メールアドレス",
             ["email", "メールアドレス", "email", this.currentUser.email],

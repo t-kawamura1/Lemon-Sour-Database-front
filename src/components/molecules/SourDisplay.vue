@@ -1,7 +1,10 @@
 <template>
   <div class="sour-display">
-    <sour-name class="display-name" :sour-name-text="sourName"></sour-name>
-    <sour-image class="display-image" :sour-image-url="sourImage"></sour-image>
+    <sour-name class="sour-display-name" :sour-name-text="sourName"></sour-name>
+    <sour-image
+      class="sour-display-image"
+      :sour-image-url="sourImage"
+    ></sour-image>
   </div>
 </template>
 
@@ -23,8 +26,8 @@ export default {
 
 <style scoped lang="scss">
 .sour-display {
-  .display-name {
-    margin-bottom: 15px;
+  .sour-display-name {
+    font-size: 2.4rem;
   }
 }
 </style>

@@ -49,21 +49,21 @@ export default {
 .sp-sours-index-items {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  width: 250px;
+  justify-content: space-evenly;
+  width: 300px;
   .sp-index-item {
-    width: 120px;
-    height: 120px;
-    border: solid 1px gray;
+    width: 147px;
+    height: 147px;
+    border: solid 1px $second-dark-yellow;
     border-radius: 5%;
     padding: 3px 1px;
     margin-bottom: 15px;
     .sp-item-name {
-      font-size: 1.8rem;
+      font-size: 1rem;
     }
     .sp-item-image {
-      width: 180px;
-      height: 180px;
+      width: 100px;
+      height: 100px;
       margin: 0 auto;
     }
   }

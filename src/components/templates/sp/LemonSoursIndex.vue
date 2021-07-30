@@ -36,7 +36,7 @@ export default {};
     margin-top: $header-height;
   }
   .sp-sours-index-main {
-    padding: 30px;
+    padding: 10px;
   }
   .sp-footer {
     position: fixed;

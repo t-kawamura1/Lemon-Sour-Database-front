@@ -91,6 +91,10 @@
       <template v-slot:review-container>
         <review-container></review-container>
       </template>
+      <!-- SIDE-BLANK -->
+      <template v-slot:side-blank>
+        <blank-side></blank-side>
+      </template>
     </pc-lemon-sour>
     <!-- DISPLAY SP -->
     <sp-lemon-sour v-if="$mq === 'sp'">
@@ -213,6 +217,7 @@ import SourAttributes from "@/components/molecules/SourAttributes";
 import SourFavorite from "@/components/molecules/SourFavorite";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import TheNotice from "@/components/atoms/TheNotice";
+import BlankSide from "@/components/atoms/BlankSide";
 
 export default {
   mixins: [CommonData, CommonMethods],
@@ -237,6 +242,7 @@ export default {
     FooterIcons,
     AppTitle,
     TheNotice,
+    BlankSide,
   },
   data() {
     return {

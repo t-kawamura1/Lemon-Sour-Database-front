@@ -20,4 +20,9 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.input-select {
+  border: 1px solid $second-dark-yellow;
+  border-radius: 6px;
+}
+</style>
