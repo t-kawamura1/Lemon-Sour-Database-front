@@ -2,6 +2,10 @@
   <div class="page-user-password-reset">
     <!-- DISPLAY PC -->
     <pc-user-password-reset v-if="$mq === 'pc'">
+      <!-- SIDE-BLANK -->
+      <template v-slot:side-blank-left>
+        <blank-side></blank-side>
+      </template>
       <!-- NOTICE -->
       <template v-slot:notice>
         <the-notice
@@ -23,6 +27,10 @@
             ></password-reset>
           </template>
         </user-password-reset-container>
+      </template>
+      <!-- SIDE-BLANK -->
+      <template v-slot:side-blank-right>
+        <blank-side></blank-side>
       </template>
     </pc-user-password-reset>
     <!-- DISPLAY SP -->
@@ -64,6 +72,7 @@ import UserPasswordResetContainer from "@/components/organisms/UserPasswordReset
 import PasswordReset from "@/components/molecules/PasswordReset.vue";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
+import BlankSide from "@/components/atoms/BlankSide";
 
 export default {
   mixins: [CommonData, CommonMethods],
@@ -74,6 +83,7 @@ export default {
     PasswordReset,
     TheNotice,
     TheHeading,
+    BlankSide,
   },
   data() {
     return {

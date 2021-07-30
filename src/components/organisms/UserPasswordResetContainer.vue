@@ -17,6 +17,7 @@ export default {};
 .user-password-reset-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   .user-password-reset-container-heading {
     font-size: 2.7rem;
     margin-bottom: 30px;
