@@ -42,7 +42,10 @@ Object.defineProperty(window, "matchMedia", {
 });
 
 let wrapper;
+let $route;
 let $mq;
+
+$route = { name: "" };
 
 describe("(pc display) LemonSoursIndex component test", () => {
   beforeEach(() => {
@@ -50,6 +53,7 @@ describe("(pc display) LemonSoursIndex component test", () => {
     wrapper = mount(LemonSoursIndex, {
       localVue,
       mocks: {
+        $route,
         $mq,
       },
       stubs: ["font-awesome-icon"],
@@ -95,6 +99,7 @@ describe("(sp display) LemonSoursIndex component test", () => {
     wrapper = mount(LemonSoursIndex, {
       localVue,
       mocks: {
+        $route,
         $mq,
       },
       stubs: ["font-awesome-icon"],

@@ -44,7 +44,10 @@ describe("(pc display) LemonSour component test", () => {
   let $route;
   beforeEach(() => {
     $mq = "pc";
-    $route = { params: { id: 1 } };
+    $route = {
+      params: { id: 1 },
+      name: "",
+    };
     wrapper = mount(LemonSour, {
       localVue,
       mocks: {
@@ -71,7 +74,10 @@ describe("(sp display) LemonSour component test", () => {
   let $route;
   beforeEach(() => {
     $mq = "sp";
-    $route = { params: { id: 1 } };
+    $route = {
+      params: { id: 1 },
+      name: "",
+    };
     wrapper = mount(LemonSour, {
       localVue,
       mocks: {

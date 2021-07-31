@@ -7,10 +7,10 @@ describe("SidebarMenusAuthenticated component test", () => {
     wrapper = mount(SidebarMenusAuthenticated, {
       propsData: {
         menuNames: [
-          { name: "ホーム" },
-          { name: "アプリの機能その１" },
-          { name: "アプリの機能その２" },
-          { name: "ユーザー", dropdown: "enabled" },
+          { name: ["アプリの", "機能その０"] },
+          { name: ["アプリの", "機能その１"] },
+          { name: ["アプリの", "機能その２"] },
+          { name: ["ユーザー", "機能"], dropdown: "enabled" },
         ],
         dropdownFunctions: ["テストユーザー機能", "テストログアウト"],
       },
@@ -27,7 +27,10 @@ describe("SidebarMenusAuthenticated component test", () => {
       .at(0)
       .trigger("click");
     expect(wrapper.emitted().link).toBeTruthy();
-    expect(wrapper.emitted().link[0][0]).toStrictEqual("ホーム");
+    expect(wrapper.emitted().link[0][0]).toStrictEqual([
+      "アプリの",
+      "機能その０",
+    ]);
   });
 
   it("ユーザーメニューをクリックすると、isActiveがtrueになる", async () => {

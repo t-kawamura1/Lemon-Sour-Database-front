@@ -23,8 +23,8 @@ describe("ModalDeleteUser component test", () => {
   });
 
   it("modalDeleteUserContents propsの[0]と[2]を子コンポーネントに渡している", () => {
-    expect(wrapper.find(".modal-title").exists()).toBeTruthy();
-    expect(wrapper.find(".button-user-submit").exists()).toBeTruthy();
+    expect(wrapper.find(".modal-title").text()).toBe("アカウント削除");
+    expect(wrapper.find(".button-user-submit").text()).toBe("ええで");
   });
 
   it("modalDeleteUserContents propsの[1]を表示している", () => {
