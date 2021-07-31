@@ -38,6 +38,7 @@ export default {};
   }
   .sp-user-main {
     margin-top: $header-height;
+    margin-bottom: $footer-height;
     padding: 0 30px;
   }
   .sp-footer {

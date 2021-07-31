@@ -43,9 +43,7 @@ export default {};
   }
   .sp-lemon-sour-main {
     margin-top: $header-height;
-    .sp-sour-container {
-      padding: 30px 0;
-    }
+    margin-bottom: $footer-height;
   }
   .sp-footer {
     position: fixed;

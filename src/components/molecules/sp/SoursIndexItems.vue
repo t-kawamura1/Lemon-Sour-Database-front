@@ -49,7 +49,7 @@ export default {
 .sp-sours-index-items {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 300px;
   .sp-index-item {
     width: 147px;

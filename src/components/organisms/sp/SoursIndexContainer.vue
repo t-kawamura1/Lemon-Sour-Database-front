@@ -23,7 +23,6 @@ export default {};
   flex-direction: column;
   align-items: center;
   .sp-container-heading {
-    font-size: 1.6rem;
     margin-bottom: 20px;
   }
   .sp-container-selects-set {

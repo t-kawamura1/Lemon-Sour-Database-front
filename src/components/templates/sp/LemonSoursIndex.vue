@@ -37,6 +37,7 @@ export default {};
   }
   .sp-sours-index-main {
     padding: 10px;
+    margin-bottom: $footer-height;
   }
   .sp-footer {
     position: fixed;

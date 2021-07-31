@@ -41,6 +41,7 @@ export default {};
   }
   .sp-home-main {
     margin-top: $header-height;
+    margin-bottom: $footer-height;
     padding: 30px 0;
   }
   .sp-footer {

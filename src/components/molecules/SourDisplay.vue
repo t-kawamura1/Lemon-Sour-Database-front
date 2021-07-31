@@ -27,7 +27,7 @@ export default {
 <style scoped lang="scss">
 .sour-display {
   .sour-display-name {
-    font-size: 2.4rem;
+    font-size: 2rem;
   }
 }
 </style>
