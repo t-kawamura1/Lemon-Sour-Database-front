@@ -1,8 +1,10 @@
 <template>
   <div class="sour-flags">
-    <div v-for="(flagAttribute, index) in flagAttributes" :key="index">
-      <zero-flag :flag-set="flagAttribute"></zero-flag>
-    </div>
+    <zero-flag
+      :flag-set="flagAttribute"
+      v-for="(flagAttribute, index) in flagAttributes"
+      :key="index"
+    ></zero-flag>
   </div>
 </template>
 

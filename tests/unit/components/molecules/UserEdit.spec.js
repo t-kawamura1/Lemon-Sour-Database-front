@@ -8,10 +8,22 @@ describe("UserEdit component test", () => {
       propsData: {
         editContents: [
           [
-            ["text", "ユーザー名", "name", "ストロングおじさん"],
-            ["email", "メールアドレス", "email", "strong@sour.com"],
-            ["password", "現在のパスワード", "current_password"],
-            ["password", "新しいパスワード(8文字以上)", "password"],
+            [
+              "ユーザー名",
+              ["text", "ユーザー名", "name", "ストロングおじさん"],
+            ],
+            [
+              "メルアド",
+              ["email", "メールアドレス", "email", "strong@sour.com"],
+            ],
+            [
+              "変更のとき必須",
+              ["password", "現在のパスワード", "current_password"],
+            ],
+            [
+              "変える場合入力",
+              ["password", "新しいパスワード(8文字以上)", "password"],
+            ],
           ],
           "登録",
           "アカウント削除だ！",
@@ -25,12 +37,23 @@ describe("UserEdit component test", () => {
     expect(wrapper.findAll(".error-message")).toHaveLength(3);
   });
 
-  it("editContents[0]の要素の数（配列の数）だけ、input-textコンポーネントをリストレンダリングする", () => {
+  it("editContents[0]の中の各配列[0]の数だけ、input-labelコンポーネントをリストレンダリングする", () => {
+    expect(wrapper.findAll(".input-label")).toHaveLength(4);
+  });
+
+  it("editContents[0]の中の各配列[1]の数だけ、input-textコンポーネントをリストレンダリングする", () => {
     expect(wrapper.findAll(".input-text")).toHaveLength(4);
   });
 
-  it("modalUserContents props[1]を子コンポーネントに渡している", () => {
-    expect(wrapper.find(".button-user-submit").exists()).toBeTruthy();
+  it("editContents[1]を子コンポーネントに渡している", () => {
+    expect(wrapper.find(".button-user-submit").text()).toBe("登録");
+  });
+
+  it("editContents[2]を表示しており、それをクリックするとmodalイベントとeditContents[2]がemitされる", async () => {
+    expect(wrapper.find(".user-edit-delete").text()).toBe("アカウント削除だ！");
+    await wrapper.find(".user-edit-delete").trigger("click");
+    expect(wrapper.emitted().modal).toBeTruthy();
+    expect(wrapper.emitted().modal[0][0]).toStrictEqual("アカウント削除だ！");
   });
 
   it("input-textに入力されるとuserDataが更新され、submitボタンを押すとsubmitUserイベントとそのuserDataがemitされる", async () => {
@@ -59,12 +82,5 @@ describe("UserEdit component test", () => {
       current_password: "aoi@inuyama3",
       password: "newaoi@inuyama3",
     });
-  });
-
-  it("editContents props[2]を表示し、それをクリックすると、modalイベントとそのprops自身がemitされる", async () => {
-    expect(wrapper.find(".user-edit-delete").text()).toBe("アカウント削除だ！");
-    await wrapper.find(".user-edit-delete").trigger("click");
-    expect(wrapper.emitted().modal).toBeTruthy();
-    expect(wrapper.emitted().modal[0][0]).toStrictEqual("アカウント削除だ！");
   });
 });

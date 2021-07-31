@@ -17,6 +17,9 @@
         <slot name="review-container"></slot>
       </div>
     </div>
+    <div class="pc-side-blank">
+      <slot name="side-blank"></slot>
+    </div>
   </div>
 </template>
 
@@ -32,13 +35,18 @@ export default {};
     position: fixed;
   }
   .pc-notice {
-    margin-left: $sidebar-width;
+    margin: 0 $sidebar-width;
   }
   .pc-lemon-sour-main {
-    padding: 60px 30px;
+    padding: 60px 10px;
     .pc-sour-container {
-      margin-left: $sidebar-width;
+      margin: 0 $sidebar-width;
     }
+  }
+  .pc-side-blank {
+    position: fixed;
+    top: 0;
+    right: 0;
   }
 }
 </style>

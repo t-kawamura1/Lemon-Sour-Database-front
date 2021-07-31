@@ -5,12 +5,12 @@ import flushPromises from "flush-promises";
 let wrapper;
 let $mq;
 let $router;
+let $route;
 let userData;
 
 beforeEach(() => {
-  $router = {
-    path: "",
-  };
+  $router = { path: "" };
+  $route = { name: "" };
   userData = {
     name: "テストユーザー",
     email: "test@sample.com",
@@ -26,6 +26,7 @@ describe("(pc display) User component test", () => {
       mocks: {
         $mq,
         $router,
+        $route,
       },
       stubs: ["font-awesome-icon"],
       propsData: {
@@ -116,6 +117,7 @@ describe("(sp display) User component test", () => {
       mocks: {
         $mq,
         $router,
+        $route,
       },
       stubs: ["font-awesome-icon"],
       propsData: {

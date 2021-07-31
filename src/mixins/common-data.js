@@ -36,23 +36,25 @@ export default {
       isAuthenticated: false,
       userId: "",
       authenticatedSidebarMenus: [
-        { name: "市販レモンサワーデータベース" },
-        { name: "アルコール摂取量計算" },
-        { name: "摂取量記録カレンダー" },
-        { name: "ユーザー情報", dropdown: "enabled" },
+        { name: ["市販レモンサワー", "データベース"] },
+        { name: ["アルコール摂取量", "計算"] },
+        { name: ["摂取量記録", "カレンダー"] },
+        { name: ["ユーザー情報", "ログアウト"], dropdown: "enabled" },
       ],
       unauthenticatedSidebarMenus: [
-        { name: "市販レモンサワーデータベース" },
-        { name: "アルコール摂取量計算" },
-        { name: "摂取量記録カレンダー" },
-        { name: "ユーザー登録・ログイン", dropdown: "enabled" },
+        { name: ["市販レモンサワー", "データベース"] },
+        { name: ["アルコール摂取量", "計算"] },
+        { name: ["摂取量記録", "カレンダー"] },
+        { name: ["ユーザー登録", "ログイン"], dropdown: "enabled" },
       ],
+      sidebarIcon: "lemon",
       headerIcons: ["lemon", "address-card"],
       footerIcons: [
         ["database", "LSDB"],
         ["calculator", "アルコール量計算"],
         ["calendar-alt", "摂取量記録"],
       ],
+      currentPageName: "",
     };
   },
 };

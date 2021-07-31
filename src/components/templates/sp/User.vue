@@ -31,20 +31,21 @@ export default {};
     position: fixed;
     width: 100%;
     height: $header-height;
-    z-index: 10;
+    z-index: $z-header;
   }
   .sp-notice {
     margin-top: $header-height;
   }
   .sp-user-main {
     margin-top: $header-height;
-    padding: 30px;
+    margin-bottom: $footer-height;
+    padding: 0 30px;
   }
   .sp-footer {
     position: fixed;
     width: 100%;
     height: $footer-height;
-    z-index: 10;
+    z-index: $z-footer;
     bottom: 0;
   }
 }

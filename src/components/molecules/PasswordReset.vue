@@ -68,20 +68,21 @@ export default {
 
 <style scoped lang="scss">
 .password-reset {
-  color: $font-color-bg-yellow;
+  color: $second-dark-yellow;
   .password-reset-form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 300px;
     .password-reset-error-message {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       text-align: left;
     }
     .password-reset-input-text {
       margin-top: 15px;
     }
     .password-reset-button-submit {
-      margin-top: 15px;
+      margin-top: 30px;
     }
   }
 }

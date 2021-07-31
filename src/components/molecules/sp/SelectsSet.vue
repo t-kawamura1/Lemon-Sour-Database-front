@@ -21,7 +21,7 @@
           @input="selectedOrder = $event"
         ></input-select>
       </div>
-      <button class="sp-search-button" type="submit">検索</button>
+      <button-search class="sp-search-button"></button-search>
     </form>
     <div
       class="sp-selects-errors"
@@ -36,11 +36,13 @@
 <script>
 import InputSelect from "@/components/atoms/InputSelect";
 import ErrorMessage from "@/components/atoms/ErrorMessage";
+import ButtonSearch from "@/components/atoms/ButtonSearch";
 
 export default {
   components: {
     InputSelect,
     ErrorMessage,
+    ButtonSearch,
   },
   data() {
     return {
@@ -73,23 +75,26 @@ export default {
 .sp-selects-set {
   .sp-selects-form {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     .sp-input-selects {
       display: flex;
-      flex-direction: column;
       .sp-input-select {
-        padding: 3px 0 3px 6px;
-        width: 150px;
-        font-size: 1.2rem;
+        padding: 3px 0;
+        width: 105px;
+        font-size: 1rem;
+        margin: 0 1px 10px 0;
       }
     }
     .sp-search-button {
-      font-size: 1.2rem;
+      padding: 3px 0;
+      font-size: 1rem;
+      width: 120px;
     }
   }
   .sp-selects-errors {
     margin-top: 10px;
     text-align: left;
-    // padding-left: 15px;
     font-size: 1.2rem;
   }
 }

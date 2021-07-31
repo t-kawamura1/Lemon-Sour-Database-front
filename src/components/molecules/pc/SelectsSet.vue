@@ -19,7 +19,7 @@
         :sort-values="selectsOrders"
         @input="selectedOrder = $event"
       ></input-select>
-      <button class="pc-search-button" type="submit">検索</button>
+      <button-search class="pc-search-button"></button-search>
     </form>
     <div
       class="pc-selects-errors"
@@ -34,11 +34,13 @@
 <script>
 import InputSelect from "@/components/atoms/InputSelect";
 import ErrorMessage from "@/components/atoms/ErrorMessage";
+import ButtonSearch from "@/components/atoms/ButtonSearch";
 
 export default {
   components: {
     InputSelect,
     ErrorMessage,
+    ButtonSearch,
   },
   data() {
     return {
@@ -71,21 +73,21 @@ export default {
 .pc-selects-set {
   .pc-selects-form {
     display: flex;
+    flex-wrap: wrap;
     margin-bottom: 15px;
     .pc-input-select {
       padding: 9px 0 9px 3px;
       width: 150px;
       font-size: 1.5rem;
+      margin: 0 6px 6px 0;
       &:hover {
         cursor: pointer;
       }
     }
     .pc-search-button {
-      width: 50px;
+      padding: 6px 0;
+      margin-bottom: 6px;
       font-size: 1.5rem;
-      &:hover {
-        cursor: pointer;
-      }
     }
   }
   .pc-selects-errors {

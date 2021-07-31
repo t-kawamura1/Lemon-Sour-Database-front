@@ -21,8 +21,9 @@ export default {};
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  align-items: flex-start;
   .pc-container-heading {
-    font-size: 2.7rem;
+    font-size: 2rem;
     margin-bottom: 45px;
   }
   .pc-container-selects-set {

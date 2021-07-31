@@ -57,7 +57,7 @@ export default {
     padding: 10px;
     margin: 0 10px 20px 0;
     .pc-item-name {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
     }
     .pc-item-image {
       width: 180px;

@@ -12,8 +12,8 @@ export default {
 
 <style scoped lang="scss">
 .the-notice {
-  background-color: $aged-yellow;
-  color: $font-color-bg-yellow;
+  background-color: $light-green;
+  color: $base-yellow;
   width: 100%;
   height: 45px;
   line-height: 45px;

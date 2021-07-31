@@ -19,12 +19,17 @@
       <template v-slot:sidebar>
         <the-sidebar>
           <template v-slot:title>
-            <app-title @link="toPageView"></app-title>
+            <app-title
+              :sidebar-icon-text="sidebarIcon"
+              :current-page="currentPageName"
+              @link="toPageView"
+            ></app-title>
           </template>
           <template v-slot:menus>
             <sidebar-menus-authenticated
               :menu-names="authenticatedSidebarMenus"
               :dropdown-functions="authenticatedUserFunctions"
+              :current-page="currentPageName"
               @link="toPageView"
               @submitUser="logout"
             ></sidebar-menus-authenticated>
@@ -53,6 +58,10 @@
             ></user-edit>
           </template>
         </user-container>
+      </template>
+      <!-- SIDE-BLANK -->
+      <template v-slot:side-blank>
+        <blank-side></blank-side>
       </template>
     </pc-user>
     <!-- DISPLAY SP -->
@@ -112,6 +121,7 @@
           <template v-slot:footer-icons>
             <footer-icons
               :footer-icons="footerIcons"
+              :current-page="currentPageName"
               @link="toPageView"
             ></footer-icons>
           </template>
@@ -133,13 +143,14 @@ import TheHeader from "@/components/organisms/TheHeader";
 import UserContainer from "@/components/organisms/UserContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalDeleteUser from "@/components/molecules/ModalDeleteUser";
+import AppTitle from "@/components/molecules/AppTitle";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import UserEdit from "@/components/molecules/UserEdit.vue";
 import FooterIcons from "@/components/molecules/FooterIcons";
-import AppTitle from "@/components/atoms/AppTitle";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
+import BlankSide from "@/components/atoms/BlankSide";
 
 export default {
   mixins: [CommonData, CommonMethods],
@@ -159,6 +170,7 @@ export default {
     AppTitle,
     TheNotice,
     TheHeading,
+    BlankSide,
   },
   props: {
     currentUser: Object,
@@ -169,10 +181,19 @@ export default {
       userEditErrors: [],
       userEditContents: [
         [
-          ["text", "ユーザー名", "name", this.currentUser.name],
-          ["email", "メールアドレス", "email", this.currentUser.email],
-          ["password", "現在のパスワード", "current_password"],
-          ["password", "新しいパスワード(8文字以上)", "password"],
+          ["ユーザー名", ["text", "ユーザー名", "name", this.currentUser.name]],
+          [
+            "メールアドレス",
+            ["email", "メールアドレス", "email", this.currentUser.email],
+          ],
+          [
+            "ユーザー名・パスワードを変更する場合は必須",
+            ["password", "現在のパスワード", "current_password"],
+          ],
+          [
+            "現在のパスワードを変更する場合は入力してください",
+            ["password", "新しいパスワード(8文字以上)", "password"],
+          ],
         ],
         "登録",
         "ユーザーアカウント削除",
@@ -192,14 +213,17 @@ export default {
           this.$router.push("/");
           break;
         case this.unauthenticatedSidebarMenus[0].name:
+        case this.authenticatedSidebarMenus[0].name:
         case this.footerIcons[0][0]:
           this.$router.push("/lemon_sours");
           break;
         case this.unauthenticatedSidebarMenus[1].name:
+        case this.authenticatedSidebarMenus[1].name:
         case this.footerIcons[1][0]:
           // 計算画面へ。実装後に追加
           break;
         case this.unauthenticatedSidebarMenus[2].name:
+        case this.authenticatedSidebarMenus[2].name:
         case this.footerIcons[2][0]:
           // カレンダーへ。実装後に追加
           break;
@@ -242,7 +266,8 @@ export default {
         });
     },
   },
+  created() {
+    this.markCurrentPage();
+  },
 };
 </script>
-
-<style scoped lang="scss"></style>

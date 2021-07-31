@@ -9,7 +9,9 @@ describe("SourDisplay component test", () => {
         sourImage: "@/assets/test/ls_test_sample.png",
       },
     });
-    expect(wrapper.find(".display-name").exists()).toBe(true);
-    expect(wrapper.find(".display-image").exists()).toBe(true);
+    expect(wrapper.find(".sour-display-name").text()).toBe("ストロングゼロ");
+    expect(wrapper.find(".sour-display-image").attributes().src).toBe(
+      "@/assets/test/ls_test_sample.png"
+    );
   });
 });

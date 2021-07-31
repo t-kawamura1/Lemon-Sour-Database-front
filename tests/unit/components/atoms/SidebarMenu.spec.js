@@ -5,9 +5,9 @@ describe("SidebarMenu component test", () => {
   it("menuNameText propsを表示する", () => {
     const wrapper = mount(SidebarMenu, {
       propsData: {
-        menuNameText: "test menu name",
+        menuNameText: ["いちごサワー", "データベース"],
       },
     });
-    expect(wrapper.text()).toBe("test menu name");
+    expect(wrapper.text()).toBe("いちごサワー データベース");
   });
 });

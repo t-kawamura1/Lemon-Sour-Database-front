@@ -18,6 +18,7 @@ describe("PcSelectsSet component test", () => {
         selectsOrders: ["度数高い順", "果汁少ない順", "カロリー高い順"],
         errorMessages: ["何か入れてね", "エラーだよ"],
       },
+      stubs: ["font-awesome-icon"],
     });
     selects = wrapper.findAll("select");
     optionsManufacturers = selects.at(0).findAll("option");

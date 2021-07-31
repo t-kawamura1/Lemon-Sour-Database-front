@@ -1,6 +1,7 @@
 <template>
   <div class="footer-icons">
     <div
+      class="footer-icons-set"
       v-for="(footerIcon, index) in footerIcons"
       :key="index"
       @click="$emit('link', footerIcon[0])"
@@ -20,6 +21,17 @@ export default {
   },
   props: {
     footerIcons: Array,
+    currentPage: String,
+  },
+  mounted() {
+    const footerMenus = document.querySelectorAll(".footer-icons-set");
+    if (this.currentPage == "データベース") {
+      footerMenus[0].classList.add("isCurrentPage");
+    } else if (this.currentPage == "計算") {
+      footerMenus[1].classList.add("isCurrentPage");
+    } else if (this.currentPage == "記録") {
+      footerMenus[2].classList.add("isCurrentPage");
+    }
   },
 };
 </script>
@@ -31,14 +43,19 @@ export default {
   padding: 0 15px;
   justify-content: space-around;
   align-items: center;
-  color: $font-color-bg-yellow;
+  color: $second-dark-yellow;
   background-color: $base-yellow;
-  .footer-icon {
-    font-size: 4.5rem;
-    margin-bottom: 6px;
+  .footer-icons-set {
+    .footer-icon {
+      font-size: 4.5rem;
+      margin-bottom: 6px;
+    }
+    .footer-icon-title {
+      font-size: 1.5rem;
+    }
   }
-  .footer-icon-title {
-    font-size: 1.5rem;
+  .isCurrentPage {
+    color: $aged-yellow;
   }
 }
 </style>

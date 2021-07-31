@@ -49,6 +49,7 @@ export default {
   props: {
     menuNames: Array,
     dropdownFunctions: Array,
+    currentPage: String,
   },
   data() {
     return {
@@ -60,14 +61,34 @@ export default {
       return (this.isActive = !this.isActive);
     },
   },
+  mounted() {
+    const otherMenus = document.querySelectorAll(
+      ".authenticated-menu-without-dropdown"
+    );
+    const userMenu = document.querySelector(
+      ".authenticated-menu-with-dropdown"
+    );
+    if (this.currentPage == "データベース") {
+      otherMenus[0].classList.add("isCurrentPage");
+    } else if (this.currentPage == "計算") {
+      otherMenus[1].classList.add("isCurrentPage");
+    } else if (this.currentPage == "記録") {
+      otherMenus[2].classList.add("isCurrentPage");
+    }
+    if (this.currentPage == "ユーザー") {
+      userMenu.classList.add("isCurrentPage");
+    }
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .authenticated-sidebar-menu {
-  margin-bottom: 45px;
+  color: $second-dark-yellow;
+  margin-bottom: 54px;
   &:hover {
     cursor: pointer;
+    color: $aged-yellow;
   }
   .authenticated-menu-with-dropdown {
     position: relative;
@@ -75,22 +96,24 @@ export default {
       position: absolute;
       display: none;
       background-color: $base-yellow;
-      color: $font-color-bg-yellow;
-      top: 50px;
+      color: $second-dark-yellow;
+      top: 54px;
       right: -20px;
       list-style: none;
       padding: 0;
       .authenticated-menu-dropdown-list {
-        padding: 6px 12px;
+        padding: 9px 12px;
         cursor: pointer;
-        &:first-child {
-          border-bottom: 1px solid $font-color-bg-yellow;
-        }
+        font-weight: 700;
+        border-bottom: 1px solid $aged-yellow;
       }
     }
     .isActive {
       display: block;
     }
+  }
+  .isCurrentPage {
+    color: $aged-yellow;
   }
 }
 </style>

@@ -10,14 +10,22 @@
         :key="`error-${index}`"
         :error-message-text="errorMessage"
       ></error-message>
-      <input-text
-        class="user-edit-input-text"
-        ref="focusThis"
+      <div
+        class="user-edit-input-set"
         v-for="(inputAttributesArray, index) in editContents[0]"
         :key="`input-${index}`"
-        :input-attributes="inputAttributesArray"
-        @input="substituteUserData"
-      ></input-text>
+      >
+        <input-label
+          class="user-edit-input-label"
+          :label-text="inputAttributesArray[0]"
+        ></input-label>
+        <input-text
+          class="user-edit-input-text"
+          ref="focusThis"
+          :input-attributes="inputAttributesArray[1]"
+          @input="substituteUserData"
+        ></input-text>
+      </div>
       <button-user-submit
         class="user-edit-button-submit"
         :user-submit-text="editContents[1]"
@@ -30,12 +38,14 @@
 </template>
 
 <script>
+import InputLabel from "@/components/atoms/InputLabel";
 import InputText from "@/components/atoms/InputText";
 import ButtonUserSubmit from "@/components/atoms/ButtonUserSubmit";
 import ErrorMessage from "@/components/atoms/ErrorMessage";
 
 export default {
   components: {
+    InputLabel,
     InputText,
     ButtonUserSubmit,
     ErrorMessage,
@@ -78,17 +88,27 @@ export default {
 
 <style scoped lang="scss">
 .user-edit {
-  color: $font-color-bg-yellow;
-  width: 300px;
+  color: $second-dark-yellow;
+  width: 320px;
   .user-edit-form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     .user-edit-error-message {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       text-align: left;
     }
-    .user-edit-input-text {
-      margin-top: 15px;
+    .user-edit-input-set {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      .user-edit-input-label {
+        padding-left: 6px;
+      }
+      .user-edit-input-text {
+        margin: 6px 0 20px;
+      }
     }
     .user-edit-button-submit {
       margin-top: 15px;
@@ -98,6 +118,9 @@ export default {
     margin-top: 30px;
     cursor: pointer;
     text-align: right;
+    &:hover {
+      color: $error-red;
+    }
   }
 }
 </style>

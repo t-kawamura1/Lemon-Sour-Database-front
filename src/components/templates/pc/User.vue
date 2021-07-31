@@ -12,6 +12,9 @@
     <div class="pc-user-main">
       <slot name="user-container"></slot>
     </div>
+    <div class="pc-side-blank">
+      <slot name="side-blank"></slot>
+    </div>
   </div>
 </template>
 
@@ -21,17 +24,20 @@ export default {};
 
 <style scoped lang="scss">
 .template-pc-user {
-  display: flex;
-  flex-direction: column;
   .pc-sidebar {
     position: fixed;
   }
   .pc-notice {
-    margin-left: $sidebar-width;
+    margin: 0 $sidebar-width;
   }
   .pc-user-main {
-    padding: 60px 30px;
-    margin-left: $sidebar-width;
+    margin: 0 $sidebar-width;
+    padding-top: 60px;
+  }
+  .pc-side-blank {
+    position: fixed;
+    top: 0;
+    right: 0;
   }
 }
 </style>

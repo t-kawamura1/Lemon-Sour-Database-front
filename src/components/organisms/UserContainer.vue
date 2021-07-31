@@ -17,8 +17,9 @@ export default {};
 .user-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   .user-container-heading {
-    font-size: 2.7rem;
+    font-size: 2rem;
     margin-bottom: 30px;
   }
 }

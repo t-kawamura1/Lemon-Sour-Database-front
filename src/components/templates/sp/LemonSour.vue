@@ -36,22 +36,20 @@ export default {};
     position: fixed;
     width: 100%;
     height: $header-height;
-    z-index: 10;
+    z-index: $z-header;
   }
   .sp-notice {
     margin-top: $header-height;
   }
   .sp-lemon-sour-main {
     margin-top: $header-height;
-    .sp-sour-container {
-      padding: 30px 0;
-    }
+    margin-bottom: $footer-height;
   }
   .sp-footer {
     position: fixed;
     width: 100%;
     height: $footer-height;
-    z-index: 10;
+    z-index: $z-footer;
     bottom: 0;
   }
 }

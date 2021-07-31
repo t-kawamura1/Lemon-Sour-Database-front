@@ -11,5 +11,9 @@ export default {};
 <style scoped lang="scss">
 .button-close {
   cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: $font-color-bg-white;
 }
 </style>

@@ -1,10 +1,20 @@
 // ---------key color-----------
 $aged-yellow: #f39800;
 $base-yellow: #fff462;
-$base-complementary: #616bff;
-$font-color-bg-yellow: #666227;
+$little-deep-yellow: #ffdc00;
+
+// base-yellowから明度のみ変化
+$darkest-yellow: #333113;
+$second-dark-yellow: #666227;
+$third-dark-yellow: #99933a;
+$fourth-dark-yellow:#ccc44e;
+
+// base-yellowから彩度のみ変化
+$lightest-yellow: #fffccc;
+
+$base-yellow-complementary: #616bff;
 $font-color-bg-white: #404040;
-$font-color-error: #ff616b;
+$error-red: #ff616b;
 $dark-green: #0c5f41;
 $light-green: #8dc21f;
 // -----------------------------
@@ -14,4 +24,11 @@ $sidebar-width: 240px;
 $header-height: 60px;
 $footer-height: 90px;
 $sour-column-width: 360px;
+// -----------------------------
+
+// ----------z-index------------
+$z-overlay: 20;
+$z-modal: 21;
+$z-header: 10;
+$z-footer: 10;
 // -----------------------------

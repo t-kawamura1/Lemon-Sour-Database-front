@@ -1,7 +1,5 @@
 <template>
-  <div class="sour-image">
-    <img :src="sourImageUrl" alt="レモンサワーの画像" />
-  </div>
+  <img class="sour-image" :src="sourImageUrl" alt="レモンサワーの画像" />
 </template>
 
 <script>
