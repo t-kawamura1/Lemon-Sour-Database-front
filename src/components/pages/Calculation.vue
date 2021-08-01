@@ -75,9 +75,8 @@
               :calculation-supplement-text="calculationSupplement"
               :select-type="selectTypeText"
               :registered-sours="registeredSoursNames"
-              :alcohol-inputs="alcoholInputAttributes"
+              :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
-              :drinks-capacity="drinksCapacityLabels"
               :calc-buttons="calcButtonsTexts"
             ></calculate-alcohol>
           </template>
@@ -238,12 +237,15 @@ export default {
       ],
       selectTypeText: "レモンサワーを選択",
       registeredSoursNames: ["-", "仮レモン", "仮サワー", "キリン・ザ・ストロング　麒麟特性レモンサワー"],
-      alcoholInputAttributes: [
+      alcoholInputContents: [
         ["度数", 0.5, 0.5, 13],
-        ["本数", 1, 1, 100]
+        [
+          { label: "350ml", attributes: ["本数", 1, 1, 100] },
+          { label: "400ml", attributes: ["本数", 1, 1, 100] },
+          { label: "500ml", attributes: ["本数", 1, 1, 100] },
+        ],
       ],
       calculationIcons: ["times", "arrow-right"],
-      drinksCapacityLabels: ["350ml", "400ml", "500ml"],
       calcButtonsTexts: ["結果を記録する（登録ユーザーのみ）", "Twitterシェア"],
     };
   },
