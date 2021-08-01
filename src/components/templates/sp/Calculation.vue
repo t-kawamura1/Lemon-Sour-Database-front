@@ -39,7 +39,7 @@ export default {};
   .sp-calculation-main {
     margin-top: $header-height;
     margin-bottom: $footer-height;
-    padding: 0 30px;
+    padding: 0 10px;
   }
   .sp-footer {
     position: fixed;

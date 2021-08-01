@@ -7,7 +7,7 @@
     :min="inputNumberAttributes[2]"
     :max="inputNumberAttributes[3]"
     @change="$emit('input', $event)"
-  >
+  />
 </template>
 
 <script>

@@ -72,9 +72,9 @@
           </template>
           <template v-slot:calculation-calculate-alcohol>
             <calculate-alcohol
-              :calculation-supplement-text="calculationSupplement"
-              :select-type="selectTypeText"
-              :registered-sours="registeredSoursNames"
+              :calculation-supplement-texts="calculationSupplement"
+              :sours-select="soursSelectSet"
+              :lemon-sours="lemonSoursData"
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
               :calc-buttons="calcButtonsTexts"
@@ -157,7 +157,14 @@
             <the-heading :heading-text="heading"></the-heading>
           </template>
           <template v-slot:calculation-calculate-alcohol>
-            <calculate-alcohol></calculate-alcohol>
+            <calculate-alcohol
+              :calculation-supplement-texts="calculationSupplement"
+              :sours-select="soursSelectSet"
+              :lemon-sours="lemonSoursData"
+              :alcohol-inputs="alcoholInputContents"
+              :icon-texts="calculationIcons"
+              :calc-buttons="calcButtonsTexts"
+            ></calculate-alcohol>
           </template>
         </calculation-container>
       </template>
@@ -178,7 +185,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 import CommonData from "@/mixins/common-data";
 import CommonMethods from "@/mixins/common-methods";
 import PcCalculation from "@/components/templates/pc/Calculation";
@@ -230,13 +237,10 @@ export default {
         "※ 純アルコール量で算定。この文章をクリックすると計算式・摂取目安量を表示",
         "量(ml) × 度数/100 × 0.8 = 純アルコール量(g)",
         "節度ある適切な飲酒量： 1日当たり20g程度",
-        [
-          "生活習慣病のリスクを高める飲酒量：",
-          "男性 40g以上、 女性 20g以上"
-        ],
+        ["生活習慣病のリスクを高める飲酒量：", "男性 40g以上、 女性 20g以上"],
       ],
-      selectTypeText: "レモンサワーを選択",
-      registeredSoursNames: ["-", "仮レモン", "仮サワー", "キリン・ザ・ストロング　麒麟特性レモンサワー"],
+      soursSelectSet: ["ー", ["レモンサワーを選択"]],
+      lemonSoursData: [],
       alcoholInputContents: [
         ["度数", 0.5, 0.5, 13],
         [
@@ -277,6 +281,17 @@ export default {
     },
   },
   created() {
+    axios
+      .get("/api/v1/lemon_sours")
+      .then((res) => {
+        for (let index = 0; index < res.data.length; index++) {
+          this.soursSelectSet[1].push(res.data[index].name);
+        }
+        this.lemonSoursData = res.data;
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
     this.checkAuthenticated();
     this.markCurrentPage();
   },

@@ -8,7 +8,7 @@
 export default {
   props: {
     buttonCalcRecText: String,
-  }
+  },
 };
 </script>
 

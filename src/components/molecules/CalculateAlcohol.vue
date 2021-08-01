@@ -1,13 +1,14 @@
 <template>
   <div class="calculate-alcohol">
     <p class="calculate-alcohol-heading-explanation">
-      {{ calculationSupplementText[0] }}
+      {{ calculationSupplementTexts[0] }}
     </p>
     <error-message></error-message>
     <input-select
       class="calculate-alcohol-sour-select"
-      :sort-type="selectType"
-      :sort-values="registeredSours"
+      :sort-type="soursSelect[0]"
+      :sort-values="soursSelect[1]"
+      @input="setAlcoholContent"
     ></input-select>
     <div class="calculate-alcohol-formula-box">
       <div class="calculate-alcohol-flex-unit1-box">
@@ -77,26 +78,34 @@
       </div>
     </div>
     <div class="calculate-alcohol-result-box">
-      <icon class="calculate-alcohol-arrow-icon" :icon-text="iconTexts[1]"></icon>
-      <span class="calculate-alcohol-calculation-result">{{ sumPureAlcohol }}</span>
+      <icon
+        class="calculate-alcohol-arrow-icon"
+        :icon-text="iconTexts[1]"
+      ></icon>
+      <span class="calculate-alcohol-calculation-result">{{
+        sumPureAlcohol
+      }}</span>
       <span class="calculate-alcohol-input-unit">g</span>
     </div>
 
-    <div class="calculate-alcohol-supplement-button" @click="isActive = !isActive">
-      {{ calculationSupplementText[1] }}
+    <div
+      class="calculate-alcohol-supplement-button"
+      @click="isActive = !isActive"
+    >
+      {{ calculationSupplementTexts[1] }}
     </div>
     <div class="calculate-alcohol-supplement-box" v-show="isActive">
       <p class="calculate-alcohol-supplement-formula">
-        {{ calculationSupplementText[2] }}
+        {{ calculationSupplementTexts[2] }}
       </p>
       <p class="calculate-alcohol-supplement-appropriate">
-        {{ calculationSupplementText[3] }}
+        {{ calculationSupplementTexts[3] }}
       </p>
       <p class="calculate-alcohol-supplement-lisky">
-        {{ calculationSupplementText[4][0] }}
+        {{ calculationSupplementTexts[4][0] }}
       </p>
       <p class="calculate-alcohol-supplement-gender">
-        {{ calculationSupplementText[4][1] }}
+        {{ calculationSupplementTexts[4][1] }}
       </p>
     </div>
     <button-calculation-record
@@ -124,15 +133,16 @@ export default {
     ButtonCalculationRecord,
   },
   props: {
-    calculationSupplementText: Array,
-    selectType: String,
-    registeredSours: Array,
+    calculationSupplementTexts: Array,
+    soursSelect: Array,
+    lemonSours: Array,
     alcoholInputs: Array,
     iconTexts: Array,
     calcButtons: Array,
   },
   data() {
     return {
+      soursSelectBox: [],
       calculationResult: 0,
       alcContent350: 0,
       alcContent400: 0,
@@ -144,31 +154,51 @@ export default {
       result400: 0,
       result500: 0,
       isActive: false,
-    }
+    };
+  },
+  methods: {
+    setAlcoholContent(sourName) {
+      const selectedAlcContent = this.lemonSours.find(
+        (ele) => ele.name == sourName
+      ).alcohol_content;
+      document.querySelectorAll(".calculate-alcohol-content-input")[0].value =
+        selectedAlcContent;
+      document.querySelectorAll(".calculate-alcohol-content-input")[1].value =
+        selectedAlcContent;
+      document.querySelectorAll(".calculate-alcohol-content-input")[2].value =
+        selectedAlcContent;
+      this.alcContent350 = selectedAlcContent;
+      this.alcContent400 = selectedAlcContent;
+      this.alcContent500 = selectedAlcContent;
+    },
   },
   computed: {
     sumPureAlcohol() {
-      return (parseFloat(this.result350) + parseFloat(this.result400) + parseFloat(this.result500)).toFixed(1)
-    }
+      return (
+        parseFloat(this.result350) +
+        parseFloat(this.result400) +
+        parseFloat(this.result500)
+      ).toFixed(1);
+    },
   },
   watch: {
-    alcContent350: function(newValue) {
-      this.result350 = this.drinks350 * newValue / 100 * 0.8
+    alcContent350: function (newValue) {
+      this.result350 = ((this.drinks350 * newValue) / 100) * 0.8;
     },
-    alcContent400: function(newValue) {
-      this.result400 = this.drinks400 * newValue / 100 * 0.8
+    alcContent400: function (newValue) {
+      this.result400 = ((this.drinks400 * newValue) / 100) * 0.8;
     },
-    alcContent500: function(newValue) {
-      this.result500 = this.drinks500 * newValue / 100 * 0.8
+    alcContent500: function (newValue) {
+      this.result500 = ((this.drinks500 * newValue) / 100) * 0.8;
     },
-    drinks350: function(newValue) {
-      this.result350 = newValue * this.alcContent350 / 100 * 0.8
+    drinks350: function (newValue) {
+      this.result350 = ((newValue * this.alcContent350) / 100) * 0.8;
     },
-    drinks400: function(newValue) {
-      this.result400 = newValue * this.alcContent400 / 100 * 0.8
+    drinks400: function (newValue) {
+      this.result400 = ((newValue * this.alcContent400) / 100) * 0.8;
     },
-    drinks500: function(newValue) {
-      this.result500 = newValue * this.alcContent500 / 100 * 0.8
+    drinks500: function (newValue) {
+      this.result500 = ((newValue * this.alcContent500) / 100) * 0.8;
     },
   },
 };
@@ -182,6 +212,7 @@ export default {
   color: $font-color-bg-white;
   .calculate-alcohol-heading-explanation {
     margin-bottom: 30px;
+    text-align: left;
   }
   .calculate-alcohol-sour-select {
     padding: 9px 0 9px 3px;
@@ -207,7 +238,7 @@ export default {
         align-items: center;
         font-size: 1.6rem;
         .calculate-alcohol-content-input {
-          padding: 9px 0 9px 9px;
+          padding: 9px 9px 9px 9px;
         }
       }
     }
@@ -226,7 +257,7 @@ export default {
         align-items: center;
         font-size: 1.6rem;
         .calculate-alcohol-drinks-input {
-          padding: 9px 0 9px 9px;
+          padding: 9px 9px 9px 9px;
         }
       }
     }
@@ -249,10 +280,10 @@ export default {
     margin-bottom: 20px;
     cursor: pointer;
     color: $third-dark-yellow;
+    text-align: left;
     &:hover {
       opacity: 0.7;
     }
-
   }
   .calculate-alcohol-supplement-box {
     height: 100px;
@@ -260,8 +291,9 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    text-align: left;
   }
-  .button-calculation-record {
+  .calculate-alcohol-calc-rec-button {
     margin-top: 45px;
     font-size: 1.6rem;
   }
