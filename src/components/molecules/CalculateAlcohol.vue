@@ -37,9 +37,13 @@
           <span class="calculate-alcohol-input-unit">%</span>
         </div>
       </div>
-      <icon class="calculate-alcohol-x-icon" :icon-text="iconTexts[0]"></icon>
       <div class="calculate-alcohol-flex-unit2-box">
-        <div class="calculate-alcohol-flex-unit2">
+        <icon class="calculate-alcohol-x-icon" :icon-text="iconTexts[0]"></icon>
+        <icon class="calculate-alcohol-x-icon" :icon-text="iconTexts[0]"></icon>
+        <icon class="calculate-alcohol-x-icon" :icon-text="iconTexts[0]"></icon>
+      </div>
+      <div class="calculate-alcohol-flex-unit3-box">
+        <div class="calculate-alcohol-flex-unit3">
           <input-label
             class="calculate-alcohol-capacity-label"
             :label-text="alcoholInputs[1][0].label"
@@ -51,7 +55,7 @@
           ></input-number>
           <span class="calculate-alcohol-input-unit">本</span>
         </div>
-        <div class="calculate-alcohol-flex-unit2">
+        <div class="calculate-alcohol-flex-unit3">
           <input-label
             class="calculate-alcohol-capacity-label"
             :label-text="alcoholInputs[1][1].label"
@@ -63,7 +67,7 @@
           ></input-number>
           <span class="calculate-alcohol-input-unit">本</span>
         </div>
-        <div class="calculate-alcohol-flex-unit2">
+        <div class="calculate-alcohol-flex-unit3">
           <input-label
             class="calculate-alcohol-capacity-label"
             :label-text="alcoholInputs[1][2].label"
@@ -112,6 +116,10 @@
       class="calculate-alcohol-calc-rec-button"
       :button-calc-rec-text="calcButtons[0]"
     ></button-calculation-record>
+    <button-twitter
+      class="calculate-alcohol-tweet-button"
+      :pure-alc="sumPureAlcohol"
+    ></button-twitter>
   </div>
 </template>
 
@@ -122,6 +130,7 @@ import InputNumber from "@/components/atoms/InputNumber";
 import InputLabel from "@/components/atoms/InputLabel";
 import Icon from "@/components/atoms/Icon";
 import ButtonCalculationRecord from "@/components/atoms/ButtonCalculationRecord";
+import ButtonTwitter from "@/components/atoms/ButtonTwitter";
 
 export default {
   components: {
@@ -131,6 +140,7 @@ export default {
     InputLabel,
     Icon,
     ButtonCalculationRecord,
+    ButtonTwitter,
   },
   props: {
     calculationSupplementTexts: Array,
@@ -241,16 +251,22 @@ export default {
         }
       }
     }
-    .calculate-alcohol-x-icon {
-      font-size: 2.4rem;
-    }
     .calculate-alcohol-flex-unit2-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 105px;
+      .calculate-alcohol-x-icon {
+        font-size: 2rem;
+      }
+    }
+    .calculate-alcohol-flex-unit3-box {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       width: 42%;
       height: 120px;
-      .calculate-alcohol-flex-unit2 {
+      .calculate-alcohol-flex-unit3 {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -294,7 +310,11 @@ export default {
   }
   .calculate-alcohol-calc-rec-button {
     margin-top: 45px;
+    margin-bottom: 30px;
     font-size: 1.6rem;
+  }
+  .calculate-alcohol-tweet-button {
+    margin-bottom: 30px;
   }
 }
 </style>
