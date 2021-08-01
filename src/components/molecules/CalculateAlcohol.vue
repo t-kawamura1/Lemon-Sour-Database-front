@@ -82,9 +82,9 @@
         class="calculate-alcohol-arrow-icon"
         :icon-text="iconTexts[1]"
       ></icon>
-      <span class="calculate-alcohol-calculation-result">{{
-        sumPureAlcohol
-      }}</span>
+      <span class="calculate-alcohol-calculation-result">
+        {{ sumPureAlcohol }}
+      </span>
       <span class="calculate-alcohol-input-unit">g</span>
     </div>
 
@@ -143,7 +143,6 @@ export default {
   data() {
     return {
       soursSelectBox: [],
-      calculationResult: 0,
       alcContent350: 0,
       alcContent400: 0,
       alcContent500: 0,

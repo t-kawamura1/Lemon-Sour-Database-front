@@ -244,9 +244,9 @@ export default {
       alcoholInputContents: [
         ["度数", 0.5, 0.5, 13],
         [
-          { label: "350ml", attributes: ["本数", 1, 1, 100] },
-          { label: "400ml", attributes: ["本数", 1, 1, 100] },
-          { label: "500ml", attributes: ["本数", 1, 1, 100] },
+          { label: "350ml", attributes: ["本数", 1, 0, 100] },
+          { label: "400ml", attributes: ["本数", 1, 0, 100] },
+          { label: "500ml", attributes: ["本数", 1, 0, 100] },
         ],
       ],
       calculationIcons: ["times", "arrow-right"],
