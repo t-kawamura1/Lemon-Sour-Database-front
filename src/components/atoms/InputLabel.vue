@@ -10,8 +10,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.input-label {
-  font-size: 1.3rem;
-}
-</style>
+<style scoped lang="scss"></style>

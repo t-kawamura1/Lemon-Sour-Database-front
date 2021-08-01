@@ -105,6 +105,7 @@ export default {
       align-items: flex-start;
       .user-edit-input-label {
         padding-left: 6px;
+        font-size: 1.3rem;
       }
       .user-edit-input-text {
         margin: 6px 0 20px;
