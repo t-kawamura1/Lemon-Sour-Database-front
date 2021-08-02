@@ -30,7 +30,8 @@
     "vue-i18n": "^8.24.4",
     "vue-jest": "^3.0.7",
     "vue-mq": "^1.0.1",
-    "vue-router": "^3.2.0"
+    "vue-router": "^3.2.0",
+    "vuejs-datepicker": "^1.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

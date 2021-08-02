@@ -3,6 +3,18 @@
     <p class="calculate-alcohol-heading-explanation">
       {{ calculationSupplementTexts[0] }}
     </p>
+    <vuejs-datepicker
+      class="drinking-date"
+      input-class="dp-input"
+      calendar-class="dp-calendar"
+      :value="today"
+      :format="'yyyy-MM-dd'"
+      :monday-first="true"
+      name="drinking_day"
+      :language="ja"
+      :typeable="true"
+      :clear-button="true"
+    ></vuejs-datepicker>
     <input-select
       class="calculate-alcohol-sour-select"
       :sort-type="soursSelect[0]"
@@ -123,6 +135,8 @@
 </template>
 
 <script>
+import VuejsDatepicker from "vuejs-datepicker";
+import { ja } from "vuejs-datepicker/dist/locale";
 import InputSelect from "@/components/atoms/InputSelect";
 import InputNumber from "@/components/atoms/InputNumber";
 import InputLabel from "@/components/atoms/InputLabel";
@@ -132,6 +146,7 @@ import ButtonTwitter from "@/components/atoms/ButtonTwitter";
 
 export default {
   components: {
+    VuejsDatepicker,
     InputSelect,
     InputNumber,
     InputLabel,
@@ -149,6 +164,8 @@ export default {
   },
   data() {
     return {
+      today: "",
+      ja: ja,
       soursSelectBox: [],
       alcContent350: 0,
       alcContent400: 0,
@@ -206,6 +223,13 @@ export default {
     drinks500: function (newValue) {
       this.result500 = ((newValue * this.alcContent500) / 100) * 0.8;
     },
+  },
+  created() {
+    const today = new Date();
+    const year = today.getFullYear().toString();
+    const month = (today.getMonth() + 1).toString();
+    const day = today.getDate().toString();
+    this.today = year + "-" + month + "-" + day;
   },
 };
 </script>
@@ -312,6 +336,40 @@ export default {
   }
   .calculate-alcohol-tweet-button {
     margin-bottom: 30px;
+  }
+}
+</style>
+
+<style lang="scss">
+// scopedではdatepickerにスタイルが当たらないため分けて書く。
+.drinking-date {
+  margin-bottom: 15px;
+  color: $font-color-bg-white;
+  .dp-input {
+    width: 300px;
+    padding: 9px;
+    font-size: 1.5rem;
+    border: 1px solid $second-dark-yellow;
+    border-radius: 6px;
+  }
+  .dp-calendar {
+    border: 1px solid $second-dark-yellow;
+    border-radius: 6px;
+    .cell {
+      &:not(.blank):not(.disabled).day,
+      &:not(.blank):not(.disabled).month,
+      &:not(.blank):not(.disabled).year {
+        &:hover {
+          border: 1px solid $aged-yellow;
+        }
+      }
+      &.selected {
+        background: $aged-yellow;
+        &:hover {
+          background: $aged-yellow;
+        }
+      }
+    }
   }
 }
 </style>
