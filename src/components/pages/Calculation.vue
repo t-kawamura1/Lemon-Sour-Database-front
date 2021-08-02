@@ -1,7 +1,7 @@
 <template>
-  <div class="page-home">
+  <div class="page-calculation">
     <!-- DISPLAY PC -->
-    <pc-home v-if="$mq === 'pc'">
+    <pc-calculation v-if="$mq === 'pc'">
       <!-- MODAL -->
       <template v-slot:modal>
         <the-modal>
@@ -64,13 +64,31 @@
           v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
-      <!-- HOME-CONTAINER -->
-      <template v-slot:home-container>
-        <home-container></home-container>
+      <!-- CALCULATION-CONTAINER -->
+      <template v-slot:calculation-container>
+        <calculation-container>
+          <template v-slot:calculation-heading>
+            <the-heading :heading-text="heading"></the-heading>
+          </template>
+          <template v-slot:calculation-calculate-alcohol>
+            <calculate-alcohol
+              :calculation-supplement-texts="calculationSupplement"
+              :sours-select="soursSelectSet"
+              :lemon-sours="lemonSoursData"
+              :alcohol-inputs="alcoholInputContents"
+              :icon-texts="calculationIcons"
+              :calc-button="calcButtonText"
+            ></calculate-alcohol>
+          </template>
+        </calculation-container>
       </template>
-    </pc-home>
+      <!-- SIDE-BLANK -->
+      <template v-slot:side-blank>
+        <blank-side></blank-side>
+      </template>
+    </pc-calculation>
     <!-- DISPLAY SP -->
-    <sp-home v-if="$mq === 'sp'">
+    <sp-calculation v-if="$mq === 'sp'">
       <!-- MODAL -->
       <template v-slot:modal>
         <the-modal>
@@ -132,9 +150,23 @@
           v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
-      <!-- HOME-CONTAINER -->
-      <template v-slot:home-container>
-        <home-container></home-container>
+      <!-- CALCULATION-CONTAINER -->
+      <template v-slot:calculation-container>
+        <calculation-container>
+          <template v-slot:calculation-heading>
+            <the-heading :heading-text="heading"></the-heading>
+          </template>
+          <template v-slot:calculation-calculate-alcohol>
+            <calculate-alcohol
+              :calculation-supplement-texts="calculationSupplement"
+              :sours-select="soursSelectSet"
+              :lemon-sours="lemonSoursData"
+              :alcohol-inputs="alcoholInputContents"
+              :icon-texts="calculationIcons"
+              :calc-button="calcButtonText"
+            ></calculate-alcohol>
+          </template>
+        </calculation-container>
       </template>
       <!-- FOOTER -->
       <template v-slot:footer>
@@ -148,20 +180,20 @@
           </template>
         </the-footer>
       </template>
-    </sp-home>
+    </sp-calculation>
   </div>
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 import CommonData from "@/mixins/common-data";
 import CommonMethods from "@/mixins/common-methods";
-import PcHome from "@/components/templates/pc/Home";
-import SpHome from "@/components/templates/sp/Home";
+import PcCalculation from "@/components/templates/pc/Calculation";
+import SpCalculation from "@/components/templates/sp/Calculation";
 import TheModal from "@/components/organisms/TheModal";
 import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
-import HomeContainer from "@/components/organisms/HomeContainer";
+import CalculationContainer from "@/components/organisms/CalculationContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
 import AppTitle from "@/components/molecules/AppTitle";
@@ -170,17 +202,20 @@ import SidebarMenusUnauthenticated from "@/components/molecules/SidebarMenusUnau
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauthenticated";
 import FooterIcons from "@/components/molecules/FooterIcons";
+import CalculateAlcohol from "@/components/molecules/CalculateAlcohol";
 import TheNotice from "@/components/atoms/TheNotice";
+import TheHeading from "@/components/atoms/TheHeading";
+import BlankSide from "@/components/atoms/BlankSide";
 
 export default {
   mixins: [CommonData, CommonMethods],
   components: {
-    PcHome,
-    SpHome,
+    PcCalculation,
+    SpCalculation,
     TheModal,
     TheSidebar,
     TheHeader,
-    HomeContainer,
+    CalculationContainer,
     TheFooter,
     ModalUser,
     SidebarMenusAuthenticated,
@@ -188,12 +223,34 @@ export default {
     HeaderIconsAuthenticated,
     HeaderIconsUnauthenticated,
     FooterIcons,
+    CalculateAlcohol,
     AppTitle,
     TheNotice,
+    TheHeading,
+    BlankSide,
   },
   data() {
     return {
-      // currentUser: {},
+      heading: "アルコール摂取量計算",
+      calculationSupplement: [
+        "飲んだ銘柄と飲んだ量から、摂取アルコール量を計算できます。飲んだ日付を選択すると、結果を記録することができます",
+        "※ 純アルコール量で算定。この文章をクリックすると計算式・摂取目安量を表示",
+        "量(ml) × 度数/100 × 0.8 = 純アルコール量(g)",
+        "節度ある適切な飲酒量： 1日当たり20g程度",
+        ["生活習慣病のリスクを高める飲酒量：", "男性 40g以上、 女性 20g以上"],
+      ],
+      soursSelectSet: ["ー", ["レモンサワーを選択"]],
+      lemonSoursData: [],
+      alcoholInputContents: [
+        ["度数", 0.5, 0.5, 13],
+        [
+          { label: "350ml", attributes: ["本数", 1, 0, 100] },
+          { label: "400ml", attributes: ["本数", 1, 0, 100] },
+          { label: "500ml", attributes: ["本数", 1, 0, 100] },
+        ],
+      ],
+      calculationIcons: ["times", "arrow-right"],
+      calcButtonText: "結果を記録する（登録ユーザーのみ）",
     };
   },
   methods: {
@@ -201,6 +258,7 @@ export default {
       switch (destination) {
         case "toHome":
         case this.headerIcons[0]:
+          this.$router.push("/");
           break;
         case this.unauthenticatedSidebarMenus[0].name:
         case this.authenticatedSidebarMenus[0].name:
@@ -210,7 +268,6 @@ export default {
         case this.unauthenticatedSidebarMenus[1].name:
         case this.authenticatedSidebarMenus[1].name:
         case this.footerIcons[1][0]:
-          this.$router.push("/calculation");
           break;
         case this.unauthenticatedSidebarMenus[2].name:
         case this.authenticatedSidebarMenus[2].name:
@@ -223,22 +280,18 @@ export default {
       }
     },
   },
-  // 条件が同じため、アカウント削除後もログアウトメッセージになってしまう。要検討。
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (
-        !vm.$cookies.isKey("auth-header") &&
-        vm.authRequiredRoutes.includes(from.name)
-      ) {
-        vm.isAuthenticated = false;
-        vm.noticeMessage = "ログアウトしました。";
-        setTimeout(() => {
-          vm.noticeMessage = "";
-        }, 5000);
-      }
-    });
-  },
   created() {
+    axios
+      .get("/api/v1/lemon_sours")
+      .then((res) => {
+        for (let index = 0; index < res.data.length; index++) {
+          this.soursSelectSet[1].push(res.data[index].name);
+        }
+        this.lemonSoursData = res.data;
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
     this.checkAuthenticated();
     this.markCurrentPage();
   },

@@ -283,7 +283,7 @@ export default {
         case this.unauthenticatedSidebarMenus[1].name:
         case this.authenticatedSidebarMenus[1].name:
         case this.footerIcons[1][0]:
-          // 計算画面へ。実装後に追加
+          this.$router.push("/calculation");
           break;
         case this.unauthenticatedSidebarMenus[2].name:
         case this.authenticatedSidebarMenus[2].name:

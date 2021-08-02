@@ -5,6 +5,7 @@ import LemonSoursIndex from "@/components/pages/LemonSoursIndex";
 import LemonSour from "@/components/pages/LemonSour";
 import User from "@/components/pages/User";
 import UserPasswordReset from "@/components/pages/UserPasswordReset";
+import Calculation from "@/components/pages/Calculation";
 import RouterAuth from "@/modules/router-auth";
 
 Vue.use(VueRouter);
@@ -38,6 +39,11 @@ const routes = [
     path: "/user/password_reset",
     name: "userPasswordReset",
     component: UserPasswordReset,
+  },
+  {
+    path: "/calculation",
+    name: "calculation",
+    component: Calculation,
   },
 ];
 
