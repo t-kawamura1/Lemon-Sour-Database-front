@@ -17,7 +17,7 @@ export default {
     };
   },
   methods: {
-    createUrl() {
+    generateUrl() {
       const pageUrl = encodeURIComponent(location.href);
       const pageTitle = encodeURIComponent(document.title);
       const tweetText =
@@ -36,7 +36,7 @@ export default {
     },
   },
   created() {
-    this.createUrl();
+    this.generateUrl();
   },
 };
 </script>

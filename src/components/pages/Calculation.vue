@@ -77,7 +77,7 @@
               :lemon-sours="lemonSoursData"
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
-              :calc-buttons="calcButtonsTexts"
+              :calc-button="calcButtonText"
             ></calculate-alcohol>
           </template>
         </calculation-container>
@@ -163,7 +163,7 @@
               :lemon-sours="lemonSoursData"
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
-              :calc-buttons="calcButtonsTexts"
+              :calc-button="calcButtonText"
             ></calculate-alcohol>
           </template>
         </calculation-container>
@@ -250,7 +250,7 @@ export default {
         ],
       ],
       calculationIcons: ["times", "arrow-right"],
-      calcButtonsTexts: ["結果を記録する（登録ユーザーのみ）", "Twitterシェア"],
+      calcButtonText: "結果を記録する（登録ユーザーのみ）",
     };
   },
   methods: {

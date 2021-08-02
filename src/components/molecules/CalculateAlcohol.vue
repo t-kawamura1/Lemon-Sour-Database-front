@@ -3,7 +3,6 @@
     <p class="calculate-alcohol-heading-explanation">
       {{ calculationSupplementTexts[0] }}
     </p>
-    <error-message></error-message>
     <input-select
       class="calculate-alcohol-sour-select"
       :sort-type="soursSelect[0]"
@@ -114,7 +113,7 @@
     </div>
     <button-calculation-record
       class="calculate-alcohol-calc-rec-button"
-      :button-calc-rec-text="calcButtons[0]"
+      :button-calc-rec-text="calcButton"
     ></button-calculation-record>
     <button-twitter
       class="calculate-alcohol-tweet-button"
@@ -124,7 +123,6 @@
 </template>
 
 <script>
-import ErrorMessage from "@/components/atoms/ErrorMessage";
 import InputSelect from "@/components/atoms/InputSelect";
 import InputNumber from "@/components/atoms/InputNumber";
 import InputLabel from "@/components/atoms/InputLabel";
@@ -134,7 +132,6 @@ import ButtonTwitter from "@/components/atoms/ButtonTwitter";
 
 export default {
   components: {
-    ErrorMessage,
     InputSelect,
     InputNumber,
     InputLabel,
@@ -148,7 +145,7 @@ export default {
     lemonSours: Array,
     alcoholInputs: Array,
     iconTexts: Array,
-    calcButtons: Array,
+    calcButton: String,
   },
   data() {
     return {
