@@ -29,7 +29,7 @@ export default {};
     z-index: $z-sidebar;
   }
   .pc-notice {
-    margin-left: $sidebar-width;
+    margin: 0 $sidebar-width;
   }
   .pc-calculation-main {
     margin: 0 $sidebar-width;

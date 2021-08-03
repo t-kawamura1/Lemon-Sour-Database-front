@@ -12,11 +12,10 @@ export default {
 
 <style scoped lang="scss">
 .the-notice {
+  display: flex;
   background-color: $light-green;
   color: $base-yellow;
   width: 100%;
-  height: $notice-height;
-  line-height: $notice-height;
-  font-size: 1.8rem;
+  padding: 20px 63px;
 }
 </style>
