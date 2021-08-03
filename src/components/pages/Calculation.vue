@@ -78,6 +78,7 @@
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
               :calc-button="calcButtonText"
+              @submitRecord="recordDrinking"
             ></calculate-alcohol>
           </template>
         </calculation-container>
@@ -164,6 +165,7 @@
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
               :calc-button="calcButtonText"
+              @submitRecord="recordDrinking"
             ></calculate-alcohol>
           </template>
         </calculation-container>
@@ -277,6 +279,30 @@ export default {
         case this.authenticatedUserFunctions[0]:
           this.$router.push(`/users/${this.userId}`);
           break;
+      }
+    },
+    recordDrinking(data) {
+      // console.log(data)
+      if (this.$cookies.isKey("auth-header")) {
+        data.user_id = this.userId;
+        this.decryptHeaders();
+        axios
+          .post("/api/v1/drinking_records", data, {
+            headers: this.authHeader,
+          })
+          .then((res) => {
+            console.log(res);
+
+          })
+          .catch((err) => {
+            console.log(err.response);
+          })
+      } else {
+        this.noticeMessage = "結果を記録するには、ユーザー登録・ログインが必要です。"
+        setTimeout(() => {
+          this.noticeMessage = "";
+          this.openModal("ログイン")
+        }, 2000);
       }
     },
   },
