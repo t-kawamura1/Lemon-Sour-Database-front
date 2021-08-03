@@ -15,6 +15,7 @@ export default {
     closeModal(type) {
       if (type == "ユーザー登録") {
         this.showUserRegistrationModal = false;
+        this.userModalErrors = [];
       } else if (type == "ログイン") {
         this.showUserLoginModal = false;
         this.userModalErrors = [];
@@ -22,6 +23,10 @@ export default {
         this.showUserDeleteModal = false;
         this.userModalErrors = [];
       }
+    },
+    replaceModal() {
+      this.closeModal("ログイン");
+      this.openModal("ユーザー登録");
     },
     encryptHeaders(res) {
       const encryptedAccessToken = crypto.AES.encrypt(
