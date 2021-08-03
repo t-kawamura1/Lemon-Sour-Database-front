@@ -39,9 +39,11 @@ export default {};
     z-index: $z-header;
   }
   .sp-notice {
-    margin-top: $header-height;
+    position: fixed;
+    width: 100%;
   }
   .sp-lemon-sour-main {
+    padding: 10px;
     margin-top: $header-height;
     margin-bottom: $footer-height;
   }

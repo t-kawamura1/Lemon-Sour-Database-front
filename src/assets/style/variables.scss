@@ -23,6 +23,7 @@ $twitter: #00acee;
 // ------contents layout--------
 $sidebar-width: 240px;
 $header-height: 60px;
+$notice-height: 60px;
 $footer-height: 90px;
 $sour-column-width: 360px;
 // -----------------------------
@@ -30,6 +31,7 @@ $sour-column-width: 360px;
 // ----------z-index------------
 $z-overlay: 20;
 $z-modal: 21;
+$z-sidebar: 10;
 $z-header: 10;
 $z-footer: 10;
 // -----------------------------

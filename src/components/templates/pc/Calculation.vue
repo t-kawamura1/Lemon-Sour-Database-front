@@ -26,9 +26,10 @@ export default {};
 .template-pc-calculation {
   .pc-sidebar {
     position: fixed;
+    z-index: $z-sidebar;
   }
   .pc-notice {
-    margin: 0 $sidebar-width;
+    margin-left: $sidebar-width;
   }
   .pc-calculation-main {
     margin: 0 $sidebar-width;

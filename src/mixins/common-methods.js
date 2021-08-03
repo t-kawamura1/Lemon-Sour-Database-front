@@ -17,8 +17,10 @@ export default {
         this.showUserRegistrationModal = false;
       } else if (type == "ログイン") {
         this.showUserLoginModal = false;
+        this.userModalErrors = [];
       } else if (type == "ユーザーアカウント削除") {
         this.showUserDeleteModal = false;
+        this.userModalErrors = [];
       }
     },
     encryptHeaders(res) {

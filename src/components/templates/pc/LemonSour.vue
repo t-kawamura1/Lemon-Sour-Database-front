@@ -33,9 +33,10 @@ export default {};
   flex-direction: column;
   .pc-sidebar {
     position: fixed;
+    z-index: $z-sidebar;
   }
   .pc-notice {
-    margin: 0 $sidebar-width;
+    margin-left: $sidebar-width;
   }
   .pc-lemon-sour-main {
     padding: 60px 10px;
