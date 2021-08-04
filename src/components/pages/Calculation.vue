@@ -74,6 +74,7 @@
           <template v-slot:calculation-calculate-alcohol>
             <calculate-alcohol
               :calculation-supplement-texts="calculationSupplement"
+              :error-messages="calculationRecordErrors"
               :sours-select="soursSelectSet"
               :lemon-sours="lemonSoursData"
               :alcohol-inputs="alcoholInputContents"
@@ -162,6 +163,7 @@
           <template v-slot:calculation-calculate-alcohol>
             <calculate-alcohol
               :calculation-supplement-texts="calculationSupplement"
+              :error-messages="calculationRecordErrors"
               :sours-select="soursSelectSet"
               :lemon-sours="lemonSoursData"
               :alcohol-inputs="alcoholInputContents"
@@ -243,6 +245,7 @@ export default {
         "節度ある適切な飲酒量： 1日当たり20g程度",
         ["生活習慣病のリスクを高める飲酒量：", "男性 40g以上、 女性 20g以上"],
       ],
+      calculationRecordErrors: [],
       soursSelectSet: ["ー", ["レモンサワーを選択"]],
       lemonSoursData: [],
       alcoholInputContents: [
@@ -284,7 +287,6 @@ export default {
       }
     },
     recordDrinking(data) {
-      // console.log(data)
       if (this.$cookies.isKey("auth-header")) {
         data.user_id = this.userId;
         this.decryptHeaders();
@@ -294,16 +296,17 @@ export default {
           })
           .then((res) => {
             console.log(res);
-
           })
           .catch((err) => {
             console.log(err.response);
-          })
+            this.calculationRecordErrors = err.response.data;
+          });
       } else {
-        this.noticeMessage = "結果を記録するには、ユーザー登録・ログインが必要です。"
+        this.noticeMessage =
+          "結果を記録するには、ユーザー登録・ログインが必要です。";
         setTimeout(() => {
           this.noticeMessage = "";
-          this.openModal("ログイン")
+          this.openModal("ログイン");
         }, 3000);
       }
     },

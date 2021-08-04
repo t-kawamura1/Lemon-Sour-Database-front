@@ -3,7 +3,12 @@
     <p class="calculate-alcohol-heading-explanation">
       {{ calculationSupplementTexts[0] }}
     </p>
-    <error-message></error-message>
+    <error-message
+      class="calculate-alcohol-error-message"
+      v-for="(errorMessage, index) in errorMessages"
+      :key="`error-${index}`"
+      :error-message-text="errorMessage"
+    ></error-message>
     <vuejs-datepicker
       class="drinking-date"
       input-class="dp-input"
@@ -160,6 +165,7 @@ export default {
   },
   props: {
     calculationSupplementTexts: Array,
+    errorMessages: Array,
     soursSelect: Array,
     lemonSours: Array,
     alcoholInputs: Array,
@@ -207,13 +213,11 @@ export default {
     },
     substituteRecordData() {
       this.recordData.drinking_date = document.querySelector(".dp-input").value;
-      this.recordData.drinking_amount = this.drinks350 + this.drinks400 + this.drinks500;
+      this.recordData.drinking_amount =
+        this.drinks350 + this.drinks400 + this.drinks500;
       this.recordData.pure_alcohol_amount = this.sumPureAlcohol;
-      this.$emit("submitRecord", this.recordData)
-      // console.log(typeof(Date.parse(document.querySelector(".dp-input").value)))
-      // const time = Date.parse(document.querySelector(".dp-input").value)
-      // const date = new Date(time)
-    }
+      this.$emit("submitRecord", this.recordData);
+    },
   },
   computed: {
     sumPureAlcohol() {
@@ -263,6 +267,9 @@ export default {
   .calculate-alcohol-heading-explanation {
     margin-bottom: 30px;
     text-align: left;
+  }
+  .calculate-alcohol-error-message {
+    margin-bottom: 15px;
   }
   .calculate-alcohol-sour-select {
     padding: 9px 0 9px 3px;
