@@ -188,18 +188,20 @@ export default {
       result500: 0,
       isActive: false,
       recordData: {
-        user_id: "",
-        lemon_sour_id: "",
-        drinking_date: "",
-        pure_alcohol_amount: "",
-        drinking_amount: "",
+          drinking_record: {
+          user_id: "",
+          lemon_sour_id: "",
+          drinking_date: "",
+          pure_alcohol_amount: "",
+          drinking_amount: "",
+        }
       },
     };
   },
   methods: {
     setAlcoholContent(sourName) {
       const selectedSour = this.lemonSours.find((ele) => ele.name == sourName);
-      this.recordData.lemon_sour_id = selectedSour.id;
+      this.recordData.drinking_record.lemon_sour_id = selectedSour.id;
       const selectedSourAlc = selectedSour.alcohol_content;
       document.querySelectorAll(".calculate-alcohol-content-input")[0].value =
         selectedSourAlc;
@@ -212,10 +214,10 @@ export default {
       this.alcContent500 = selectedSourAlc;
     },
     substituteRecordData() {
-      this.recordData.drinking_date = document.querySelector(".dp-input").value;
-      this.recordData.drinking_amount =
+      this.recordData.drinking_record.drinking_date = document.querySelector(".dp-input").value;
+      this.recordData.drinking_record.drinking_amount =
         this.drinks350 + this.drinks400 + this.drinks500;
-      this.recordData.pure_alcohol_amount = this.sumPureAlcohol;
+      this.recordData.drinking_record.pure_alcohol_amount = this.sumPureAlcohol;
       this.$emit("submitRecord", this.recordData);
     },
   },

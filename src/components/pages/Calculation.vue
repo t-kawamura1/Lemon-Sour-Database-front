@@ -288,7 +288,7 @@ export default {
     },
     recordDrinking(data) {
       if (this.$cookies.isKey("auth-header")) {
-        data.user_id = this.userId;
+        data.drinking_record.user_id = this.userId;
         this.decryptHeaders();
         axios
           .post("/api/v1/drinking_records", data, {
