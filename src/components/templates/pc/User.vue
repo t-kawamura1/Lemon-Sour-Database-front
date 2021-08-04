@@ -26,6 +26,7 @@ export default {};
 .template-pc-user {
   .pc-sidebar {
     position: fixed;
+    z-index: $z-sidebar;
   }
   .pc-notice {
     margin: 0 $sidebar-width;

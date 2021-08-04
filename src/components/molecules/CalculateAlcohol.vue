@@ -3,6 +3,12 @@
     <p class="calculate-alcohol-heading-explanation">
       {{ calculationSupplementTexts[0] }}
     </p>
+    <error-message
+      class="calculate-alcohol-error-message"
+      v-for="(errorMessage, index) in errorMessages"
+      :key="`error-${index}`"
+      :error-message-text="errorMessage"
+    ></error-message>
     <vuejs-datepicker
       class="drinking-date"
       input-class="dp-input"
@@ -10,7 +16,7 @@
       :value="today"
       :format="'yyyy-MM-dd'"
       :monday-first="true"
-      name="drinking_day"
+      name="drinking_date"
       :language="ja"
       :typeable="true"
       :clear-button="true"
@@ -126,6 +132,7 @@
     <button-calculation-record
       class="calculate-alcohol-calc-rec-button"
       :button-calc-rec-text="calcButton"
+      @record="substituteRecordData"
     ></button-calculation-record>
     <button-twitter
       class="calculate-alcohol-tweet-button"
@@ -135,6 +142,7 @@
 </template>
 
 <script>
+import ErrorMessage from "@/components/atoms/ErrorMessage";
 import VuejsDatepicker from "vuejs-datepicker";
 import { ja } from "vuejs-datepicker/dist/locale";
 import InputSelect from "@/components/atoms/InputSelect";
@@ -146,6 +154,7 @@ import ButtonTwitter from "@/components/atoms/ButtonTwitter";
 
 export default {
   components: {
+    ErrorMessage,
     VuejsDatepicker,
     InputSelect,
     InputNumber,
@@ -156,6 +165,7 @@ export default {
   },
   props: {
     calculationSupplementTexts: Array,
+    errorMessages: Array,
     soursSelect: Array,
     lemonSours: Array,
     alcoholInputs: Array,
@@ -177,22 +187,36 @@ export default {
       result400: 0,
       result500: 0,
       isActive: false,
+      recordData: {
+        user_id: "",
+        lemon_sour_id: "",
+        drinking_date: "",
+        pure_alcohol_amount: "",
+        drinking_amount: "",
+      },
     };
   },
   methods: {
     setAlcoholContent(sourName) {
-      const selectedAlcContent = this.lemonSours.find(
-        (ele) => ele.name == sourName
-      ).alcohol_content;
+      const selectedSour = this.lemonSours.find((ele) => ele.name == sourName);
+      this.recordData.lemon_sour_id = selectedSour.id;
+      const selectedSourAlc = selectedSour.alcohol_content;
       document.querySelectorAll(".calculate-alcohol-content-input")[0].value =
-        selectedAlcContent;
+        selectedSourAlc;
       document.querySelectorAll(".calculate-alcohol-content-input")[1].value =
-        selectedAlcContent;
+        selectedSourAlc;
       document.querySelectorAll(".calculate-alcohol-content-input")[2].value =
-        selectedAlcContent;
-      this.alcContent350 = selectedAlcContent;
-      this.alcContent400 = selectedAlcContent;
-      this.alcContent500 = selectedAlcContent;
+        selectedSourAlc;
+      this.alcContent350 = selectedSourAlc;
+      this.alcContent400 = selectedSourAlc;
+      this.alcContent500 = selectedSourAlc;
+    },
+    substituteRecordData() {
+      this.recordData.drinking_date = document.querySelector(".dp-input").value;
+      this.recordData.drinking_amount =
+        this.drinks350 + this.drinks400 + this.drinks500;
+      this.recordData.pure_alcohol_amount = this.sumPureAlcohol;
+      this.$emit("submitRecord", this.recordData);
     },
   },
   computed: {
@@ -243,6 +267,9 @@ export default {
   .calculate-alcohol-heading-explanation {
     margin-bottom: 30px;
     text-align: left;
+  }
+  .calculate-alcohol-error-message {
+    margin-bottom: 15px;
   }
   .calculate-alcohol-sour-select {
     padding: 9px 0 9px 3px;

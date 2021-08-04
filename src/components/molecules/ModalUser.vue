@@ -34,6 +34,9 @@
           ></button-user-submit>
         </form>
         <div v-if="modalUserContents[0] == 'ログイン'">
+          <div class="modal-user-replace-modal" @click="$emit('replace')">
+            新規登録はこちら
+          </div>
           <div class="modal-user-forgot-password" @click="isActive = !isActive">
             パスワードをお忘れですか？
           </div>
@@ -154,6 +157,7 @@ export default {
         margin-top: 15px;
       }
     }
+    .modal-user-replace-modal,
     .modal-user-forgot-password {
       cursor: pointer;
       font-size: 1.4rem;

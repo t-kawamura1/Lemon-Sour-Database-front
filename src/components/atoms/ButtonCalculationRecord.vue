@@ -1,7 +1,7 @@
 <template>
-  <button class="button-calculation-record" type="submit">
+  <div class="button-calculation-record" @click="$emit('record')">
     {{ buttonCalcRecText }}
-  </button>
+  </div>
 </template>
 
 <script>
@@ -20,7 +20,7 @@ export default {
   border: 1px solid $aged-yellow;
   border-radius: 15px;
   // font-size: 1.4rem;
-  padding: 6px 12px;
+  padding: 9px 12px;
   &:hover {
     background-color: $lightest-yellow;
     border: 1px solid $aged-yellow;

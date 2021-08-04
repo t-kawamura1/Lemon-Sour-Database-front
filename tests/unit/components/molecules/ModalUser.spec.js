@@ -90,6 +90,11 @@ describe("ModalUser component test", () => {
       expect(wrapper.findAll(".modal-user-input-text")).toHaveLength(2);
     });
 
+    it("新規登録ボタンを押すと、replaceイベントがemitされる", () => {
+      wrapper.find(".modal-user-replace-modal").trigger("click");
+      expect(wrapper.emitted().replace).toBeTruthy;
+    });
+
     describe("パスワードリセットについて", () => {
       let passwordForgot;
       beforeEach(() => {

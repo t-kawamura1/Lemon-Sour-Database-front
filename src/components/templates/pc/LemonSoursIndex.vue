@@ -25,6 +25,7 @@ export default {};
   flex-direction: column;
   .pc-sidebar {
     position: fixed;
+    z-index: $z-sidebar;
   }
   .pc-notice {
     margin-left: $sidebar-width;

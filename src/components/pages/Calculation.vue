@@ -23,6 +23,7 @@
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
+              @replace="replaceModal"
               @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
@@ -73,11 +74,13 @@
           <template v-slot:calculation-calculate-alcohol>
             <calculate-alcohol
               :calculation-supplement-texts="calculationSupplement"
+              :error-messages="calculationRecordErrors"
               :sours-select="soursSelectSet"
               :lemon-sours="lemonSoursData"
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
               :calc-button="calcButtonText"
+              @submitRecord="recordDrinking"
             ></calculate-alcohol>
           </template>
         </calculation-container>
@@ -109,6 +112,7 @@
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
+              @replace="replaceModal"
               @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
@@ -159,11 +163,13 @@
           <template v-slot:calculation-calculate-alcohol>
             <calculate-alcohol
               :calculation-supplement-texts="calculationSupplement"
+              :error-messages="calculationRecordErrors"
               :sours-select="soursSelectSet"
               :lemon-sours="lemonSoursData"
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
               :calc-button="calcButtonText"
+              @submitRecord="recordDrinking"
             ></calculate-alcohol>
           </template>
         </calculation-container>
@@ -233,12 +239,13 @@ export default {
     return {
       heading: "アルコール摂取量計算",
       calculationSupplement: [
-        "飲んだ銘柄と飲んだ量から、摂取アルコール量を計算できます。飲んだ日付を選択すると、結果を記録することができます",
+        "飲んだ銘柄と飲んだ量から、摂取アルコール量を計算できます。飲んだ日付を選択すると、結果を記録することができます。",
         "※ 純アルコール量で算定。この文章をクリックすると計算式・摂取目安量を表示",
         "量(ml) × 度数/100 × 0.8 = 純アルコール量(g)",
         "節度ある適切な飲酒量： 1日当たり20g程度",
         ["生活習慣病のリスクを高める飲酒量：", "男性 40g以上、 女性 20g以上"],
       ],
+      calculationRecordErrors: [],
       soursSelectSet: ["ー", ["レモンサワーを選択"]],
       lemonSoursData: [],
       alcoholInputContents: [
@@ -277,6 +284,30 @@ export default {
         case this.authenticatedUserFunctions[0]:
           this.$router.push(`/users/${this.userId}`);
           break;
+      }
+    },
+    recordDrinking(data) {
+      if (this.$cookies.isKey("auth-header")) {
+        data.user_id = this.userId;
+        this.decryptHeaders();
+        axios
+          .post("/api/v1/drinking_records", data, {
+            headers: this.authHeader,
+          })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err.response);
+            this.calculationRecordErrors = err.response.data;
+          });
+      } else {
+        this.noticeMessage =
+          "結果を記録するには、ユーザー登録・ログインが必要です。";
+        setTimeout(() => {
+          this.noticeMessage = "";
+          this.openModal("ログイン");
+        }, 3000);
       }
     },
   },

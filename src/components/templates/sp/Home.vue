@@ -35,8 +35,6 @@ export default {};
   }
   .sp-notice {
     position: fixed;
-    top: $header-height;
-    left: 0;
     width: 100%;
   }
   .sp-home-main {

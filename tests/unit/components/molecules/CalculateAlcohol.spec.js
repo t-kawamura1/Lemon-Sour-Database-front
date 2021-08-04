@@ -14,6 +14,7 @@ describe("CalculateAlcohol component test", () => {
           "適切な飲酒量： 1日当たり20g程度やで",
           ["やばい飲酒量：", "men 40g以上、 women 20g以上"],
         ],
+        errorMessages: ["日付は必要", "今のとこないけども一つエラー"],
         soursSelect: ["ー", ["サワー選択", "テスレモ", "テスサワ", "テスハイ"]],
         lemonSours: [
           { name: "テスレモ", alcohol_content: 5.5 },
@@ -56,6 +57,10 @@ describe("CalculateAlcohol component test", () => {
     );
   });
 
+  it("errorMessagesの要素の数だけ、子コンポーネントをリストレンダリングする", () => {
+    expect(wrapper.findAll(".calculate-alcohol-error-message")).toHaveLength(2);
+  });
+
   it("InputSelectコンポーネントにsoursSelect propsを渡している", () => {
     expect(wrapper.findAll("option")).toHaveLength(5);
     expect(wrapper.findAll("option").at(0).text()).toBe("ー");
@@ -75,7 +80,6 @@ describe("CalculateAlcohol component test", () => {
   });
 
   it("iconTexts propsを各子コンポーネントに渡している", () => {
-    console.log(wrapper.html());
     expect(
       wrapper.findAll("font-awesome-icon-stub").at(0).attributes("icon")
     ).toBe("times");
@@ -123,5 +127,22 @@ describe("CalculateAlcohol component test", () => {
     expect(
       wrapper.findAll(".calculate-alcohol-content-input").at(0).element.value
     ).toBe("9");
+  });
+
+  it("記録ボタンを押すと、submitRecordイベントと入力された値（日付、純アルコール量、飲酒量）がemitされる", async () => {
+    const substituteRecordData = jest
+      .spyOn(CalculateAlcohol.methods, "substituteRecordData")
+      .mockImplementation(() => {
+        wrapper.vm.recordData.drinking_date =
+          wrapper.find(".dp-input").element.value;
+        wrapper.vm.recordData.drinking_amount = 850;
+        wrapper.vm.recordData.pure_alcohol_amount = 26.5;
+        wrapper.vm.$emit("submitRecord", wrapper.vm.recordData);
+      });
+    await wrapper.find(".calculate-alcohol-calc-rec-button").trigger("record");
+    substituteRecordData();
+    expect(wrapper.emitted().submitRecord).toBeTruthy();
+    expect(wrapper.emitted().submitRecord[0][0].pure_alcohol_amount).toBe(26.5);
+    expect(wrapper.emitted().submitRecord[0][0].drinking_amount).toBe(850);
   });
 });

@@ -23,6 +23,7 @@
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
+              @replace="replaceModal"
               @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
@@ -118,6 +119,7 @@
               v-if="showUserLoginModal"
               @modal="closeModal"
               @submitUser="login"
+              @replace="replaceModal"
               @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>

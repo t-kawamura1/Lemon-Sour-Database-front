@@ -34,12 +34,13 @@ export default {};
     z-index: $z-header;
   }
   .sp-notice {
-    margin-top: $header-height;
+    position: fixed;
+    width: 100%;
   }
   .sp-user-main {
     margin-top: $header-height;
     margin-bottom: $footer-height;
-    padding: 0 30px;
+    padding: 10px 30px;
   }
   .sp-footer {
     position: fixed;
