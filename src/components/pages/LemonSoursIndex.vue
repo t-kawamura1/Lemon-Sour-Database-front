@@ -290,7 +290,7 @@ export default {
         case this.unauthenticatedSidebarMenus[2].name:
         case this.authenticatedSidebarMenus[2].name:
         case this.footerIcons[2][0]:
-          // カレンダーへ。実装後に追加
+          this.$router.push(`/drinking_records/${this.userId}`);
           break;
         case this.authenticatedUserFunctions[0]:
           this.$router.push(`/users/${this.userId}`);

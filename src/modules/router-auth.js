@@ -8,10 +8,11 @@ export default {
     uid: "",
   },
   currentUser: {
+    id: "",
     name: "",
     email: "",
   },
-  guardAccessToUser(Vue, to, from, next) {
+  guardAccessToPageRequiresAuth(Vue, to, from, next) {
     if (Vue.$cookies.isKey("auth-header")) {
       const decryptedAccessToken = crypto.AES.decrypt(
         Vue.$cookies.get("auth-header")["access-token"],
@@ -35,6 +36,7 @@ export default {
         .then((res) => {
           if (res.data.data.id == to.params.id && to.params.id !== "") {
             this.authHeader = { "access-token": "", client: "", uid: "" };
+            this.currentUser.id = res.data.data.id;
             this.currentUser.name = res.data.data.name;
             this.currentUser.email = res.data.data.email;
             next();

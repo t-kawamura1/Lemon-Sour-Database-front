@@ -21,7 +21,6 @@
           <template v-slot:title>
             <app-title
               :sidebar-icon-text="sidebarIcon"
-              :current-page="currentPageName"
               @link="toPageView"
             ></app-title>
           </template>
@@ -225,7 +224,7 @@ export default {
         case this.unauthenticatedSidebarMenus[2].name:
         case this.authenticatedSidebarMenus[2].name:
         case this.footerIcons[2][0]:
-          // カレンダーへ。実装後に追加
+          this.$router.push(`/drinking_records/${this.userId}`);
           break;
         case this.authenticatedUserFunctions[0]:
           break;
@@ -267,6 +266,7 @@ export default {
     },
   },
   created() {
+    this.userId = this.currentUser.id;
     this.markCurrentPage();
   },
 };
