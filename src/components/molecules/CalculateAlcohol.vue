@@ -15,7 +15,6 @@
       calendar-class="dp-calendar"
       :value="today"
       :format="'yyyy-MM-dd'"
-      :monday-first="true"
       name="drinking_date"
       :language="ja"
       :typeable="true"

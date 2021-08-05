@@ -3,8 +3,8 @@
     <div class="drinking-record-container-heading">
       <slot name="drinking-record-heading"></slot>
     </div>
-    <div class="drinking-record-container-">
-      <slot name="drinking-record-"></slot>
+    <div class="drinking-record-container-records-calendar">
+      <slot name="drinking-record-records-calendar"></slot>
     </div>
   </div>
 </template>

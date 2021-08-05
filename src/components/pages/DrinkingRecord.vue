@@ -33,9 +33,13 @@
       <template v-slot:drinking-record-container>
         <drinking-record-container>
           <template v-slot:drinking-record-heading>
-            <the-heading :heading-text="combineUserNameAndHeading"></the-heading>
+            <the-heading :heading-text="heading"></the-heading>
           </template>
-          <template v-slot:drinking-record->
+          <template v-slot:drinking-record-records-calendar>
+            <records-calendar
+              :date-and-drinking-amounts="amountByDate"
+              :sour-drank="dateAndSour"
+            ></records-calendar>
           </template>
         </drinking-record-container>
       </template>
@@ -51,7 +55,6 @@
         <the-header>
           <template v-slot:header-icons>
             <header-icons-authenticated
-              v-if="isAuthenticated"
               :header-icons="headerIcons"
               :dropdown-functions="authenticatedUserFunctions"
               @link="toPageView"
@@ -73,7 +76,11 @@
           <template v-slot:drinking-record-heading>
             <the-heading :heading-text="heading"></the-heading>
           </template>
-          <template v-slot:drinking-record->
+          <template v-slot:drinking-record-records-calendar>
+            <records-calendar
+              :date-and-drinking-amounts="amountByDate"
+              :sour-drank="dateAndSour"
+            ></records-calendar>
           </template>
         </drinking-record-container>
       </template>
@@ -94,7 +101,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 import CommonData from "@/mixins/common-data";
 import CommonMethods from "@/mixins/common-methods";
 import PcDrinkingRecord from "@/components/templates/pc/DrinkingRecord";
@@ -106,6 +113,7 @@ import TheFooter from "@/components/organisms/TheFooter";
 import AppTitle from "@/components/molecules/AppTitle";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
+import RecordsCalendar from "@/components/molecules/RecordsCalendar";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
@@ -122,6 +130,7 @@ export default {
     TheFooter,
     SidebarMenusAuthenticated,
     HeaderIconsAuthenticated,
+    RecordsCalendar,
     FooterIcons,
     AppTitle,
     TheNotice,
@@ -135,7 +144,8 @@ export default {
     return {
       heading: `${this.currentUser.name}さんの飲酒記録`,
       drinkingRecordErrors: [],
-      lemonSoursData: [],
+      amountByDate: [],
+      dateAndSour: [],
       drinkingRecordIcons: [],
     };
   },
@@ -163,18 +173,21 @@ export default {
     },
   },
   created() {
-    // axios
-    //   .get("/api/v1/lemon_sours")
-    //   .then((res) => {
-    //     for (let index = 0; index < res.data.length; index++) {
-    //       this.soursSelectSet[1].push(res.data[index].name);
-    //     }
-    //     this.lemonSoursData = res.data;
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.response);
-    //   });
-    // this.checkAuthenticated();
+    this.decryptHeaders();
+    axios
+      .get(`/api/v1/drinking_records/${this.$route.params.id}`, {
+        headers: this.authHeader,
+      })
+      .then((res) => {
+        console.log(res.data)
+        this.amountByDate = res.data[0];
+        this.dateAndSour = res.data[1];
+        console.log(this.amountByDate)
+        console.log(this.dateAndSour)
+      }).
+      catch((err) => {
+        console.log(err.response);
+      });
     this.markCurrentPage();
   },
 };
