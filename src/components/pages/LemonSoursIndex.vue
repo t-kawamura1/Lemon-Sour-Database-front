@@ -288,7 +288,15 @@ export default {
           this.$router.push("/calculation");
           break;
         case this.unauthenticatedSidebarMenus[2].name:
+          this.guideToAuth("記録の閲覧には、ユーザー登録・ログインが必要です。");
+          break;
         case this.authenticatedSidebarMenus[2].name:
+          if (this.userId == "") {
+            this.guideToAuth("記録の閲覧には、ユーザー登録・ログインが必要です。");
+          } else {
+            this.$router.push(`/drinking_records/${this.userId}`);
+          }
+          break;
         case this.footerIcons[2][0]:
           this.$router.push(`/drinking_records/${this.userId}`);
           break;

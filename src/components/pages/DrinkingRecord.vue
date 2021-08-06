@@ -175,6 +175,7 @@ export default {
         case this.footerIcons[2][0]:
           break;
         case this.authenticatedUserFunctions[0]:
+          this.$router.push(`/users/${this.userId}`);
           break;
       }
     },
@@ -195,6 +196,7 @@ export default {
       .catch((err) => {
         console.log(err.response);
       });
+    this.userId = this.currentUser.id
     this.markCurrentPage();
   },
 };

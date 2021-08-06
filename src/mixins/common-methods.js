@@ -140,6 +140,13 @@ export default {
         }, 5000);
       }
     },
+    guideToAuth(message) {
+      this.noticeMessage = message;
+      setTimeout(() => {
+        this.noticeMessage = "";
+        this.openModal("ログイン");
+      }, 3000);
+    },
     sendResetPasswordEmail(inputData) {
       axios
         .post("/api/v1/auth/password", {

@@ -32,7 +32,7 @@ export default {
         client: "",
         uid: "",
       },
-      authRequiredRoutes: ["calendar", "user"],
+      authRequiredRoutes: ["drinkingRecord", "user"],
       isAuthenticated: false,
       userId: "",
       authenticatedSidebarMenus: [
@@ -52,7 +52,7 @@ export default {
       footerIcons: [
         ["database", "LSDB"],
         ["calculator", "アルコール量計算"],
-        ["calendar-alt", "摂取量記録"],
+        ["calendar-alt", "記録カレンダー"],
       ],
       currentPageName: "",
     };
