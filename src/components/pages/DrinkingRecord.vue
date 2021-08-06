@@ -36,9 +36,12 @@
             <the-heading :heading-text="heading"></the-heading>
           </template>
           <template v-slot:drinking-record-records-calendar>
+            <!-- ケバブケースで数字を渡せない？ので英単語に置き換えた -->
             <records-calendar
-              :date-and-drinking-amounts="amountByDate"
-              :sour-drank="dateAndSour"
+              :records-less-than-twenty="amountByDateLessThan20"
+              :records-from-twenty-to-thirty-nine="amountByDateFrom20To39"
+              :records-forty-or-more="amountByDate40OrMore"
+              :records-date-and-sour="dateAndSour"
             ></records-calendar>
           </template>
         </drinking-record-container>
@@ -78,8 +81,10 @@
           </template>
           <template v-slot:drinking-record-records-calendar>
             <records-calendar
-              :date-and-drinking-amounts="amountByDate"
-              :sour-drank="dateAndSour"
+              :records-less-than-twenty="amountByDateLessThan20"
+              :records-from-twenty-to-thirty-nine="amountByDateFrom20To39"
+              :records-forty-or-more="amountByDate40OrMore"
+              :records-date-and-sour="dateAndSour"
             ></records-calendar>
           </template>
         </drinking-record-container>
@@ -144,7 +149,9 @@ export default {
     return {
       heading: `${this.currentUser.name}さんの飲酒記録`,
       drinkingRecordErrors: [],
-      amountByDate: [],
+      amountByDateLessThan20: [],
+      amountByDateFrom20To39: [],
+      amountByDate40OrMore: [],
       dateAndSour: [],
       drinkingRecordIcons: [],
     };
@@ -179,13 +186,13 @@ export default {
         headers: this.authHeader,
       })
       .then((res) => {
-        console.log(res.data)
-        this.amountByDate = res.data[0];
-        this.dateAndSour = res.data[1];
-        console.log(this.amountByDate)
-        console.log(this.dateAndSour)
-      }).
-      catch((err) => {
+        console.log(res.data);
+        this.amountByDateLessThan20 = res.data[0];
+        this.amountByDateFrom20To39 = res.data[1];
+        this.amountByDate40OrMore = res.data[2];
+        this.dateAndSour = res.data[3];
+      })
+      .catch((err) => {
         console.log(err.response);
       });
     this.markCurrentPage();

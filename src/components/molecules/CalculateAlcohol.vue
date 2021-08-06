@@ -187,13 +187,13 @@ export default {
       result500: 0,
       isActive: false,
       recordData: {
-          drinking_record: {
+        drinking_record: {
           user_id: "",
           lemon_sour_id: "",
           drinking_date: "",
           pure_alcohol_amount: "",
           drinking_amount: "",
-        }
+        },
       },
     };
   },
@@ -213,7 +213,8 @@ export default {
       this.alcContent500 = selectedSourAlc;
     },
     substituteRecordData() {
-      this.recordData.drinking_record.drinking_date = document.querySelector(".dp-input").value;
+      this.recordData.drinking_record.drinking_date =
+        document.querySelector(".dp-input").value;
       this.recordData.drinking_record.drinking_amount =
         this.drinks350 + this.drinks400 + this.drinks500;
       this.recordData.drinking_record.pure_alcohol_amount = this.sumPureAlcohol;
