@@ -42,7 +42,17 @@
               :records-from-twenty-to-thirty-nine="amountByDateFrom20To39"
               :records-forty-or-more="amountByDate40OrMore"
               :records-date-and-sour="dateAndSour"
+              :colors-and-texts="colorsAndTextsSet"
             ></records-calendar>
+          </template>
+          <template v-slot:drinking-record-records-by-month>
+            <records-by-month></records-by-month>
+          </template>
+          <template v-slot:drinking-record-button-calculation-record>
+            <button-calculation-record
+              :button-calc-rec-text="buttonTexts[0]"
+              @record="toPageView('toCalculation')"
+            ></button-calculation-record>
           </template>
         </drinking-record-container>
       </template>
@@ -73,7 +83,7 @@
           v-if="noticeMessage.length !== 0"
         ></the-notice>
       </template>
-      <!-- drinking-record-CONTAINER -->
+      <!-- DRINKING-RECORD-CONTAINER -->
       <template v-slot:drinking-record-container>
         <drinking-record-container>
           <template v-slot:drinking-record-heading>
@@ -85,7 +95,17 @@
               :records-from-twenty-to-thirty-nine="amountByDateFrom20To39"
               :records-forty-or-more="amountByDate40OrMore"
               :records-date-and-sour="dateAndSour"
+              :colors-and-texts="colorsAndTextsSet"
             ></records-calendar>
+          </template>
+          <template v-slot:drinking-record-records-by-month>
+            <records-by-month></records-by-month>
+          </template>
+          <template v-slot:drinking-record-button-calculation-record>
+            <button-calculation-record
+              :button-calc-rec-text="buttonTexts[0]"
+              @record="toPageView('toCalculation')"
+            ></button-calculation-record>
           </template>
         </drinking-record-container>
       </template>
@@ -119,10 +139,12 @@ import AppTitle from "@/components/molecules/AppTitle";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import RecordsCalendar from "@/components/molecules/RecordsCalendar";
+import RecordsByMonth from "@/components/molecules/RecordsByMonth";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
 import BlankSide from "@/components/atoms/BlankSide";
+import ButtonCalculationRecord from "@/components/atoms/ButtonCalculationRecord";
 
 export default {
   mixins: [CommonData, CommonMethods],
@@ -136,11 +158,13 @@ export default {
     SidebarMenusAuthenticated,
     HeaderIconsAuthenticated,
     RecordsCalendar,
+    RecordsByMonth,
     FooterIcons,
     AppTitle,
     TheNotice,
     TheHeading,
     BlankSide,
+    ButtonCalculationRecord,
   },
   props: {
     currentUser: Object,
@@ -148,12 +172,17 @@ export default {
   data() {
     return {
       heading: `${this.currentUser.name}さんの飲酒記録`,
-      drinkingRecordErrors: [],
+      // drinkingRecordErrors: [],
       amountByDateLessThan20: [],
       amountByDateFrom20To39: [],
       amountByDate40OrMore: [],
       dateAndSour: [],
-      drinkingRecordIcons: [],
+      colorsAndTextsSet: [
+        ["cec-green", "純アルコール量20g未満"],
+        ["cec-yellow", "純アルコール量20g以上40g未満"],
+        ["cec-red", "純アルコール量40g以上"],
+      ],
+      buttonTexts: ["記録を追加"]
     };
   },
   methods: {
@@ -167,6 +196,7 @@ export default {
         case this.footerIcons[0][0]:
           this.$router.push("/lemon_sours");
           break;
+        case "toCalculation":
         case this.authenticatedSidebarMenus[1].name:
         case this.footerIcons[1][0]:
           this.$router.push("/calculation");

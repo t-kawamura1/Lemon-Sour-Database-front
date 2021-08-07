@@ -6,6 +6,12 @@
     <div class="drinking-record-container-records-calendar">
       <slot name="drinking-record-records-calendar"></slot>
     </div>
+    <div class="drinking-record-container-records-by-month">
+      <slot name="drinking-record-records-by-month"></slot>
+    </div>
+    <div class="drinking-record-container-button-calculation-record">
+      <slot name="drinking-record-button-calculation-record"></slot>
+    </div>
   </div>
 </template>
 
@@ -20,6 +26,12 @@ export default {};
   align-items: center;
   .drinking-record-container-heading {
     font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  .drinking-record-container-records-calendar {
+    margin-bottom: 20px;
+  }
+  .drinking-record-container-records-by-month {
     margin-bottom: 30px;
   }
 }
