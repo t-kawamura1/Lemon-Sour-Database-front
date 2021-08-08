@@ -30,6 +30,7 @@ export default {};
   }
   .pc-notice {
     margin: 0 $sidebar-width;
+    z-index: $z-notice;
   }
   .pc-user-main {
     margin: 0 $sidebar-width;

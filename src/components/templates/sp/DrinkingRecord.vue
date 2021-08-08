@@ -38,6 +38,7 @@ export default {};
     margin-top: $header-height;
     margin-bottom: $footer-height;
     padding: 10px;
+    z-index: $z-notice;
   }
   .sp-footer {
     position: fixed;

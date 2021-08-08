@@ -27,6 +27,7 @@ export default {};
   }
   .pc-notice {
     margin: 0 $sidebar-width;
+    z-index: $z-notice;
   }
   .pc-drinking-record-main {
     margin: 0 $sidebar-width;

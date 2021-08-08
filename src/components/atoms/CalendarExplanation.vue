@@ -19,6 +19,7 @@ export default {
 <style scoped lang="scss">
 .calendar-explanation {
   text-align: left;
+  font-size: 1.4rem;
   .calendar-explanation-circle {
     content: "";
     display: inline-block;

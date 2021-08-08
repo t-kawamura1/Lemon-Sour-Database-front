@@ -54,6 +54,12 @@
               @record="toPageView('toCalculation')"
             ></button-calculation-record>
           </template>
+          <template v-slot:drinking-record-records-delete>
+            <records-delete
+              :error-message="drinkingRecordErrors[0]"
+              @submit="deleteRecord"
+            ></records-delete>
+          </template>
         </drinking-record-container>
       </template>
       <!-- SIDE-BLANK -->
@@ -107,6 +113,12 @@
               @record="toPageView('toCalculation')"
             ></button-calculation-record>
           </template>
+          <template v-slot:drinking-record-records-delete>
+            <records-delete
+              :error-message="drinkingRecordErrors[0]"
+              @submit="deleteRecord"
+            ></records-delete>
+          </template>
         </drinking-record-container>
       </template>
       <!-- FOOTER -->
@@ -140,6 +152,7 @@ import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthen
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import RecordsCalendar from "@/components/molecules/RecordsCalendar";
 import RecordsByMonth from "@/components/molecules/RecordsByMonth";
+import RecordsDelete from "@/components/molecules/RecordsDelete";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
@@ -159,6 +172,7 @@ export default {
     HeaderIconsAuthenticated,
     RecordsCalendar,
     RecordsByMonth,
+    RecordsDelete,
     FooterIcons,
     AppTitle,
     TheNotice,
@@ -172,7 +186,7 @@ export default {
   data() {
     return {
       heading: `${this.currentUser.name}さんの飲酒記録`,
-      // drinkingRecordErrors: [],
+      drinkingRecordErrors: [],
       amountByDateLessThan20: [],
       amountByDateFrom20To39: [],
       amountByDate40OrMore: [],
@@ -209,6 +223,28 @@ export default {
           break;
       }
     },
+    deleteRecord(selectedDate) {
+      this.decryptHeaders();
+      axios
+        .delete("/api/v1/drinking_records/delete", {
+          params: { drinking_date: selectedDate },
+          headers: this.authHeader,
+        })
+        .then((res) => {
+          this.drinkingRecordErrors = ""
+          this.amountByDateLessThan20 = res.data[0];
+          this.amountByDateFrom20To39 = res.data[1];
+          this.amountByDate40OrMore = res.data[2];
+          this.noticeMessage = "該当する記録を削除しました。"
+          setTimeout(() => {
+            this.noticeMessage = "";
+          }, 5000);
+        })
+        .catch(err => {
+          console.log(err.response)
+          this.drinkingRecordErrors.push(err.response.data.error_message)
+        })
+    }
   },
   created() {
     this.decryptHeaders();

@@ -37,6 +37,7 @@ export default {};
   }
   .pc-notice {
     margin: 0 $sidebar-width;
+    z-index: $z-notice;
   }
   .pc-lemon-sour-main {
     padding: 60px 10px;

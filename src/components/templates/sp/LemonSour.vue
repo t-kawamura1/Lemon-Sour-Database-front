@@ -41,6 +41,7 @@ export default {};
   .sp-notice {
     position: fixed;
     width: 100%;
+    z-index: $z-notice;
   }
   .sp-lemon-sour-main {
     padding: 10px;

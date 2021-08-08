@@ -81,7 +81,7 @@ export default {
     margin-bottom: 20px;
   }
   .records-calendar-explanation {
-    margin: 0 0 10px 20px;
+    margin: 0 0 6px 20px;
   }
 }
 </style>

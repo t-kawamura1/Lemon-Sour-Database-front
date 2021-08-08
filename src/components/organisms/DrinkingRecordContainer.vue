@@ -12,6 +12,9 @@
     <div class="drinking-record-container-button-calculation-record">
       <slot name="drinking-record-button-calculation-record"></slot>
     </div>
+    <div class="drinking-record-container-records-delete">
+      <slot name="drinking-record-records-delete"></slot>
+    </div>
   </div>
 </template>
 
@@ -33,6 +36,10 @@ export default {};
   }
   .drinking-record-container-records-by-month {
     margin-bottom: 30px;
+  }
+  .drinking-record-container-button-calculation-record {
+    width: 210px;
+    margin-bottom: 20px;
   }
 }
 </style>
