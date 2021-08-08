@@ -1,5 +1,5 @@
 <template>
-  <a class="button-twitter" :href="twitter">
+  <a class="button-twitter" :href="twitter" @click="generateUrl">
     <font-awesome-icon class="button-twitter-icon" :icon="['fab', 'twitter']" />
     結果をツイート
   </a>

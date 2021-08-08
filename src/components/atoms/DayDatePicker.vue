@@ -32,11 +32,11 @@ export default {
   },
   watch: {
     date: {
-      handler(newValue) {
-        const year = newValue.getFullYear().toString();
-        let month = (newValue.getMonth() + 1).toString();
+      handler(newDate) {
+        const year = newDate.getFullYear().toString();
+        let month = (newDate.getMonth() + 1).toString();
         month = ("0" + month).slice(-2);
-        let day = newValue.getDate();
+        let day = newDate.getDate();
         day = ("0" + day).slice(-2);
         const yearMonthDay = year + "-" + month + "-" + day;
         this.$emit("input", yearMonthDay);

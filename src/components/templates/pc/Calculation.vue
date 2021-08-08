@@ -34,7 +34,7 @@ export default {};
   }
   .pc-calculation-main {
     margin: 0 $sidebar-width;
-    padding: 60px 10px 0;
+    padding: 60px 30px 0;
   }
   .pc-side-blank {
     position: fixed;

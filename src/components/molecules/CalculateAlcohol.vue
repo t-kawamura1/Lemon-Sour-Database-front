@@ -1,25 +1,15 @@
 <template>
   <div class="calculate-alcohol">
-    <p class="calculate-alcohol-heading-explanation">
-      {{ calculationSupplementTexts[0] }}
-    </p>
     <error-message
       class="calculate-alcohol-error-message"
       v-for="(errorMessage, index) in errorMessages"
       :key="`error-${index}`"
       :error-message-text="errorMessage"
     ></error-message>
-    <vuejs-datepicker
-      class="drinking-date"
-      input-class="dp-input"
-      calendar-class="dp-calendar"
-      :value="today"
-      :format="'yyyy-MM-dd'"
-      name="drinking_date"
-      :language="ja"
-      :typeable="true"
-      :clear-button="true"
-    ></vuejs-datepicker>
+    <day-date-picker
+      class="calculate-alcohol-date-picker"
+      @input="setDrinkingDate"
+    ></day-date-picker>
     <input-select
       class="calculate-alcohol-sour-select"
       :sort-type="soursSelect[0]"
@@ -107,27 +97,21 @@
       </span>
       <span class="calculate-alcohol-input-unit">g</span>
     </div>
-
     <div
       class="calculate-alcohol-supplement-button"
       @click="isActive = !isActive"
     >
-      {{ calculationSupplementTexts[1] }}
+      {{ calculationSupplementTexts[0] }}
     </div>
-    <div class="calculate-alcohol-supplement-box" v-show="isActive">
-      <p class="calculate-alcohol-supplement-formula">
-        {{ calculationSupplementTexts[2] }}
-      </p>
-      <p class="calculate-alcohol-supplement-appropriate">
-        {{ calculationSupplementTexts[3] }}
-      </p>
-      <p class="calculate-alcohol-supplement-lisky">
-        {{ calculationSupplementTexts[4][0] }}
-      </p>
-      <p class="calculate-alcohol-supplement-gender">
-        {{ calculationSupplementTexts[4][1] }}
-      </p>
-    </div>
+    <text-calculation-supplement
+      class="calculate-alcohol-suppelement-text"
+      v-show="isActive"
+      v-for="(
+        calculationSupplementText, index
+      ) in calculationSupplementTexts[1]"
+      :key="index"
+      :supplement-text="calculationSupplementText"
+    ></text-calculation-supplement>
     <button-calculation-record
       class="calculate-alcohol-calc-rec-button"
       :button-calc-rec-text="calcButton"
@@ -142,23 +126,24 @@
 
 <script>
 import ErrorMessage from "@/components/atoms/ErrorMessage";
-import VuejsDatepicker from "vuejs-datepicker";
-import { ja } from "vuejs-datepicker/dist/locale";
+import DayDatePicker from "@/components/atoms/DayDatePicker";
 import InputSelect from "@/components/atoms/InputSelect";
 import InputNumber from "@/components/atoms/InputNumber";
 import InputLabel from "@/components/atoms/InputLabel";
 import Icon from "@/components/atoms/Icon";
+import TextCalculationSupplement from "@/components/atoms/TextCalculationSupplement";
 import ButtonCalculationRecord from "@/components/atoms/ButtonCalculationRecord";
 import ButtonTwitter from "@/components/atoms/ButtonTwitter";
 
 export default {
   components: {
     ErrorMessage,
-    VuejsDatepicker,
+    DayDatePicker,
     InputSelect,
     InputNumber,
     InputLabel,
     Icon,
+    TextCalculationSupplement,
     ButtonCalculationRecord,
     ButtonTwitter,
   },
@@ -173,8 +158,6 @@ export default {
   },
   data() {
     return {
-      today: "",
-      ja: ja,
       soursSelectBox: [],
       alcContent350: 0,
       alcContent400: 0,
@@ -212,9 +195,10 @@ export default {
       this.alcContent400 = selectedSourAlc;
       this.alcContent500 = selectedSourAlc;
     },
+    setDrinkingDate(date) {
+      this.recordData.drinking_record.drinking_date = date;
+    },
     substituteRecordData() {
-      this.recordData.drinking_record.drinking_date =
-        document.querySelector(".dp-input").value;
       this.recordData.drinking_record.drinking_amount =
         this.drinks350 + this.drinks400 + this.drinks500;
       this.recordData.drinking_record.pure_alcohol_amount = this.sumPureAlcohol;
@@ -250,13 +234,6 @@ export default {
       this.result500 = ((newValue * this.alcContent500) / 100) * 0.8;
     },
   },
-  created() {
-    const today = new Date();
-    const year = today.getFullYear().toString();
-    const month = (today.getMonth() + 1).toString();
-    const day = today.getDate().toString();
-    this.today = year + "-" + month + "-" + day;
-  },
 };
 </script>
 
@@ -266,11 +243,10 @@ export default {
   flex-direction: column;
   align-items: center;
   color: $font-color-bg-white;
-  .calculate-alcohol-heading-explanation {
-    margin-bottom: 30px;
-    text-align: left;
-  }
   .calculate-alcohol-error-message {
+    margin-bottom: 15px;
+  }
+  .calculate-alcohol-date-picker {
     margin-bottom: 15px;
   }
   .calculate-alcohol-sour-select {
@@ -342,7 +318,7 @@ export default {
     }
   }
   .calculate-alcohol-supplement-button {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     cursor: pointer;
     color: $third-dark-yellow;
     text-align: left;
@@ -350,55 +326,17 @@ export default {
       opacity: 0.7;
     }
   }
-  .calculate-alcohol-supplement-box {
-    height: 100px;
+  .calculate-alcohol-suppelement-text {
     font-size: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: left;
+    margin-bottom: 6px;
   }
   .calculate-alcohol-calc-rec-button {
-    margin-top: 45px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 1.6rem;
   }
   .calculate-alcohol-tweet-button {
     margin-bottom: 30px;
-  }
-}
-</style>
-
-<style lang="scss">
-// scopedではdatepickerにスタイルが当たらないため分けて書く。
-.drinking-date {
-  margin-bottom: 15px;
-  color: $font-color-bg-white;
-  .dp-input {
-    width: 300px;
-    padding: 9px;
-    font-size: 1.5rem;
-    border: 1px solid $second-dark-yellow;
-    border-radius: 6px;
-  }
-  .dp-calendar {
-    border: 1px solid $second-dark-yellow;
-    border-radius: 6px;
-    .cell {
-      &:not(.blank):not(.disabled).day,
-      &:not(.blank):not(.disabled).month,
-      &:not(.blank):not(.disabled).year {
-        &:hover {
-          border: 1px solid $aged-yellow;
-        }
-      }
-      &.selected {
-        background: $aged-yellow;
-        &:hover {
-          background: $aged-yellow;
-        }
-      }
-    }
   }
 }
 </style>
