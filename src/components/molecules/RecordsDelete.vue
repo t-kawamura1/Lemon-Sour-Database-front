@@ -1,13 +1,12 @@
 <template>
   <div class="records-delete">
-    <div
-      class="records-delete-display-button"
-      @click="isActive = !isActive"
-    >
+    <div class="records-delete-display-button" @click="isActive = !isActive">
       記録の削除はこちらをクリック
     </div>
     <div v-show="isActive">
-      <div class="records-delete-guide">日付を選択して削除ボタンを押してください。</div>
+      <div class="records-delete-guide">
+        日付を選択して削除ボタンを押してください。
+      </div>
       <error-message
         class="records-delete-error"
         :error-message-text="errorMessage"
@@ -26,7 +25,7 @@
 </template>
 
 <script>
-import ErrorMessage from '@/components/atoms/ErrorMessage';
+import ErrorMessage from "@/components/atoms/ErrorMessage";
 import DayDatePicker from "@/components/atoms/DayDatePicker";
 import ButtonDelete from "@/components/atoms/ButtonDelete";
 
@@ -44,13 +43,13 @@ export default {
       ex: "削除",
       isActive: false,
       deleteDate: "",
-    }
+    };
   },
   methods: {
     setDeleteDate(date) {
       this.deleteDate = date;
     },
-  }
+  },
 };
 </script>
 

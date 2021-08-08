@@ -277,11 +277,15 @@ export default {
           this.$router.push("/calculation");
           break;
         case this.unauthenticatedSidebarMenus[2].name:
-          this.guideToAuth("記録の閲覧には、ユーザー登録・ログインが必要です。");
+          this.guideToAuth(
+            "記録の閲覧には、ユーザー登録・ログインが必要です。"
+          );
           break;
         case this.footerIcons[2][0]:
           if (this.userId == "") {
-            this.guideToAuth("記録の閲覧には、ユーザー登録・ログインが必要です。");
+            this.guideToAuth(
+              "記録の閲覧には、ユーザー登録・ログインが必要です。"
+            );
           } else {
             this.$router.push(`/drinking_records/${this.userId}`);
           }

@@ -9,7 +9,7 @@
         class="day-date-picker-input"
         :value="inputValue"
         v-on="inputEvents"
-      >
+      />
     </template>
   </v-date-picker>
 </template>
@@ -25,21 +25,21 @@ export default {
       selectAttribute: {
         highlight: {
           class: "records-delete-highlight-bg",
-          contentClass: "records-delete-highlight-content"
+          contentClass: "records-delete-highlight-content",
         },
-      }
-    }
+      },
+    };
   },
   watch: {
     date: {
       handler(newValue) {
-        const year = newValue.getFullYear().toString()
-        let month = (newValue.getMonth() + 1).toString()
+        const year = newValue.getFullYear().toString();
+        let month = (newValue.getMonth() + 1).toString();
         month = ("0" + month).slice(-2);
         let day = newValue.getDate();
         day = ("0" + day).slice(-2);
         const yearMonthDay = year + "-" + month + "-" + day;
-        this.$emit("input", yearMonthDay)
+        this.$emit("input", yearMonthDay);
       },
       immediate: true,
     },

@@ -8,7 +8,7 @@
 export default {
   props: {
     buttonDeleteText: String,
-  }
+  },
 };
 </script>
 
@@ -28,4 +28,3 @@ export default {
   }
 }
 </style>
-

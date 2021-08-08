@@ -196,7 +196,7 @@ export default {
         ["cec-yellow", "純アルコール量20g以上40g未満"],
         ["cec-red", "純アルコール量40g以上"],
       ],
-      buttonTexts: ["記録を追加"]
+      buttonTexts: ["記録を追加"],
     };
   },
   methods: {
@@ -231,20 +231,20 @@ export default {
           headers: this.authHeader,
         })
         .then((res) => {
-          this.drinkingRecordErrors = ""
+          this.drinkingRecordErrors = "";
           this.amountByDateLessThan20 = res.data[0];
           this.amountByDateFrom20To39 = res.data[1];
           this.amountByDate40OrMore = res.data[2];
-          this.noticeMessage = "該当する記録を削除しました。"
+          this.noticeMessage = "該当する記録を削除しました。";
           setTimeout(() => {
             this.noticeMessage = "";
           }, 5000);
         })
-        .catch(err => {
-          console.log(err.response)
-          this.drinkingRecordErrors.push(err.response.data.error_message)
-        })
-    }
+        .catch((err) => {
+          console.log(err.response);
+          this.drinkingRecordErrors.push(err.response.data.error_message);
+        });
+    },
   },
   created() {
     this.decryptHeaders();
@@ -261,7 +261,7 @@ export default {
       .catch((err) => {
         console.log(err.response);
       });
-    this.userId = this.currentUser.id
+    this.userId = this.currentUser.id;
     this.markCurrentPage();
   },
 };

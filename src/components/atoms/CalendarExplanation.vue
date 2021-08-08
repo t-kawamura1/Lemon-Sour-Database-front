@@ -1,9 +1,6 @@
 <template>
   <div class="calendar-explanation">
-    <span
-      class="calendar-explanation-circle"
-      :class="explanationSet[0]"
-    ></span>
+    <span class="calendar-explanation-circle" :class="explanationSet[0]"></span>
     {{ explanationSet[1] }}
   </div>
 </template>

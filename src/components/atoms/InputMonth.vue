@@ -1,5 +1,10 @@
 <template>
-  <input class="input-month" type="month" @change="$emit('input', $event.target.value)" :value="valueText">
+  <input
+    class="input-month"
+    type="month"
+    @change="$emit('input', $event.target.value)"
+    :value="valueText"
+  />
 </template>
 
 <script>
