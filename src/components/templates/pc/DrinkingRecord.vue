@@ -31,7 +31,7 @@ export default {};
   }
   .pc-drinking-record-main {
     margin: 0 $sidebar-width;
-    padding: 60px 30px 0;
+    padding: 60px 30px 30px;
   }
   .pc-side-blank {
     position: fixed;

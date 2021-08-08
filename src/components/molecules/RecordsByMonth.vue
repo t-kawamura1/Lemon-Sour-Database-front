@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     totalPureAlcohol() {
-      return this.totalPureAlcoholByMonth;
+      return parseFloat(this.totalPureAlcoholByMonth).toFixed(1);
     },
     totalDrinking() {
       return this.totalDrinkingByMonth;
