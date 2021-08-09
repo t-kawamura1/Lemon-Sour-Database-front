@@ -16,9 +16,6 @@
 
 <script>
 export default {
-  props: {
-    iconText: String,
-  },
   data() {
     return {
       date: new Date(),

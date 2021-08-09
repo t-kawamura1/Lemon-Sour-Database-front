@@ -17,7 +17,7 @@
       ></day-date-picker>
       <button-delete
         class="records-delete-button"
-        :button-delete-text="ex"
+        :button-delete-text="buttonDelete"
         @delete="$emit('submit', deleteDate)"
       ></button-delete>
     </div>
@@ -37,10 +37,10 @@ export default {
   },
   props: {
     errorMessage: String,
+    buttonDelete: String,
   },
   data() {
     return {
-      ex: "削除",
       isActive: false,
       deleteDate: "",
     };

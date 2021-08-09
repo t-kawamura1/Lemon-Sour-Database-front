@@ -57,6 +57,7 @@
           <template v-slot:drinking-record-records-delete>
             <records-delete
               :error-message="drinkingRecordErrors[0]"
+              :button-delete="buttonTexts[1]"
               @submit="deleteRecord"
             ></records-delete>
           </template>
@@ -116,6 +117,7 @@
           <template v-slot:drinking-record-records-delete>
             <records-delete
               :error-message="drinkingRecordErrors[0]"
+              :button-delete="buttonTexts[1]"
               @submit="deleteRecord"
             ></records-delete>
           </template>
@@ -196,7 +198,7 @@ export default {
         ["cec-yellow", "純アルコール量20g以上40g未満"],
         ["cec-red", "純アルコール量40g以上"],
       ],
-      buttonTexts: ["記録を追加"],
+      buttonTexts: ["記録を追加", "削除"],
     };
   },
   methods: {

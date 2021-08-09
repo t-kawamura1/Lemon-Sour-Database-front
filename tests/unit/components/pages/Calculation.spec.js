@@ -53,7 +53,7 @@ describe("(pc display) Calculation component test", () => {
         $router,
         $route,
       },
-      stubs: ["font-awesome-icon"],
+      stubs: ["font-awesome-icon", "v-date-picker"],
     });
   });
 
@@ -66,7 +66,7 @@ describe("(pc display) Calculation component test", () => {
             calculationRecordErrors: ["なんで日付いれへんの？"],
           });
         });
-      wrapper.find(".dp-input").setValue("");
+      wrapper.find(".calculate-alcohol-date-picker").vm.$emit("input", "");
       await wrapper.find(".calculate-alcohol-calc-rec-button").trigger("click");
       wrapper.find(".calculate-alcohol").vm.$emit("submitRecord", recordData);
       recordDrinking();
@@ -94,7 +94,7 @@ describe("(pc display) Calculation component test", () => {
   });
 });
 
-describe("(pc display) Calculation component test", () => {
+describe("(sp display) Calculation component test", () => {
   beforeEach(() => {
     $mq = "sp";
     wrapper = mount(Calculation, {
@@ -104,7 +104,7 @@ describe("(pc display) Calculation component test", () => {
         $router,
         $route,
       },
-      stubs: ["font-awesome-icon"],
+      stubs: ["font-awesome-icon", "v-date-picker"],
     });
   });
 
@@ -117,7 +117,7 @@ describe("(pc display) Calculation component test", () => {
             calculationRecordErrors: ["なんで日付いれへんの？"],
           });
         });
-      wrapper.find(".dp-input").setValue("");
+      wrapper.find(".calculate-alcohol-date-picker").vm.$emit("input", "");
       await wrapper.find(".calculate-alcohol-calc-rec-button").trigger("click");
       wrapper.find(".calculate-alcohol").vm.$emit("submitRecord", recordData);
       recordDrinking();

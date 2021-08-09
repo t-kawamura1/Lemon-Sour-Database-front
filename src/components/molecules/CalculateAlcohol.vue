@@ -104,13 +104,11 @@
       {{ calculationSupplementTexts[0] }}
     </div>
     <text-calculation-supplement
-      class="calculate-alcohol-suppelement-text"
+      class="calculate-alcohol-supplement-text"
       v-show="isActive"
-      v-for="(
-        calculationSupplementText, index
-      ) in calculationSupplementTexts[1]"
+      v-for="(calcSuppleText, index) in calculationSupplementTexts[1]"
       :key="index"
-      :supplement-text="calculationSupplementText"
+      :supplement-text="calcSuppleText"
     ></text-calculation-supplement>
     <button-calculation-record
       class="calculate-alcohol-calc-rec-button"
@@ -326,7 +324,7 @@ export default {
       opacity: 0.7;
     }
   }
-  .calculate-alcohol-suppelement-text {
+  .calculate-alcohol-supplement-text {
     font-size: 1.5rem;
     margin-bottom: 6px;
   }
