@@ -19,7 +19,6 @@ export default {
   color: $lightest-yellow;
   border: 1px solid $aged-yellow;
   border-radius: 15px;
-  // font-size: 1.4rem;
   padding: 9px 12px;
   &:hover {
     background-color: $lightest-yellow;

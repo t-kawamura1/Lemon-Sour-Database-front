@@ -36,6 +36,7 @@ export default {};
   .sp-notice {
     position: fixed;
     width: 100%;
+    z-index: $z-notice;
   }
   .sp-home-main {
     margin-top: $header-height;

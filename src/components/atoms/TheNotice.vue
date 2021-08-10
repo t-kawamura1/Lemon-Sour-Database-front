@@ -14,7 +14,7 @@ export default {
 .the-notice {
   display: flex;
   background-color: $light-green;
-  color: $base-yellow;
+  color: $darkest-yellow;
   width: 100%;
   padding: 20px 63px;
 }

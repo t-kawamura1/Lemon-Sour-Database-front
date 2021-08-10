@@ -29,6 +29,7 @@ export default {};
   }
   .pc-notice {
     margin-left: $sidebar-width;
+    z-index: $z-notice;
   }
   .pc-sours-index-main {
     margin-left: $sidebar-width;

@@ -6,6 +6,7 @@ import LemonSour from "@/components/pages/LemonSour";
 import User from "@/components/pages/User";
 import UserPasswordReset from "@/components/pages/UserPasswordReset";
 import Calculation from "@/components/pages/Calculation";
+import DrinkingRecord from "@/components/pages/DrinkingRecord";
 import RouterAuth from "@/modules/router-auth";
 
 Vue.use(VueRouter);
@@ -31,7 +32,7 @@ const routes = [
     name: "user",
     component: User,
     beforeEnter: (to, from, next) => {
-      RouterAuth.guardAccessToUser(Vue, to, from, next);
+      RouterAuth.guardAccessToPageRequiresAuth(Vue, to, from, next);
     },
     props: { currentUser: RouterAuth.currentUser },
   },
@@ -44,6 +45,15 @@ const routes = [
     path: "/calculation",
     name: "calculation",
     component: Calculation,
+  },
+  {
+    path: "/drinking_records/:id",
+    name: "drinkingRecord",
+    component: DrinkingRecord,
+    beforeEnter: (to, from, next) => {
+      RouterAuth.guardAccessToPageRequiresAuth(Vue, to, from, next);
+    },
+    props: { currentUser: RouterAuth.currentUser },
   },
 ];
 

@@ -1,16 +1,13 @@
 <template>
-  <div class="template-pc-calculation">
-    <div class="pc-modal">
-      <slot name="modal"></slot>
-    </div>
+  <div class="template-pc-drinking-record">
     <div class="pc-sidebar">
       <slot name="sidebar"></slot>
     </div>
     <div class="pc-notice">
       <slot name="notice"></slot>
     </div>
-    <div class="pc-calculation-main">
-      <slot name="calculation-container"></slot>
+    <div class="pc-drinking-record-main">
+      <slot name="drinking-record-container"></slot>
     </div>
     <div class="pc-side-blank">
       <slot name="side-blank"></slot>
@@ -23,7 +20,7 @@ export default {};
 </script>
 
 <style scoped lang="scss">
-.template-pc-calculation {
+.template-pc-drinking-record {
   .pc-sidebar {
     position: fixed;
     z-index: $z-sidebar;
@@ -32,9 +29,9 @@ export default {};
     margin: 0 $sidebar-width;
     z-index: $z-notice;
   }
-  .pc-calculation-main {
+  .pc-drinking-record-main {
     margin: 0 $sidebar-width;
-    padding: 60px 30px 0;
+    padding: 60px 30px 30px;
   }
   .pc-side-blank {
     position: fixed;

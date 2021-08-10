@@ -1,21 +1,13 @@
 <template>
-  <div class="template-sp-lemon-sour">
-    <div class="sp-modal">
-      <slot name="modal"></slot>
-    </div>
+  <div class="template-sp-drinking-record">
     <div class="sp-header">
       <slot name="header"></slot>
     </div>
     <div class="sp-notice">
       <slot name="notice"></slot>
     </div>
-    <div class="sp-lemon-sour-main">
-      <div class="sp-sour-container">
-        <slot name="sour-container"></slot>
-      </div>
-      <div class="sp-review-container">
-        <slot name="review-container"></slot>
-      </div>
+    <div class="sp-drinking-record-main">
+      <slot name="drinking-record-container"></slot>
     </div>
     <div class="sp-footer">
       <slot name="footer"></slot>
@@ -28,7 +20,7 @@ export default {};
 </script>
 
 <style scoped lang="scss">
-.template-sp-lemon-sour {
+.template-sp-drinking-record {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -41,12 +33,12 @@ export default {};
   .sp-notice {
     position: fixed;
     width: 100%;
-    z-index: $z-notice;
   }
-  .sp-lemon-sour-main {
-    padding: 10px;
+  .sp-drinking-record-main {
     margin-top: $header-height;
     margin-bottom: $footer-height;
+    padding: 10px;
+    z-index: $z-notice;
   }
   .sp-footer {
     position: fixed;

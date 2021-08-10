@@ -71,6 +71,9 @@
           <template v-slot:calculation-heading>
             <the-heading :heading-text="heading"></the-heading>
           </template>
+          <template v-slot:calculation-text-calculation-main>
+            <text-main :main-text="mainExplanation"></text-main>
+          </template>
           <template v-slot:calculation-calculate-alcohol>
             <calculate-alcohol
               :calculation-supplement-texts="calculationSupplement"
@@ -160,6 +163,9 @@
           <template v-slot:calculation-heading>
             <the-heading :heading-text="heading"></the-heading>
           </template>
+          <template v-slot:calculation-text-calculation-main>
+            <text-main :main-text="mainExplanation"></text-main>
+          </template>
           <template v-slot:calculation-calculate-alcohol>
             <calculate-alcohol
               :calculation-supplement-texts="calculationSupplement"
@@ -211,6 +217,7 @@ import FooterIcons from "@/components/molecules/FooterIcons";
 import CalculateAlcohol from "@/components/molecules/CalculateAlcohol";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
+import TextMain from "@/components/atoms/TextMain";
 import BlankSide from "@/components/atoms/BlankSide";
 
 export default {
@@ -233,17 +240,22 @@ export default {
     AppTitle,
     TheNotice,
     TheHeading,
+    TextMain,
     BlankSide,
   },
   data() {
     return {
       heading: "アルコール摂取量計算",
-      calculationSupplement: [
+      mainExplanation:
         "飲んだ銘柄と飲んだ量から、摂取アルコール量を計算できます。飲んだ日付を選択すると、結果を記録することができます。",
+      calculationSupplement: [
         "※ 純アルコール量で算定。この文章をクリックすると計算式・摂取目安量を表示",
-        "量(ml) × 度数/100 × 0.8 = 純アルコール量(g)",
-        "節度ある適切な飲酒量： 1日当たり20g程度",
-        ["生活習慣病のリスクを高める飲酒量：", "男性 40g以上、 女性 20g以上"],
+        [
+          "量(ml) × 度数/100 × 0.8 = 純アルコール量(g)",
+          "節度ある適切な飲酒量： 1日当たり20g程度",
+          "生活習慣病のリスクを高める飲酒量：",
+          "男性 40g以上、 女性 20g以上",
+        ],
       ],
       calculationRecordErrors: [],
       soursSelectSet: ["ー", ["レモンサワーを選択"]],
@@ -277,9 +289,21 @@ export default {
         case this.footerIcons[1][0]:
           break;
         case this.unauthenticatedSidebarMenus[2].name:
-        case this.authenticatedSidebarMenus[2].name:
+          this.guideToAuth(
+            "記録の閲覧には、ユーザー登録・ログインが必要です。"
+          );
+          break;
         case this.footerIcons[2][0]:
-          // カレンダーへ。実装後に追加
+          if (this.userId == "") {
+            this.guideToAuth(
+              "記録の閲覧には、ユーザー登録・ログインが必要です。"
+            );
+          } else {
+            this.$router.push(`/drinking_records/${this.userId}`);
+          }
+          break;
+        case this.authenticatedSidebarMenus[2].name:
+          this.$router.push(`/drinking_records/${this.userId}`);
           break;
         case this.authenticatedUserFunctions[0]:
           this.$router.push(`/users/${this.userId}`);
@@ -288,7 +312,7 @@ export default {
     },
     recordDrinking(data) {
       if (this.$cookies.isKey("auth-header")) {
-        data.user_id = this.userId;
+        data.drinking_record.user_id = this.userId;
         this.decryptHeaders();
         axios
           .post("/api/v1/drinking_records", data, {
@@ -296,18 +320,16 @@ export default {
           })
           .then((res) => {
             console.log(res);
+            this.$router.push(`/drinking_records/${this.userId}`);
           })
           .catch((err) => {
             console.log(err.response);
             this.calculationRecordErrors = err.response.data;
           });
       } else {
-        this.noticeMessage =
-          "結果を記録するには、ユーザー登録・ログインが必要です。";
-        setTimeout(() => {
-          this.noticeMessage = "";
-          this.openModal("ログイン");
-        }, 3000);
+        this.guideToAuth(
+          "結果を記録するには、ユーザー登録・ログインが必要です。"
+        );
       }
     },
   },

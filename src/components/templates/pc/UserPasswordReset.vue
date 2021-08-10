@@ -30,6 +30,7 @@ export default {};
   }
   .pc-notice {
     margin: 0 $sidebar-width;
+    z-index: $z-notice;
   }
   .pc-user-password-reset-main {
     padding: 60px 30px;

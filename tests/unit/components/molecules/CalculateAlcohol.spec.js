@@ -8,11 +8,13 @@ describe("CalculateAlcohol component test", () => {
     wrapper = mount(CalculateAlcohol, {
       propsData: {
         calculationSupplementTexts: [
-          "摂取アルコール量を計算できるで。",
           "純アルコール量で算定するで。クリックで表示",
-          "量(ml) × 度数/100 × 0.8 = 純アルコール量(g)",
-          "適切な飲酒量： 1日当たり20g程度やで",
-          ["やばい飲酒量：", "men 40g以上、 women 20g以上"],
+          [
+            "量(ml) × 度数/100 × 0.8 = 純アルコール量(g)",
+            "適切な飲酒量： 1日当たり20g程度やで",
+            "やばい飲酒量：",
+            "men 40g以上、 women 20g以上",
+          ],
         ],
         errorMessages: ["日付は必要", "今のとこないけども一つエラー"],
         soursSelect: ["ー", ["サワー選択", "テスレモ", "テスサワ", "テスハイ"]],
@@ -32,28 +34,19 @@ describe("CalculateAlcohol component test", () => {
         iconTexts: ["times", "arrow-right"],
         calcButton: "結果を記録",
       },
-      stubs: ["font-awesome-icon"],
+      stubs: ["font-awesome-icon", "v-date-picker"],
     });
   });
 
-  it("calculationSupplementTexts propsの各要素をレンダリングしている", () => {
-    expect(wrapper.find(".calculate-alcohol-heading-explanation").text()).toBe(
-      "摂取アルコール量を計算できるで。"
-    );
+  it("calculationSupplementTexts[0]を表示している", () => {
     expect(wrapper.find(".calculate-alcohol-supplement-button").text()).toBe(
       "純アルコール量で算定するで。クリックで表示"
     );
-    expect(wrapper.find(".calculate-alcohol-supplement-formula").text()).toBe(
-      "量(ml) × 度数/100 × 0.8 = 純アルコール量(g)"
-    );
-    expect(
-      wrapper.find(".calculate-alcohol-supplement-appropriate").text()
-    ).toBe("適切な飲酒量： 1日当たり20g程度やで");
-    expect(wrapper.find(".calculate-alcohol-supplement-lisky").text()).toBe(
-      "やばい飲酒量："
-    );
-    expect(wrapper.find(".calculate-alcohol-supplement-gender").text()).toBe(
-      "men 40g以上、 women 20g以上"
+  });
+
+  it("calculationSupplementTexts[1]の要素の数だけ,レンダリングする", () => {
+    expect(wrapper.findAll(".calculate-alcohol-supplement-text")).toHaveLength(
+      4
     );
   });
 
@@ -91,6 +84,15 @@ describe("CalculateAlcohol component test", () => {
   it("calcButton propsを子コンポーネントに渡している", () => {
     expect(wrapper.find(".calculate-alcohol-calc-rec-button").text()).toBe(
       "結果を記録"
+    );
+  });
+
+  it("DayDatePickerコンポーネントからinputイベントと日付がemitされると、その日付がdataにセットされる", () => {
+    wrapper
+      .find(".calculate-alcohol-date-picker")
+      .vm.$emit("input", "2021-05-30");
+    expect(wrapper.vm.recordData.drinking_record.drinking_date).toBe(
+      "2021-05-30"
     );
   });
 
@@ -133,13 +135,14 @@ describe("CalculateAlcohol component test", () => {
     const substituteRecordData = jest
       .spyOn(CalculateAlcohol.methods, "substituteRecordData")
       .mockImplementation(() => {
-        wrapper.vm.recordData.drinking_date =
-          wrapper.find(".dp-input").element.value;
         wrapper.vm.recordData.drinking_amount = 850;
         wrapper.vm.recordData.pure_alcohol_amount = 26.5;
         wrapper.vm.$emit("submitRecord", wrapper.vm.recordData);
       });
     await wrapper.find(".calculate-alcohol-calc-rec-button").trigger("record");
+    wrapper.vm.recordData.drinking_date = wrapper.find(
+      ".calculate-alcohol-date-picker"
+    ).element.value;
     substituteRecordData();
     expect(wrapper.emitted().submitRecord).toBeTruthy();
     expect(wrapper.emitted().submitRecord[0][0].pure_alcohol_amount).toBe(26.5);
