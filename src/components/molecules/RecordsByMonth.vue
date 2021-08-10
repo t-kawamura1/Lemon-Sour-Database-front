@@ -126,10 +126,12 @@ export default {
     font-size: 1.8rem;
     margin-bottom: 10px;
     text-align: right;
+    font-weight: 700;
   }
   .records-by-month-drinking-amount {
     font-size: 1.8rem;
     text-align: right;
+    font-weight: 700;
   }
 }
 </style>

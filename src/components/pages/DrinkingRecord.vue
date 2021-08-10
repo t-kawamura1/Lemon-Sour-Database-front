@@ -41,12 +41,18 @@
               :records-less-than-twenty="amountByDateLessThan20"
               :records-from-twenty-to-thirty-nine="amountByDateFrom20To39"
               :records-forty-or-more="amountByDate40OrMore"
-              :records-date-and-sour="dateAndSour"
               :colors-and-texts="colorsAndTextsSet"
             ></records-calendar>
           </template>
           <template v-slot:drinking-record-records-by-month>
             <records-by-month></records-by-month>
+          </template>
+          <template v-slot:drinking-record-records-sour-names>
+            <records-sour-names
+              :records-sour-names="countSourNames"
+              :icon-ranking="iconText"
+              :sour-names-explanation="soursNamesExplanationText"
+            ></records-sour-names>
           </template>
           <template v-slot:drinking-record-button-calculation-record>
             <button-calculation-record
@@ -101,12 +107,18 @@
               :records-less-than-twenty="amountByDateLessThan20"
               :records-from-twenty-to-thirty-nine="amountByDateFrom20To39"
               :records-forty-or-more="amountByDate40OrMore"
-              :records-date-and-sour="dateAndSour"
               :colors-and-texts="colorsAndTextsSet"
             ></records-calendar>
           </template>
           <template v-slot:drinking-record-records-by-month>
             <records-by-month></records-by-month>
+          </template>
+          <template v-slot:drinking-record-records-sour-names>
+            <records-sour-names
+              :records-sour-names="countSourNames"
+              :icon-ranking="iconText"
+              :sour-names-explanation="soursNamesExplanationText"
+            ></records-sour-names>
           </template>
           <template v-slot:drinking-record-button-calculation-record>
             <button-calculation-record
@@ -155,6 +167,7 @@ import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenti
 import RecordsCalendar from "@/components/molecules/RecordsCalendar";
 import RecordsByMonth from "@/components/molecules/RecordsByMonth";
 import RecordsDelete from "@/components/molecules/RecordsDelete";
+import RecordsSourNames from "@/components/molecules/RecordsSourNames";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
@@ -175,6 +188,7 @@ export default {
     RecordsCalendar,
     RecordsByMonth,
     RecordsDelete,
+    RecordsSourNames,
     FooterIcons,
     AppTitle,
     TheNotice,
@@ -192,12 +206,14 @@ export default {
       amountByDateLessThan20: [],
       amountByDateFrom20To39: [],
       amountByDate40OrMore: [],
-      dateAndSour: [],
+      countSourNames: [],
       colorsAndTextsSet: [
         ["cec-green", "純アルコール量20g未満"],
         ["cec-yellow", "純アルコール量20g以上40g未満"],
         ["cec-red", "純アルコール量40g以上"],
       ],
+      soursNamesExplanationText: `${this.currentUser.name}さんがよく飲んでいるレモンサワー`,
+      iconText: "crown",
       buttonTexts: ["記録を追加", "削除"],
     };
   },
@@ -255,10 +271,11 @@ export default {
         headers: this.authHeader,
       })
       .then((res) => {
+        console.log(res.data[3]);
         this.amountByDateLessThan20 = res.data[0];
         this.amountByDateFrom20To39 = res.data[1];
         this.amountByDate40OrMore = res.data[2];
-        this.dateAndSour = res.data[3];
+        this.countSourNames = res.data[3];
       })
       .catch((err) => {
         console.log(err.response);

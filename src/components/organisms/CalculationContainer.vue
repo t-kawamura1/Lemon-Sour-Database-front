@@ -4,7 +4,7 @@
       <slot name="calculation-heading"></slot>
     </div>
     <div class="calculation-container-text-calculation-main">
-      <slot name="calculation-text-calculation-main"></slot>
+      <slot name="calculation-text-main"></slot>
     </div>
     <div class="calculation-container-calculate-alcohol">
       <slot name="calculation-calculate-alcohol"></slot>

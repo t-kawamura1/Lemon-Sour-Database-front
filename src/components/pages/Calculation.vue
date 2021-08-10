@@ -72,9 +72,7 @@
             <the-heading :heading-text="heading"></the-heading>
           </template>
           <template v-slot:calculation-text-calculation-main>
-            <text-calculation-main
-              :main-text="mainExplanation"
-            ></text-calculation-main>
+            <text-main :main-text="mainExplanation"></text-main>
           </template>
           <template v-slot:calculation-calculate-alcohol>
             <calculate-alcohol
@@ -166,9 +164,7 @@
             <the-heading :heading-text="heading"></the-heading>
           </template>
           <template v-slot:calculation-text-calculation-main>
-            <text-calculation-main
-              :main-text="mainExplanation"
-            ></text-calculation-main>
+            <text-main :main-text="mainExplanation"></text-main>
           </template>
           <template v-slot:calculation-calculate-alcohol>
             <calculate-alcohol
@@ -221,7 +217,7 @@ import FooterIcons from "@/components/molecules/FooterIcons";
 import CalculateAlcohol from "@/components/molecules/CalculateAlcohol";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
-import TextCalculationMain from "@/components/atoms/TextCalculationMain";
+import TextMain from "@/components/atoms/TextMain";
 import BlankSide from "@/components/atoms/BlankSide";
 
 export default {
@@ -244,7 +240,7 @@ export default {
     AppTitle,
     TheNotice,
     TheHeading,
-    TextCalculationMain,
+    TextMain,
     BlankSide,
   },
   data() {

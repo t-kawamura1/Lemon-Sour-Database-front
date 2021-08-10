@@ -9,6 +9,9 @@
     <div class="drinking-record-container-records-by-month">
       <slot name="drinking-record-records-by-month"></slot>
     </div>
+    <div class="drinking-record-container-records-sour-names">
+      <slot name="drinking-record-records-sour-names"></slot>
+    </div>
     <div class="drinking-record-container-button-calculation-record">
       <slot name="drinking-record-button-calculation-record"></slot>
     </div>
@@ -35,6 +38,9 @@ export default {};
     margin-bottom: 20px;
   }
   .drinking-record-container-records-by-month {
+    margin-bottom: 30px;
+  }
+  .drinking-record-container-records-sour-names {
     margin-bottom: 30px;
   }
   .drinking-record-container-button-calculation-record {

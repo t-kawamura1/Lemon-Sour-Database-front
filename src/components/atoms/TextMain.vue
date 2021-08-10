@@ -1,5 +1,5 @@
 <template>
-  <div class="text-calculation-main">
+  <div class="text-main">
     {{ mainText }}
   </div>
 </template>
