@@ -10,7 +10,9 @@
       <slot name="notice"></slot>
     </div>
     <div class="pc-home-main">
-      <slot name="home-container"></slot>
+      <div class="pc-home-container">
+        <slot name="pc-home-container"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -28,10 +30,7 @@
     z-index: $z-notice;
   }
   .pc-home-main {
-    padding: 60px 30px;
-    .pc-home-container {
-      margin-left: $sidebar-width;
-    }
+    // margin-left: $sidebar-width;
   }
 }
 </style>

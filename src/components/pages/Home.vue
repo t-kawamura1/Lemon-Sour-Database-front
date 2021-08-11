@@ -6,7 +6,6 @@
       <template v-slot:modal>
         <the-modal>
           <template v-slot:modal-user-registration>
-            <!-- v-showにすべきだが、focusの効くタイミングがv-if + beforeMountしかなかった。 -->
             <modal-user
               :modal-user-contents="userRegistrationContents"
               :error-messages="userModalErrors"
@@ -31,7 +30,7 @@
       </template>
       <!-- SIDEBAR -->
       <template v-slot:sidebar>
-        <the-sidebar>
+        <home-sidebar>
           <template v-slot:title>
             <app-title
               :sidebar-icon-text="sidebarIcon"
@@ -56,7 +55,7 @@
               @modal="openModal"
             ></sidebar-menus-unauthenticated>
           </template>
-        </the-sidebar>
+        </home-sidebar>
       </template>
       <!-- NOTICE -->
       <template v-slot:notice>
@@ -66,8 +65,20 @@
         ></the-notice>
       </template>
       <!-- HOME-CONTAINER -->
-      <template v-slot:home-container>
-        <home-container></home-container>
+      <template v-slot:pc-home-container>
+        <pc-home-container>
+          <template v-slot:pc-home-title>
+            <pc-home-title
+              :pc-home-title-icon="homeTitleIconText"
+            ></pc-home-title>
+          </template>
+          <template v-slot:pc-home-function-items>
+            <pc-home-function-items
+              :function-items-heading="functionItemsHeadingText"
+              :function-items="functionItemsSet"
+            ></pc-home-function-items>
+          </template>
+        </pc-home-container>
       </template>
     </pc-home>
     <!-- DISPLAY SP -->
@@ -135,8 +146,18 @@
         ></the-notice>
       </template>
       <!-- HOME-CONTAINER -->
-      <template v-slot:home-container>
-        <home-container></home-container>
+      <template v-slot:sp-home-container>
+        <sp-home-container>
+          <template v-slot:sp-home-title>
+            <sp-home-title></sp-home-title>
+          </template>
+          <template v-slot:sp-home-function-items>
+            <sp-home-function-items
+              :function-items-heading="functionItemsHeadingText"
+              :function-items="functionItemsSet"
+            ></sp-home-function-items>
+          </template>
+        </sp-home-container>
       </template>
       <!-- FOOTER -->
       <template v-slot:footer>
@@ -161,9 +182,10 @@ import CommonMethods from "@/mixins/common-methods";
 import PcHome from "@/components/templates/pc/Home";
 import SpHome from "@/components/templates/sp/Home";
 import TheModal from "@/components/organisms/TheModal";
-import TheSidebar from "@/components/organisms/TheSidebar";
+import HomeSidebar from "@/components/organisms/pc/HomeSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
-import HomeContainer from "@/components/organisms/HomeContainer";
+import PcHomeContainer from "@/components/organisms/pc/HomeContainer";
+import SpHomeContainer from "@/components/organisms/sp/HomeContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
 import AppTitle from "@/components/molecules/AppTitle";
@@ -171,6 +193,10 @@ import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthen
 import SidebarMenusUnauthenticated from "@/components/molecules/SidebarMenusUnauthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
 import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauthenticated";
+import PcHomeTitle from "@/components/molecules/pc/HomeTitle";
+import SpHomeTitle from "@/components/molecules/sp/HomeTitle";
+import PcHomeFunctionItems from "@/components/molecules/pc/HomeFunctionItems";
+import SpHomeFunctionItems from "@/components/molecules/sp/HomeFunctionItems";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import TheNotice from "@/components/atoms/TheNotice";
 
@@ -180,22 +206,48 @@ export default {
     PcHome,
     SpHome,
     TheModal,
-    TheSidebar,
+    HomeSidebar,
     TheHeader,
-    HomeContainer,
+    PcHomeContainer,
+    SpHomeContainer,
     TheFooter,
     ModalUser,
     SidebarMenusAuthenticated,
     SidebarMenusUnauthenticated,
     HeaderIconsAuthenticated,
     HeaderIconsUnauthenticated,
+    PcHomeTitle,
+    SpHomeTitle,
+    PcHomeFunctionItems,
+    SpHomeFunctionItems,
     FooterIcons,
     AppTitle,
     TheNotice,
   },
   data() {
     return {
-      // currentUser: {},
+      homeTitleIconText: "lemon",
+      functionItemsHeadingText: "楽しく飲める、3つの機能",
+      functionItemsSet: [
+        {
+          name: "市販レモンサワーデータベース",
+          icon: "database",
+          text: "市販のRTDレモンサワーをデーターベース化。メーカーや成分から、お気に入りのレモンサワーをみつけよう。",
+          button: "レモンサワーをみつける",
+        },
+        {
+          name: "アルコール摂取量計算",
+          icon: "calculator",
+          text: "アルコール摂取量は健康のバロメーター。今日飲んだ量をチェックして、健康的な飲酒量をみつけよう。",
+          button: "アルコール量を計算する",
+        },
+        {
+          name: "摂取量記録カレンダー",
+          icon: "calendar-alt",
+          text: "計算した記録はカレンダーに反映。毎日の飲酒量がひと目でわかる。（この機能の使用にはユーザー登録が必要です）",
+          button: "ユーザー登録",
+        },
+      ],
     };
   },
   methods: {
