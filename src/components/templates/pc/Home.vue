@@ -29,8 +29,5 @@
     margin-left: $sidebar-width;
     z-index: $z-notice;
   }
-  .pc-home-main {
-    // margin-left: $sidebar-width;
-  }
 }
 </style>

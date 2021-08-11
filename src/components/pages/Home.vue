@@ -76,6 +76,8 @@
             <pc-home-function-items
               :function-items-heading="functionItemsHeadingText"
               :function-items="functionItemsSet"
+              @link="toPageView"
+              @modal="openModal"
             ></pc-home-function-items>
           </template>
         </pc-home-container>
@@ -155,6 +157,8 @@
             <sp-home-function-items
               :function-items-heading="functionItemsHeadingText"
               :function-items="functionItemsSet"
+              @link="toPageView"
+              @modal="openModal"
             ></sp-home-function-items>
           </template>
         </sp-home-container>
@@ -176,7 +180,6 @@
 </template>
 
 <script>
-// import axios from "axios";
 import CommonData from "@/mixins/common-data";
 import CommonMethods from "@/mixins/common-methods";
 import PcHome from "@/components/templates/pc/Home";
@@ -256,11 +259,13 @@ export default {
         case "toHome":
         case this.headerIcons[0]:
           break;
+        case "toLemonSours":
         case this.unauthenticatedSidebarMenus[0].name:
         case this.authenticatedSidebarMenus[0].name:
         case this.footerIcons[0][0]:
           this.$router.push("/lemon_sours");
           break;
+        case "toCalculation":
         case this.unauthenticatedSidebarMenus[1].name:
         case this.authenticatedSidebarMenus[1].name:
         case this.footerIcons[1][0]:

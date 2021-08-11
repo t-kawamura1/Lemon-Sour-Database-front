@@ -1,5 +1,5 @@
 <template>
-  <button class="button-home-content">
+  <button class="button-home-content" @click="$emit('click', homeContentText)">
     <span class="button-home-content-arrow"></span>
     {{ homeContentText }}
   </button>
@@ -18,13 +18,15 @@ export default {
   cursor: pointer;
   background-color: $base-yellow-complementary;
   color: white;
-  border: 2px solid $base-yellow-complementary;
+  border: 1px solid $base-yellow-complementary;
   border-radius: 6px;
-  padding: 3px 9px;
+  padding: 3px 0;
+  width: 230px;
   font-size: 1.6rem;
   letter-spacing: 1px;
   &:hover {
-    opacity: 0.7;
+    background-color: $aged-yellow;
+    border: 1px solid $aged-yellow;
   }
   .button-home-content-arrow {
     content: "";
