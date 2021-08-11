@@ -10,17 +10,15 @@
       <slot name="notice"></slot>
     </div>
     <div class="sp-home-main">
-      <slot name="home-container"></slot>
+      <div class="sp-home-container">
+        <slot name="sp-home-container"></slot>
+      </div>
     </div>
     <div class="sp-footer">
       <slot name="footer"></slot>
     </div>
   </div>
 </template>
-
-<script>
-export default {};
-</script>
 
 <style scoped lang="scss">
 .template-sp-home {
@@ -39,9 +37,7 @@ export default {};
     z-index: $z-notice;
   }
   .sp-home-main {
-    margin-top: $header-height;
     margin-bottom: $footer-height;
-    padding: 30px 0;
   }
   .sp-footer {
     position: fixed;

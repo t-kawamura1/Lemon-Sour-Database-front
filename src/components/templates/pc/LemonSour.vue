@@ -23,10 +23,6 @@
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped lang="scss">
 .template-pc-lemon-sour {
   display: flex;

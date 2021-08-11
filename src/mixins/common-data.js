@@ -52,7 +52,7 @@ export default {
       footerIcons: [
         ["database", "LSDB"],
         ["calculator", "アルコール量計算"],
-        ["calendar-alt", "記録カレンダー"],
+        ["calendar-alt", "カレンダー"],
       ],
       currentPageName: "",
     };
