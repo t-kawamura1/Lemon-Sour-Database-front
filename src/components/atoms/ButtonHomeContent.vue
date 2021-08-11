@@ -1,5 +1,8 @@
 <template>
-  <button class="button-home-content" @click="$emit('click', homeContentText)">
+  <button
+    class="button-home-content"
+    @click="$emit('linkOrModal', homeContentText)"
+  >
     <span class="button-home-content-arrow"></span>
     {{ homeContentText }}
   </button>

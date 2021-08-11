@@ -8,13 +8,15 @@
         :key="index"
       >
         <div class="pc-home-function-items-name">{{ functionItem.name }}</div>
-        <icon class="pc-home-function-items-icon" :icon-text="functionItem.icon"></icon>
-        <div class="pc-home-function-items-text">{{ functionItem.text }}
-        </div>
+        <icon
+          class="pc-home-function-items-icon"
+          :icon-text="functionItem.icon"
+        ></icon>
+        <div class="pc-home-function-items-text">{{ functionItem.text }}</div>
         <button-home-content
           class="pc-home-function-items-button"
           :home-content-text="functionItem.button"
-          @click="sortButton"
+          @linkOrModal="sortButton"
         ></button-home-content>
       </div>
     </div>
@@ -39,10 +41,10 @@ export default {
       if (event == this.functionItems[0].button) {
         this.$emit("link", "toLemonSours");
       } else if (event == this.functionItems[1].button) {
-        this.$emit("link", "toCalculation")
+        this.$emit("link", "toCalculation");
       } else {
         this.$emit("modal", "ユーザー登録");
-      };
+      }
     },
   },
 };

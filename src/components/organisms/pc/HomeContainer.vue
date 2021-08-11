@@ -14,7 +14,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(255, 255, 255, 0.5) url("~@/assets/image/lemon_bg_dark.jpg") no-repeat fixed right;
+  background: rgba(255, 255, 255, 0.5) url("~@/assets/image/lemon_bg_dark.jpg")
+    no-repeat fixed right;
   background-size: cover;
   background-blend-mode: lighten;
   padding: 90px 0 60px $sidebar-width;
