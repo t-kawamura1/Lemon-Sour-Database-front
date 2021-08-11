@@ -6,8 +6,8 @@
         <span>L</span>emon <span>S</span>our <span>DB</span>
       </div>
     </div>
-    <div class="pc-home-title-opening-text1">お気に入りのレモンサワーをみつけて</div>
-    <div class="pc-home-title-opening-text2">健康に楽しく飲もう！</div>
+    <div class="pc-home-title-opening-text1">{{ homeTitleOpenings[0] }}</div>
+    <div class="pc-home-title-opening-text2">{{ homeTitleOpenings[1] }}</div>
   </h2>
 </template>
 
@@ -20,6 +20,7 @@ export default {
   },
   props: {
     pcHomeTitleIcon: String,
+    homeTitleOpenings: Array,
   },
 };
 </script>

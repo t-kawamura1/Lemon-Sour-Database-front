@@ -70,6 +70,7 @@
           <template v-slot:pc-home-title>
             <pc-home-title
               :pc-home-title-icon="homeTitleIconText"
+              :home-title-openings="homeTitleOpeningTexts"
             ></pc-home-title>
           </template>
           <template v-slot:pc-home-function-items>
@@ -151,7 +152,9 @@
       <template v-slot:sp-home-container>
         <sp-home-container>
           <template v-slot:sp-home-title>
-            <sp-home-title></sp-home-title>
+            <sp-home-title
+              :home-title-openings="homeTitleOpeningTexts"
+            ></sp-home-title>
           </template>
           <template v-slot:sp-home-function-items>
             <sp-home-function-items
@@ -230,6 +233,10 @@ export default {
   data() {
     return {
       homeTitleIconText: "lemon",
+      homeTitleOpeningTexts: [
+        "お気に入りのレモンサワーをみつけて",
+        "健康に楽しく飲もう！",
+      ],
       functionItemsHeadingText: "楽しく飲める、3つの機能",
       functionItemsSet: [
         {
