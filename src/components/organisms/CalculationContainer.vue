@@ -12,10 +12,6 @@
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped lang="scss">
 .calculation-container {
   display: flex;

@@ -18,10 +18,6 @@
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped lang="scss">
 .sour-container {
   display: flex;

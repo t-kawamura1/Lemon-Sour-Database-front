@@ -15,10 +15,6 @@
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped lang="scss">
 .template-pc-drinking-record {
   .pc-sidebar {

@@ -12,10 +12,6 @@
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped lang="scss">
 .pc-sours-index-container {
   display: flex;

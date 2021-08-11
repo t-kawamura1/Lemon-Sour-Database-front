@@ -18,10 +18,6 @@
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped lang="scss">
 .template-pc-calculation {
   .pc-sidebar {

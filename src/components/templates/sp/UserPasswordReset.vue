@@ -9,10 +9,6 @@
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped lang="scss">
 .template-sp-user-password-reset {
   display: flex;

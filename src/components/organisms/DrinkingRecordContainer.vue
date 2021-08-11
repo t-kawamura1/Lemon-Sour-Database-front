@@ -21,10 +21,6 @@
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped lang="scss">
 .drinking-record-container {
   display: flex;

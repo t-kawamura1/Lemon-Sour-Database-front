@@ -1,16 +1,11 @@
 <template>
-  <div class="user-home">ほーむ</div>
+  <div class="home-container">ほーむ</div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped lang="scss">
-.user-home {
+.home-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  height: 1000px;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
