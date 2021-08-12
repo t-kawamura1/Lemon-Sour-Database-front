@@ -310,7 +310,6 @@ export default {
         name: "calculation",
         params: { lemonSour: this.lemonSour },
       });
-      // console.log(this.$route)
     },
   },
   created() {

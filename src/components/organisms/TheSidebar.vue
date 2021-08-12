@@ -12,6 +12,7 @@
 <style scoped lang="scss">
 .sidebar {
   width: $sidebar-width;
+  box-shadow: 1px 0 3px $silver;
   height: 100vh;
   padding: 60px 20px;
   background-color: $lightest-yellow;

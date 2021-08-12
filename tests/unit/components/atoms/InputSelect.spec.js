@@ -10,6 +10,7 @@ describe("InputSelect component test", () => {
       propsData: {
         sortType: "メーカー",
         sortValues: ["テストビール", "テスト酒造"],
+        initValue: "テストサワー",
       },
     });
     options = wrapper.find("select").findAll("option");
@@ -19,6 +20,10 @@ describe("InputSelect component test", () => {
     expect(options.at(0).text()).toBe("メーカー");
     expect(options.at(1).text()).toBe("テストビール");
     expect(options.at(2).text()).toBe("テスト酒造");
+  });
+
+  it("selectの初期値として、initValue propsが入る", () => {
+    expect(wrapper.vm.selected).toBe("テストサワー");
   });
 
   it("選択されたoptionのvalueが親のselectに入る", () => {

@@ -15,9 +15,9 @@ describe("ButtonHomeContent component test", () => {
     expect(wrapper.find(".button-home-content").text()).toBe("この機能を使う");
   });
 
-  it("ボタンをクリックすると、clickイベントと受け取ったpropsの値がemitされる", async () => {
+  it("ボタンをクリックすると、linkOrModalイベントと受け取ったpropsの値がemitされる", async () => {
     await wrapper.find(".button-home-content").trigger("click");
-    expect(wrapper.emitted().click).toBeTruthy();
-    expect(wrapper.emitted().click[0][0]).toBe("この機能を使う");
+    expect(wrapper.emitted().linkOrModal).toBeTruthy();
+    expect(wrapper.emitted().linkOrModal[0][0]).toBe("この機能を使う");
   });
 });

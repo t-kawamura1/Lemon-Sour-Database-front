@@ -7,6 +7,7 @@ describe("InputNumber component test", () => {
     wrapper = mount(InputNumber, {
       propsData: {
         inputNumberAttributes: ["アルコール度数", 0.5, 0.5, 99],
+        initValue: 9,
       },
     });
   });
@@ -18,6 +19,10 @@ describe("InputNumber component test", () => {
     expect(wrapper.find("input").attributes("step")).toBe("0.5");
     expect(wrapper.find("input").attributes("min")).toBe("0.5");
     expect(wrapper.find("input").attributes("max")).toBe("99");
+  });
+
+  it("inputの初期値として、initValue propsが表示される", () => {
+    expect(wrapper.find("input").element.value).toBe("9");
   });
 
   it("inputに値が入力されると、inputイベントとその入力された値がemitされる", async () => {

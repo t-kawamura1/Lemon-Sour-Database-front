@@ -38,21 +38,28 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
+let wrapper;
+let $mq;
+let $route;
+
+$route = {
+  params: { id: 1 },
+  name: "",
+};
+
 describe("(pc display) LemonSour component test", () => {
-  let wrapper;
-  let $mq;
-  let $route;
+  const mockRouterPush = jest.fn();
+
   beforeEach(() => {
     $mq = "pc";
-    $route = {
-      params: { id: 1 },
-      name: "",
-    };
     wrapper = mount(LemonSour, {
       localVue,
       mocks: {
         $mq,
         $route,
+        $router: {
+          push: mockRouterPush,
+        },
       },
       stubs: ["font-awesome-icon"],
     });
@@ -65,24 +72,40 @@ describe("(pc display) LemonSour component test", () => {
     expect(wrapper.findAll(".zero-flag")).toHaveLength(1);
     expect(wrapper.find(".zero-flag").text()).toBe("糖類ゼロ");
     expect(wrapper.findAll(".sour-attribute")).toHaveLength(5);
+  });
+
+  describe("「これを飲む」ボタンをクリックすると、", () => {
+    it("linkAndPassSourメソッドが実行される", async () => {
+      expect(mockRouterPush.mock.calls.length).toBe(0);
+      await wrapper.find(".button-drink-today").trigger("click");
+      expect(mockRouterPush.mock.calls.length).toBe(1);
+    });
+
+    it("inkAndPassSourメソッドは、セットされているデータをparamsとして引数に持つ", () => {
+      const testSour = wrapper.vm.lemonSour;
+      expect(mockRouterPush).toHaveBeenCalledWith({
+        name: "calculation",
+        params: {
+          lemonSour: testSour,
+        },
+      });
+    });
   });
 });
 
 describe("(sp display) LemonSour component test", () => {
-  let wrapper;
-  let $mq;
-  let $route;
+  const mockRouterPush = jest.fn();
+
   beforeEach(() => {
     $mq = "sp";
-    $route = {
-      params: { id: 1 },
-      name: "",
-    };
     wrapper = mount(LemonSour, {
       localVue,
       mocks: {
         $mq,
         $route,
+        $router: {
+          push: mockRouterPush,
+        },
       },
       stubs: ["font-awesome-icon"],
     });
@@ -95,5 +118,23 @@ describe("(sp display) LemonSour component test", () => {
     expect(wrapper.findAll(".zero-flag")).toHaveLength(1);
     expect(wrapper.find(".zero-flag").text()).toBe("糖類ゼロ");
     expect(wrapper.findAll(".sour-attribute")).toHaveLength(5);
+  });
+
+  describe("「これを飲む」ボタンをクリックすると、", () => {
+    it("linkAndPassSourメソッドが実行される", async () => {
+      expect(mockRouterPush.mock.calls.length).toBe(0);
+      await wrapper.find(".button-drink-today").trigger("click");
+      expect(mockRouterPush.mock.calls.length).toBe(1);
+    });
+
+    it("inkAndPassSourメソッドは、セットされているデータをparamsとして引数に持つ", () => {
+      const testSour = wrapper.vm.lemonSour;
+      expect(mockRouterPush).toHaveBeenCalledWith({
+        name: "calculation",
+        params: {
+          lemonSour: testSour,
+        },
+      });
+    });
   });
 });

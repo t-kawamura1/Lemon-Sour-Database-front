@@ -50,6 +50,12 @@ describe("PcSelectsSet component test", () => {
     expect(wrapper.findAll(".error-message")).toHaveLength(2);
   });
 
+  it("各selectの初期表示値として、各検索選択肢の最初の値が表示される", () => {
+    expect(selects.at(0).element.value).toBe("テストビール");
+    expect(selects.at(1).element.value).toBe("糖類ゼロ");
+    expect(selects.at(2).element.value).toBe("度数高い順");
+  });
+
   describe("InputSelect子コンポーネントから各valueがemitされるとき", () => {
     beforeEach(() => {
       selects.at(0).vm.$emit("input", "テストリー");

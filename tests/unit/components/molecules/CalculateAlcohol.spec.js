@@ -33,6 +33,7 @@ describe("CalculateAlcohol component test", () => {
         ],
         iconTexts: ["times", "arrow-right"],
         calcButton: "結果を記録",
+        todaySour: undefined,
       },
       stubs: ["font-awesome-icon", "v-date-picker"],
     });
@@ -147,5 +148,71 @@ describe("CalculateAlcohol component test", () => {
     expect(wrapper.emitted().submitRecord).toBeTruthy();
     expect(wrapper.emitted().submitRecord[0][0].pure_alcohol_amount).toBe(26.5);
     expect(wrapper.emitted().submitRecord[0][0].drinking_amount).toBe(850);
+  });
+
+  describe("todaySour propsがundefinedの場合、", () => {
+    it("dataのsourNameには、soursSelect[1][0]が入っている", () => {
+      expect(wrapper.vm.sourName).toBe("サワー選択");
+    });
+
+    it("input-numberコンポーネントに、dataのsourAlcoholContentの初期値を渡している", () => {
+      expect(
+        wrapper.findAll(".calculate-alcohol-content-input").at(0).element.value
+      ).toBe("0");
+      expect(
+        wrapper.findAll(".calculate-alcohol-content-input").at(1).element.value
+      ).toBe("0");
+      expect(
+        wrapper.findAll(".calculate-alcohol-content-input").at(2).element.value
+      ).toBe("0");
+    });
+  });
+
+  describe("todaySour propsがundefined以外の場合、", () => {
+    beforeEach(() => {
+      wrapper = mount(CalculateAlcohol, {
+        propsData: {
+          calculationSupplementTexts: [
+            "純アルコール量で算定するで。クリックで表示",
+            [
+              "量(ml) × 度数/100 × 0.8 = 純アルコール量(g)",
+              "適切な飲酒量： 1日当たり20g程度やで",
+              "やばい飲酒量：",
+              "men 40g以上、 women 20g以上",
+            ],
+          ],
+          errorMessages: ["日付は必要", "今のとこないけども一つエラー"],
+          soursSelect: [
+            "ー",
+            ["サワー選択", "テスレモ", "テスサワ", "テスハイ"],
+          ],
+          lemonSours: [
+            { name: "テスレモ", alcohol_content: 5.5 },
+            { name: "テスサワ", alcohol_content: 9 },
+            { name: "テスハイ", alcohol_content: 7 },
+          ],
+          alcoholInputs: [
+            ["度数", 0.5, 0.5, 13],
+            [
+              { label: "350ml", attributes: ["缶", 1, 0, 99] },
+              { label: "400ml", attributes: ["缶", 1, 0, 99] },
+              { label: "500ml", attributes: ["缶", 1, 0, 99] },
+            ],
+          ],
+          iconTexts: ["times", "arrow-right"],
+          calcButton: "結果を記録",
+          todaySour: { name: "テスチュー", alcohol_content: "8" },
+        },
+        stubs: ["font-awesome-icon", "v-date-picker"],
+      });
+    });
+
+    it("dataのsourNameには、todaySourのnameの値が入っている", async () => {
+      expect(wrapper.vm.sourName).toBe("テスチュー");
+    });
+
+    it("dataのsourAlcoholContentには、todaySourのalcohol_contentの値が入っている", async () => {
+      expect(wrapper.vm.sourAlcoholContent).toBe("8");
+    });
   });
 });
