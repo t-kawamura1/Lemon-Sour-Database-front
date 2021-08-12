@@ -271,7 +271,6 @@ export default {
         headers: this.authHeader,
       })
       .then((res) => {
-        console.log(res.data[3]);
         this.amountByDateLessThan20 = res.data[0];
         this.amountByDateFrom20To39 = res.data[1];
         this.amountByDate40OrMore = res.data[2];

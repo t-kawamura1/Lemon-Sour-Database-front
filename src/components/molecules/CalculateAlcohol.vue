@@ -14,6 +14,7 @@
       class="calculate-alcohol-sour-select"
       :sort-type="soursSelect[0]"
       :sort-values="soursSelect[1]"
+      :init-value="sourName"
       @input="setAlcoholContent"
     ></input-select>
     <div class="calculate-alcohol-formula-box">
@@ -22,6 +23,7 @@
           <input-number
             class="calculate-alcohol-content-input"
             :input-number-attributes="alcoholInputs[0]"
+            :init-value="sourAlcoholContent"
             @input="alcContent350 = $event.target.value"
           ></input-number>
           <span class="calculate-alcohol-input-unit">%</span>
@@ -30,6 +32,7 @@
           <input-number
             class="calculate-alcohol-content-input"
             :input-number-attributes="alcoholInputs[0]"
+            :init-value="sourAlcoholContent"
             @input="alcContent400 = $event.target.value"
           ></input-number>
           <span class="calculate-alcohol-input-unit">%</span>
@@ -38,6 +41,7 @@
           <input-number
             class="calculate-alcohol-content-input"
             :input-number-attributes="alcoholInputs[0]"
+            :init-value="sourAlcoholContent"
             @input="alcContent500 = $event.target.value"
           ></input-number>
           <span class="calculate-alcohol-input-unit">%</span>
@@ -153,10 +157,13 @@ export default {
     alcoholInputs: Array,
     iconTexts: Array,
     calcButton: String,
+    todaySour: Object,
   },
   data() {
     return {
       soursSelectBox: [],
+      sourName: this.soursSelect[1][0],
+      sourAlcoholContent: 0,
       alcContent350: 0,
       alcContent400: 0,
       alcContent500: 0,
@@ -231,6 +238,15 @@ export default {
     drinks500: function (newValue) {
       this.result500 = ((newValue * this.alcContent500) / 100) * 0.8;
     },
+  },
+  created() {
+    if (this.todaySour !== undefined) {
+      this.sourName = this.todaySour.name
+      this.sourAlcoholContent = this.todaySour.alcohol_content
+      this.alcContent350 = this.todaySour.alcohol_content
+      this.alcContent400 = this.todaySour.alcohol_content
+      this.alcContent500 = this.todaySour.alcohol_content
+    }
   },
 };
 </script>

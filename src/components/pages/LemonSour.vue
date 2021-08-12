@@ -84,8 +84,11 @@
               :table-attributes="sourTableAttributes"
             ></sour-attributes>
           </template>
-          <template v-slot:sour-favorite>
-            <sour-favorite></sour-favorite>
+          <template v-slot:button-drink-today>
+            <button-drink-today
+              :button-drink-today-text="buttonDrinkToday"
+              @linkAndPass="linkAndPassSour"
+            ></button-drink-today>
           </template>
         </sour-container>
       </template>
@@ -171,8 +174,11 @@
               :table-attributes="sourTableAttributes"
             ></sour-attributes>
           </template>
-          <template v-slot:sour-favorite>
-            <sour-favorite></sour-favorite>
+          <template v-slot:button-drink-today>
+            <button-drink-today
+              :button-drink-today-text="buttonDrinkToday"
+              @linkAndPass="linkAndPassSour"
+            ></button-drink-today>
           </template>
         </sour-container>
       </template>
@@ -216,10 +222,10 @@ import HeaderIconsUnauthenticated from "@/components/molecules/HeaderIconsUnauth
 import SourDisplay from "@/components/molecules/SourDisplay";
 import SourFlags from "@/components/molecules/SourFlags";
 import SourAttributes from "@/components/molecules/SourAttributes";
-import SourFavorite from "@/components/molecules/SourFavorite";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import TheNotice from "@/components/atoms/TheNotice";
 import BlankSide from "@/components/atoms/BlankSide";
+import ButtonDrinkToday from "@/components/atoms/ButtonDrinkToday";
 
 export default {
   mixins: [CommonData, CommonMethods],
@@ -240,11 +246,11 @@ export default {
     SourDisplay,
     SourFlags,
     SourAttributes,
-    SourFavorite,
     FooterIcons,
     AppTitle,
     TheNotice,
     BlankSide,
+    ButtonDrinkToday,
   },
   data() {
     return {
@@ -257,6 +263,7 @@ export default {
         ["カロリー (kcal)"],
         ["果汁 (%)"],
       ],
+      buttonDrinkToday: "今日はこれを飲む！",
     };
   },
   methods: {
@@ -298,13 +305,16 @@ export default {
           break;
       }
     },
+    linkAndPassSour() {
+      this.$router.push({ name: "calculation", params: { lemonSour: this.lemonSour } });
+      // console.log(this.$route)
+    },
   },
   created() {
     axios
       .get(`/api/v1/lemon_sours/${this.$route.params.id}`)
       .then((res) => {
         this.lemonSour = res.data;
-        // 以下、レモンサワーの属性表示用に、取得した値をdataにpush
         this.sourFlagsAttributes[0].push(this.lemonSour.zero_sugar);
         this.sourFlagsAttributes[1].push(this.lemonSour.zero_sweetener);
         this.sourTableAttributes[0].push(this.lemonSour.manufacturer);

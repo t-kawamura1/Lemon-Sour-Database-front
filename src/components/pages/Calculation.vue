@@ -83,6 +83,7 @@
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
               :calc-button="calcButtonText"
+              :todaySour="lemonSour"
               @submitRecord="recordDrinking"
             ></calculate-alcohol>
           </template>
@@ -175,6 +176,7 @@
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
               :calc-button="calcButtonText"
+              :todaySour="lemonSour"
               @submitRecord="recordDrinking"
             ></calculate-alcohol>
           </template>
@@ -243,6 +245,7 @@ export default {
     TextMain,
     BlankSide,
   },
+  props: ['lemonSour'],
   data() {
     return {
       heading: "アルコール摂取量計算",
