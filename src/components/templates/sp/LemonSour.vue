@@ -1,23 +1,23 @@
 <template>
   <div class="template-sp-lemon-sour">
-    <div class="sp-modal">
+    <div class="sp-lemon-sour-modal">
       <slot name="modal"></slot>
     </div>
-    <div class="sp-header">
+    <div class="sp-lemon-sour-header">
       <slot name="header"></slot>
     </div>
-    <div class="sp-notice">
+    <div class="sp-lemon-sour-notice">
       <slot name="notice"></slot>
     </div>
     <div class="sp-lemon-sour-main">
       <div class="sp-sour-container">
         <slot name="sour-container"></slot>
       </div>
-      <div class="sp-review-container">
+      <div class="sp-lemon-sour-review-container">
         <slot name="review-container"></slot>
       </div>
     </div>
-    <div class="sp-footer">
+    <div class="sp-lemon-sour-footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -28,13 +28,13 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  .sp-header {
+  .sp-lemon-sour-header {
     position: fixed;
     width: 100%;
     height: $header-height;
     z-index: $z-header;
   }
-  .sp-notice {
+  .sp-lemon-sour-notice {
     position: fixed;
     width: 100%;
     z-index: $z-notice;
@@ -44,7 +44,7 @@
     margin-top: $header-height;
     margin-bottom: $footer-height;
   }
-  .sp-footer {
+  .sp-lemon-sour-footer {
     position: fixed;
     width: 100%;
     height: $footer-height;

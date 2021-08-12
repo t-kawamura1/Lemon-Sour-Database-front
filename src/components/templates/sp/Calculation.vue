@@ -1,18 +1,18 @@
 <template>
   <div class="template-sp-calculation">
-    <div class="sp-modal">
+    <div class="sp-calculation-modal">
       <slot name="modal"></slot>
     </div>
-    <div class="sp-header">
+    <div class="sp-calculation-header">
       <slot name="header"></slot>
     </div>
-    <div class="sp-notice">
+    <div class="sp-calculation-notice">
       <slot name="notice"></slot>
     </div>
     <div class="sp-calculation-main">
       <slot name="calculation-container"></slot>
     </div>
-    <div class="sp-footer">
+    <div class="sp-calculation-footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -23,13 +23,13 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  .sp-header {
+  .sp-calculation-header {
     position: fixed;
     width: 100%;
     height: $header-height;
     z-index: $z-header;
   }
-  .sp-notice {
+  .sp-calculation-notice {
     position: fixed;
     width: 100%;
     z-index: $z-notice;
@@ -39,7 +39,7 @@
     margin-bottom: $footer-height;
     padding: 10px;
   }
-  .sp-footer {
+  .sp-calculation-footer {
     position: fixed;
     width: 100%;
     height: $footer-height;

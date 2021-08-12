@@ -1,12 +1,12 @@
 <template>
   <div class="template-pc-home">
-    <div class="pc-modal">
+    <div class="pc-home-modal">
       <slot name="modal"></slot>
     </div>
-    <div class="pc-sidebar">
+    <div class="pc-home-sidebar">
       <slot name="sidebar"></slot>
     </div>
-    <div class="pc-notice">
+    <div class="pc-home-notice">
       <slot name="notice"></slot>
     </div>
     <div class="pc-home-main">
@@ -21,11 +21,11 @@
 .template-pc-home {
   display: flex;
   flex-direction: column;
-  .pc-sidebar {
+  .pc-home-sidebar {
     position: fixed;
     z-index: $z-sidebar;
   }
-  .pc-notice {
+  .pc-home-notice {
     margin-left: $sidebar-width;
     z-index: $z-notice;
   }

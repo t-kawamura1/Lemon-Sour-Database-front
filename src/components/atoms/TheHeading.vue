@@ -15,6 +15,7 @@ export default {
   font-weight: 700;
   color: $font-color-bg-white;
   letter-spacing: 1.5px;
+  font-size: 2rem;
   &::after {
     content: "";
     display: block;

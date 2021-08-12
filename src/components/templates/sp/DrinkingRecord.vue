@@ -1,15 +1,15 @@
 <template>
   <div class="template-sp-drinking-record">
-    <div class="sp-header">
+    <div class="sp-drinking-record-header">
       <slot name="header"></slot>
     </div>
-    <div class="sp-notice">
+    <div class="sp-drinking-record-notice">
       <slot name="notice"></slot>
     </div>
     <div class="sp-drinking-record-main">
       <slot name="drinking-record-container"></slot>
     </div>
-    <div class="sp-footer">
+    <div class="sp-drinking-record-footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -20,13 +20,13 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  .sp-header {
+  .sp-drinking-record-header {
     position: fixed;
     width: 100%;
     height: $header-height;
     z-index: $z-header;
   }
-  .sp-notice {
+  .sp-drinking-record-notice {
     position: fixed;
     width: 100%;
   }
@@ -36,7 +36,7 @@
     padding: 10px;
     z-index: $z-notice;
   }
-  .sp-footer {
+  .sp-drinking-record-footer {
     position: fixed;
     width: 100%;
     height: $footer-height;

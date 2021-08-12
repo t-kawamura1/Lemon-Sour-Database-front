@@ -1,18 +1,18 @@
 <template>
   <div class="template-pc-user">
-    <div class="pc-modal">
+    <div class="pc-user-modal">
       <slot name="modal"></slot>
     </div>
-    <div class="pc-sidebar">
+    <div class="pc-user-sidebar">
       <slot name="sidebar"></slot>
     </div>
-    <div class="pc-notice">
+    <div class="pc-user-notice">
       <slot name="notice"></slot>
     </div>
     <div class="pc-user-main">
       <slot name="user-container"></slot>
     </div>
-    <div class="pc-side-blank">
+    <div class="pc-user-side-blank">
       <slot name="side-blank"></slot>
     </div>
   </div>
@@ -20,11 +20,11 @@
 
 <style scoped lang="scss">
 .template-pc-user {
-  .pc-sidebar {
+  .pc-user-sidebar {
     position: fixed;
     z-index: $z-sidebar;
   }
-  .pc-notice {
+  .pc-user-notice {
     margin: 0 $sidebar-width;
     z-index: $z-notice;
   }
@@ -32,7 +32,7 @@
     margin: 0 $sidebar-width / 2 0 $sidebar-width;
     padding: 60px 10px;
   }
-  .pc-side-blank {
+  .pc-user-side-blank {
     position: fixed;
     top: 0;
     right: 0;

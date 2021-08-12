@@ -1,18 +1,18 @@
 <template>
   <div class="template-sp-user">
-    <div class="sp-modal">
+    <div class="sp-user-modal">
       <slot name="modal"></slot>
     </div>
-    <div class="sp-header">
+    <div class="sp-user-header">
       <slot name="header"></slot>
     </div>
-    <div class="sp-notice">
+    <div class="sp-user-notice">
       <slot name="notice"></slot>
     </div>
     <div class="sp-user-main">
       <slot name="user-container"></slot>
     </div>
-    <div class="sp-footer">
+    <div class="sp-user-footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -23,13 +23,13 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  .sp-header {
+  .sp-user-header {
     position: fixed;
     width: 100%;
     height: $header-height;
     z-index: $z-header;
   }
-  .sp-notice {
+  .sp-user-notice {
     position: fixed;
     width: 100%;
     z-index: $z-notice;
@@ -39,7 +39,7 @@
     margin-bottom: $footer-height;
     padding: 10px 30px;
   }
-  .sp-footer {
+  .sp-user-footer {
     position: fixed;
     width: 100%;
     height: $footer-height;

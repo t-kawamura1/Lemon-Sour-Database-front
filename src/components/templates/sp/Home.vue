@@ -1,12 +1,12 @@
 <template>
   <div class="template-sp-home">
-    <div class="sp-modal">
+    <div class="sp-home-modal">
       <slot name="modal"></slot>
     </div>
-    <div class="sp-header">
+    <div class="sp-home-header">
       <slot name="header"></slot>
     </div>
-    <div class="sp-notice">
+    <div class="sp-home-notice">
       <slot name="notice"></slot>
     </div>
     <div class="sp-home-main">
@@ -14,7 +14,7 @@
         <slot name="sp-home-container"></slot>
       </div>
     </div>
-    <div class="sp-footer">
+    <div class="sp-home-footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -25,13 +25,13 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  .sp-header {
+  .sp-home-header {
     position: fixed;
     width: 100%;
     height: $header-height;
     z-index: $z-header;
   }
-  .sp-notice {
+  .sp-home-notice {
     position: fixed;
     width: 100%;
     z-index: $z-notice;
@@ -39,7 +39,7 @@
   .sp-home-main {
     margin-bottom: $footer-height;
   }
-  .sp-footer {
+  .sp-home-footer {
     position: fixed;
     width: 100%;
     height: $footer-height;
