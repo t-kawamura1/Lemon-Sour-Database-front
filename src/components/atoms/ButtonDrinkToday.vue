@@ -18,8 +18,8 @@ export default {
   background-color: $aged-yellow;
   color: $lightest-yellow;
   border: 1px solid $aged-yellow;
-  border-radius: 15px;
-  padding: 9px 12px;
+  border-radius: 6px;
+  padding: 9px 21px;
   &:hover {
     background-color: $lightest-yellow;
     border: 1px solid $aged-yellow;

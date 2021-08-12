@@ -8,7 +8,7 @@ export default {};
 
 <style scoped lang="scss">
 .blank-side {
-  width: $sidebar-width;
+  width: $sidebar-width / 2;
   height: 100vh;
   background-color: $lightest-yellow;
 }

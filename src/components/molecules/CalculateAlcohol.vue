@@ -241,11 +241,11 @@ export default {
   },
   created() {
     if (this.todaySour !== undefined) {
-      this.sourName = this.todaySour.name
-      this.sourAlcoholContent = this.todaySour.alcohol_content
-      this.alcContent350 = this.todaySour.alcohol_content
-      this.alcContent400 = this.todaySour.alcohol_content
-      this.alcContent500 = this.todaySour.alcohol_content
+      this.sourName = this.todaySour.name;
+      this.sourAlcoholContent = this.todaySour.alcohol_content;
+      this.alcContent350 = this.todaySour.alcohol_content;
+      this.alcContent400 = this.todaySour.alcohol_content;
+      this.alcContent500 = this.todaySour.alcohol_content;
     }
   },
 };

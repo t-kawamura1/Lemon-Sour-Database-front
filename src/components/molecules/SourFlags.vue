@@ -1,6 +1,7 @@
 <template>
   <div class="sour-flags">
     <zero-flag
+      class="sour-flags-zero-flag"
       :flag-set="flagAttribute"
       v-for="(flagAttribute, index) in flagAttributes"
       :key="index"
@@ -23,7 +24,8 @@ export default {
 
 <style scoped lang="scss">
 .sour-flags {
-  display: flex;
-  justify-content: space-between;
+  .sour-flags-zero-flag {
+    margin: 0 6px;
+  }
 }
 </style>

@@ -245,7 +245,7 @@ export default {
     TextMain,
     BlankSide,
   },
-  props: ['lemonSour'],
+  props: ["lemonSour"],
   data() {
     return {
       heading: "アルコール摂取量計算",

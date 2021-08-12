@@ -26,8 +26,8 @@
     z-index: $z-notice;
   }
   .pc-drinking-record-main {
-    margin: 0 $sidebar-width;
-    padding: 60px 30px 30px;
+    margin: 0 $sidebar-width / 2 0 $sidebar-width;
+    padding: 60px 30px;
   }
   .pc-side-blank {
     position: fixed;

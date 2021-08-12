@@ -306,7 +306,10 @@ export default {
       }
     },
     linkAndPassSour() {
-      this.$router.push({ name: "calculation", params: { lemonSour: this.lemonSour } });
+      this.$router.push({
+        name: "calculation",
+        params: { lemonSour: this.lemonSour },
+      });
       // console.log(this.$route)
     },
   },
