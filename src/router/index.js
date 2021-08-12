@@ -45,6 +45,7 @@ const routes = [
     path: "/calculation",
     name: "calculation",
     component: Calculation,
+    props: true,
   },
   {
     path: "/drinking_records/:id",

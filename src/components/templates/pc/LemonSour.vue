@@ -36,10 +36,8 @@
     z-index: $z-notice;
   }
   .pc-lemon-sour-main {
+    margin: 0 $sidebar-width / 2 0 $sidebar-width;
     padding: 60px 10px;
-    .pc-sour-container {
-      margin: 0 $sidebar-width;
-    }
   }
   .pc-side-blank {
     position: fixed;

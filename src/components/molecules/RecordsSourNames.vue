@@ -53,7 +53,7 @@ export default {
   .records-sour-names-box {
     display: flex;
     position: relative;
-    margin-bottom: 3px;
+    margin-bottom: 6px;
     padding: 0 10px;
     .records-sour-names-icon {
       font-size: 2.7rem;

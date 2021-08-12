@@ -1,19 +1,16 @@
 <template>
   <div class="sour-container">
-    <div class="display">
+    <div class="sour-container-sour-display">
       <slot name="sour-display"></slot>
     </div>
-    <!-- ↓↓flexboxの配置調整のために一枚入れる -->
-    <div class="attributes-box">
-      <div class="flags">
-        <slot name="sour-flags"></slot>
-      </div>
-      <div class="attributes">
-        <slot name="sour-attributes"></slot>
-      </div>
+    <div class="sour-container-sour-flags">
+      <slot name="sour-flags"></slot>
     </div>
-    <div class="favorite">
-      <slot name="sour-favorite"></slot>
+    <div class="sour-container-sour-attributes">
+      <slot name="sour-attributes"></slot>
+    </div>
+    <div class="sour-container-button-drink-today">
+      <slot name="button-drink-today"></slot>
     </div>
   </div>
 </template>
@@ -21,17 +18,16 @@
 <style scoped lang="scss">
 .sour-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  .display {
-    width: $sour-column-width;
-    padding: 0 15px;
+  flex-direction: column;
+  align-items: center;
+  .sour-container-sour-display {
+    margin-bottom: 30px;
   }
-  .attributes-box {
-    width: $sour-column-width;
-    .flags {
-      margin-bottom: 30px;
-    }
+  .sour-container-sour-flags {
+    margin-bottom: 30px;
+  }
+  .sour-container-sour-attributes {
+    margin-bottom: 30px;
   }
 }
 </style>

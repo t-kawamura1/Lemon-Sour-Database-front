@@ -29,8 +29,8 @@
     z-index: $z-notice;
   }
   .pc-calculation-main {
-    margin: 0 $sidebar-width;
-    padding: 60px 30px 0;
+    margin: 0 $sidebar-width / 2 0 $sidebar-width;
+    padding: 60px 30px;
   }
   .pc-side-blank {
     position: fixed;

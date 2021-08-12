@@ -21,7 +21,6 @@ export default {
   line-height: 30px;
   color: $dark-green;
   letter-spacing: 2px;
-  border-right: solid 3px $light-green;
-  border-bottom: solid 3px $light-green;
+  border: solid 1px $light-green;
 }
 </style>

@@ -6,18 +6,21 @@
           class="sp-input-select"
           :sort-type="selectsTypes[0]"
           :sort-values="selectsManufacturers"
+          :init-value="selectsManufacturers[0]"
           @input="selectedManufacturer = $event"
         ></input-select>
         <input-select
           class="sp-input-select"
           :sort-type="selectsTypes[1]"
           :sort-values="selectsIngredients"
+          :init-value="selectsIngredients[0]"
           @input="selectedIngredient = $event"
         ></input-select>
         <input-select
           class="sp-input-select"
           :sort-type="selectsTypes[2]"
           :sort-values="selectsOrders"
+          :init-value="selectsOrders[0]"
           @input="selectedOrder = $event"
         ></input-select>
       </div>

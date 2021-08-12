@@ -45,6 +45,7 @@ export default {
   align-items: center;
   color: $second-dark-yellow;
   background-color: $base-yellow;
+  box-shadow: 0 -1px 3px $silver;
   .footer-icons-set {
     .footer-icon {
       font-size: 4.5rem;

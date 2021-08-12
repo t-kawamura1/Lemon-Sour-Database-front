@@ -34,7 +34,7 @@
     margin-bottom: 20px;
   }
   .drinking-record-container-records-by-month {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
   }
   .drinking-record-container-records-sour-names {
     margin-bottom: 30px;

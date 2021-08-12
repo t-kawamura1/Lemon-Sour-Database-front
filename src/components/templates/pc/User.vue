@@ -29,8 +29,8 @@
     z-index: $z-notice;
   }
   .pc-user-main {
-    margin: 0 $sidebar-width;
-    padding-top: 60px;
+    margin: 0 $sidebar-width / 2 0 $sidebar-width;
+    padding: 60px 10px;
   }
   .pc-side-blank {
     position: fixed;
