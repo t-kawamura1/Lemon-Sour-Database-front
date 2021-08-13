@@ -6,6 +6,8 @@ import VueI18n from "vue-i18n";
 import VueMq from "vue-mq";
 import VueCookies from "vue-cookies";
 import VCalendar from "v-calendar";
+import "vue-loaders/dist/vue-loaders.css";
+import VueLoaders from "vue-loaders";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -26,6 +28,7 @@ Vue.use(VueMq, {
 Vue.use(VueCookies);
 Vue.$cookies.config("30d", "", "", true);
 Vue.use(VCalendar);
+Vue.use(VueLoaders);
 
 library.add(fas, fab);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
