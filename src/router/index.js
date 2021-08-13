@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/components/pages/Home";
+import AgeConfirmation from "@/components/pages/AgeConfirmation";
 import LemonSoursIndex from "@/components/pages/LemonSoursIndex";
 import LemonSour from "@/components/pages/LemonSour";
 import User from "@/components/pages/User";
@@ -16,6 +17,11 @@ const routes = [
     path: "/",
     name: "home",
     component: Home,
+  },
+  {
+    path: "/age_confirmation",
+    name: "ageConfirmation",
+    component: AgeConfirmation,
   },
   {
     path: "/lemon_sours",
@@ -63,5 +69,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  if (Vue.$cookies.isKey("age-confirmation") && to.path !== "/age_confirmation") {
+    next();
+  } else if (Vue.$cookies.isKey("age-confirmation") && to.path == "/age_confirmation") {
+    next(from);
+  } else if (!Vue.$cookies.isKey("age-confirmation") && to.path !== "/age_confirmation") {
+    next("/age_confirmation");
+  } else if (!Vue.$cookies.isKey("age-confirmation") && to.path == "/age_confirmation") {
+    next();
+  }
+})
 
 export default router;

@@ -27,7 +27,6 @@
   flex-direction: column;
   align-items: center;
   .drinking-record-container-heading {
-    font-size: 2rem;
     margin-bottom: 30px;
   }
   .drinking-record-container-records-calendar {

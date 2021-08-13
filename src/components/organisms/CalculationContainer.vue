@@ -18,7 +18,6 @@
   flex-direction: column;
   align-items: center;
   .calculation-container-heading {
-    font-size: 2rem;
     margin-bottom: 30px;
   }
   .calculation-container-text-calculation-main {

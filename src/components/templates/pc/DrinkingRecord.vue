@@ -1,15 +1,15 @@
 <template>
   <div class="template-pc-drinking-record">
-    <div class="pc-sidebar">
+    <div class="pc-drinking-record-sidebar">
       <slot name="sidebar"></slot>
     </div>
-    <div class="pc-notice">
+    <div class="pc-drinking-record-notice">
       <slot name="notice"></slot>
     </div>
     <div class="pc-drinking-record-main">
       <slot name="drinking-record-container"></slot>
     </div>
-    <div class="pc-side-blank">
+    <div class="pc-drinking-record-side-blank">
       <slot name="side-blank"></slot>
     </div>
   </div>
@@ -17,11 +17,11 @@
 
 <style scoped lang="scss">
 .template-pc-drinking-record {
-  .pc-sidebar {
+  .pc-drinking-record-sidebar {
     position: fixed;
     z-index: $z-sidebar;
   }
-  .pc-notice {
+  .pc-drinking-record-notice {
     margin: 0 $sidebar-width;
     z-index: $z-notice;
   }
@@ -29,7 +29,7 @@
     margin: 0 $sidebar-width / 2 0 $sidebar-width;
     padding: 60px 30px;
   }
-  .pc-side-blank {
+  .pc-drinking-record-side-blank {
     position: fixed;
     top: 0;
     right: 0;

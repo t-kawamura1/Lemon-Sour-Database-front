@@ -1,23 +1,20 @@
 <template>
   <div class="template-pc-lemon-sour">
-    <div class="pc-modal">
+    <div class="pc-lemon-sour-modal">
       <slot name="modal"></slot>
     </div>
-    <div class="pc-sidebar">
+    <div class="pc-lemon-sour-sidebar">
       <slot name="sidebar"></slot>
     </div>
-    <div class="pc-notice">
+    <div class="pc-lemon-sour-notice">
       <slot name="notice"></slot>
     </div>
     <div class="pc-lemon-sour-main">
-      <div class="pc-sour-container">
+      <div class="pc-lemon-sour-sour-container">
         <slot name="sour-container"></slot>
       </div>
-      <div class="pc-review-container">
-        <slot name="review-container"></slot>
-      </div>
     </div>
-    <div class="pc-side-blank">
+    <div class="pc-lemon-sour-side-blank">
       <slot name="side-blank"></slot>
     </div>
   </div>
@@ -27,11 +24,11 @@
 .template-pc-lemon-sour {
   display: flex;
   flex-direction: column;
-  .pc-sidebar {
+  .pc-lemon-sour-sidebar {
     position: fixed;
     z-index: $z-sidebar;
   }
-  .pc-notice {
+  .pc-lemon-sour-notice {
     margin: 0 $sidebar-width;
     z-index: $z-notice;
   }
@@ -39,7 +36,7 @@
     margin: 0 $sidebar-width / 2 0 $sidebar-width;
     padding: 60px 10px;
   }
-  .pc-side-blank {
+  .pc-lemon-sour-side-blank {
     position: fixed;
     top: 0;
     right: 0;

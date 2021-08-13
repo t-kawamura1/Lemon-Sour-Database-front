@@ -1,18 +1,18 @@
 <template>
   <div class="template-pc-calculation">
-    <div class="pc-modal">
+    <div class="pc-calculation-modal">
       <slot name="modal"></slot>
     </div>
-    <div class="pc-sidebar">
+    <div class="pc-calculation-sidebar">
       <slot name="sidebar"></slot>
     </div>
-    <div class="pc-notice">
+    <div class="pc-calculation-notice">
       <slot name="notice"></slot>
     </div>
     <div class="pc-calculation-main">
       <slot name="calculation-container"></slot>
     </div>
-    <div class="pc-side-blank">
+    <div class="pc-calculation-side-blank">
       <slot name="side-blank"></slot>
     </div>
   </div>
@@ -20,11 +20,11 @@
 
 <style scoped lang="scss">
 .template-pc-calculation {
-  .pc-sidebar {
+  .pc-calculation-sidebar {
     position: fixed;
     z-index: $z-sidebar;
   }
-  .pc-notice {
+  .pc-calculation-notice {
     margin: 0 $sidebar-width;
     z-index: $z-notice;
   }
@@ -32,7 +32,7 @@
     margin: 0 $sidebar-width / 2 0 $sidebar-width;
     padding: 60px 30px;
   }
-  .pc-side-blank {
+  .pc-calculation-side-blank {
     position: fixed;
     top: 0;
     right: 0;

@@ -8,9 +8,3 @@
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-.sp-home-container {
-  // background-color: rgba(19, 21, 51, 0.5);
-}
-</style>

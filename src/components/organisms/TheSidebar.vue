@@ -1,9 +1,9 @@
 <template>
   <div class="sidebar">
-    <div class="title">
+    <div class="sidebar-title">
       <slot name="title"></slot>
     </div>
-    <div class="menus">
+    <div class="sidebar-menus">
       <slot name="menus"></slot>
     </div>
   </div>
@@ -16,7 +16,7 @@
   height: 100vh;
   padding: 60px 20px;
   background-color: $lightest-yellow;
-  .title {
+  .sidebar-title {
     margin-bottom: 60px;
   }
 }

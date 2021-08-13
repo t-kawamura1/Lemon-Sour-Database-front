@@ -1,6 +1,6 @@
 <template>
   <div class="template-sp-user-password-reset">
-    <div class="sp-notice">
+    <div class="sp-user-password-reset-notice">
       <slot name="notice"></slot>
     </div>
     <div class="sp-user-password-reset-main">
