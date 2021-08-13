@@ -70,8 +70,16 @@ const router = new VueRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-
-// })
+router.beforeEach((to, from, next) => {
+  if (Vue.$cookies.isKey("age-confirmation") && to.path !== "/age_confirmation") {
+    next();
+  } else if (Vue.$cookies.isKey("age-confirmation") && to.path == "/age_confirmation") {
+    next(from);
+  } else if (!Vue.$cookies.isKey("age-confirmation") && to.path !== "/age_confirmation") {
+    next("/age_confirmation");
+  } else if (!Vue.$cookies.isKey("age-confirmation") && to.path == "/age_confirmation") {
+    next();
+  }
+})
 
 export default router;
