@@ -84,6 +84,7 @@
           <template v-slot:pc-sours-index-items>
             <pc-sours-index-items
               :lemon-sours="lemonSours"
+              :loading="soursLoading"
               :error-message="noContentsError"
               @link="toPageView"
             ></pc-sours-index-items>
@@ -166,6 +167,7 @@
           <template v-slot:sp-sours-index-items>
             <sp-sours-index-items
               :lemon-sours="lemonSours"
+              :loading="soursLoading"
               :error-message="noContentsError"
               @link="toPageView"
             ></sp-sours-index-items>
@@ -262,10 +264,10 @@ export default {
         "果汁の多い順",
         "果汁の少ない順",
       ],
-      sortErrors: [],
-      // 初期描画時。データ更新時にメッセージを変える
-      noContentsError: "データを取得中",
-      lemonSours: [],
+      sortErrors: null,
+      soursLoading: false,
+      noContentsError: null,
+      lemonSours: null,
     };
   },
   methods: {
@@ -309,13 +311,30 @@ export default {
           break;
       }
     },
+    fetchLemonSours() {
+      this.noContentsError = null;
+      this.lemonSours = null;
+      this.soursLoading = true;
+      axios
+        .get("/api/v1/lemon_sours")
+        .then((res) => {
+          this.soursLoading = false;
+          this.lemonSours = res.data;
+        })
+        .catch((err) => {
+          console.log(err.response);
+          this.soursLoading = false;
+        });
+    },
     searchBy(values) {
-      // values == ["", "", ""]はtrueにならない。__ob__: Observerが配列の末尾にあるため。
-      // 解決策がわからないため、冗長に条件を書く。
-      if (values[0] == "" && values[1] == "" && values[2] == "") {
+      // __ob__: Observerが配列の末尾にあるため下の書き方。
+      if (((values[0] == values[1]) == values[2]) == "") {
         this.sortErrors = ["少なくとも１つ選択して検索してください"];
       } else {
-        this.sortErrors = [];
+        this.sortErrors = null;
+        this.lemonSours = null;
+        this.noContentsError = null;
+        this.soursLoading = true;
         axios
           .get("/api/v1/lemon_sours/search_by", {
             params: {
@@ -325,26 +344,25 @@ export default {
             },
           })
           .then((res) => {
+            this.soursLoading = false;
             this.lemonSours = res.data;
           })
           .catch((err) => {
-            console.log(err);
+            console.log(err.response);
+            this.lemonSours = null;
+            this.soursLoading = false;
+            this.noContentsError = err.response.data.error_message;
           });
-        this.noContentsError = "該当するデータがありません";
       }
     },
   },
   created() {
-    axios
-      .get("/api/v1/lemon_sours")
-      .then((res) => {
-        this.lemonSours = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.fetchLemonSours();
     this.checkAuthenticated();
     this.markCurrentPage();
+  },
+  watch: {
+    $route: "fetchLemonSours",
   },
 };
 </script>

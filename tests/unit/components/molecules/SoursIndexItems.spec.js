@@ -20,22 +20,31 @@ describe("SoursIndexItems component test", () => {
               sour_image: "@/assets/test/ls_test_sample.png",
             },
           ],
-          errorMessage: "データを取得中",
+          loading: false,
+          errorMessage: null,
         },
+        stubs: ["vue-loaders"],
       });
     });
 
     it("lemonSours内のオブジェクトの数だけ、sourName,sourImageコンポーネントをリストレンダリングする", () => {
-      expect(wrapper.findAll(".pc-item-name")).toHaveLength(2);
-      expect(wrapper.findAll(".pc-item-image")).toHaveLength(2);
+      expect(wrapper.findAll(".pc-sours-index-items-item-name")).toHaveLength(
+        2
+      );
+      expect(wrapper.findAll(".pc-sours-index-items-item-image")).toHaveLength(
+        2
+      );
     });
 
-    it("errorMessage propsを渡し、表示する", () => {
-      expect(wrapper.find(".error-message").text()).toBe("データを取得中");
+    it("エラーメッセージを表示しない", () => {
+      expect(wrapper.find(".pc-sours-index-items-error").text()).toBe("");
     });
 
     it("どれか一つレモンサワーをクリックすると、linkイベントと、toLemonSourとそのレモンサワーのIDが入った配列がemitされる", async () => {
-      await wrapper.findAll(".pc-index-item").at(0).trigger("click");
+      await wrapper
+        .findAll(".pc-sours-index-items-item")
+        .at(0)
+        .trigger("click");
       expect(wrapper.emitted().link).toBeTruthy();
       expect(wrapper.emitted().link[0]).toStrictEqual([["toLemonSour", 1]]);
     });
@@ -47,17 +56,21 @@ describe("SoursIndexItems component test", () => {
       wrapper = mount(SoursIndexItems, {
         propsData: {
           lemonSours: [],
+          loading: false,
           errorMessage: "該当するテストデータがありません",
         },
+        stubs: ["vue-loaders"],
       });
     });
 
     it("一つもレモンサワーを表示しない", () => {
-      expect(wrapper.findAll(".pc-index-item")).toHaveLength(0);
+      expect(wrapper.findAll(".pc-sours-index-items-item-name")).toHaveLength(
+        0
+      );
     });
 
     it("errorMessage propsを渡し、表示する", () => {
-      expect(wrapper.find(".error-message").text()).toBe(
+      expect(wrapper.find(".pc-sours-index-items-error").text()).toBe(
         "該当するテストデータがありません"
       );
     });
