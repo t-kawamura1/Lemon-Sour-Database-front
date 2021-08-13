@@ -19,7 +19,6 @@
     <error-message
       class="pc-sours-index-items-error"
       :error-message-text="errorMessage"
-      v-show="!!errorMessage"
     ></error-message>
   </div>
 </template>
