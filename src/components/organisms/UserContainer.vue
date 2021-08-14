@@ -3,7 +3,10 @@
     <div class="user-container-heading">
       <slot name="user-heading"></slot>
     </div>
-    <div class="user-container-edit">
+    <div class="user-container-user-image-edit">
+      <slot name="user-image-edit"></slot>
+    </div>
+    <div class="user-container-user-edit">
       <slot name="user-edit"></slot>
     </div>
   </div>
@@ -15,6 +18,9 @@
   flex-direction: column;
   align-items: center;
   .user-container-heading {
+    margin-bottom: 30px;
+  }
+  .user-container-user-image-edit {
     margin-bottom: 30px;
   }
 }

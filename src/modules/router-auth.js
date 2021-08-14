@@ -11,6 +11,7 @@ export default {
     id: "",
     name: "",
     email: "",
+    user_image: "",
   },
   guardAccessToPageRequiresAuth(Vue, to, from, next) {
     if (Vue.$cookies.isKey("auth-header")) {
@@ -39,6 +40,7 @@ export default {
             this.currentUser.id = res.data.data.id;
             this.currentUser.name = res.data.data.name;
             this.currentUser.email = res.data.data.email;
+            this.currentUser.user_image = res.data.data.user_image;
             next();
           } else {
             throw "認証失敗";
