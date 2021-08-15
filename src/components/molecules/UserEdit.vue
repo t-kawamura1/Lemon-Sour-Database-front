@@ -96,7 +96,7 @@ export default {
     align-items: center;
     .user-edit-error-message {
       font-size: 1.4rem;
-      text-align: left;
+      margin-bottom: 15px;
     }
     .user-edit-input-set {
       width: 100%;

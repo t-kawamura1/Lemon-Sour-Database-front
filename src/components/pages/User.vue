@@ -48,6 +48,14 @@
           <template v-slot:user-heading>
             <the-heading :heading-text="heading"></the-heading>
           </template>
+          <template v-slot:user-image-edit>
+            <user-image-edit
+              v-if="userImageEditContents.image_url"
+              :image-edit-contents="userImageEditContents"
+              :error-messages="userImageEditErrors"
+              @submitUserImage="editUserImage"
+            ></user-image-edit>
+          </template>
           <template v-slot:user-edit>
             <user-edit
               :edit-contents="userEditContents"
@@ -104,6 +112,14 @@
           <template v-slot:user-heading>
             <the-heading :heading-text="heading"></the-heading>
           </template>
+          <template v-slot:user-image-edit>
+            <user-image-edit
+              v-if="userImageEditContents.image_url"
+              :image-edit-contents="userImageEditContents"
+              :error-messages="userImageEditErrors"
+              @submitUserImage="editUserImage"
+            ></user-image-edit>
+          </template>
           <template v-slot:user-edit>
             <user-edit
               :edit-contents="userEditContents"
@@ -145,7 +161,8 @@ import ModalDeleteUser from "@/components/molecules/ModalDeleteUser";
 import AppTitle from "@/components/molecules/AppTitle";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import HeaderIconsAuthenticated from "@/components/molecules/HeaderIconsAuthenticated";
-import UserEdit from "@/components/molecules/UserEdit.vue";
+import UserImageEdit from "@/components/molecules/UserImageEdit";
+import UserEdit from "@/components/molecules/UserEdit";
 import FooterIcons from "@/components/molecules/FooterIcons";
 import TheNotice from "@/components/atoms/TheNotice";
 import TheHeading from "@/components/atoms/TheHeading";
@@ -164,6 +181,7 @@ export default {
     ModalDeleteUser,
     SidebarMenusAuthenticated,
     HeaderIconsAuthenticated,
+    UserImageEdit,
     UserEdit,
     FooterIcons,
     AppTitle,
@@ -177,7 +195,13 @@ export default {
   data() {
     return {
       heading: "プロフィール編集",
+      userImageEditErrors: [],
       userEditErrors: [],
+      userImageEditContents: {
+        icon: "image",
+        image_url: this.currentUser.user_image,
+        button: "画像の変更を保存",
+      },
       userEditContents: [
         [
           ["ユーザー名", ["text", "ユーザー名", "name", this.currentUser.name]],
@@ -186,11 +210,11 @@ export default {
             ["email", "メールアドレス", "email", this.currentUser.email],
           ],
           [
-            "ユーザー名・パスワードを変更する場合は必須",
+            "画像の変更以外は必須",
             ["password", "現在のパスワード", "current_password"],
           ],
           [
-            "現在のパスワードを変更する場合は入力してください",
+            "新しいパスワード（変更する場合のみ）",
             ["password", "新しいパスワード(8文字以上)", "password"],
           ],
         ],
@@ -227,13 +251,36 @@ export default {
           break;
       }
     },
+    editUserImage(inputImage) {
+      const formData = new FormData();
+      formData.append("user_image", inputImage);
+      this.decryptHeaders();
+      axios
+        .put("/api/v1/auth", formData, {
+          headers: this.authHeader,
+        })
+        .then((res) => {
+          this.userImageEditErrors = [];
+          this.authHeader = { "access-token": "", client: "", uid: "" };
+          this.userImageEditContents.image_url = res.data.data.user_image;
+          this.noticeMessage = "画像の変更を受け付けました。";
+          setTimeout(() => {
+            this.noticeMessage = "";
+          }, 5000);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          this.userEditErrors = err.response.data.errors.full_messages;
+        });
+    },
     editUser(inputData) {
       this.decryptHeaders();
       axios
         .put("/api/v1/auth", inputData, {
           headers: this.authHeader,
         })
-        .then(() => {
+        .then((res) => {
+          console.log(res);
           this.userEditErrors = [];
           this.authHeader = { "access-token": "", client: "", uid: "" };
           this.noticeMessage = "変更を受け付けました。";

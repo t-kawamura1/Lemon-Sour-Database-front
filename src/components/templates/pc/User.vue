@@ -25,7 +25,7 @@
     z-index: $z-sidebar;
   }
   .pc-user-notice {
-    margin: 0 $sidebar-width;
+    margin: 0 $sidebar-width / 2 0 $sidebar-width;
     z-index: $z-notice;
   }
   .pc-user-main {

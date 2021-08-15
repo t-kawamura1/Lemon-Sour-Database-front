@@ -22,7 +22,7 @@
     z-index: $z-sidebar;
   }
   .pc-drinking-record-notice {
-    margin: 0 $sidebar-width;
+    margin: 0 $sidebar-width / 2 0 $sidebar-width;
     z-index: $z-notice;
   }
   .pc-drinking-record-main {
