@@ -7,6 +7,7 @@ let $mq;
 let $router;
 let $route;
 let userData;
+let inputImage;
 
 beforeEach(() => {
   $router = { path: "" };
@@ -17,6 +18,7 @@ beforeEach(() => {
     current_password: "",
     password: "",
   };
+  inputImage = "image-file";
 });
 
 describe("(pc display) User component test", () => {
@@ -33,9 +35,25 @@ describe("(pc display) User component test", () => {
         currentUser: {
           name: "テストユーザー",
           email: "test@sample.com",
+          user_image: "/image/test.png",
         },
       },
     });
+  });
+
+  it("画像の変更が受け付けられると、通知メッセージが表示される", async () => {
+    const editUserImage = jest
+      .spyOn(User.methods, "editUserImage")
+      .mockImplementation(() => {
+        wrapper.setData({ noticeMessage: "画像の変更受付" });
+      });
+    console.log(wrapper.html());
+    await wrapper.find(".user-image-edit-form").trigger("submit");
+    wrapper.find(".user-image-edit").vm.$emit("submitUserImage", inputImage);
+    editUserImage();
+    expect(editUserImage).toHaveBeenCalled();
+    await flushPromises();
+    expect(wrapper.find(".the-notice").text()).toBe("画像の変更受付");
   });
 
   it("入力欄に現在のパスワードが入力されていないとエラーが表示される", async () => {
@@ -124,9 +142,25 @@ describe("(sp display) User component test", () => {
         currentUser: {
           name: "テストユーザー",
           email: "test@sample.com",
+          user_image: "/image/test.png",
         },
       },
     });
+  });
+
+  it("画像の変更が受け付けられると、通知メッセージが表示される", async () => {
+    const editUserImage = jest
+      .spyOn(User.methods, "editUserImage")
+      .mockImplementation(() => {
+        wrapper.setData({ noticeMessage: "画像の変更受付" });
+      });
+    console.log(wrapper.html());
+    await wrapper.find(".user-image-edit-form").trigger("submit");
+    wrapper.find(".user-image-edit").vm.$emit("submitUserImage", inputImage);
+    editUserImage();
+    expect(editUserImage).toHaveBeenCalled();
+    await flushPromises();
+    expect(wrapper.find(".the-notice").text()).toBe("画像の変更受付");
   });
 
   it("入力欄に現在のパスワードが入力されていないとエラーが表示される", async () => {

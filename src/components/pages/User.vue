@@ -50,6 +50,7 @@
           </template>
           <template v-slot:user-image-edit>
             <user-image-edit
+              v-if="userImageEditContents.image_url"
               :image-edit-contents="userImageEditContents"
               :error-messages="userImageEditErrors"
               @submitUserImage="editUserImage"
@@ -113,6 +114,7 @@
           </template>
           <template v-slot:user-image-edit>
             <user-image-edit
+              v-if="userImageEditContents.image_url"
               :image-edit-contents="userImageEditContents"
               :error-messages="userImageEditErrors"
               @submitUserImage="editUserImage"
