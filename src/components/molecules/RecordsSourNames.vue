@@ -49,6 +49,7 @@ export default {
     line-height: 30px;
     height: 30px;
     border-radius: 12px;
+    padding: 0 12px;
   }
   .records-sour-names-box {
     display: flex;

@@ -1,9 +1,6 @@
 <template>
   <div class="user-image-edit">
-    <form
-      class="user-image-edit-form"
-      @submit.prevent="$emit('submitUserImage', inputImage)"
-    >
+    <form class="user-image-edit-form" @submit.prevent="checkForImage">
       <label
         class="user-image-edit-input-label"
         for="user-image-edit-input-file"
@@ -74,9 +71,13 @@ export default {
         this.tempImage = fileReader.result;
       };
     },
-  },
-  mounted() {
-    console.log(this.imageEditContents);
+    checkForImage() {
+      if (this.inputImage) {
+        this.$emit("submitUserImage", this.inputImage);
+      } else {
+        this.errorMessages.push("新しい画像が添付されていません");
+      }
+    },
   },
 };
 </script>
@@ -89,6 +90,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
     .user-image-edit-input-label {
       position: relative;
       width: 180px;
@@ -103,7 +105,7 @@ export default {
     }
     .user-image-edit-icon {
       position: absolute;
-      top: 183px;
+      top: 66px;
       z-index: $z-user-image-edit-icon;
       font-size: 5rem;
       color: white;
@@ -115,7 +117,7 @@ export default {
     }
     .user-image-edit-error-message {
       font-size: 1.4rem;
-      text-align: left;
+      margin-bottom: 15px;
     }
   }
 }

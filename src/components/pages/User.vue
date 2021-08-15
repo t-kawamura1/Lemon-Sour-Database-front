@@ -208,11 +208,11 @@ export default {
             ["email", "メールアドレス", "email", this.currentUser.email],
           ],
           [
-            "現在のパスワードを変更する場合は入力してください",
+            "画像の変更以外は必須",
             ["password", "現在のパスワード", "current_password"],
           ],
           [
-            "新しいパスワードを入力してください",
+            "新しいパスワード（変更する場合のみ）",
             ["password", "新しいパスワード(8文字以上)", "password"],
           ],
         ],
@@ -272,24 +272,24 @@ export default {
         });
     },
     editUser(inputData) {
-      console.log(inputData);
-      // this.decryptHeaders();
-      // axios
-      //   .put("/api/v1/auth", inputData, {
-      //     headers: this.authHeader,
-      //   })
-      //   .then(() => {
-      //     this.userEditErrors = [];
-      //     this.authHeader = { "access-token": "", client: "", uid: "" };
-      //     this.noticeMessage = "変更を受け付けました。";
-      //     setTimeout(() => {
-      //       this.noticeMessage = "";
-      //     }, 5000);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err.response);
-      //     this.userEditErrors = err.response.data.errors.full_messages;
-      //   });
+      this.decryptHeaders();
+      axios
+        .put("/api/v1/auth", inputData, {
+          headers: this.authHeader,
+        })
+        .then((res) => {
+          console.log(res);
+          this.userEditErrors = [];
+          this.authHeader = { "access-token": "", client: "", uid: "" };
+          this.noticeMessage = "変更を受け付けました。";
+          setTimeout(() => {
+            this.noticeMessage = "";
+          }, 5000);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          this.userEditErrors = err.response.data.errors.full_messages;
+        });
     },
     deleteUser() {
       this.decryptHeaders();
