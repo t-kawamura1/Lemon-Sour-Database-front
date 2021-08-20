@@ -3,7 +3,7 @@
     <table
       v-for="(tableAttribute, index) in tableAttributes"
       :key="index"
-      class="attributes-table"
+      class="sour-attributes-table"
     >
       <sour-attribute :attribute-set="tableAttribute"></sour-attribute>
     </table>
@@ -25,7 +25,7 @@ export default {
 
 <style scoped lang="scss">
 .sour-attributes {
-  .attributes-table {
+  .sour-attributes-table {
     border-collapse: collapse;
     margin: 0 auto;
     padding: 0;

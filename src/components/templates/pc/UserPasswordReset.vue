@@ -30,7 +30,7 @@
     width: 100%;
   }
   .pc-user-password-reset-main {
-    padding: 75px 30px 60px 30px;
+    padding: 75px 30px 60px;
     margin: 0 $sidebar-width / 2;
   }
   .pc-user-password-reset-side-blank-right {

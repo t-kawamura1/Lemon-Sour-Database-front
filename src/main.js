@@ -27,7 +27,7 @@ Vue.use(VueMq, {
   },
 });
 Vue.use(VueCookies);
-Vue.$cookies.config("30d", "", "", true);
+Vue.$cookies.config("14d", "", "", true);
 Vue.use(VCalendar);
 Vue.use(VueLoaders);
 

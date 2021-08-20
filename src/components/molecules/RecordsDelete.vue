@@ -69,6 +69,10 @@ export default {
   .records-delete-display-button {
     color: $second-dark-yellow;
     margin-bottom: 20px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
   }
 }
 </style>

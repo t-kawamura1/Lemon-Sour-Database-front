@@ -31,7 +31,7 @@
   }
   .pc-user-main {
     margin: 0 $sidebar-width / 2 0 $sidebar-width;
-    padding: 60px 10px;
+    padding: 75px 10px 60px;
   }
   .pc-user-side-blank {
     position: fixed;
