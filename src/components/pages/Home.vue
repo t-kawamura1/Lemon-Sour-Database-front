@@ -254,7 +254,7 @@ export default {
         {
           name: "摂取量記録カレンダー",
           icon: "calendar-alt",
-          text: "計算した記録はカレンダーに反映。毎日の飲酒量がひと目でわかる。（この機能の使用にはユーザー登録が必要です）",
+          text: "計算した記録はカレンダーに反映。毎日の飲酒量がひと目でわかる（この機能の使用にはユーザー登録が必要です）。",
           button: "ユーザー登録",
         },
       ],
@@ -301,15 +301,21 @@ export default {
       }
     },
   },
-  // 条件が同じため、アカウント削除後もログアウトメッセージになってしまう。要検討。
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      if (
-        !vm.$cookies.isKey("auth-header") &&
-        vm.authRequiredRoutes.includes(from.name)
+      if (!vm.$cookies.isKey("auth-header") && from.name == "user") {
+        vm.isAuthenticated = false;
+        vm.noticeMessage =
+          "アカウントの削除に成功しました。またのご利用をお待ちしております。";
+        setTimeout(() => {
+          vm.noticeMessage = "";
+        }, 5000);
+      } else if (
+        vm.$cookies.isKey("auth-header") &&
+        from.name == "userPasswordReset"
       ) {
         vm.isAuthenticated = false;
-        vm.noticeMessage = "ログアウトしました。";
+        vm.noticeMessage = "ログインしておきました。このままお楽しみください！";
         setTimeout(() => {
           vm.noticeMessage = "";
         }, 5000);

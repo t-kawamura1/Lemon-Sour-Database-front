@@ -13,9 +13,11 @@ export default {
 <style scoped lang="scss">
 .the-notice {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: $light-green;
   color: $darkest-yellow;
-  width: 100%;
-  padding: 20px 63px;
+  padding: 0 63px;
+  height: $header-height;
 }
 </style>

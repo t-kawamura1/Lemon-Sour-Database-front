@@ -26,8 +26,9 @@
     z-index: $z-sidebar;
   }
   .pc-home-notice {
-    margin-left: $sidebar-width;
-    z-index: $z-notice;
+    z-index: $z-notice-pc;
+    position: fixed;
+    width: 100%;
   }
 }
 </style>

@@ -29,12 +29,13 @@
   .sp-drinking-record-notice {
     position: fixed;
     width: 100%;
+    z-index: $z-notice-sp;
   }
   .sp-drinking-record-main {
     margin-top: $header-height;
     margin-bottom: $footer-height;
     padding: 10px;
-    z-index: $z-notice;
+    z-index: $z-notice-sp;
   }
   .sp-drinking-record-footer {
     position: fixed;

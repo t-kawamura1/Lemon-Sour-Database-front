@@ -31,7 +31,7 @@
   .sp-lemon-sours-index-notice {
     position: fixed;
     width: 100%;
-    z-index: $z-notice;
+    z-index: $z-notice-sp;
   }
   .sp-lemon-sours-index-main {
     padding: 10px;

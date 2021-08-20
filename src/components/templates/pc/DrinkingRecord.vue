@@ -22,17 +22,19 @@
     z-index: $z-sidebar;
   }
   .pc-drinking-record-notice {
-    margin: 0 $sidebar-width / 2 0 $sidebar-width;
-    z-index: $z-notice;
+    z-index: $z-notice-pc;
+    position: fixed;
+    width: 100%;
   }
   .pc-drinking-record-main {
     margin: 0 $sidebar-width / 2 0 $sidebar-width;
-    padding: 60px 30px;
+    padding: 75px 30px 60px 30px;
   }
   .pc-drinking-record-side-blank {
     position: fixed;
     top: 0;
     right: 0;
+    z-index: $z-sidebar;
   }
 }
 </style>

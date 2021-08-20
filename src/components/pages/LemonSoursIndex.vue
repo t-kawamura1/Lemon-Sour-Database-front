@@ -304,7 +304,13 @@ export default {
           }
           break;
         case this.footerIcons[2][0]:
-          this.$router.push(`/drinking_records/${this.userId}`);
+          if (this.userId == "") {
+            this.guideToAuth(
+              "記録の閲覧には、ユーザー登録・ログインが必要です。"
+            );
+          } else {
+            this.$router.push(`/drinking_records/${this.userId}`);
+          }
           break;
         case this.authenticatedUserFunctions[0]:
           this.$router.push(`/users/${this.userId}`);
@@ -355,6 +361,21 @@ export default {
           });
       }
     },
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (
+        !vm.$cookies.isKey("auth-header") &&
+        vm.authRequiredRoutes.includes(from.name)
+      ) {
+        vm.isAuthenticated = false;
+        vm.noticeMessage =
+          "ログアウトしました。ログインなしでも楽しめるコンテンツがあります！";
+        setTimeout(() => {
+          vm.noticeMessage = "";
+        }, 5000);
+      }
+    });
   },
   created() {
     this.fetchLemonSours();
