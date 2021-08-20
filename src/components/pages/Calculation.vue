@@ -263,15 +263,16 @@ export default {
       calculationRecordErrors: [],
       soursSelectSet: ["ー", ["レモンサワーを選択"]],
       lemonSoursData: [],
-      alcoholInputContents: [
-        ["度数", 0.5, 0.5, 13],
-        [
-          { label: "350ml", attributes: ["本数", 1, 0, 100] },
-          { label: "400ml", attributes: ["本数", 1, 0, 100] },
-          { label: "500ml", attributes: ["本数", 1, 0, 100] },
-        ],
-      ],
-      calculationIcons: ["times", "arrow-right"],
+      alcoholInputContents: {
+        alcContent: ["度数", 0.5, 0.5, 13],
+        amountSelect: {
+          sortType: "ー",
+          sortValues: ["容量", 350, 400, 500, 334, 633, 135, 250],
+          initValue: "容量",
+        },
+        drinkingCounts: ["", 1, 0, 99],
+      },
+      calculationIcons: ["times", "plus-circle", "arrow-right"],
       calcButtonText: "結果を記録する（登録ユーザーのみ）",
     };
   },
