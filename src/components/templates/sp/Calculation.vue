@@ -32,7 +32,7 @@
   .sp-calculation-notice {
     position: fixed;
     width: 100%;
-    z-index: $z-notice;
+    z-index: $z-notice-sp;
   }
   .sp-calculation-main {
     margin-top: $header-height;

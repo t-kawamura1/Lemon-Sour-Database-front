@@ -13,11 +13,15 @@
         <div class="modal-delete-user-message">
           {{ modalDeleteUserContents[1] }}
         </div>
-        <button-user-submit
-          class="modal-delete-user-button-submit"
-          :user-submit-text="modalDeleteUserContents[2]"
-          @click="$emit('submitUser')"
-        ></button-user-submit>
+        <form
+          class="modal-delete-user-form"
+          @submit.prevent="$emit('submitUser')"
+        >
+          <button-user-submit
+            class="modal-delete-user-button-submit"
+            :user-submit-text="modalDeleteUserContents[2]"
+          ></button-user-submit>
+        </form>
       </div>
     </overlay>
   </div>

@@ -25,8 +25,9 @@
     z-index: $z-sidebar;
   }
   .pc-user-notice {
-    margin: 0 $sidebar-width / 2 0 $sidebar-width;
-    z-index: $z-notice;
+    z-index: $z-notice-pc;
+    position: fixed;
+    width: 100%;
   }
   .pc-user-main {
     margin: 0 $sidebar-width / 2 0 $sidebar-width;
@@ -36,6 +37,7 @@
     position: fixed;
     top: 0;
     right: 0;
+    z-index: $z-sidebar;
   }
 }
 </style>

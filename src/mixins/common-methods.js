@@ -132,7 +132,7 @@ export default {
     },
     routingAfterLogout(routeName) {
       if (this.authRequiredRoutes.includes(routeName)) {
-        this.$router.push("/");
+        this.$router.push("/lemon_sours");
       } else {
         this.isAuthenticated = false;
         this.noticeMessage = "ログアウトしました。";

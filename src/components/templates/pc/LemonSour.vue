@@ -29,17 +29,19 @@
     z-index: $z-sidebar;
   }
   .pc-lemon-sour-notice {
-    margin: 0 $sidebar-width / 2 0 $sidebar-width;
-    z-index: $z-notice;
+    z-index: $z-notice-pc;
+    position: fixed;
+    width: 100%;
   }
   .pc-lemon-sour-main {
     margin: 0 $sidebar-width / 2 0 $sidebar-width;
-    padding: 60px 10px;
+    padding: 75px 10px 60px 10px;
   }
   .pc-lemon-sour-side-blank {
     position: fixed;
     top: 0;
     right: 0;
+    z-index: $z-sidebar;
   }
 }
 </style>

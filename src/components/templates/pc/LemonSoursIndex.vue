@@ -24,12 +24,13 @@
     z-index: $z-sidebar;
   }
   .pc-lemon-sours-index-notice {
-    margin-left: $sidebar-width;
-    z-index: $z-notice;
+    z-index: $z-notice-pc;
+    position: fixed;
+    width: 100%;
   }
   .pc-lemon-sours-index-main {
     margin-left: $sidebar-width;
-    padding: 60px 30px;
+    padding: 75px 30px 60px 30px;
   }
 }
 </style>

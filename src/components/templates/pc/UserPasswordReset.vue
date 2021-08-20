@@ -25,17 +25,19 @@
     left: 0;
   }
   .pc-user-password-reset-notice {
-    margin: 0 $sidebar-width / 2;
-    z-index: $z-notice;
+    z-index: $z-notice-pc;
+    position: fixed;
+    width: 100%;
   }
   .pc-user-password-reset-main {
-    padding: 60px 30px;
+    padding: 75px 30px 60px 30px;
     margin: 0 $sidebar-width / 2;
   }
   .pc-user-password-reset-side-blank-right {
     position: fixed;
     top: 0;
     right: 0;
+    z-index: $z-sidebar;
   }
 }
 </style>
