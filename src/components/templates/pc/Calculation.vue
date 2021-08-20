@@ -31,7 +31,7 @@
   }
   .pc-calculation-main {
     margin: 0 $sidebar-width / 2 0 $sidebar-width;
-    padding: 75px 30px 60px 30px;
+    padding: 75px 30px 60px;
   }
   .pc-calculation-side-blank {
     position: fixed;

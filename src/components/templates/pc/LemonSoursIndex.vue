@@ -30,7 +30,7 @@
   }
   .pc-lemon-sours-index-main {
     margin-left: $sidebar-width;
-    padding: 75px 30px 60px 30px;
+    padding: 75px 30px 60px;
   }
 }
 </style>

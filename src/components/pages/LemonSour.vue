@@ -92,9 +92,6 @@
           </template>
         </sour-container>
       </template>
-      <template v-slot:review-container>
-        <review-container></review-container>
-      </template>
       <!-- SIDE-BLANK -->
       <template v-slot:side-blank>
         <blank-side></blank-side>
@@ -182,9 +179,6 @@
           </template>
         </sour-container>
       </template>
-      <template v-slot:review-container>
-        <review-container></review-container>
-      </template>
       <!-- FOOTER -->
       <template v-slot:footer>
         <the-footer>
@@ -211,7 +205,6 @@ import TheModal from "@/components/organisms/TheModal";
 import TheSidebar from "@/components/organisms/TheSidebar";
 import TheHeader from "@/components/organisms/TheHeader";
 import SourContainer from "@/components/organisms/SourContainer";
-import ReviewContainer from "@/components/organisms/ReviewContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
 import AppTitle from "@/components/molecules/AppTitle";
@@ -236,7 +229,6 @@ export default {
     TheSidebar,
     TheHeader,
     SourContainer,
-    ReviewContainer,
     TheFooter,
     ModalUser,
     SidebarMenusAuthenticated,

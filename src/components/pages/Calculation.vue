@@ -322,9 +322,13 @@ export default {
           .post("/api/v1/drinking_records", data, {
             headers: this.authHeader,
           })
-          .then((res) => {
-            console.log(res);
-            this.$router.push(`/drinking_records/${this.userId}`);
+          .then(() => {
+            this.noticeMessage =
+              "記録が作成されました！記録カレンダーへ移動します。";
+            setTimeout(() => {
+              this.noticeMessage = "";
+              this.$router.push(`/drinking_records/${this.userId}`);
+            }, 3000);
           })
           .catch((err) => {
             console.log(err.response);
