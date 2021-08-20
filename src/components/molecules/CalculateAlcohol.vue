@@ -18,86 +18,62 @@
       @input="setAlcoholContent"
     ></input-select>
     <div class="calculate-alcohol-formula-box">
-      <div class="calculate-alcohol-flex-unit1-box">
-        <div class="calculate-alcohol-flex-unit1">
+      <div
+        class="calculate-alcohol-formula"
+        v-for="index in formulaCounts"
+        :key="index"
+      >
+        <div class="calculate-alcohol-formula-alcohol-content">
           <input-number
-            class="calculate-alcohol-content-input"
-            :input-number-attributes="alcoholInputs[0]"
-            :init-value="sourAlcoholContent"
-            @input="alcContent350 = $event.target.value"
+            class="calculate-alcohol-formula-alcohol-content-input"
+            :input-number-attributes="alcoholInputs.alcContent"
+            :init-value="alcContentForDisplay"
+            @input="setAlcContentForCalc(index, $event.target.value)"
           ></input-number>
-          <span class="calculate-alcohol-input-unit">%</span>
+          <span class="calculate-alcohol-formula-alcohol-content-unit">%</span>
         </div>
-        <div class="calculate-alcohol-flex-unit1">
-          <input-number
-            class="calculate-alcohol-content-input"
-            :input-number-attributes="alcoholInputs[0]"
-            :init-value="sourAlcoholContent"
-            @input="alcContent400 = $event.target.value"
-          ></input-number>
-          <span class="calculate-alcohol-input-unit">%</span>
+        <icon
+          class="calculate-alcohol-formula-x-icon"
+          :icon-text="iconTexts[0]"
+        ></icon>
+        <div class="calculate-alcohol-formula-amount">
+          <input-select
+            class="calculate-alcohol-formula-amount-input"
+            :sort-type="alcoholInputs.amountSelect.sortType"
+            :sort-values="alcoholInputs.amountSelect.sortValues"
+            :init-value="alcoholInputs.amountSelect.initValue"
+            @input="setDrinkAmountForCalc(index, $event)"
+          ></input-select>
+          <span class="calculate-alcohol-formula-amount-unit">ml</span>
         </div>
-        <div class="calculate-alcohol-flex-unit1">
+        <icon
+          class="calculate-alcohol-formula-x-icon"
+          :icon-text="iconTexts[0]"
+        ></icon>
+        <div class="calculate-alcohol-formula-counts">
           <input-number
-            class="calculate-alcohol-content-input"
-            :input-number-attributes="alcoholInputs[0]"
-            :init-value="sourAlcoholContent"
-            @input="alcContent500 = $event.target.value"
+            class="calculate-alcohol-formula-counts-input"
+            :input-number-attributes="alcoholInputs.drinkingCounts"
+            @input="setDrinkCountsForCalc(index, $event.target.value)"
           ></input-number>
-          <span class="calculate-alcohol-input-unit">%</span>
+          <span class="calculate-alcohol-formula-counts-unit">本</span>
         </div>
       </div>
-      <div class="calculate-alcohol-flex-unit2-box">
-        <icon class="calculate-alcohol-x-icon" :icon-text="iconTexts[0]"></icon>
-        <icon class="calculate-alcohol-x-icon" :icon-text="iconTexts[0]"></icon>
-        <icon class="calculate-alcohol-x-icon" :icon-text="iconTexts[0]"></icon>
-      </div>
-      <div class="calculate-alcohol-flex-unit3-box">
-        <div class="calculate-alcohol-flex-unit3">
-          <input-label
-            class="calculate-alcohol-capacity-label"
-            :label-text="alcoholInputs[1][0].label"
-          ></input-label>
-          <input-number
-            class="calculate-alcohol-drinks-input"
-            :input-number-attributes="alcoholInputs[1][0].attributes"
-            @input="drinks350 = $event.target.value * 350"
-          ></input-number>
-          <span class="calculate-alcohol-input-unit">本</span>
-        </div>
-        <div class="calculate-alcohol-flex-unit3">
-          <input-label
-            class="calculate-alcohol-capacity-label"
-            :label-text="alcoholInputs[1][1].label"
-          ></input-label>
-          <input-number
-            class="calculate-alcohol-drinks-input"
-            :input-number-attributes="alcoholInputs[1][1].attributes"
-            @input="drinks400 = $event.target.value * 400"
-          ></input-number>
-          <span class="calculate-alcohol-input-unit">本</span>
-        </div>
-        <div class="calculate-alcohol-flex-unit3">
-          <input-label
-            class="calculate-alcohol-capacity-label"
-            :label-text="alcoholInputs[1][2].label"
-          ></input-label>
-          <input-number
-            class="calculate-alcohol-drinks-input"
-            :input-number-attributes="alcoholInputs[1][2].attributes"
-            @input="drinks500 = $event.target.value * 500"
-          ></input-number>
-          <span class="calculate-alcohol-input-unit">本</span>
-        </div>
+      <div class="calculate-alcohol-formula-plus" @click="addFormula">
+        <icon
+          class="calculate-alcohol-formula-plus-icon"
+          :icon-text="iconTexts[1]"
+        ></icon>
+        <p class="calculate-alcohol-formula-plus-text">計算式を追加</p>
       </div>
     </div>
     <div class="calculate-alcohol-result-box">
       <icon
         class="calculate-alcohol-arrow-icon"
-        :icon-text="iconTexts[1]"
+        :icon-text="iconTexts[2]"
       ></icon>
       <span class="calculate-alcohol-calculation-result">
-        {{ sumPureAlcohol }}
+        {{ totalAmountOfPureAlc }}
       </span>
       <span class="calculate-alcohol-input-unit">g</span>
     </div>
@@ -121,7 +97,7 @@
     ></button-calculation-record>
     <button-twitter
       class="calculate-alcohol-tweet-button"
-      :pure-alc="sumPureAlcohol"
+      :pure-alc="totalAmountOfPureAlc"
     ></button-twitter>
   </div>
 </template>
@@ -131,7 +107,6 @@ import ErrorMessage from "@/components/atoms/ErrorMessage";
 import DayDatePicker from "@/components/atoms/DayDatePicker";
 import InputSelect from "@/components/atoms/InputSelect";
 import InputNumber from "@/components/atoms/InputNumber";
-import InputLabel from "@/components/atoms/InputLabel";
 import Icon from "@/components/atoms/Icon";
 import TextCalculationSupplement from "@/components/atoms/TextCalculationSupplement";
 import ButtonCalculationRecord from "@/components/atoms/ButtonCalculationRecord";
@@ -143,7 +118,6 @@ export default {
     DayDatePicker,
     InputSelect,
     InputNumber,
-    InputLabel,
     Icon,
     TextCalculationSupplement,
     ButtonCalculationRecord,
@@ -154,7 +128,7 @@ export default {
     errorMessages: Array,
     soursSelect: Array,
     lemonSours: Array,
-    alcoholInputs: Array,
+    alcoholInputs: Object,
     iconTexts: Array,
     calcButton: String,
     todaySour: Object,
@@ -163,16 +137,12 @@ export default {
     return {
       soursSelectBox: [],
       sourName: this.soursSelect[1][0],
-      sourAlcoholContent: 0,
-      alcContent350: 0,
-      alcContent400: 0,
-      alcContent500: 0,
-      drinks350: 0,
-      drinks400: 0,
-      drinks500: 0,
-      result350: 0,
-      result400: 0,
-      result500: 0,
+      alcContentForDisplay: 0,
+      formulaCounts: 3,
+      alcContentForCalc: [],
+      drinkAmountForCalc: [],
+      drinkCountsForCalc: [],
+      totalAmountOfPureAlc: "0",
       isActive: false,
       recordData: {
         drinking_record: {
@@ -189,63 +159,80 @@ export default {
     setAlcoholContent(sourName) {
       const selectedSour = this.lemonSours.find((ele) => ele.name == sourName);
       this.recordData.drinking_record.lemon_sour_id = selectedSour.id;
-      const selectedSourAlc = selectedSour.alcohol_content;
-      document.querySelectorAll(".calculate-alcohol-content-input")[0].value =
-        selectedSourAlc;
-      document.querySelectorAll(".calculate-alcohol-content-input")[1].value =
-        selectedSourAlc;
-      document.querySelectorAll(".calculate-alcohol-content-input")[2].value =
-        selectedSourAlc;
-      this.alcContent350 = selectedSourAlc;
-      this.alcContent400 = selectedSourAlc;
-      this.alcContent500 = selectedSourAlc;
+      const selectedSourAlcContent = selectedSour.alcohol_content;
+      const alcContentInputs = document.querySelectorAll(
+        ".calculate-alcohol-formula-alcohol-content-input"
+      );
+      for (let index = 0; index < alcContentInputs.length; index++) {
+        alcContentInputs[index].value = selectedSourAlcContent;
+        this.alcContentForCalc[index] = selectedSourAlcContent;
+      }
     },
     setDrinkingDate(date) {
       this.recordData.drinking_record.drinking_date = date;
     },
+    // user_idはpagesで入れる
     substituteRecordData() {
       this.recordData.drinking_record.drinking_amount =
-        this.drinks350 + this.drinks400 + this.drinks500;
-      this.recordData.drinking_record.pure_alcohol_amount = this.sumPureAlcohol;
+        this.drinkAmountForCalc.reduce((sum, ele) => sum + parseInt(ele), 0);
+      this.recordData.drinking_record.pure_alcohol_amount =
+        this.totalAmountOfPureAlc;
       this.$emit("submitRecord", this.recordData);
     },
-  },
-  computed: {
+    addFormula() {
+      return (this.formulaCounts += 1);
+    },
+    setAlcContentForCalc(index, value) {
+      this.alcContentForCalc[index - 1] = value;
+      if (
+        !!this.drinkAmountForCalc[index - 1] &&
+        !!this.drinkCountsForCalc[index - 1]
+      ) {
+        this.sumPureAlcohol();
+      }
+    },
+    setDrinkAmountForCalc(index, value) {
+      this.drinkAmountForCalc[index - 1] = value;
+      if (
+        !!this.alcContentForCalc[index - 1] &&
+        !!this.drinkCountsForCalc[index - 1]
+      ) {
+        this.sumPureAlcohol();
+      }
+    },
+    setDrinkCountsForCalc(index, value) {
+      this.drinkCountsForCalc[index - 1] = value;
+      if (
+        !!this.alcContentForCalc[index - 1] &&
+        !!this.drinkAmountForCalc[index - 1]
+      ) {
+        this.sumPureAlcohol();
+      }
+    },
     sumPureAlcohol() {
-      return (
-        parseFloat(this.result350) +
-        parseFloat(this.result400) +
-        parseFloat(this.result500)
-      ).toFixed(1);
-    },
-  },
-  watch: {
-    alcContent350: function (newValue) {
-      this.result350 = ((this.drinks350 * newValue) / 100) * 0.8;
-    },
-    alcContent400: function (newValue) {
-      this.result400 = ((this.drinks400 * newValue) / 100) * 0.8;
-    },
-    alcContent500: function (newValue) {
-      this.result500 = ((this.drinks500 * newValue) / 100) * 0.8;
-    },
-    drinks350: function (newValue) {
-      this.result350 = ((newValue * this.alcContent350) / 100) * 0.8;
-    },
-    drinks400: function (newValue) {
-      this.result400 = ((newValue * this.alcContent400) / 100) * 0.8;
-    },
-    drinks500: function (newValue) {
-      this.result500 = ((newValue * this.alcContent500) / 100) * 0.8;
+      let results = [];
+      let sum = 0;
+      for (let index = 0; index < this.alcContentForCalc.length; index++) {
+        results[index] =
+          (this.alcContentForCalc[index] / 100) *
+          this.drinkAmountForCalc[index] *
+          this.drinkCountsForCalc[index] *
+          0.8;
+      }
+      const resultsRemovedNaN = results.filter((result) => result);
+      for (let index = 0; index < resultsRemovedNaN.length; index++) {
+        sum += resultsRemovedNaN[index];
+      }
+      this.totalAmountOfPureAlc = parseFloat(sum).toFixed(1);
     },
   },
   created() {
     if (this.todaySour !== undefined) {
       this.sourName = this.todaySour.name;
-      this.sourAlcoholContent = this.todaySour.alcohol_content;
-      this.alcContent350 = this.todaySour.alcohol_content;
-      this.alcContent400 = this.todaySour.alcohol_content;
-      this.alcContent500 = this.todaySour.alcohol_content;
+      this.alcContentForDisplay = this.todaySour.alcohol_content;
+      for (let index = 0; index < this.formulaCounts; index++) {
+        this.alcContentForCalc.push(this.todaySour.alcohol_content);
+      }
     }
   },
 };
@@ -270,53 +257,54 @@ export default {
   }
   .calculate-alcohol-formula-box {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    font-size: 1.5rem;
-    width: 300px;
+    font-size: 1.6rem;
     margin-bottom: 30px;
-    .calculate-alcohol-flex-unit1-box {
+    .calculate-alcohol-formula {
       display: flex;
-      flex-direction: column;
       justify-content: space-between;
-      width: 27%;
-      height: 120px;
-      .calculate-alcohol-flex-unit1 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 1.6rem;
-        .calculate-alcohol-content-input {
-          padding: 9px 9px 9px 9px;
+      align-items: center;
+      width: 320px;
+      margin-bottom: 6px;
+      .calculate-alcohol-formula-alcohol-content {
+        .calculate-alcohol-formula-alcohol-content-input {
+          padding: 9px 0 9px 6px;
+          margin-right: 3px;
+        }
+      }
+      .calculate-alcohol-formula-x-icon {
+        font-size: 2rem;
+      }
+      .calculate-alcohol-formula-amount {
+        .calculate-alcohol-formula-amount-input {
+          padding: 9px 3px 9px 6px;
+          margin-right: 3px;
+        }
+      }
+      .calculate-alcohol-formula-counts {
+        .calculate-alcohol-formula-counts-input {
+          padding: 9px 6px;
+          margin-right: 3px;
         }
       }
     }
-    .calculate-alcohol-flex-unit2-box {
+    .calculate-alcohol-formula-plus {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 105px;
-      .calculate-alcohol-x-icon {
+      align-items: center;
+      margin-top: 12px;
+      color: $dark-green;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
+      .calculate-alcohol-formula-plus-icon {
+        margin-right: 6px;
         font-size: 2rem;
       }
     }
-    .calculate-alcohol-flex-unit3-box {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 42%;
-      height: 120px;
-      .calculate-alcohol-flex-unit3 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 1.6rem;
-        .calculate-alcohol-drinks-input {
-          padding: 9px 9px 9px 9px;
-        }
-      }
-    }
   }
+
   .calculate-alcohol-result-box {
     display: flex;
     align-items: center;
