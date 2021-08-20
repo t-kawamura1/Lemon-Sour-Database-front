@@ -1,6 +1,5 @@
 import { mount } from "@vue/test-utils";
 import CalculateAlcohol from "@/components/molecules/CalculateAlcohol";
-import flushPromises from "flush-promises";
 
 describe("CalculateAlcohol component test", () => {
   let wrapper;
@@ -23,15 +22,16 @@ describe("CalculateAlcohol component test", () => {
           { name: "テスサワ", alcohol_content: 9 },
           { name: "テスハイ", alcohol_content: 7 },
         ],
-        alcoholInputs: [
-          ["度数", 0.5, 0.5, 13],
-          [
-            { label: "350ml", attributes: ["缶", 1, 0, 99] },
-            { label: "400ml", attributes: ["缶", 1, 0, 99] },
-            { label: "500ml", attributes: ["缶", 1, 0, 99] },
-          ],
-        ],
-        iconTexts: ["times", "arrow-right"],
+        alcoholInputs: {
+          alcContent: ["度数", 0.5, 0.5, 13],
+          amountSelect: {
+            sortType: "ー",
+            sortValues: ["容量", 350, 400, 500, 334, 633, 135, 250],
+            initValue: "容量",
+          },
+          drinkingCounts: ["", 1, 0, 99],
+        },
+        iconTexts: ["times", "plus-circle", "arrow-right"],
         calcButton: "結果を記録",
         todaySour: undefined,
       },
@@ -56,20 +56,34 @@ describe("CalculateAlcohol component test", () => {
   });
 
   it("InputSelectコンポーネントにsoursSelect propsを渡している", () => {
-    expect(wrapper.findAll("option")).toHaveLength(5);
-    expect(wrapper.findAll("option").at(0).text()).toBe("ー");
-    expect(wrapper.findAll("option").at(1).text()).toBe("サワー選択");
+    const options = wrapper
+      .find(".calculate-alcohol-sour-select")
+      .findAll("option");
+    expect(options).toHaveLength(5);
+    expect(options.at(0).text()).toBe("ー");
+    expect(options.at(1).text()).toBe("サワー選択");
   });
 
   it("alcoholInputs propsを各子コンポーネントに渡している", () => {
     expect(
-      wrapper.findAll(".calculate-alcohol-content-input").at(0).attributes().max
+      wrapper
+        .findAll(".calculate-alcohol-formula-alcohol-content-input")
+        .at(0)
+        .attributes().max
     ).toBe("13");
     expect(
-      wrapper.findAll(".calculate-alcohol-capacity-label").at(0).text()
-    ).toBe("350ml");
+      wrapper
+        .findAll(".calculate-alcohol-formula-amount-input")
+        .at(0)
+        .findAll("option")
+        .at(1)
+        .text()
+    ).toBe("容量");
     expect(
-      wrapper.findAll(".calculate-alcohol-drinks-input").at(0).attributes().max
+      wrapper
+        .findAll(".calculate-alcohol-formula-counts-input")
+        .at(2)
+        .attributes().max
     ).toBe("99");
   });
 
@@ -78,7 +92,10 @@ describe("CalculateAlcohol component test", () => {
       wrapper.findAll("font-awesome-icon-stub").at(0).attributes("icon")
     ).toBe("times");
     expect(
-      wrapper.findAll("font-awesome-icon-stub").at(3).attributes("icon")
+      wrapper.findAll("font-awesome-icon-stub").at(6).attributes("icon")
+    ).toBe("plus-circle");
+    expect(
+      wrapper.findAll("font-awesome-icon-stub").at(7).attributes("icon")
     ).toBe("arrow-right");
   });
 
@@ -97,26 +114,43 @@ describe("CalculateAlcohol component test", () => {
     );
   });
 
+  it("計算式追加ボタンを押すと、計算式が一つ追加される", async () => {
+    expect(wrapper.findAll(".calculate-alcohol-formula")).toHaveLength(3);
+    await wrapper.find(".calculate-alcohol-formula-plus").trigger("click");
+    expect(wrapper.findAll(".calculate-alcohol-formula")).toHaveLength(4);
+  });
+
   it("入力欄に度数・本数を入力すると、純アルコール量の総量が表示される", async () => {
-    const content350 = wrapper
-      .findAll(".calculate-alcohol-content-input")
+    const alcContent0 = wrapper
+      .findAll(".calculate-alcohol-formula-alcohol-content-input")
       .at(0);
-    const content500 = wrapper
-      .findAll(".calculate-alcohol-content-input")
-      .at(2);
-    const drinks350 = wrapper.findAll(".calculate-alcohol-drinks-input").at(0);
-    const drinks500 = wrapper.findAll(".calculate-alcohol-drinks-input").at(2);
-    await content350.setValue("7");
-    await drinks350.setValue("1");
-    await content500.setValue("4");
-    await drinks500.setValue("2");
-    wrapper.vm.alcContent350 = content350.element.value;
-    wrapper.vm.alcContent500 = content500.element.value;
-    wrapper.vm.drinks350 = drinks350.element.value * 350;
-    wrapper.vm.drinks500 = drinks500.element.value * 500;
-    await flushPromises();
+    const drinkAmount0 = wrapper
+      .findAll(".calculate-alcohol-formula-amount-input")
+      .at(0);
+    const drinkCounts0 = wrapper
+      .findAll(".calculate-alcohol-formula-counts-input")
+      .at(0);
+    await alcContent0.setValue(5);
+    await alcContent0.trigger("change");
+    await drinkAmount0.findAll("option").at(4).setSelected();
+    await drinkCounts0.setValue(1);
+    await drinkCounts0.trigger("change");
+    const alcContent1 = wrapper
+      .findAll(".calculate-alcohol-formula-alcohol-content-input")
+      .at(1);
+    const drinkAmount1 = wrapper
+      .findAll(".calculate-alcohol-formula-amount-input")
+      .at(1);
+    const drinkCounts1 = wrapper
+      .findAll(".calculate-alcohol-formula-counts-input")
+      .at(1);
+    await alcContent1.setValue(7);
+    await alcContent1.trigger("change");
+    await drinkAmount1.findAll("option").at(2).setSelected();
+    await drinkCounts1.setValue(2);
+    await drinkCounts1.trigger("change");
     expect(wrapper.find(".calculate-alcohol-calculation-result").text()).toBe(
-      "51.6"
+      "59.2"
     );
   });
 
@@ -125,10 +159,13 @@ describe("CalculateAlcohol component test", () => {
     await selects.findAll("option").at(2).setSelected();
     selects.vm.$emit("input", selects.element.value);
     await selects.trigger("input");
-    wrapper.findAll(".calculate-alcohol-content-input").setValue("9");
+    wrapper
+      .findAll(".calculate-alcohol-formula-alcohol-content-input")
+      .setValue("9");
     expect(wrapper.find("option:checked").element.value).toBe("テスレモ");
     expect(
-      wrapper.findAll(".calculate-alcohol-content-input").at(0).element.value
+      wrapper.findAll(".calculate-alcohol-formula-alcohol-content-input").at(0)
+        .element.value
     ).toBe("9");
   });
 
@@ -157,13 +194,19 @@ describe("CalculateAlcohol component test", () => {
 
     it("input-numberコンポーネントに、dataのsourAlcoholContentの初期値を渡している", () => {
       expect(
-        wrapper.findAll(".calculate-alcohol-content-input").at(0).element.value
+        wrapper
+          .findAll(".calculate-alcohol-formula-alcohol-content-input")
+          .at(0).element.value
       ).toBe("0");
       expect(
-        wrapper.findAll(".calculate-alcohol-content-input").at(1).element.value
+        wrapper
+          .findAll(".calculate-alcohol-formula-alcohol-content-input")
+          .at(1).element.value
       ).toBe("0");
       expect(
-        wrapper.findAll(".calculate-alcohol-content-input").at(2).element.value
+        wrapper
+          .findAll(".calculate-alcohol-formula-alcohol-content-input")
+          .at(2).element.value
       ).toBe("0");
     });
   });
@@ -191,17 +234,18 @@ describe("CalculateAlcohol component test", () => {
             { name: "テスサワ", alcohol_content: 9 },
             { name: "テスハイ", alcohol_content: 7 },
           ],
-          alcoholInputs: [
-            ["度数", 0.5, 0.5, 13],
-            [
-              { label: "350ml", attributes: ["缶", 1, 0, 99] },
-              { label: "400ml", attributes: ["缶", 1, 0, 99] },
-              { label: "500ml", attributes: ["缶", 1, 0, 99] },
-            ],
-          ],
-          iconTexts: ["times", "arrow-right"],
+          alcoholInputs: {
+            alcContent: ["度数", 0.5, 0.5, 13],
+            amountSelect: {
+              sortType: "ー",
+              sortValues: ["容量", 350, 400, 500, 334, 633, 135, 250],
+              initValue: "容量",
+            },
+            drinkingCounts: ["", 1, 0, 99],
+          },
+          iconTexts: ["times", "plus-circle", "arrow-right"],
           calcButton: "結果を記録",
-          todaySour: { name: "テスチュー", alcohol_content: "8" },
+          todaySour: { name: "テスチュー", alcohol_content: 8 },
         },
         stubs: ["font-awesome-icon", "v-date-picker"],
       });
@@ -212,7 +256,7 @@ describe("CalculateAlcohol component test", () => {
     });
 
     it("dataのsourAlcoholContentには、todaySourのalcohol_contentの値が入っている", async () => {
-      expect(wrapper.vm.sourAlcoholContent).toBe("8");
+      expect(wrapper.vm.alcContentForDisplay).toBe(8);
     });
   });
 });

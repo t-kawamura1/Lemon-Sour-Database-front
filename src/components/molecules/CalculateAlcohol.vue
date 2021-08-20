@@ -36,27 +36,27 @@
           class="calculate-alcohol-formula-x-icon"
           :icon-text="iconTexts[0]"
         ></icon>
-        <div class="calculate-alcohol-formula-drinking-capacity">
+        <div class="calculate-alcohol-formula-amount">
           <input-select
-            class="calculate-alcohol-formula-capacity-input"
+            class="calculate-alcohol-formula-amount-input"
             :sort-type="alcoholInputs.amountSelect.sortType"
             :sort-values="alcoholInputs.amountSelect.sortValues"
             :init-value="alcoholInputs.amountSelect.initValue"
             @input="setDrinkAmountForCalc(index, $event)"
           ></input-select>
-          <span class="calculate-alcohol-formula-drinks-unit">ml</span>
+          <span class="calculate-alcohol-formula-amount-unit">ml</span>
         </div>
         <icon
           class="calculate-alcohol-formula-x-icon"
           :icon-text="iconTexts[0]"
         ></icon>
-        <div class="calculate-alcohol-formula-drinking-amount">
+        <div class="calculate-alcohol-formula-counts">
           <input-number
-            class="calculate-alcohol-formula-drinks-input"
+            class="calculate-alcohol-formula-counts-input"
             :input-number-attributes="alcoholInputs.drinkingCounts"
             @input="setDrinkCountsForCalc(index, $event.target.value)"
           ></input-number>
-          <span class="calculate-alcohol-formula-drinks-unit">本</span>
+          <span class="calculate-alcohol-formula-counts-unit">本</span>
         </div>
       </div>
       <div class="calculate-alcohol-formula-plus" @click="addFormula">
@@ -276,14 +276,14 @@ export default {
       .calculate-alcohol-formula-x-icon {
         font-size: 2rem;
       }
-      .calculate-alcohol-formula-drinking-capacity {
-        .calculate-alcohol-formula-capacity-input {
+      .calculate-alcohol-formula-amount {
+        .calculate-alcohol-formula-amount-input {
           padding: 9px 3px 9px 6px;
           margin-right: 3px;
         }
       }
-      .calculate-alcohol-formula-drinking-amount {
-        .calculate-alcohol-formula-drinks-input {
+      .calculate-alcohol-formula-counts {
+        .calculate-alcohol-formula-counts-input {
           padding: 9px 6px;
           margin-right: 3px;
         }

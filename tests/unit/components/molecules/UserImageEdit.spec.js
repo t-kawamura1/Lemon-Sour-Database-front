@@ -9,7 +9,9 @@ describe("UserImageEdit component test", () => {
       propsData: {
         imageEditContents: {
           icon: "photo",
-          image_url: "https:://hoge.jp",
+          image_url: {
+            url: "https://hoge.jp",
+          },
           button: "変更を保存",
         },
         errorMessages: ["画像がないよ", "なんかエラー"],
@@ -29,7 +31,7 @@ describe("UserImageEdit component test", () => {
   });
 
   it("imageEditContents[1]を子コンポーネントに渡している", () => {
-    expect(wrapper.find("img").attributes("src")).toBe("https:://hoge.jp");
+    expect(wrapper.find("img").attributes("src")).toBe("https://hoge.jp");
   });
 
   it("imageEditContents[2]を子コンポーネントに渡している", () => {

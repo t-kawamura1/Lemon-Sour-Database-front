@@ -264,7 +264,7 @@ export default {
       soursSelectSet: ["ー", ["レモンサワーを選択"]],
       lemonSoursData: [],
       alcoholInputContents: {
-        alcContent: ["度数", 0.5, 0.5, 13],
+        alcContent: ["度数", 0.5, 0.5, 99],
         amountSelect: {
           sortType: "ー",
           sortValues: ["容量", 350, 400, 500, 334, 633, 135, 250],
