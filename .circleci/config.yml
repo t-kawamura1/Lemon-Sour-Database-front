@@ -17,9 +17,6 @@ jobs:
       - run:
           name: Unit test
           command: npm run test:unit
-      - run:
-          name: E2E test
-          command: npm run test:e2e
 
   deploy:
     executor: heroku/default
