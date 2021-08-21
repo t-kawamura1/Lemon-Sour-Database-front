@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   node: circleci/node@4.5.0
-  puppeteer: threetreeslight/puppeteer@0.1.2
   heroku: circleci/heroku@1.2.6
 
 jobs:
@@ -13,7 +12,6 @@ jobs:
       - node/install-packages:
           cache-path: ~/project/node_modules
           override-ci-command: npm install
-      - puppeteer/install
       - run:
           name: Unit test
           command: npm run test:unit
