@@ -18,12 +18,12 @@ export default {
   },
   methods: {
     generateUrl() {
-      const pageUrl = encodeURIComponent(location.href);
-      const pageTitle = encodeURIComponent(document.title);
+      const pageUrl = process.env.VUE_APP_DOMAIN_URL;
+      const pageTitle = "Lemon Sour DB";
       const tweetText =
         "今日の純アルコール摂取量は" +
         this.pureAlc +
-        "gでした。|　" +
+        "gでした。 " +
         pageTitle;
       const tweet = encodeURIComponent(tweetText);
       this.twitter =
