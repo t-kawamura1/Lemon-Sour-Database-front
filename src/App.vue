@@ -22,11 +22,11 @@ export default {
   },
   mounted() {
     const routeInstance = this.$route;
-    this.createTitleDesc(routeInstance);
+    this.createTitleAndDescription(routeInstance);
   },
   watch: {
     '$route' (routeInstance) {
-      this.createTitleDesc(routeInstance);
+      this.createTitleAndDescription(routeInstance);
     }
   },
 }
