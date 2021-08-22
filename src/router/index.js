@@ -17,7 +17,9 @@ const routes = [
     path: "/",
     name: "home",
     component: Home,
-    meta: { desc: "お気に入りのレモンサワーをみつけて健康に楽しく飲もう！アルコール摂取量は健康のバロメーターです。好きなレモンサワーを選んで、アルコール摂取量を計算してみましょう！" },
+    meta: {
+      desc: "お気に入りのレモンサワーをみつけて健康に楽しく飲もう！アルコール摂取量は健康のバロメーターです。好きなレモンサワーを選んで、アルコール摂取量を計算してみましょう！",
+    },
   },
   {
     path: "/age_confirmation",
@@ -41,7 +43,7 @@ const routes = [
     path: "/users/:id",
     name: "user",
     component: User,
-    meta: { title: `${RouterAuth.currentUser.name}` },
+    meta: { title: "ユーザー編集" },
     beforeEnter: (to, from, next) => {
       RouterAuth.guardAccessToPageRequiresAuth(Vue, to, from, next);
     },
@@ -51,20 +53,20 @@ const routes = [
     path: "/user/password_reset",
     name: "userPasswordReset",
     component: UserPasswordReset,
-    meta: { title:"パスワードリセット" },
+    meta: { title: "パスワードリセット" },
   },
   {
     path: "/calculation",
     name: "calculation",
     component: Calculation,
-    meta: { title:"アルコール量計算" },
+    meta: { title: "アルコール量計算" },
     props: true,
   },
   {
     path: "/drinking_records/:id",
     name: "drinkingRecord",
     component: DrinkingRecord,
-    meta: { title:`${RouterAuth.currentUser.name}さんの摂取量記録` },
+    meta: { title: "摂取量記録" },
     beforeEnter: (to, from, next) => {
       RouterAuth.guardAccessToPageRequiresAuth(Vue, to, from, next);
     },

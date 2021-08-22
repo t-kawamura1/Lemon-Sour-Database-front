@@ -13,17 +13,17 @@ export default {
   data() {
     return {
       twitter: "",
-      hashtags: "レモンサワー",
+      hashtags: ["レモンサワー", "LSDB"],
     };
   },
   methods: {
     generateUrl() {
-      const pageUrl = process.env.VUE_APP_DOMAIN_URL;
+      const pageUrl = encodeURIComponent(location.origin);
       const pageTitle = "Lemon Sour DB";
       const tweetText =
         "今日の純アルコール摂取量は" +
         this.pureAlc +
-        "gでした。 " +
+        "gでした。|　" +
         pageTitle;
       const tweet = encodeURIComponent(tweetText);
       this.twitter =
@@ -37,6 +37,7 @@ export default {
   },
   created() {
     this.generateUrl();
+    console.log(location.origin);
   },
 };
 </script>

@@ -8,6 +8,5 @@ build:
   config:
     VUE_APP_API_ENDPOINT: https://lsdb-api-v1.herokuapp.com
     VUE_APP_RESET_REDIRECT_URL: http://lsdb-front-v1/user/password_reset
-    VUE_APP_DOMAIN_URL: http://lsdb-front-v1
 run:
   web: npm run start
