@@ -272,7 +272,7 @@ export default {
         },
         drinkingCounts: ["", 1, 0, 99],
       },
-      calculationIcons: ["times", "plus-circle", "arrow-right"],
+      calculationIcons: ["times", "plus-circle", "minus-circle", "arrow-right"],
       calcButtonText: "結果を記録する（登録ユーザーのみ）",
     };
   },

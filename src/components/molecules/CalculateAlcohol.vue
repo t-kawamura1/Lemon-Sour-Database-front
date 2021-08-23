@@ -1,11 +1,17 @@
 <template>
   <div class="calculate-alcohol">
-    <error-message
-      class="calculate-alcohol-error-message"
-      v-for="(errorMessage, index) in errorMessages"
-      :key="`error-${index}`"
-      :error-message-text="errorMessage"
-    ></error-message>
+    <div class="calculate-alcohol-error-messages-box">
+      <error-message
+        class="calculate-alcohol-record-error-messages"
+        v-for="(errorMessage, index) in errorMessages"
+        :key="`record-error-${index}`"
+        :error-message-text="errorMessage"
+      ></error-message>
+      <error-message
+        class="calculate-alcohol-reduce-error-messages"
+        :error-message-text="reduceError"
+      ></error-message>
+    </div>
     <day-date-picker
       class="calculate-alcohol-date-picker"
       @input="setDrinkingDate"
@@ -66,11 +72,18 @@
         ></icon>
         <p class="calculate-alcohol-formula-plus-text">計算式を追加</p>
       </div>
+      <div class="calculate-alcohol-formula-minus" @click="reduceFormula">
+        <icon
+          class="calculate-alcohol-formula-minus-icon"
+          :icon-text="iconTexts[2]"
+        ></icon>
+        <p class="calculate-alcohol-formula-minus-text">計算式を削除</p>
+      </div>
     </div>
     <div class="calculate-alcohol-result-box">
       <icon
         class="calculate-alcohol-arrow-icon"
-        :icon-text="iconTexts[2]"
+        :icon-text="iconTexts[3]"
       ></icon>
       <span class="calculate-alcohol-calculation-result">
         {{ totalAmountOfPureAlc }}
@@ -135,10 +148,11 @@ export default {
   },
   data() {
     return {
+      reduceError: "",
       soursSelectBox: [],
       sourName: this.soursSelect[1][0],
       alcContentForDisplay: 0,
-      formulaCounts: 3,
+      formulaCounts: 2,
       alcContentForCalc: [],
       drinkAmountForCalc: [],
       drinkCountsForCalc: [],
@@ -180,7 +194,20 @@ export default {
       this.$emit("submitRecord", this.recordData);
     },
     addFormula() {
-      return (this.formulaCounts += 1);
+      if (10 > this.formulaCounts) {
+        this.reduceError = "";
+        this.formulaCounts += 1;
+      } else {
+        this.reduceError = "これ以上増やせません"
+      }
+    },
+    reduceFormula() {
+      if (this.formulaCounts >= 2) {
+        this.reduceError = "";
+        this.formulaCounts -= 1;
+      } else {
+        this.reduceError = "これ以上減らせません";
+      }
     },
     setAlcContentForCalc(index, value) {
       this.alcContentForCalc[index - 1] = value;
@@ -244,7 +271,7 @@ export default {
   flex-direction: column;
   align-items: center;
   color: $font-color-bg-white;
-  .calculate-alcohol-error-message {
+  .calculate-alcohol-error-messages-box {
     margin-bottom: 15px;
   }
   .calculate-alcohol-date-picker {
@@ -303,8 +330,21 @@ export default {
         font-size: 2rem;
       }
     }
+    .calculate-alcohol-formula-minus {
+      display: flex;
+      align-items: center;
+      margin-top: 12px;
+      color: $error-red;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
+      .calculate-alcohol-formula-minus-icon {
+        margin-right: 6px;
+        font-size: 2rem;
+      }
+    }
   }
-
   .calculate-alcohol-result-box {
     display: flex;
     align-items: center;
