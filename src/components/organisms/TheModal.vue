@@ -9,5 +9,8 @@
     <div class="modal-user-delete">
       <slot name="modal-user-delete"></slot>
     </div>
+    <div class="modal-record-confirmation">
+      <slot name="modal-record-confirmation"></slot>
+    </div>
   </div>
 </template>

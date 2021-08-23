@@ -10,6 +10,8 @@ export default {
         this.showUserLoginModal = true;
       } else if (type == "ユーザーアカウント削除") {
         this.showUserDeleteModal = true;
+      } else if (type == "記録の確認") {
+        this.showRecordConfirmationModal = true;
       }
     },
     closeModal(type) {

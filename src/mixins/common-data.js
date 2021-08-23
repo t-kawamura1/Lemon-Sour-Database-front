@@ -4,6 +4,7 @@ export default {
       showUserRegistrationModal: false,
       showUserLoginModal: false,
       showUserDeleteModal: false,
+      showRecordConfirmationModal: false,
       noticeMessage: "",
       userModalErrors: [],
       userModalResetErrors: [],

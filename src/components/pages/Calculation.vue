@@ -27,6 +27,13 @@
               @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
+          <template v-slot:modal-record-confirmation>
+            <modal-record-confirmation
+              :modal-record-confirmation-contents="recordConfirmationContents"
+              v-if="showRecordConfirmationModal"
+              @modal="closeModal"
+            ></modal-record-confirmation>
+          </template>
         </the-modal>
       </template>
       <!-- SIDEBAR -->
@@ -85,6 +92,7 @@
               :calc-button="calcButtonText"
               :todaySour="lemonSour"
               @submitRecord="recordDrinking"
+              @modal="openModal"
             ></calculate-alcohol>
           </template>
         </calculation-container>
@@ -120,13 +128,12 @@
               @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
-          <template v-slot:modal-user-delete>
-            <modal-delete-user
-              :modal-delete-user-contents="userDeleteContents"
-              v-if="showUserDeleteModal"
+          <template v-slot:modal-record-confirmation>
+            <modal-record-confirmation
+              :modal-record-confirmation-contents="recordConfirmationContents"
+              v-if="showRecordConfirmationModal"
               @modal="closeModal"
-              @submitUser="deleteUser"
-            ></modal-delete-user>
+            ></modal-record-confirmation>
           </template>
         </the-modal>
       </template>
@@ -178,6 +185,7 @@
               :calc-button="calcButtonText"
               :todaySour="lemonSour"
               @submitRecord="recordDrinking"
+              @modal="openModal"
             ></calculate-alcohol>
           </template>
         </calculation-container>
@@ -210,6 +218,7 @@ import TheHeader from "@/components/organisms/TheHeader";
 import CalculationContainer from "@/components/organisms/CalculationContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
+import ModalRecordConfirmation from "@/components/molecules/ModalRecordConfirmation";
 import AppTitle from "@/components/molecules/AppTitle";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import SidebarMenusUnauthenticated from "@/components/molecules/SidebarMenusUnauthenticated";
@@ -233,6 +242,7 @@ export default {
     CalculationContainer,
     TheFooter,
     ModalUser,
+    ModalRecordConfirmation,
     SidebarMenusAuthenticated,
     SidebarMenusUnauthenticated,
     HeaderIconsAuthenticated,
@@ -248,6 +258,12 @@ export default {
   props: ["lemonSour"],
   data() {
     return {
+      recordConfirmationContents: [
+        "記録の確認",
+        "純アルコール量の計算結果が0gですが、本当に記録しますか？",
+        "記録する",
+        "計算に戻る",
+      ],
       heading: "アルコール摂取量計算",
       mainExplanation:
         "飲んだ銘柄と飲んだ量から、摂取アルコール量を計算できます。飲んだ日付を選択すると、結果を記録することができます。",
@@ -270,7 +286,7 @@ export default {
           sortValues: ["容量", 350, 400, 500, 334, 633, 135, 250],
           initValue: "容量",
         },
-        drinkingCounts: ["", 1, 0, 99],
+        drinkingCounts: ["", 1, 1, 99],
       },
       calculationIcons: ["times", "plus-circle", "minus-circle", "arrow-right"],
       calcButtonText: "結果を記録する（登録ユーザーのみ）",
