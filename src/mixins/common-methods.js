@@ -152,7 +152,7 @@ export default {
       axios
         .post("/api/v1/auth/password", {
           email: inputData,
-          redirect_url: process.env.VUE_APP_RESET_REDIRECT_URL,
+          redirect_url: process.env.VUE_APP_RESET_REDIRECT_URL || "https://lsdb-front-v1/user/password_reset",
         })
         .then(() => {
           this.showUserLoginModal = false;
