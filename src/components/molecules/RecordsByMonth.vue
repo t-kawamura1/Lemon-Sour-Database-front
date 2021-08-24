@@ -113,6 +113,10 @@ export default {
 
 <style scoped lang="scss">
 .records-by-month {
+  width: 300px;
+  padding: 15px 40px;
+  border: 1px solid $calendar-border;
+  border-radius: 6px;
   .records-by-month-title {
     font-size: 1.8rem;
     letter-spacing: 1px;

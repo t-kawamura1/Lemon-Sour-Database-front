@@ -37,7 +37,6 @@ export default {
   },
   created() {
     this.generateUrl();
-    console.log(location.origin);
   },
 };
 </script>

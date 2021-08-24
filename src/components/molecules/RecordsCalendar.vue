@@ -26,6 +26,7 @@ export default {
     CalendarExplanation,
   },
   props: {
+    recordsZero: Array,
     recordsLessThanTwenty: Array,
     recordsFromTwentyToThirtyNine: Array,
     recordsFortyOrMore: Array,
@@ -35,13 +36,25 @@ export default {
   computed: {
     recordAttributes() {
       return [
+        ...this.recordsZero.map((record) => ({
+          dates: record.drinking_date,
+          highlight: {
+            fillMode: "outline",
+            color: "indigo",
+          },
+          popover: {
+            label: `総純アルコール量:${parseFloat(record.total_pure_alcohol).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
+            visibility: "click",
+            hideIndicator: true,
+          },
+        })),
         ...this.recordsLessThanTwenty.map((record) => ({
           dates: record.drinking_date,
           highlight: {
             class: "highlight-bg-green",
           },
           popover: {
-            label: `総純アルコール量:${record.total_pure_alcohol}g  総飲酒量:${record.total_drinking}ml`,
+            label: `総純アルコール量:${parseFloat(record.total_pure_alcohol).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
             visibility: "click",
             hideIndicator: true,
           },
@@ -52,7 +65,7 @@ export default {
             class: "highlight-bg-yellow",
           },
           popover: {
-            label: `総純アルコール量:${record.total_pure_alcohol}g  総飲酒量:${record.total_drinking}ml`,
+            label: `総純アルコール量:${parseFloat(record.total_pure_alcohol).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
             visibility: "click",
             hideIndicator: true,
           },
@@ -63,7 +76,7 @@ export default {
             class: "highlight-bg-red",
           },
           popover: {
-            label: `総純アルコール量:${record.total_pure_alcohol}g  総飲酒量:${record.total_drinking}ml`,
+            label: `総純アルコール量:${parseFloat(record.total_pure_alcohol).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
             visibility: "click",
             hideIndicator: true,
           },
