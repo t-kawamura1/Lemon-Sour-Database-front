@@ -30,8 +30,10 @@
           <template v-slot:modal-record-confirmation>
             <modal-record-confirmation
               :modal-record-confirmation-contents="recordConfirmationContents"
+              :drinking-date="drinkingDate"
               v-if="showRecordConfirmationModal"
               @modal="closeModal"
+              @submitZeroRecord="recordDrinking"
             ></modal-record-confirmation>
           </template>
         </the-modal>
@@ -89,9 +91,11 @@
               :lemon-sours="lemonSoursData"
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
-              :calc-button="calcButtonText"
+              :record-buttons="recordButtonsTexts"
               :todaySour="lemonSour"
               @submitRecord="recordDrinking"
+              @submitZeroRecord="recordDrinking"
+              @passDate="takeDown"
               @modal="openModal"
             ></calculate-alcohol>
           </template>
@@ -131,8 +135,10 @@
           <template v-slot:modal-record-confirmation>
             <modal-record-confirmation
               :modal-record-confirmation-contents="recordConfirmationContents"
+              :drinking-date="drinkingDate"
               v-if="showRecordConfirmationModal"
               @modal="closeModal"
+              @submitZeroRecord="recordDrinking"
             ></modal-record-confirmation>
           </template>
         </the-modal>
@@ -182,9 +188,10 @@
               :lemon-sours="lemonSoursData"
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
-              :calc-button="calcButtonText"
+              :record-buttons="recordButtonsTexts"
               :todaySour="lemonSour"
               @submitRecord="recordDrinking"
+              @passDate="takeDown"
               @modal="openModal"
             ></calculate-alcohol>
           </template>
@@ -260,10 +267,10 @@ export default {
     return {
       recordConfirmationContents: [
         "記録の確認",
-        "純アルコール量の計算結果が0gですが、本当に記録しますか？",
+        "純アルコール量0g、飲酒量0mlとして記録します。よろしいですか？",
         "記録する",
-        "計算に戻る",
       ],
+      drinkingDate: "",
       heading: "アルコール摂取量計算",
       mainExplanation:
         "飲んだ銘柄と飲んだ量から、摂取アルコール量を計算できます。飲んだ日付を選択すると、結果を記録することができます。",
@@ -289,7 +296,7 @@ export default {
         drinkingCounts: ["", 1, 1, 99],
       },
       calculationIcons: ["times", "plus-circle", "minus-circle", "arrow-right"],
-      calcButtonText: "結果を記録する（登録ユーザーのみ）",
+      recordButtonsTexts: ["結果を記録する", "飲まなかった日として記録する"],
     };
   },
   methods: {
@@ -356,6 +363,9 @@ export default {
         );
       }
     },
+    takeDown(date) {
+      this.drinkingDate = date;
+    }
   },
   created() {
     axios

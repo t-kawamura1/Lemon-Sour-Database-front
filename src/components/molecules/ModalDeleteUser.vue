@@ -55,6 +55,7 @@ export default {
     z-index: $z-modal;
     position: relative;
     padding: 45px 0;
+    border-radius: 3%;
     .modal-delete-user-button-close {
       position: absolute;
       top: 10px;

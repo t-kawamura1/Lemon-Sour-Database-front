@@ -23,7 +23,7 @@
           class="user-edit-input-text"
           ref="focusThis"
           :input-attributes="inputAttributesArray[1]"
-          @input="substituteUserData"
+          @input="replaceUserData"
         ></input-text>
       </div>
       <button-user-submit
@@ -65,7 +65,7 @@ export default {
     };
   },
   methods: {
-    substituteUserData($event) {
+    replaceUserData($event) {
       if ($event.target.name == "name") {
         this.userData.name = $event.target.value;
       } else if ($event.target.name == "email") {

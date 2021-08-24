@@ -16,7 +16,7 @@
         v-for="(inputAttributesArray, index) in passwordResetContents[0]"
         :key="`input-${index}`"
         :input-attributes="inputAttributesArray"
-        @input="substitutePasswordSet"
+        @input="replacePasswordSet"
       ></input-text>
       <button-user-submit
         class="password-reset-button-submit"
@@ -50,7 +50,7 @@ export default {
     };
   },
   methods: {
-    substitutePasswordSet($event) {
+    replacePasswordSet($event) {
       if ($event.target.name == "password") {
         this.passwordSet.password = $event.target.value;
       } else if ($event.target.name == "password_confirmation") {

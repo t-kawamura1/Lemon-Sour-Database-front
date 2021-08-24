@@ -1,13 +1,13 @@
 <template>
   <div class="button-calculation-record" @click="$emit('record')">
-    {{ buttonCalcRecText }}
+    {{ buttonCalcRecordText }}
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    buttonCalcRecText: String,
+    buttonCalcRecordText: String,
   },
 };
 </script>

@@ -24,6 +24,8 @@ export default {
       } else if (type == "ユーザーアカウント削除") {
         this.showUserDeleteModal = false;
         this.userModalErrors = [];
+      } else if (type == "記録の確認") {
+        this.showRecordConfirmationModal = false;
       }
     },
     replaceModal() {

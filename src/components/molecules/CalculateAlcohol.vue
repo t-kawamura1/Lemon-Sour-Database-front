@@ -107,11 +107,18 @@
       :key="index"
       :supplement-text="calcSuppleText"
     ></text-calculation-supplement>
-    <button-calculation-record
-      class="calculate-alcohol-calc-rec-button"
-      :button-calc-rec-text="calcButton"
-      @record="checkNaNAndZero"
-    ></button-calculation-record>
+    <div class="calculate-alcohol-members-only-button-box">
+      <button-calculation-record
+        class="calculate-alcohol-calc-record-button"
+        :button-calc-record-text="recordButtons[0]"
+        @record="checkNaNAndZero"
+      ></button-calculation-record>
+      <button-zero-record
+        class="calculate-alcohol-zero-record-button"
+        :button-zero-record-text="recordButtons[1]"
+        @zeroRecord="$emit('modal', '記録の確認')"
+      ></button-zero-record>
+    </div>
     <button-twitter
       class="calculate-alcohol-tweet-button"
       :pure-alc="totalAmountOfPureAlc"
@@ -127,6 +134,7 @@ import InputNumber from "@/components/atoms/InputNumber";
 import Icon from "@/components/atoms/Icon";
 import TextCalculationSupplement from "@/components/atoms/TextCalculationSupplement";
 import ButtonCalculationRecord from "@/components/atoms/ButtonCalculationRecord";
+import ButtonZeroRecord from "@/components/atoms/ButtonZeroRecord";
 import ButtonTwitter from "@/components/atoms/ButtonTwitter";
 
 export default {
@@ -138,6 +146,7 @@ export default {
     Icon,
     TextCalculationSupplement,
     ButtonCalculationRecord,
+    ButtonZeroRecord,
     ButtonTwitter,
   },
   props: {
@@ -147,7 +156,7 @@ export default {
     lemonSours: Array,
     alcoholInputs: Object,
     iconTexts: Array,
-    calcButton: String,
+    recordButtons: Array,
     todaySour: Object,
   },
   data() {
@@ -190,6 +199,7 @@ export default {
     },
     setDrinkingDate(date) {
       this.recordData.drinking_record.drinking_date = date;
+      this.$emit("passDate", date);
     },
     checkNaNAndZero() {
       console.log(this.calcResults)
@@ -200,7 +210,7 @@ export default {
           this.formulaError = "いずれかの計算式の結果が0になっています";
         } else {
           this.formulaError = "";
-          this.substituteRecordData();
+          this.replaceRecordData();
         }
       }
     },
@@ -215,7 +225,7 @@ export default {
         this.formulaError = "";
       }
     },
-    substituteRecordData() {
+    replaceRecordData() {
       this.recordData.drinking_record.drinking_amount =
         this.drinkAmountForCalc.reduce((sum, ele) => sum + parseInt(ele), 0);
       this.recordData.drinking_record.pure_alcohol_amount =
@@ -403,10 +413,21 @@ export default {
     font-size: 1.5rem;
     margin-bottom: 6px;
   }
-  .calculate-alcohol-calc-rec-button {
-    margin-top: 20px;
-    margin-bottom: 20px;
+  .calculate-alcohol-members-only-button-box {
+    margin: 20px 0;
     font-size: 1.6rem;
+    .calculate-alcohol-calc-record-button {
+      margin-bottom: 20px;
+    }
+    .calculate-alcohol-zero-record-button {
+      background-color: $light-green;
+      border-color: $light-green;
+      &:hover {
+        background-color: $lightest-yellow;
+        border-color: $light-green;
+        color: $light-green;
+      }
+    }
   }
   .calculate-alcohol-tweet-button {
     margin-bottom: 30px;

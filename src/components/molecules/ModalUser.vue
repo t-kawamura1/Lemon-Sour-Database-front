@@ -26,7 +26,7 @@
             v-for="(inputAttributesArray, index) in modalUserContents[1]"
             :key="`input-${index}`"
             :input-attributes="inputAttributesArray"
-            @input="substituteUserData"
+            @input="replaceUserData"
           ></input-text>
           <button-user-submit
             class="modal-user-button-submit"
@@ -54,7 +54,7 @@
             <input-text
               class="modal-user-input-text-reset"
               :input-attributes="modalUserContents[1][0]"
-              @input="substituteUserEmail"
+              @input="replaceUserEmail"
             ></input-text>
             <button-user-submit
               class="modal-user-button-submit-reset"
@@ -101,7 +101,7 @@ export default {
     };
   },
   methods: {
-    substituteUserData($event) {
+    replaceUserData($event) {
       if ($event.target.name == "name") {
         this.userData.name = $event.target.value;
       } else if ($event.target.name == "email") {
@@ -110,7 +110,7 @@ export default {
         this.userData.password = $event.target.value;
       }
     },
-    substituteUserEmail($event) {
+    replaceUserEmail($event) {
       this.userEmailForReset = $event.target.value;
     },
   },

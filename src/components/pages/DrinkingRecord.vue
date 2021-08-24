@@ -56,7 +56,7 @@
           </template>
           <template v-slot:drinking-record-button-calculation-record>
             <button-calculation-record
-              :button-calc-rec-text="buttonTexts[0]"
+              :button-calc-record-text="buttonTexts[0]"
               @record="toPageView('toCalculation')"
             ></button-calculation-record>
           </template>
@@ -122,7 +122,7 @@
           </template>
           <template v-slot:drinking-record-button-calculation-record>
             <button-calculation-record
-              :button-calc-rec-text="buttonTexts[0]"
+              :button-calc-record-text="buttonTexts[0]"
               @record="toPageView('toCalculation')"
             ></button-calculation-record>
           </template>

@@ -13,15 +13,11 @@
         <div class="modal-record-confirmation-message">
           {{ modalRecordConfirmationContents[1] }}
         </div>
-        <form
-          class="modal-record-confirmation-form"
-          @submit.prevent="$emit('submitUser')"
-        >
-          <button-user-submit
-            class="modal-record-confirmation-button-submit"
-            :user-submit-text="modalRecordConfirmationContents[2]"
-          ></button-user-submit>
-        </form>
+        <button-zero-record
+          class="modal-record-confirmation-button-zero-record"
+          :button-zero-record-text="modalRecordConfirmationContents[2]"
+          @zeroRecord="emitModalAndData"
+        ></button-zero-record>
       </div>
     </overlay>
   </div>
@@ -31,17 +27,37 @@
 import Overlay from "@/components/atoms/Overlay";
 import ButtonClose from "@/components/atoms/ButtonClose";
 import ModalTitle from "@/components/atoms/ModalTitle";
-import ButtonUserSubmit from "@/components/atoms/ButtonUserSubmit";
+import ButtonZeroRecord from "@/components/atoms/ButtonZeroRecord";
 
 export default {
   components: {
     Overlay,
     ButtonClose,
     ModalTitle,
-    ButtonUserSubmit,
+    ButtonZeroRecord,
   },
   props: {
     modalRecordConfirmationContents: Array,
+    drinkingDate: String,
+  },
+  data() {
+    return {
+      recordData: {
+        drinking_record: {
+          user_id: "",
+          lemon_sour_id: "",
+          drinking_date: this.drinkingDate,
+          pure_alcohol_amount: 0,
+          drinking_amount: 0,
+        },
+      },
+    }
+  },
+  methods: {
+    emitModalAndData() {
+      this.$emit("submitZeroRecord", this.recordData)
+      this.$emit("modal", this.modalRecordConfirmationContents[0])
+    }
   },
 };
 </script>
@@ -54,7 +70,8 @@ export default {
     width: 300px;
     z-index: $z-modal;
     position: relative;
-    padding: 45px 0;
+    padding: 36px 24px;
+    border-radius: 3%;
     .modal-record-confirmation-button-close {
       position: absolute;
       top: 10px;
@@ -65,6 +82,8 @@ export default {
     }
     .modal-record-confirmation-message {
       margin-bottom: 30px;
+      text-align: left;
+      line-height: 23px;
     }
   }
 }
