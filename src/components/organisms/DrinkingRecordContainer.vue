@@ -39,7 +39,6 @@
     margin-bottom: 30px;
   }
   .drinking-record-container-button-calculation-record {
-    width: 210px;
     margin-bottom: 20px;
   }
 }
