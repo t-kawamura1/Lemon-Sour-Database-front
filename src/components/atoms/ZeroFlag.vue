@@ -16,11 +16,12 @@ export default {
 .zero-flag {
   display: inline-block;
   background: $base-yellow;
-  width: $sour-column-width / 2 - 10px;
+  width: $sour-column-width / 2 - 12px;
   height: 30px;
   line-height: 30px;
   color: $dark-green;
   letter-spacing: 2px;
   border: solid 1px $light-green;
+  border-radius: 3px;
 }
 </style>
