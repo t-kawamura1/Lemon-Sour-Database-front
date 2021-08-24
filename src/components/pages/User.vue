@@ -93,6 +93,7 @@
             <header-icons-authenticated
               :header-icons="headerIcons"
               :dropdown-functions="authenticatedUserFunctions"
+              :current-page="currentPageName"
               @link="toPageView"
               @submitUser="logout"
             ></header-icons-authenticated>
