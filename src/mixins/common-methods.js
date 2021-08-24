@@ -199,7 +199,7 @@ export default {
         this.currentPageName = "データベース";
       } else if (this.$route.name.includes("calculation")) {
         this.currentPageName = "計算";
-      } else if (this.$route.name.includes("records")) {
+      } else if (this.$route.name.includes("drinking")) {
         this.currentPageName = "記録";
       } else if (this.$route.name.includes("user")) {
         this.currentPageName = "ユーザー";
