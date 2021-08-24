@@ -59,7 +59,7 @@ export default {
     color: $second-dark-yellow;
     line-height: 30px;
     height: 30px;
-    border-radius: 12px;
+    border-radius: 6px;
     padding: 0 12px;
   }
   .records-sour-names-box {
