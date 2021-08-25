@@ -93,6 +93,7 @@
               :icon-texts="calculationIcons"
               :record-buttons="recordButtonsTexts"
               :todaySour="lemonSour"
+              @noticeAuth="guideToAuth('結果を記録するには、ユーザー登録・ログインが必要です。')"
               @submitRecord="recordDrinking"
               @submitZeroRecord="recordDrinking"
               @passDate="takeDown"
@@ -190,7 +191,9 @@
               :icon-texts="calculationIcons"
               :record-buttons="recordButtonsTexts"
               :todaySour="lemonSour"
+              @noticeAuth="guideToAuth('結果を記録するには、ユーザー登録・ログインが必要です。')"
               @submitRecord="recordDrinking"
+              @submitZeroRecord="recordDrinking"
               @passDate="takeDown"
               @modal="openModal"
             ></calculate-alcohol>
@@ -338,30 +341,25 @@ export default {
       }
     },
     recordDrinking(data) {
-      if (this.$cookies.isKey("auth-header")) {
-        data.drinking_record.user_id = this.userId;
-        this.decryptHeaders();
-        axios
-          .post("/api/v1/drinking_records", data, {
-            headers: this.authHeader,
-          })
-          .then(() => {
-            this.noticeMessage =
-              "記録が作成されました！記録カレンダーへ移動します。";
-            setTimeout(() => {
-              this.noticeMessage = "";
-              this.$router.push(`/drinking_records/${this.userId}`);
-            }, 3000);
-          })
-          .catch((err) => {
-            console.log(err.response);
-            this.calculationRecordErrors = err.response.data;
-          });
-      } else {
-        this.guideToAuth(
-          "結果を記録するには、ユーザー登録・ログインが必要です。"
-        );
-      }
+      data.drinking_record.user_id = this.userId;
+      this.decryptHeaders();
+      axios
+        .post("/api/v1/drinking_records", data, {
+          headers: this.authHeader,
+        })
+        .then(() => {
+          this.noticeMessage =
+            "記録が作成されました！記録カレンダーへ移動します。";
+          setTimeout(() => {
+            this.noticeMessage = "";
+            this.calculationRecordErrors = []
+            this.$router.push(`/drinking_records/${this.userId}`);
+          }, 3000);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          this.calculationRecordErrors = err.response.data;
+        });
     },
     takeDown(date) {
       this.drinkingDate = date;

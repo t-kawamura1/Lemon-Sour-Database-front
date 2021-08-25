@@ -8,8 +8,8 @@
         :error-message-text="errorMessage"
       ></error-message>
       <error-message
-        class="calculate-alcohol-reduce-error-message"
-        :error-message-text="reduceError"
+        class="calculate-alcohol-formula-plus-minus-error-message"
+        :error-message-text="plusMinusError"
       ></error-message>
       <error-message
         class="calculate-alcohol-formula-input-error-message"
@@ -69,14 +69,14 @@
           <span class="calculate-alcohol-formula-counts-unit">本</span>
         </div>
       </div>
-      <div class="calculate-alcohol-formula-plus" @click="addFormula">
+      <div class="calculate-alcohol-formula-plus" @click="plusFormula">
         <icon
           class="calculate-alcohol-formula-plus-icon"
           :icon-text="iconTexts[1]"
         ></icon>
         <p class="calculate-alcohol-formula-plus-text">計算式を追加</p>
       </div>
-      <div class="calculate-alcohol-formula-minus" @click="reduceFormula">
+      <div class="calculate-alcohol-formula-minus" @click="minusFormula">
         <icon
           class="calculate-alcohol-formula-minus-icon"
           :icon-text="iconTexts[2]"
@@ -116,7 +116,7 @@
       <button-zero-record
         class="calculate-alcohol-zero-record-button"
         :button-zero-record-text="recordButtons[1]"
-        @zeroRecord="$emit('modal', '記録の確認')"
+        @zeroRecord="checkEmitModal"
       ></button-zero-record>
     </div>
     <button-twitter
@@ -161,7 +161,7 @@ export default {
   },
   data() {
     return {
-      reduceError: "",
+      plusMinusError: "",
       formulaError: "",
       soursSelectBox: [],
       sourName: this.soursSelect[1][0],
@@ -200,53 +200,6 @@ export default {
     setDrinkingDate(date) {
       this.recordData.drinking_record.drinking_date = date;
       this.$emit("passDate", date);
-    },
-    checkNaNAndZero() {
-      console.log(this.calcResults)
-      if (this.validateFormulaInputs() === "error") {
-        return
-      } else {
-        if (this.calcResults.includes(0)) {
-          this.formulaError = "いずれかの計算式の結果が0になっています";
-        } else {
-          this.formulaError = "";
-          this.replaceRecordData();
-        }
-      }
-    },
-    validateFormulaInputs() {
-      if (this.calcResults.includes(NaN) || (this.calcResults.length === 0)) {
-        this.formulaError = "計算式に入力されていない項目があります";
-        return "error"
-      } else if (this.formulaCounts !== this.calcResults.length) {
-        this.formulaError = "計算式に入力されていない項目があります";
-        return "error"
-      } else {
-        this.formulaError = "";
-      }
-    },
-    replaceRecordData() {
-      this.recordData.drinking_record.drinking_amount =
-        this.drinkAmountForCalc.reduce((sum, ele) => sum + parseInt(ele), 0);
-      this.recordData.drinking_record.pure_alcohol_amount =
-        this.totalAmountOfPureAlc;
-      this.$emit("submitRecord", this.recordData);
-    },
-    addFormula() {
-      if (10 > this.formulaCounts) {
-        this.reduceError = "";
-        this.formulaCounts += 1;
-      } else {
-        this.reduceError = "これ以上増やせません"
-      }
-    },
-    reduceFormula() {
-      if (this.formulaCounts >= 2) {
-        this.reduceError = "";
-        this.formulaCounts -= 1;
-      } else {
-        this.reduceError = "これ以上減らせません";
-      }
     },
     setAlcContentForCalc(index, value) {
       this.alcContentForCalc[index - 1] = value;
@@ -290,6 +243,69 @@ export default {
       }
       this.totalAmountOfPureAlc = parseFloat(sum).toFixed(1);
     },
+    checkNaNAndZero() {
+      if (this.checkAuth() === "stop") {
+        return
+      } else {
+        if (this.validateFormulaInputs() === "error") {
+          return
+        } else {
+          if (this.calcResults.includes(0)) {
+            this.formulaError = "いずれかの計算式の結果が0になっています";
+          } else {
+            this.formulaError = "";
+            this.replaceRecordData();
+          }
+        }
+      }
+    },
+    checkEmitModal() {
+      if (this.checkAuth() === "stop") {
+        return
+      } else {
+        this.$emit("modal", "記録の確認")
+      }
+    },
+    checkAuth() {
+      if (!this.$cookies.isKey("auth-header")) {
+        this.$emit("noticeAuth")
+        return "stop"
+      }
+    },
+    validateFormulaInputs() {
+      if (this.calcResults.includes(NaN) || (this.calcResults.length === 0)) {
+        this.formulaError = "計算式に入力されていない項目があります";
+        return "error"
+      } else if (this.formulaCounts !== this.calcResults.length) {
+        this.formulaError = "計算式に入力されていない項目があります";
+        return "error"
+      } else {
+        this.formulaError = "";
+      }
+    },
+    replaceRecordData() {
+      this.recordData.drinking_record.drinking_amount =
+        this.drinkAmountForCalc.reduce((sum, ele) => sum + parseInt(ele), 0);
+      this.recordData.drinking_record.pure_alcohol_amount =
+        this.totalAmountOfPureAlc;
+      this.$emit("submitRecord", this.recordData);
+    },
+    plusFormula() {
+      if (10 > this.formulaCounts) {
+        this.plusMinusError = "";
+        this.formulaCounts += 1;
+      } else {
+        this.plusMinusError = "これ以上増やせません"
+      }
+    },
+    minusFormula() {
+      if (this.formulaCounts >= 2) {
+        this.plusMinusError = "";
+        this.formulaCounts -= 1;
+      } else {
+        this.plusMinusError = "これ以上減らせません";
+      }
+    },
   },
   created() {
     if (this.todaySour !== undefined) {
@@ -312,6 +328,9 @@ export default {
   .calculate-alcohol-error-messages-box {
     margin-bottom: 15px;
     .calculate-alcohol-record-error-messages {
+      margin-bottom: 6px;
+    }
+    .calculate-alcohol-formula-plus-minus-error-message {
       margin-bottom: 6px;
     }
   }
