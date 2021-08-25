@@ -92,7 +92,6 @@ export default {
   },
   created() {
     this.setNumericThisYearMonth();
-    this.selectedDate = this.numericThisYearMonth;
   },
   mounted() {
     this.decryptHeaders();
@@ -105,7 +104,7 @@ export default {
         this.displayAmountsBy(this.numericThisYearMonth);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   },
 };
