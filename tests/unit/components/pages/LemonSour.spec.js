@@ -81,7 +81,7 @@ describe("(pc display) LemonSour component test", () => {
       expect(mockRouterPush.mock.calls.length).toBe(1);
     });
 
-    it("inkAndPassSourメソッドは、セットされているデータをparamsとして引数に持つ", () => {
+    it("linkAndPassSourメソッドは、セットされているデータをparamsとして引数に持つ", () => {
       const testSour = wrapper.vm.lemonSour;
       expect(mockRouterPush).toHaveBeenCalledWith({
         name: "calculation",
@@ -127,7 +127,7 @@ describe("(sp display) LemonSour component test", () => {
       expect(mockRouterPush.mock.calls.length).toBe(1);
     });
 
-    it("inkAndPassSourメソッドは、セットされているデータをparamsとして引数に持つ", () => {
+    it("linkAndPassSourメソッドは、セットされているデータをparamsとして引数に持つ", () => {
       const testSour = wrapper.vm.lemonSour;
       expect(mockRouterPush).toHaveBeenCalledWith({
         name: "calculation",

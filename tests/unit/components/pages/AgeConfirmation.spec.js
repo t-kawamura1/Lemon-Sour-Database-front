@@ -4,17 +4,25 @@ import VueCookies from "vue-cookies";
 
 const localVue = createLocalVue();
 localVue.use(VueCookies);
+localVue.prototype.$encryptKey = process.env.VUE_APP_CRYPTO_KEY;
 
 let wrapper;
 let $mq;
 let $router;
+let routerPushMock;
+let historyBackMock;
 
-$router = { path: "/" };
+routerPushMock = jest.fn();
+
+$router = {
+  push: routerPushMock,
+};
 
 describe("(pc display) AgeConfirmation component test", () => {
   beforeEach(() => {
     $mq = "pc";
     wrapper = mount(AgeConfirmation, {
+      localVue,
       mocks: {
         $mq,
         $router,
@@ -22,53 +30,49 @@ describe("(pc display) AgeConfirmation component test", () => {
       stubs: ["font-awesome-icon"],
     });
   });
-  // これまたうまくいかない…封印
-  describe("年齢確認ボタンをクリックすると、", () => {
-    it("rememberAgeメソッドが実行される", async () => {
-      console.log(wrapper.html());
-      // const rememberAge = jest.fn();
-      // wrapper.setMethods({ rememberAge })
-      // // expect(rememberAge.mock.calls.length).toBe(0);
-      // await wrapper.findAll(".button-age-confirmation").at(0).trigger("click");
-      // await wrapper.find(".age-confirmation-button").trigger("answer")
-      // await wrapper.findAll(".age-confirmation").at(0).trigger("answer");
-      // await wrapper.find(".age-confirmation").trigger("check")
-      // wrapper.find(".age-confirmation").vm.$emit("check", "はい")
-      // await wrapper.trigger("check", "はい")
-      // expect(rememberAge).toBeCalled();
+  describe("子コンポーネントからcheckイベントと回答データがemitされるとき、", () => {
+    it("回答ボタンの１個目のテキストと回答データが一等しければ、クッキーがセットされ、$router.pushが実行される", async () => {
+      expect(routerPushMock.mock.calls).toHaveLength(0);
+      wrapper.find(".age-confirmation").vm.$emit("check", "はい")
+      expect(wrapper.vm.$cookies.isKey("age-confirmation")).toBeTruthy();
+      expect(routerPushMock.mock.calls).toHaveLength(1);
     });
 
-    // it("rememberAgeメソッドは、ボタンの表示テキストを引数に持つ", () => {
-    //   expect(rememberAge).toHaveBeenCalledWith("はい");
-    // });
+    it("上記以外の場合、history.backが実行される", () => {
+      historyBackMock = jest.spyOn(window.history, "back");
+      expect(historyBackMock.mock.calls).toHaveLength(0);
+      wrapper.find(".age-confirmation").vm.$emit("check", "いいえ")
+      expect(historyBackMock.mock.calls).toHaveLength(1);
+    });
   });
 });
 
-// describe("(sp display) AgeConfirmation component test", () => {
-//   const mockRouterPush = jest.fn();
+describe("(sp display) AgeConfirmation component test", () => {
+  beforeEach(() => {
+    $mq = "sp";
+    wrapper = mount(AgeConfirmation, {
+      localVue,
+      mocks: {
+        $mq,
+        $router,
+      },
+      stubs: ["font-awesome-icon"],
+    });
+  });
+  describe("子コンポーネントからcheckイベントと回答データがemitされるとき、", () => {
+    it("回答ボタンの１個目のテキストと回答データが一等しければ、クッキーがセットされ、$router.pushが実行される", async () => {
+      jest.clearAllMocks();
+      expect(routerPushMock.mock.calls).toHaveLength(0);
+      wrapper.find(".age-confirmation").vm.$emit("check", "はい")
+      expect(wrapper.vm.$cookies.isKey("age-confirmation")).toBeTruthy();
+      expect(routerPushMock.mock.calls).toHaveLength(1);
+    });
 
-//   beforeEach(() => {
-//     $mq = "sp";
-//     wrapper = mount(AgeConfirmation, {
-//       mocks: {
-//         $mq,
-//         $router: {
-//           push: mockRouterPush,
-//         },
-//       },
-//       stubs: ["font-awesome-icon"]
-//     });
-//   });
-
-//   describe("年齢確認ボタンをクリックすると、", () => {
-//     it("rememberAgeメソッドが実行される", async () => {
-//       expect(mockRouterPush.mock.calls.length).toBe(0);
-//       await wrapper.find(".button-age-confirmation").trigger("click");
-//       expect(mockRouterPush.mock.calls.length).toBe(1);
-//     });
-
-//     it("rememberAgeメソッドは、ボタンの表示テキストを引数に持つ", () => {
-//       expect(mockRouterPush).toHaveBeenCalledWith("はい");
-//     });
-//   });
-// });
+    it("上記以外の場合、history.backが実行される", () => {
+      historyBackMock = jest.spyOn(window.history, "back");
+      expect(historyBackMock.mock.calls).toHaveLength(0);
+      wrapper.find(".age-confirmation").vm.$emit("check", "いいえ")
+      expect(historyBackMock.mock.calls).toHaveLength(1);
+    });
+  });
+});
