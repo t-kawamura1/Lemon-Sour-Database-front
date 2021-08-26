@@ -8,7 +8,7 @@
       v-if="userImageUrl"
     />
     <img
-      src="~@/assets/image/default.jpg"
+      src="~@/assets/image/default_user.png"
       alt="ユーザーの画像"
       width="180"
       height="180"
