@@ -8,7 +8,7 @@ module.exports = {
   },
   pwa: {
     iconPaths: {
-      favicon32: 'lsdb_favicon.ico',
-    }
-  }
+      favicon32: "lsdb_favicon.ico",
+    },
+  },
 };

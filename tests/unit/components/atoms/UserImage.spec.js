@@ -25,7 +25,7 @@ describe("UserImage component test", () => {
         },
       });
       expect(wrapper.findAll("img").at(0).attributes("src")).toBe(
-        "~@/assets/image/default.jpg"
+        "~@/assets/image/default_user.png"
       );
     });
   });
