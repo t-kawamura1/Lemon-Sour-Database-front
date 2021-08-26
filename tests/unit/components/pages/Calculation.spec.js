@@ -26,8 +26,8 @@ jest.mock("axios", () => ({
   post: jest.fn(() =>
     Promise.reject({
       response: {
-        data: ["日付入ってへんで"]
-      }
+        data: ["日付入ってへんで"],
+      },
     })
   ),
 }));
@@ -49,7 +49,7 @@ beforeEach(() => {
       drinking_date: "",
       pure_alcohol_amount: "",
       drinking_amount: "",
-    }
+    },
   };
   decryptHeadersMock = jest.fn();
 });
@@ -62,10 +62,10 @@ describe("(pc display) Calculation component test", () => {
       data() {
         return {
           userId: 1,
-        }
+        };
       },
       methods: {
-        decryptHeaders: decryptHeadersMock
+        decryptHeaders: decryptHeadersMock,
       },
       mocks: {
         $mq,
@@ -74,40 +74,53 @@ describe("(pc display) Calculation component test", () => {
       },
       stubs: ["font-awesome-icon", "v-date-picker"],
     });
-    await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").setValue(5);
-    await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").trigger("change");
-    await wrapper.find(".calculate-alcohol-formula-amount-input").findAll("option").at(2).setSelected();
+    await wrapper
+      .find(".calculate-alcohol-formula-alcohol-content-input")
+      .setValue(5);
+    await wrapper
+      .find(".calculate-alcohol-formula-alcohol-content-input")
+      .trigger("change");
+    await wrapper
+      .find(".calculate-alcohol-formula-amount-input")
+      .findAll("option")
+      .at(2)
+      .setSelected();
     await wrapper.find(".calculate-alcohol-formula-counts-input").setValue(1);
-    await wrapper.find(".calculate-alcohol-formula-counts-input").trigger("change");
+    await wrapper
+      .find(".calculate-alcohol-formula-counts-input")
+      .trigger("change");
   });
 
   it("子コンポーネントからpassDateイベントを受け取ると、データのその値が入る", () => {
     wrapper.find(".calculate-alcohol").vm.$emit("passDate", "2021-05-30");
     expect(wrapper.vm.drinkingDate).toBe("2021-05-30");
-  })
+  });
 
   describe("ログイン済みユーザーの場合", () => {
     it("日付欄に入力がない状態で記録ボタンを押すと、エラーが表示される", async () => {
-      wrapper.vm.$cookies.set("auth-header")
       wrapper.vm.authHeader["access-token"] = "arfacacaejmut";
       wrapper.vm.authHeader["client"] = "lhvjrna;uefb";
       wrapper.vm.authHeader["uid"] = "test@test.com";
       wrapper.vm.$cookies.set("auth-header", wrapper.vm.authHeader);
-      wrapper.find(".day-date-picker-input").setValue("")
-      await wrapper.find(".calculate-alcohol-calc-record-button").trigger("click");
+      wrapper.find(".day-date-picker-input").setValue("");
+      await wrapper
+        .find(".calculate-alcohol-calc-record-button")
+        .trigger("click");
       wrapper.find(".calculate-alcohol").vm.$emit("submitRecord", recordData);
       await flushPromises();
-      expect(wrapper.find(".calculate-alcohol-record-error-messages").text()).toBe(
-        "日付入ってへんで"
-      );
+      expect(
+        wrapper.find(".calculate-alcohol-record-error-messages").text()
+      ).toBe("日付入ってへんで");
     });
 
     it("飲まなかった日記録ボタンを押すと、確認モーダルが開き、記録ボタンを押すと通知メッセージが表示される", async () => {
       const recordDrinkingMock = jest.fn().mockImplementationOnce(() => {
-        wrapper.vm.noticeMessage = "記録が作成されたで"
-      })
-      wrapper.setMethods({ recordDrinking: recordDrinkingMock })
-      await wrapper.find(".calculate-alcohol-zero-record-button").trigger("click");
+        wrapper.vm.noticeMessage = "記録が作成されたで";
+      });
+      wrapper.setMethods({ recordDrinking: recordDrinkingMock });
+      await wrapper
+        .find(".calculate-alcohol-zero-record-button")
+        .trigger("click");
       await flushPromises();
       expect(wrapper.find(".modal-title").text()).toBe("記録の確認");
       await wrapper.find(".button-zero-record").trigger("click");
@@ -119,16 +132,24 @@ describe("(pc display) Calculation component test", () => {
   describe("ログインしていないユーザーの場合", () => {
     it("結果記録ボタンを押すと、通知メッセージが表示される", async () => {
       wrapper.vm.$cookies.remove("auth-header");
-      await wrapper.find(".calculate-alcohol-calc-record-button").trigger("click");
+      await wrapper
+        .find(".calculate-alcohol-calc-record-button")
+        .trigger("click");
       await flushPromises();
-      expect(wrapper.find(".the-notice").text()).toBe("結果を記録するには、ユーザー登録・ログインが必要です。");
+      expect(wrapper.find(".the-notice").text()).toBe(
+        "結果を記録するには、ユーザー登録・ログインが必要です。"
+      );
     });
 
     it("飲まなかった日を記録ボタンを押すと、通知メッセージが表示される", async () => {
       wrapper.vm.$cookies.remove("auth-header");
-      await wrapper.find(".calculate-alcohol-zero-record-button").trigger("click");
+      await wrapper
+        .find(".calculate-alcohol-zero-record-button")
+        .trigger("click");
       await flushPromises();
-      expect(wrapper.find(".the-notice").text()).toBe("結果を記録するには、ユーザー登録・ログインが必要です。");
+      expect(wrapper.find(".the-notice").text()).toBe(
+        "結果を記録するには、ユーザー登録・ログインが必要です。"
+      );
     });
   });
 });
@@ -141,10 +162,10 @@ describe("(sp display) Calculation component test", () => {
       data() {
         return {
           userId: 1,
-        }
+        };
       },
       methods: {
-        decryptHeaders: decryptHeadersMock
+        decryptHeaders: decryptHeadersMock,
       },
       mocks: {
         $mq,
@@ -153,35 +174,48 @@ describe("(sp display) Calculation component test", () => {
       },
       stubs: ["font-awesome-icon", "v-date-picker"],
     });
-    await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").setValue(5);
-    await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").trigger("change");
-    await wrapper.find(".calculate-alcohol-formula-amount-input").findAll("option").at(2).setSelected();
+    await wrapper
+      .find(".calculate-alcohol-formula-alcohol-content-input")
+      .setValue(5);
+    await wrapper
+      .find(".calculate-alcohol-formula-alcohol-content-input")
+      .trigger("change");
+    await wrapper
+      .find(".calculate-alcohol-formula-amount-input")
+      .findAll("option")
+      .at(2)
+      .setSelected();
     await wrapper.find(".calculate-alcohol-formula-counts-input").setValue(1);
-    await wrapper.find(".calculate-alcohol-formula-counts-input").trigger("change");
+    await wrapper
+      .find(".calculate-alcohol-formula-counts-input")
+      .trigger("change");
   });
 
   describe("ログイン済みユーザーの場合", () => {
     it("日付欄に入力がない状態で記録ボタンを押すと、エラーが表示される", async () => {
-      wrapper.vm.$cookies.set("auth-header")
       wrapper.vm.authHeader["access-token"] = "arfacacaejmut";
       wrapper.vm.authHeader["client"] = "lhvjrna;uefb";
       wrapper.vm.authHeader["uid"] = "test@test.com";
       wrapper.vm.$cookies.set("auth-header", wrapper.vm.authHeader);
-      wrapper.find(".day-date-picker-input").setValue("")
-      await wrapper.find(".calculate-alcohol-calc-record-button").trigger("click");
+      wrapper.find(".day-date-picker-input").setValue("");
+      await wrapper
+        .find(".calculate-alcohol-calc-record-button")
+        .trigger("click");
       wrapper.find(".calculate-alcohol").vm.$emit("submitRecord", recordData);
       await flushPromises();
-      expect(wrapper.find(".calculate-alcohol-record-error-messages").text()).toBe(
-        "日付入ってへんで"
-      );
+      expect(
+        wrapper.find(".calculate-alcohol-record-error-messages").text()
+      ).toBe("日付入ってへんで");
     });
 
     it("飲まなかった日記録ボタンを押すと、確認モーダルが開き、記録ボタンを押すと通知メッセージが表示される", async () => {
       const recordDrinkingMock = jest.fn().mockImplementationOnce(() => {
-        wrapper.vm.noticeMessage = "記録が作成されたで"
-      })
-      wrapper.setMethods({ recordDrinking: recordDrinkingMock })
-      await wrapper.find(".calculate-alcohol-zero-record-button").trigger("click");
+        wrapper.vm.noticeMessage = "記録が作成されたで";
+      });
+      wrapper.setMethods({ recordDrinking: recordDrinkingMock });
+      await wrapper
+        .find(".calculate-alcohol-zero-record-button")
+        .trigger("click");
       await flushPromises();
       expect(wrapper.find(".modal-title").text()).toBe("記録の確認");
       await wrapper.find(".button-zero-record").trigger("click");
@@ -193,16 +227,24 @@ describe("(sp display) Calculation component test", () => {
   describe("ログインしていないユーザーの場合", () => {
     it("結果記録ボタンを押すと、通知メッセージが表示される", async () => {
       wrapper.vm.$cookies.remove("auth-header");
-      await wrapper.find(".calculate-alcohol-calc-record-button").trigger("click");
+      await wrapper
+        .find(".calculate-alcohol-calc-record-button")
+        .trigger("click");
       await flushPromises();
-      expect(wrapper.find(".the-notice").text()).toBe("結果を記録するには、ユーザー登録・ログインが必要です。");
+      expect(wrapper.find(".the-notice").text()).toBe(
+        "結果を記録するには、ユーザー登録・ログインが必要です。"
+      );
     });
 
     it("飲まなかった日を記録ボタンを押すと、通知メッセージが表示される", async () => {
       wrapper.vm.$cookies.remove("auth-header");
-      await wrapper.find(".calculate-alcohol-zero-record-button").trigger("click");
+      await wrapper
+        .find(".calculate-alcohol-zero-record-button")
+        .trigger("click");
       await flushPromises();
-      expect(wrapper.find(".the-notice").text()).toBe("結果を記録するには、ユーザー登録・ログインが必要です。");
+      expect(wrapper.find(".the-notice").text()).toBe(
+        "結果を記録するには、ユーザー登録・ログインが必要です。"
+      );
     });
   });
 });

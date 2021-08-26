@@ -47,8 +47,8 @@ describe("CalculateAlcohol component test", () => {
             "access-token": "",
             client: "",
             uid: "",
-          }
-        }
+          },
+        };
       },
       stubs: ["font-awesome-icon", "v-date-picker"],
     });
@@ -62,13 +62,15 @@ describe("CalculateAlcohol component test", () => {
     });
 
     it("calculationSupplementTexts[1]の要素の数だけ,レンダリングする", () => {
-      expect(wrapper.findAll(".calculate-alcohol-supplement-text")).toHaveLength(
-        4
-      );
+      expect(
+        wrapper.findAll(".calculate-alcohol-supplement-text")
+      ).toHaveLength(4);
     });
 
     it("errorMessagesの要素の数だけ、子コンポーネントをリストレンダリングする", () => {
-      expect(wrapper.findAll(".calculate-alcohol-record-error-messages")).toHaveLength(2);
+      expect(
+        wrapper.findAll(".calculate-alcohol-record-error-messages")
+      ).toHaveLength(2);
     });
 
     it("InputSelectコンポーネントにsoursSelect propsを渡している", () => {
@@ -94,15 +96,12 @@ describe("CalculateAlcohol component test", () => {
           .text()
       ).toBe("容量");
       expect(
-        wrapper
-          .find(".calculate-alcohol-formula-counts-input")
-          .attributes().max
+        wrapper.find(".calculate-alcohol-formula-counts-input").attributes().max
       ).toBe("99");
     });
 
     it("iconTexts propsを各子コンポーネントに渡している", () => {
-      expect(
-        wrapper.findAll("font-awesome-icon-stub")).toHaveLength(6);
+      expect(wrapper.findAll("font-awesome-icon-stub")).toHaveLength(6);
       expect(
         wrapper.findAll("font-awesome-icon-stub").at(0).attributes("icon")
       ).toBe("times");
@@ -149,36 +148,73 @@ describe("CalculateAlcohol component test", () => {
       it("計算式が1つのときに計算式削除ボタンを押すと、計算式は削除されず、エラーメッセージが表示される", async () => {
         await wrapper.find(".calculate-alcohol-formula-minus").trigger("click");
         expect(wrapper.findAll(".calculate-alcohol-formula")).toHaveLength(1);
-        expect(wrapper.find(".calculate-alcohol-formula-plus-minus-error-message").text()).toBe("これ以上減らせません")
+        expect(
+          wrapper
+            .find(".calculate-alcohol-formula-plus-minus-error-message")
+            .text()
+        ).toBe("これ以上減らせません");
       });
 
       it("計算式が10個のときに計算式追加ボタンを押すと、計算式は追加されず、エラーメッセージが表示される", async () => {
         wrapper.vm.formulaCounts = 10;
         await wrapper.find(".calculate-alcohol-formula-plus").trigger("click");
         expect(wrapper.findAll(".calculate-alcohol-formula")).toHaveLength(10);
-        expect(wrapper.find(".calculate-alcohol-formula-plus-minus-error-message").text()).toBe("これ以上増やせません")
+        expect(
+          wrapper
+            .find(".calculate-alcohol-formula-plus-minus-error-message")
+            .text()
+        ).toBe("これ以上増やせません");
       });
-    })
+    });
 
     describe("計算式の入力欄について、", () => {
       it("入力欄に度数、容量、本数を入力すると、純アルコール量の送料が計算されて表示される", async () => {
-        await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").setValue(5);
-        await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").trigger("change");
-        await wrapper.find(".calculate-alcohol-formula-amount-input").findAll("option").at(2).setSelected();
-        await wrapper.find(".calculate-alcohol-formula-counts-input").setValue(1);
-        await wrapper.find(".calculate-alcohol-formula-counts-input").trigger("change");
-        expect(wrapper.find(".calculate-alcohol-calculation-result").text()).toBe(
-          "14.0"
-        );
+        await wrapper
+          .find(".calculate-alcohol-formula-alcohol-content-input")
+          .setValue(5);
+        await wrapper
+          .find(".calculate-alcohol-formula-alcohol-content-input")
+          .trigger("change");
+        await wrapper
+          .find(".calculate-alcohol-formula-amount-input")
+          .findAll("option")
+          .at(2)
+          .setSelected();
+        await wrapper
+          .find(".calculate-alcohol-formula-counts-input")
+          .setValue(1);
+        await wrapper
+          .find(".calculate-alcohol-formula-counts-input")
+          .trigger("change");
+        expect(
+          wrapper.find(".calculate-alcohol-calculation-result").text()
+        ).toBe("14.0");
         await wrapper.find(".calculate-alcohol-formula-plus").trigger("click");
-        await wrapper.findAll(".calculate-alcohol-formula-alcohol-content-input").at(1).setValue(5);
-        await wrapper.findAll(".calculate-alcohol-formula-alcohol-content-input").at(1).trigger("change");
-        await wrapper.findAll(".calculate-alcohol-formula-amount-input").at(1).findAll("option").at(2).setSelected();
-        await wrapper.findAll(".calculate-alcohol-formula-counts-input").at(1).setValue(1);
-        await wrapper.findAll(".calculate-alcohol-formula-counts-input").at(1).trigger("change");
-        expect(wrapper.find(".calculate-alcohol-calculation-result").text()).toBe(
-          "28.0"
-        );
+        await wrapper
+          .findAll(".calculate-alcohol-formula-alcohol-content-input")
+          .at(1)
+          .setValue(5);
+        await wrapper
+          .findAll(".calculate-alcohol-formula-alcohol-content-input")
+          .at(1)
+          .trigger("change");
+        await wrapper
+          .findAll(".calculate-alcohol-formula-amount-input")
+          .at(1)
+          .findAll("option")
+          .at(2)
+          .setSelected();
+        await wrapper
+          .findAll(".calculate-alcohol-formula-counts-input")
+          .at(1)
+          .setValue(1);
+        await wrapper
+          .findAll(".calculate-alcohol-formula-counts-input")
+          .at(1)
+          .trigger("change");
+        expect(
+          wrapper.find(".calculate-alcohol-calculation-result").text()
+        ).toBe("28.0");
       });
 
       it("選択欄からレモンサワーをどれか選択すると、そのアルコール度数が入力欄にセットされる", async () => {
@@ -191,9 +227,11 @@ describe("CalculateAlcohol component test", () => {
           .setValue("9");
         expect(wrapper.find("option:checked").element.value).toBe("テスレモ");
         expect(
-          wrapper.find(".calculate-alcohol-formula-alcohol-content-input").element.value).toBe("9");
+          wrapper.find(".calculate-alcohol-formula-alcohol-content-input")
+            .element.value
+        ).toBe("9");
       });
-    })
+    });
 
     describe("todaySour propsがundefinedの場合、", () => {
       it("dataのsourNameには、soursSelect[1][0]が入っている", () => {
@@ -202,7 +240,9 @@ describe("CalculateAlcohol component test", () => {
 
       it("input-numberコンポーネントに、dataのsourAlcoholContentの初期値を渡している", () => {
         expect(
-          wrapper.find(".calculate-alcohol-formula-alcohol-content-input").element.value).toBe("");
+          wrapper.find(".calculate-alcohol-formula-alcohol-content-input")
+            .element.value
+        ).toBe("");
       });
     });
 
@@ -260,63 +300,136 @@ describe("CalculateAlcohol component test", () => {
     describe("結果の記録ボタンを押したとき、", () => {
       describe("計算式に入力漏れがある場合、", () => {
         it("アルコール度数が入力されていないと、エラーメッセージが表示される", async () => {
-          wrapper.vm.$cookies.set("auth-header")
+          wrapper.vm.$cookies.set("auth-header");
           wrapper.vm.authHeader["access-token"] = "arfacacaejmut";
           wrapper.vm.authHeader["client"] = "lhvjrna;uefb";
           wrapper.vm.authHeader["uid"] = "test@test.com";
           wrapper.vm.$cookies.set("auth-header", wrapper.vm.authHeader);
-          await wrapper.find(".calculate-alcohol-formula-amount-input").findAll("option").at(2).setSelected();
-          await wrapper.find(".calculate-alcohol-formula-counts-input").setValue(1);
-          await wrapper.find(".calculate-alcohol-formula-counts-input").trigger("change");
-          await wrapper.find(".calculate-alcohol-calc-record-button").trigger("click");
-          expect(wrapper.find(".calculate-alcohol-formula-input-error-message").text()).toBe("計算式に入力されていない項目があります")
+          await wrapper
+            .find(".calculate-alcohol-formula-amount-input")
+            .findAll("option")
+            .at(2)
+            .setSelected();
+          await wrapper
+            .find(".calculate-alcohol-formula-counts-input")
+            .setValue(1);
+          await wrapper
+            .find(".calculate-alcohol-formula-counts-input")
+            .trigger("change");
+          await wrapper
+            .find(".calculate-alcohol-calc-record-button")
+            .trigger("click");
+          expect(
+            wrapper
+              .find(".calculate-alcohol-formula-input-error-message")
+              .text()
+          ).toBe("計算式に入力されていない項目があります");
         });
 
         it("容量が入力されていないと、エラーメッセージが表示される", async () => {
-          await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").setValue(5);
-          await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").trigger("change");
-          await wrapper.find(".calculate-alcohol-formula-counts-input").setValue(1);
-          await wrapper.find(".calculate-alcohol-formula-counts-input").trigger("change");
-          await wrapper.find(".calculate-alcohol-calc-record-button").trigger("click");
-          expect(wrapper.find(".calculate-alcohol-formula-input-error-message").text()).toBe("計算式に入力されていない項目があります")
+          await wrapper
+            .find(".calculate-alcohol-formula-alcohol-content-input")
+            .setValue(5);
+          await wrapper
+            .find(".calculate-alcohol-formula-alcohol-content-input")
+            .trigger("change");
+          await wrapper
+            .find(".calculate-alcohol-formula-counts-input")
+            .setValue(1);
+          await wrapper
+            .find(".calculate-alcohol-formula-counts-input")
+            .trigger("change");
+          await wrapper
+            .find(".calculate-alcohol-calc-record-button")
+            .trigger("click");
+          expect(
+            wrapper
+              .find(".calculate-alcohol-formula-input-error-message")
+              .text()
+          ).toBe("計算式に入力されていない項目があります");
         });
 
         it("本数が入力されていないと、エラーメッセージが表示される", async () => {
-          await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").setValue(5);
-          await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").trigger("change");
-          await wrapper.find(".calculate-alcohol-formula-amount-input").findAll("option").at(2).setSelected();
-          await wrapper.find(".calculate-alcohol-calc-record-button").trigger("click");
-          expect(wrapper.find(".calculate-alcohol-formula-input-error-message").text()).toBe("計算式に入力されていない項目があります")
+          await wrapper
+            .find(".calculate-alcohol-formula-alcohol-content-input")
+            .setValue(5);
+          await wrapper
+            .find(".calculate-alcohol-formula-alcohol-content-input")
+            .trigger("change");
+          await wrapper
+            .find(".calculate-alcohol-formula-amount-input")
+            .findAll("option")
+            .at(2)
+            .setSelected();
+          await wrapper
+            .find(".calculate-alcohol-calc-record-button")
+            .trigger("click");
+          expect(
+            wrapper
+              .find(".calculate-alcohol-formula-input-error-message")
+              .text()
+          ).toBe("計算式に入力されていない項目があります");
         });
       });
 
       describe("計算式がすべて入力されている場合、", () => {
         beforeEach(async () => {
-          await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").setValue(5);
-          await wrapper.find(".calculate-alcohol-formula-alcohol-content-input").trigger("change");
-          await wrapper.find(".calculate-alcohol-formula-amount-input").findAll("option").at(2).setSelected();
-          await wrapper.find(".calculate-alcohol-formula-counts-input").setValue(0);
-          await wrapper.find(".calculate-alcohol-formula-counts-input").trigger("change");
+          await wrapper
+            .find(".calculate-alcohol-formula-alcohol-content-input")
+            .setValue(5);
+          await wrapper
+            .find(".calculate-alcohol-formula-alcohol-content-input")
+            .trigger("change");
+          await wrapper
+            .find(".calculate-alcohol-formula-amount-input")
+            .findAll("option")
+            .at(2)
+            .setSelected();
+          await wrapper
+            .find(".calculate-alcohol-formula-counts-input")
+            .setValue(0);
+          await wrapper
+            .find(".calculate-alcohol-formula-counts-input")
+            .trigger("change");
         });
 
         it("計算結果に0があると、エラーメッセージが表示される", async () => {
-          await wrapper.find(".calculate-alcohol-calc-record-button").trigger("click");
-          expect(wrapper.find(".calculate-alcohol-formula-input-error-message").text()).toBe("いずれかの計算式の結果が0になっています")
+          await wrapper
+            .find(".calculate-alcohol-calc-record-button")
+            .trigger("click");
+          expect(
+            wrapper
+              .find(".calculate-alcohol-formula-input-error-message")
+              .text()
+          ).toBe("いずれかの計算式の結果が0になっています");
         });
 
         it("計算結果に0がなければ、純アルコール量と飲酒量がデータに入り、submitRecordイベントとそれらのデータがemitされる", async () => {
-          await wrapper.find(".calculate-alcohol-formula-counts-input").setValue(1);
-          await wrapper.find(".calculate-alcohol-formula-counts-input").trigger("change");
-          await wrapper.find(".calculate-alcohol-calc-record-button").trigger("click");
+          await wrapper
+            .find(".calculate-alcohol-formula-counts-input")
+            .setValue(1);
+          await wrapper
+            .find(".calculate-alcohol-formula-counts-input")
+            .trigger("change");
+          await wrapper
+            .find(".calculate-alcohol-calc-record-button")
+            .trigger("click");
           expect(wrapper.emitted().submitRecord).toBeTruthy();
-          expect(wrapper.emitted().submitRecord[0][0].drinking_record.drinking_amount).toBe(350);
-          expect(wrapper.emitted().submitRecord[0][0].drinking_record.pure_alcohol_amount).toBe("14.0");
+          expect(
+            wrapper.emitted().submitRecord[0][0].drinking_record.drinking_amount
+          ).toBe(350);
+          expect(
+            wrapper.emitted().submitRecord[0][0].drinking_record
+              .pure_alcohol_amount
+          ).toBe("14.0");
         });
-      })
+      });
     });
 
     it("飲まなかった日を記録ボタンを押すと、modalイベントと特定の文字列がemitされる", async () => {
-      await wrapper.find(".calculate-alcohol-zero-record-button").trigger("click");
+      await wrapper
+        .find(".calculate-alcohol-zero-record-button")
+        .trigger("click");
       expect(wrapper.emitted().modal).toBeTruthy();
       expect(wrapper.emitted().modal[0][0]).toBe("記録の確認");
     });
@@ -325,13 +438,17 @@ describe("CalculateAlcohol component test", () => {
   describe("ログインしていない場合、", () => {
     it("結果記録ボタンを押すと、noticeAuthイベントがemitされる", async () => {
       wrapper.vm.$cookies.remove("auth-header");
-      await wrapper.find(".calculate-alcohol-calc-record-button").trigger("click");
+      await wrapper
+        .find(".calculate-alcohol-calc-record-button")
+        .trigger("click");
       await flushPromises();
       expect(wrapper.emitted().noticeAuth).toBeTruthy();
     });
 
     it("飲まなかった日を記録ボタンを押すと、", async () => {
-      await wrapper.find(".calculate-alcohol-zero-record-button").trigger("click");
+      await wrapper
+        .find(".calculate-alcohol-zero-record-button")
+        .trigger("click");
       await flushPromises();
       expect(wrapper.emitted().noticeAuth).toBeTruthy();
     });

@@ -43,7 +43,9 @@ export default {
             color: "indigo",
           },
           popover: {
-            label: `総純アルコール量:${parseFloat(record.total_pure_alcohol).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
+            label: `総純アルコール量:${parseFloat(
+              record.total_pure_alcohol
+            ).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
             visibility: "click",
             hideIndicator: true,
           },
@@ -54,7 +56,9 @@ export default {
             class: "highlight-bg-green",
           },
           popover: {
-            label: `総純アルコール量:${parseFloat(record.total_pure_alcohol).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
+            label: `総純アルコール量:${parseFloat(
+              record.total_pure_alcohol
+            ).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
             visibility: "click",
             hideIndicator: true,
           },
@@ -65,7 +69,9 @@ export default {
             class: "highlight-bg-yellow",
           },
           popover: {
-            label: `総純アルコール量:${parseFloat(record.total_pure_alcohol).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
+            label: `総純アルコール量:${parseFloat(
+              record.total_pure_alcohol
+            ).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
             visibility: "click",
             hideIndicator: true,
           },
@@ -76,7 +82,9 @@ export default {
             class: "highlight-bg-red",
           },
           popover: {
-            label: `総純アルコール量:${parseFloat(record.total_pure_alcohol).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
+            label: `総純アルコール量:${parseFloat(
+              record.total_pure_alcohol
+            ).toFixed(1)}g  総飲酒量:${record.total_drinking}ml`,
             visibility: "click",
             hideIndicator: true,
           },

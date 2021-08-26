@@ -9,31 +9,32 @@ localVue.use(parse);
 localVue.use(VueCookies);
 
 jest.mock("axios", () => ({
-  put: jest.fn().mockImplementationOnce(() =>
-    Promise.resolve()
-  ).mockImplementationOnce(() =>
-    Promise.reject({
-      response: {
-        data: {
-          errors: {
-            full_messages: ["パスワード未入力", "8文字以上で", "不一致"]
-          }
-        }
-      }
-    })
-  ).mockImplementationOnce(() =>
-    Promise.resolve()
-  ).mockImplementationOnce(() =>
-    Promise.reject({
-      response: {
-        data: {
-          errors: {
-            full_messages: ["パスワード未入力", "8文字以上で", "不一致"]
-          }
-        }
-      }
-    })
-  )
+  put: jest
+    .fn()
+    .mockImplementationOnce(() => Promise.resolve())
+    .mockImplementationOnce(() =>
+      Promise.reject({
+        response: {
+          data: {
+            errors: {
+              full_messages: ["パスワード未入力", "8文字以上で", "不一致"],
+            },
+          },
+        },
+      })
+    )
+    .mockImplementationOnce(() => Promise.resolve())
+    .mockImplementationOnce(() =>
+      Promise.reject({
+        response: {
+          data: {
+            errors: {
+              full_messages: ["パスワード未入力", "8文字以上で", "不一致"],
+            },
+          },
+        },
+      })
+    ),
 }));
 
 let wrapper;
@@ -54,7 +55,7 @@ describe("(pc display) UserPasswordReset component test", () => {
     $mq = "pc";
     wrapper = mount(UserPasswordReset, {
       methods: {
-        encryptHeaders: encryptHeadersMock
+        encryptHeaders: encryptHeadersMock,
       },
       mocks: {
         $mq,
@@ -65,7 +66,9 @@ describe("(pc display) UserPasswordReset component test", () => {
   it("パスワードとパスワード確認を入力すると、リセットが受け付けられる", async () => {
     wrapper.find(".password-reset").vm.$emit("submitUser", userData);
     await flushPromises();
-    expect(wrapper.find(".the-notice").text()).toBe("パスワードがリセットされました。5秒後にホームへ移動します。");
+    expect(wrapper.find(".the-notice").text()).toBe(
+      "パスワードがリセットされました。5秒後にホームへ移動します。"
+    );
   });
 
   it("パスワード、パスワード確認が入力されていないとエラーが表示される", async () => {
@@ -90,7 +93,7 @@ describe("(sp display) UserPasswordReset component test", () => {
     $mq = "sp";
     wrapper = mount(UserPasswordReset, {
       methods: {
-        encryptHeaders: encryptHeadersMock
+        encryptHeaders: encryptHeadersMock,
       },
       mocks: {
         $mq,
@@ -101,7 +104,9 @@ describe("(sp display) UserPasswordReset component test", () => {
   it("パスワードとパスワード確認を入力すると、リセットが受け付けられる", async () => {
     wrapper.find(".password-reset").vm.$emit("submitUser", userData);
     await flushPromises();
-    expect(wrapper.find(".the-notice").text()).toBe("パスワードがリセットされました。5秒後にホームへ移動します。");
+    expect(wrapper.find(".the-notice").text()).toBe(
+      "パスワードがリセットされました。5秒後にホームへ移動します。"
+    );
   });
 
   it("パスワード、パスワード確認が入力されていないとエラーが表示される", async () => {

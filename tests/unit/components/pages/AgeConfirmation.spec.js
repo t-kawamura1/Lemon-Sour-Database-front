@@ -14,9 +14,7 @@ let historyBackMock;
 
 routerPushMock = jest.fn();
 
-$router = {
-  push: routerPushMock,
-};
+$router = { push: routerPushMock };
 
 describe("(pc display) AgeConfirmation component test", () => {
   beforeEach(() => {
@@ -33,7 +31,7 @@ describe("(pc display) AgeConfirmation component test", () => {
   describe("子コンポーネントからcheckイベントと回答データがemitされるとき、", () => {
     it("回答ボタンの１個目のテキストと回答データが一等しければ、クッキーがセットされ、$router.pushが実行される", async () => {
       expect(routerPushMock.mock.calls).toHaveLength(0);
-      wrapper.find(".age-confirmation").vm.$emit("check", "はい")
+      wrapper.find(".age-confirmation").vm.$emit("check", "はい");
       expect(wrapper.vm.$cookies.isKey("age-confirmation")).toBeTruthy();
       expect(routerPushMock.mock.calls).toHaveLength(1);
     });
@@ -41,7 +39,7 @@ describe("(pc display) AgeConfirmation component test", () => {
     it("上記以外の場合、history.backが実行される", () => {
       historyBackMock = jest.spyOn(window.history, "back");
       expect(historyBackMock.mock.calls).toHaveLength(0);
-      wrapper.find(".age-confirmation").vm.$emit("check", "いいえ")
+      wrapper.find(".age-confirmation").vm.$emit("check", "いいえ");
       expect(historyBackMock.mock.calls).toHaveLength(1);
     });
   });
@@ -63,7 +61,7 @@ describe("(sp display) AgeConfirmation component test", () => {
     it("回答ボタンの１個目のテキストと回答データが一等しければ、クッキーがセットされ、$router.pushが実行される", async () => {
       jest.clearAllMocks();
       expect(routerPushMock.mock.calls).toHaveLength(0);
-      wrapper.find(".age-confirmation").vm.$emit("check", "はい")
+      wrapper.find(".age-confirmation").vm.$emit("check", "はい");
       expect(wrapper.vm.$cookies.isKey("age-confirmation")).toBeTruthy();
       expect(routerPushMock.mock.calls).toHaveLength(1);
     });
@@ -71,7 +69,7 @@ describe("(sp display) AgeConfirmation component test", () => {
     it("上記以外の場合、history.backが実行される", () => {
       historyBackMock = jest.spyOn(window.history, "back");
       expect(historyBackMock.mock.calls).toHaveLength(0);
-      wrapper.find(".age-confirmation").vm.$emit("check", "いいえ")
+      wrapper.find(".age-confirmation").vm.$emit("check", "いいえ");
       expect(historyBackMock.mock.calls).toHaveLength(1);
     });
   });

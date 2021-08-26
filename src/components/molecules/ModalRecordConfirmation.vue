@@ -51,13 +51,13 @@ export default {
           drinking_amount: 0,
         },
       },
-    }
+    };
   },
   methods: {
     emitModalAndData() {
-      this.$emit("submitZeroRecord", this.recordData)
-      this.$emit("modal", this.modalRecordConfirmationContents[0])
-    }
+      this.$emit("submitZeroRecord", this.recordData);
+      this.$emit("modal", this.modalRecordConfirmationContents[0]);
+    },
   },
 };
 </script>

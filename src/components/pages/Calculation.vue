@@ -93,7 +93,11 @@
               :icon-texts="calculationIcons"
               :record-buttons="recordButtonsTexts"
               :todaySour="lemonSour"
-              @noticeAuth="guideToAuth('結果を記録するには、ユーザー登録・ログインが必要です。')"
+              @noticeAuth="
+                guideToAuth(
+                  '結果を記録するには、ユーザー登録・ログインが必要です。'
+                )
+              "
               @submitRecord="recordDrinking"
               @submitZeroRecord="recordDrinking"
               @passDate="takeDown"
@@ -191,7 +195,11 @@
               :icon-texts="calculationIcons"
               :record-buttons="recordButtonsTexts"
               :todaySour="lemonSour"
-              @noticeAuth="guideToAuth('結果を記録するには、ユーザー登録・ログインが必要です。')"
+              @noticeAuth="
+                guideToAuth(
+                  '結果を記録するには、ユーザー登録・ログインが必要です。'
+                )
+              "
               @submitRecord="recordDrinking"
               @submitZeroRecord="recordDrinking"
               @passDate="takeDown"
@@ -352,7 +360,7 @@ export default {
             "記録が作成されました！記録カレンダーへ移動します。";
           setTimeout(() => {
             this.noticeMessage = "";
-            this.calculationRecordErrors = []
+            this.calculationRecordErrors = [];
             this.$router.push(`/drinking_records/${this.userId}`);
           }, 3000);
         })
@@ -363,7 +371,7 @@ export default {
     },
     takeDown(date) {
       this.drinkingDate = date;
-    }
+    },
   },
   created() {
     axios

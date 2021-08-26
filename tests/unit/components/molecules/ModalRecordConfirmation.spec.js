@@ -36,16 +36,20 @@ describe("ModalRecordConfirmation component test", () => {
 
   describe("記録ボタンを押すと、", () => {
     beforeEach(async () => {
-      await wrapper.find(".modal-record-confirmation-button-zero-record").trigger("click");
-    })
+      await wrapper
+        .find(".modal-record-confirmation-button-zero-record")
+        .trigger("click");
+    });
     it("submitZeroRecordイベントとrecordData(の中にはpropsで受け取った日付が入っている)がemitされる", async () => {
       expect(wrapper.emitted().submitZeroRecord).toBeTruthy();
-      expect(wrapper.emitted().submitZeroRecord[0][0].drinking_record.drinking_date).toBe("2021-8-23");
+      expect(
+        wrapper.emitted().submitZeroRecord[0][0].drinking_record.drinking_date
+      ).toBe("2021-8-23");
     });
 
     it("modalイベントとmodalRecordConfirmationContents[0]がemitされる", async () => {
       expect(wrapper.emitted().modal).toBeTruthy();
       expect(wrapper.emitted().modal[0][0]).toBe("記録確認や");
     });
-  })
+  });
 });

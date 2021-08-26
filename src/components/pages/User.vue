@@ -253,7 +253,6 @@ export default {
       }
     },
     editUserImage(inputImage) {
-      console.log(inputImage)
       const formData = new FormData();
       formData.append("user_image", inputImage);
       this.decryptHeaders();
@@ -281,8 +280,7 @@ export default {
         .put("/api/v1/auth", inputData, {
           headers: this.authHeader,
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           this.userEditErrors = [];
           this.authHeader = { "access-token": "", client: "", uid: "" };
           this.noticeMessage = "変更を受け付けました。";

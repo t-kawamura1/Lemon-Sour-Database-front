@@ -245,10 +245,10 @@ export default {
     },
     checkNaNAndZero() {
       if (this.checkAuth() === "stop") {
-        return
+        return;
       } else {
         if (this.validateFormulaInputs() === "error") {
-          return
+          return;
         } else {
           if (this.calcResults.includes(0)) {
             this.formulaError = "いずれかの計算式の結果が0になっています";
@@ -261,24 +261,24 @@ export default {
     },
     checkEmitModal() {
       if (this.checkAuth() === "stop") {
-        return
+        return;
       } else {
-        this.$emit("modal", "記録の確認")
+        this.$emit("modal", "記録の確認");
       }
     },
     checkAuth() {
       if (!this.$cookies.isKey("auth-header")) {
-        this.$emit("noticeAuth")
-        return "stop"
+        this.$emit("noticeAuth");
+        return "stop";
       }
     },
     validateFormulaInputs() {
-      if (this.calcResults.includes(NaN) || (this.calcResults.length === 0)) {
+      if (this.calcResults.includes(NaN) || this.calcResults.length === 0) {
         this.formulaError = "計算式に入力されていない項目があります";
-        return "error"
+        return "error";
       } else if (this.formulaCounts !== this.calcResults.length) {
         this.formulaError = "計算式に入力されていない項目があります";
-        return "error"
+        return "error";
       } else {
         this.formulaError = "";
       }
@@ -295,7 +295,7 @@ export default {
         this.plusMinusError = "";
         this.formulaCounts += 1;
       } else {
-        this.plusMinusError = "これ以上増やせません"
+        this.plusMinusError = "これ以上増やせません";
       }
     },
     minusFormula() {

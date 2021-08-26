@@ -42,29 +42,37 @@ describe("RecordsByMonth component test", () => {
   it("初期描画時、今日の日付の年月が表示される", () => {
     const today = new Date();
     const yearMonth =
-        today.getFullYear().toString() +
-        "-" +
-        (today.getMonth() + 1).toString();
+      today.getFullYear().toString() + "-" + (today.getMonth() + 1).toString();
     const tempDate = wrapper.vm.covertNumericDateToMonthWithZero(yearMonth);
-    const japaneseDate = wrapper.vm.convertNumericDateToJapaneseDate(tempDate)
-    expect(wrapper.find(".records-by-month-title").text()).toContain(japaneseDate);
+    const japaneseDate = wrapper.vm.convertNumericDateToJapaneseDate(tempDate);
+    expect(wrapper.find(".records-by-month-title").text()).toContain(
+      japaneseDate
+    );
   });
 
   describe("入力欄に入力された日付のデータが存在する場合、", () => {
     it("その年月の総純アルコール量・総飲酒量の記録が表示される", async () => {
-      wrapper.find(".records-by-month-date-select").setValue("2021-09")
-      await wrapper.find(".records-by-month-date-select").trigger("change")
-      expect(wrapper.find(".records-by-month-pure-alcohol").text()).toContain(154.8);
-      expect(wrapper.find(".records-by-month-drinking-amount").text()).toContain(5000);
-    })
+      wrapper.find(".records-by-month-date-select").setValue("2021-09");
+      await wrapper.find(".records-by-month-date-select").trigger("change");
+      expect(wrapper.find(".records-by-month-pure-alcohol").text()).toContain(
+        154.8
+      );
+      expect(
+        wrapper.find(".records-by-month-drinking-amount").text()
+      ).toContain(5000);
+    });
   });
 
   describe("入力欄に入力された日付のデータが存在しない場合、", () => {
     it("総純アルコール量・総飲酒量には０が表示される", async () => {
-      wrapper.find(".records-by-month-date-select").setValue("2021-10")
-      await wrapper.find(".records-by-month-date-select").trigger("change")
-      expect(wrapper.find(".records-by-month-pure-alcohol").text()).toBe("純アルコール量 : 0.0 g");
-      expect(wrapper.find(".records-by-month-drinking-amount").text()).toBe("飲酒量 : 0 ml");
-    })
+      wrapper.find(".records-by-month-date-select").setValue("2021-10");
+      await wrapper.find(".records-by-month-date-select").trigger("change");
+      expect(wrapper.find(".records-by-month-pure-alcohol").text()).toBe(
+        "純アルコール量 : 0.0 g"
+      );
+      expect(wrapper.find(".records-by-month-drinking-amount").text()).toBe(
+        "飲酒量 : 0 ml"
+      );
+    });
   });
 });

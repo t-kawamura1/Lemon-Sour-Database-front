@@ -20,7 +20,7 @@
           @click="$emit('link', dropdownFunctions[0])"
         >
           <list-dropdown
-          class="authenticated-header-icon-dropdown-list-list-dropdown"
+            class="authenticated-header-icon-dropdown-list-list-dropdown"
             :dropdown-text="dropdownFunctions[0]"
           ></list-dropdown>
         </li>

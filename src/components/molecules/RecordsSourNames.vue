@@ -4,10 +4,7 @@
       class="records-sour-names-explanation"
       :main-text="sourNamesExplanation"
     ></text-main>
-    <div
-      class="records-sour-names-box"
-      v-if="recordsSourNames.length !== 0"
-    >
+    <div class="records-sour-names-box" v-if="recordsSourNames.length !== 0">
       <div
         class="records-sour-names-set"
         v-for="(recordSourName, index) in recordsSourNames"
@@ -25,12 +22,7 @@
         ></text-main>
       </div>
     </div>
-    <div
-      class="records-sour-names-box"
-      v-else
-    >
-      まだ記録がありません。
-    </div>
+    <div class="records-sour-names-box" v-else>まだ記録がありません。</div>
   </div>
 </template>
 
