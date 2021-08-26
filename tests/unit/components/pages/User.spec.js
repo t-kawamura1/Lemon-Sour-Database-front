@@ -92,6 +92,7 @@ let userData;
 let inputImage;
 let decryptHeadersMock;
 let routerPushMock;
+let scrollIntoViewMock;
 
 beforeEach(() => {
   routerPushMock = jest.fn();
@@ -105,6 +106,8 @@ beforeEach(() => {
   };
   inputImage = "image-file";
   decryptHeadersMock = jest.fn();
+  scrollIntoViewMock = jest.fn();
+  window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 });
 
 describe("(pc display) User component test", () => {

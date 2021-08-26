@@ -189,6 +189,7 @@ let $mq;
 let $router;
 let $route;
 let decryptHeadersMock;
+let scrollIntoViewMock;
 
 beforeEach(() => {
   $router = { path: "" };
@@ -199,6 +200,8 @@ beforeEach(() => {
     },
   };
   decryptHeadersMock = jest.fn();
+  scrollIntoViewMock = jest.fn();
+  window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 });
 
 describe("(pc display) DrinkingRecord component test", () => {

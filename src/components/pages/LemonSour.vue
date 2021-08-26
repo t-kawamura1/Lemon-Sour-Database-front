@@ -1,5 +1,5 @@
 <template>
-  <div class="page-lemon-sour" ref=top>
+  <div class="page-lemon-sour" ref="top">
     <!-- DISPLAY PC -->
     <pc-lemon-sour v-if="$mq === 'pc'">
       <!-- MODAL -->
