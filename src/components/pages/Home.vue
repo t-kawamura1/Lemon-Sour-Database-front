@@ -1,5 +1,5 @@
 <template>
-  <div class="page-home">
+  <div class="page-home" ref="top">
     <!-- DISPLAY PC -->
     <pc-home v-if="$mq === 'pc'">
       <!-- MODAL -->
@@ -279,12 +279,14 @@ export default {
           this.$router.push("/calculation");
           break;
         case this.unauthenticatedSidebarMenus[2].name:
+          this.scrollToAnchorPoint("top");
           this.guideToAuth(
             "記録の閲覧には、ユーザー登録・ログインが必要です。"
           );
           break;
         case this.footerIcons[2][0]:
           if (this.userId == "") {
+            this.scrollToAnchorPoint("top");
             this.guideToAuth(
               "記録の閲覧には、ユーザー登録・ログインが必要です。"
             );
@@ -305,6 +307,7 @@ export default {
     next((vm) => {
       if (!vm.$cookies.isKey("auth-header") && from.name == "user") {
         vm.isAuthenticated = false;
+        vm.scrollToAnchorPoint("top");
         vm.noticeMessage =
           "アカウントの削除に成功しました。またのご利用をお待ちしております。";
         setTimeout(() => {
@@ -315,6 +318,7 @@ export default {
         from.name == "userPasswordReset"
       ) {
         vm.isAuthenticated = false;
+        vm.scrollToAnchorPoint("top");
         vm.noticeMessage = "ログインしておきました。このままお楽しみください！";
         setTimeout(() => {
           vm.noticeMessage = "";
