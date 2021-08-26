@@ -253,6 +253,7 @@ export default {
       }
     },
     editUserImage(inputImage) {
+      console.log(inputImage)
       const formData = new FormData();
       formData.append("user_image", inputImage);
       this.decryptHeaders();
