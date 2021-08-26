@@ -26,13 +26,16 @@ export default {
     vertical-align: top;
     margin-right: 6px;
   }
-  .cec-green {
+  .cec-zero {
+    border: 2px solid $calendar-indigo;
+  }
+  .cec-safety {
     background-color: $calendar-green;
   }
-  .cec-yellow {
+  .cec-warning {
     background-color: $calendar-yellow;
   }
-  .cec-red {
+  .cec-dangerous {
     background-color: $calendar-red;
   }
 }

@@ -4,22 +4,34 @@
       class="authenticated-header-icon1"
       @click="$emit('link', headerIcons[0])"
     >
-      <icon :icon-text="headerIcons[0]"></icon>
+      <icon
+        class="authenticated-header-icon1-icon"
+        :icon-text="headerIcons[0]"
+      ></icon>
     </div>
     <div class="authenticated-header-icon2" @click="dropdown">
-      <icon :icon-text="headerIcons[1]"></icon>
+      <icon
+        class="authenticated-header-icon2-icon"
+        :icon-text="headerIcons[1]"
+      ></icon>
       <ul class="authenticated-header-icon-dropdown" :class="{ isActive }">
         <li
           class="authenticated-header-icon-dropdown-list"
           @click="$emit('link', dropdownFunctions[0])"
         >
-          <list-dropdown :dropdown-text="dropdownFunctions[0]"></list-dropdown>
+          <list-dropdown
+            class="authenticated-header-icon-dropdown-list-list-dropdown"
+            :dropdown-text="dropdownFunctions[0]"
+          ></list-dropdown>
         </li>
         <li
           class="authenticated-header-icon-dropdown-list"
           @click="$emit('submitUser')"
         >
-          <list-dropdown :dropdown-text="dropdownFunctions[1]"></list-dropdown>
+          <list-dropdown
+            class="authenticated-header-icon-dropdown-list-list-dropdown"
+            :dropdown-text="dropdownFunctions[1]"
+          ></list-dropdown>
         </li>
       </ul>
     </div>
@@ -38,6 +50,7 @@ export default {
   props: {
     headerIcons: Array,
     dropdownFunctions: Array,
+    currentPage: String,
   },
   data() {
     return {
@@ -48,6 +61,12 @@ export default {
     dropdown() {
       return (this.isActive = !this.isActive);
     },
+  },
+  mounted() {
+    const userMenu = document.querySelector(".authenticated-header-icon2-icon");
+    if (this.currentPage == "ユーザー") {
+      userMenu.classList.add("isCurrentPage");
+    }
   },
 };
 </script>
@@ -83,6 +102,9 @@ export default {
     .isActive {
       display: block;
     }
+  }
+  .isCurrentPage {
+    color: $aged-yellow;
   }
 }
 </style>

@@ -6,7 +6,7 @@ describe("ButtonCalculationRecord component test", () => {
   beforeEach(() => {
     wrapper = mount(ButtonCalculationRecord, {
       propsData: {
-        buttonCalcRecText: "結果を記録します",
+        buttonCalcRecordText: "結果を記録します",
       },
     });
   });

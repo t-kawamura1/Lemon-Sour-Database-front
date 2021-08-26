@@ -36,8 +36,8 @@
             <the-heading :heading-text="heading"></the-heading>
           </template>
           <template v-slot:drinking-record-records-calendar>
-            <!-- ケバブケースで数字を渡せない？ので英単語に置き換えた -->
             <records-calendar
+              :records-zero="amountByDateZero"
               :records-less-than-twenty="amountByDateLessThan20"
               :records-from-twenty-to-thirty-nine="amountByDateFrom20To39"
               :records-forty-or-more="amountByDate40OrMore"
@@ -56,13 +56,13 @@
           </template>
           <template v-slot:drinking-record-button-calculation-record>
             <button-calculation-record
-              :button-calc-rec-text="buttonTexts[0]"
+              :button-calc-record-text="buttonTexts[0]"
               @record="toPageView('toCalculation')"
             ></button-calculation-record>
           </template>
           <template v-slot:drinking-record-records-delete>
             <records-delete
-              :error-message="drinkingRecordErrors[0]"
+              :error-message="drinkingRecordError"
               :button-delete="buttonTexts[1]"
               @submit="deleteRecord"
             ></records-delete>
@@ -104,6 +104,7 @@
           </template>
           <template v-slot:drinking-record-records-calendar>
             <records-calendar
+              :records-zero="amountByDateZero"
               :records-less-than-twenty="amountByDateLessThan20"
               :records-from-twenty-to-thirty-nine="amountByDateFrom20To39"
               :records-forty-or-more="amountByDate40OrMore"
@@ -122,13 +123,13 @@
           </template>
           <template v-slot:drinking-record-button-calculation-record>
             <button-calculation-record
-              :button-calc-rec-text="buttonTexts[0]"
+              :button-calc-record-text="buttonTexts[0]"
               @record="toPageView('toCalculation')"
             ></button-calculation-record>
           </template>
           <template v-slot:drinking-record-records-delete>
             <records-delete
-              :error-message="drinkingRecordErrors[0]"
+              :error-message="drinkingRecordError"
               :button-delete="buttonTexts[1]"
               @submit="deleteRecord"
             ></records-delete>
@@ -202,15 +203,17 @@ export default {
   data() {
     return {
       heading: `${this.currentUser.name}さんの飲酒記録`,
-      drinkingRecordErrors: [],
+      drinkingRecordError: "",
+      amountByDateZero: [],
       amountByDateLessThan20: [],
       amountByDateFrom20To39: [],
       amountByDate40OrMore: [],
       countSourNames: [],
       colorsAndTextsSet: [
-        ["cec-green", "純アルコール量20g未満"],
-        ["cec-yellow", "純アルコール量20g以上40g未満"],
-        ["cec-red", "純アルコール量40g以上"],
+        ["cec-zero", "飲まなかった日　すごい！"],
+        ["cec-safety", "純アルコール量20g未満　この調子！"],
+        ["cec-warning", "純アルコール量20〜40g未満　注意！"],
+        ["cec-dangerous", "純アルコール量40g以上　飲み過ぎ！"],
       ],
       soursNamesExplanationText: `${this.currentUser.name}さんがよく飲んでいるレモンサワー`,
       iconText: "crown",
@@ -250,9 +253,10 @@ export default {
         })
         .then((res) => {
           this.drinkingRecordErrors = "";
-          this.amountByDateLessThan20 = res.data[0];
-          this.amountByDateFrom20To39 = res.data[1];
-          this.amountByDate40OrMore = res.data[2];
+          this.amountByDateZero = res.data[0];
+          this.amountByDateLessThan20 = res.data[1];
+          this.amountByDateFrom20To39 = res.data[2];
+          this.amountByDate40OrMore = res.data[3];
           this.noticeMessage = "該当する記録を削除しました。";
           setTimeout(() => {
             this.noticeMessage = "";
@@ -260,7 +264,7 @@ export default {
         })
         .catch((err) => {
           console.log(err.response);
-          this.drinkingRecordErrors.push(err.response.data.error_message);
+          this.drinkingRecordError = err.response.data.error_message;
         });
     },
   },
@@ -271,10 +275,11 @@ export default {
         headers: this.authHeader,
       })
       .then((res) => {
-        this.amountByDateLessThan20 = res.data[0];
-        this.amountByDateFrom20To39 = res.data[1];
-        this.amountByDate40OrMore = res.data[2];
-        this.countSourNames = res.data[3];
+        this.amountByDateZero = res.data[0];
+        this.amountByDateLessThan20 = res.data[1];
+        this.amountByDateFrom20To39 = res.data[2];
+        this.amountByDate40OrMore = res.data[3];
+        this.countSourNames = res.data[4];
       })
       .catch((err) => {
         console.log(err.response);

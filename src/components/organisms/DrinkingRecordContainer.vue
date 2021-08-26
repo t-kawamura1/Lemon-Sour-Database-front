@@ -33,13 +33,12 @@
     margin-bottom: 20px;
   }
   .drinking-record-container-records-by-month {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
   }
   .drinking-record-container-records-sour-names {
     margin-bottom: 30px;
   }
   .drinking-record-container-button-calculation-record {
-    width: 210px;
     margin-bottom: 20px;
   }
 }

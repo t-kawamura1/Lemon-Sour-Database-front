@@ -1,45 +1,207 @@
 import { mount, createLocalVue } from "@vue/test-utils";
 import LemonSoursIndex from "@/components/pages/LemonSoursIndex";
-// import flushPromises from "flush-promises";
+import flushPromises from "flush-promises";
 import VueCookies from "vue-cookies";
 
 jest.mock("axios", () => ({
-  get: jest.fn(() =>
-    Promise.resolve({
-      data: [
-        {
-          name: "テストサワー",
-          manufacturer: "サッポロ",
-          sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+  // 1回目
+  get: jest
+    .fn()
+    .mockImplementationOnce(
+      () =>
+        Promise.resolve({
+          data: [
+            {
+              name: "テストサワー",
+              manufacturer: "サッポロ",
+              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+            },
+            {
+              name: "テストチューハイ",
+              manufacturer: "サントリー",
+              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+            },
+          ],
+        })
+      // 2回目
+    )
+    .mockImplementationOnce(
+      () =>
+        Promise.resolve({
+          data: [
+            {
+              name: "テストサワー",
+              manufacturer: "サッポロ",
+              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+            },
+            {
+              name: "テストチューハイ",
+              manufacturer: "サントリー",
+              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+            },
+          ],
+        })
+      // 3回目
+    )
+    .mockImplementationOnce(
+      () =>
+        Promise.resolve({
+          data: [
+            {
+              name: "テストサワー",
+              manufacturer: "サッポロ",
+              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+            },
+            {
+              name: "テストチューハイ",
+              manufacturer: "サントリー",
+              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+            },
+          ],
+        })
+      // 4回目(検索の成功結果)
+    )
+    .mockImplementationOnce(
+      () =>
+        Promise.resolve({
+          data: [
+            {
+              name: "テストチューハイ",
+              manufacturer: "サントリー",
+              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+            },
+          ],
+        })
+      // 5回目
+    )
+    .mockImplementationOnce(
+      () =>
+        Promise.resolve({
+          data: [
+            {
+              name: "テストサワー",
+              manufacturer: "サッポロ",
+              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+            },
+            {
+              name: "テストチューハイ",
+              manufacturer: "サントリー",
+              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+            },
+          ],
+        })
+      // 6回目(検索の失敗結果)
+    )
+    .mockImplementationOnce(
+      () =>
+        Promise.reject({
+          response: {
+            data: {
+              error_message: "そんなデータあらへん",
+            },
+          },
+        })
+      // 7回目
+    )
+    .mockImplementationOnce(
+      () =>
+        Promise.resolve({
+          data: [
+            {
+              name: "テストサワー",
+              manufacturer: "サッポロ",
+              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+            },
+            {
+              name: "テストチューハイ",
+              manufacturer: "サントリー",
+              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+            },
+          ],
+        })
+      // 8回目
+    )
+    .mockImplementationOnce(
+      () =>
+        Promise.resolve({
+          data: [
+            {
+              name: "テストサワー",
+              manufacturer: "サッポロ",
+              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+            },
+            {
+              name: "テストチューハイ",
+              manufacturer: "サントリー",
+              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+            },
+          ],
+        })
+      // 9回目
+    )
+    .mockImplementationOnce(
+      () =>
+        Promise.resolve({
+          data: [
+            {
+              name: "テストサワー",
+              manufacturer: "サッポロ",
+              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+            },
+            {
+              name: "テストチューハイ",
+              manufacturer: "サントリー",
+              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+            },
+          ],
+        })
+      // 10回目(検索成功)
+    )
+    .mockImplementationOnce(
+      () =>
+        Promise.resolve({
+          data: [
+            {
+              name: "テストチューハイ",
+              manufacturer: "サントリー",
+              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+            },
+          ],
+        })
+      // 11回目
+    )
+    .mockImplementationOnce(
+      () =>
+        Promise.resolve({
+          data: [
+            {
+              name: "テストサワー",
+              manufacturer: "サッポロ",
+              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+            },
+            {
+              name: "テストチューハイ",
+              manufacturer: "サントリー",
+              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+            },
+          ],
+        })
+      // 12回目(検索失敗)
+    )
+    .mockImplementationOnce(() =>
+      Promise.reject({
+        response: {
+          data: {
+            error_message: "そんなデータあらへん",
+          },
         },
-        {
-          name: "テストチューハイ",
-          manufacturer: "サントリー",
-          sour_image: { url: "@/assets/test/ls_test_sample2.png" },
-        },
-      ],
-    })
-  ),
+      })
+    ),
 }));
 
 // 以下がないとテスト全体が落ちる。
-// axiosの挙動を変える必要があるため、認証判定ロジックはここではテストしない。
 const localVue = createLocalVue();
 localVue.use(VueCookies);
-
-// この記述がないとTypeErrorが出る。下記公式参照。
-// https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
-Object.defineProperty(window, "matchMedia", {
-  writable: true,
-  value: jest.fn().mockImplementation((query) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-});
 
 let wrapper;
 let $route;
@@ -74,45 +236,28 @@ describe("(pc display) LemonSoursIndex component test", () => {
       );
     });
   });
+  describe("レモンサワーのデータを検索するとき、", () => {
+    it("データが存在するとき、該当するレモンサワーのデータが返ってくる", async () => {
+      wrapper.find(".pc-input-select").findAll("option").at(7).setSelected();
+      await wrapper.find(".pc-selects-form").trigger("submit");
+      await flushPromises();
+      expect(wrapper.findAll(".pc-sours-index-items-item")).toHaveLength(1);
+      expect(wrapper.find(".sour-name-line").text()).toBe("テストチューハイ");
+      expect(wrapper.find(".sour-image").attributes("src")).toBe(
+        "@/assets/test/ls_test_sample2.png"
+      );
+    });
 
-  // 実際に受け取る値が想像の斜め上を行く。まったく挙動のロジックがつかめないので一旦コメントアウトする
-  // it("存在するデータについて検索するとき、該当するレモンサワーのデータが返ってくる", async () => {
-  //   const searchBy = jest
-  //     .spyOn(LemonSoursIndex.methods, "searchBy")
-  //     .mockImplementation(() => {
-  //       Promise.resolve(
-  //         wrapper.vm.lemonSours = [
-  //           {
-  //             name: "テストチューハイ",
-  //             manufacturer: "サントリー",
-  //             sour_image: { url: "@/assets/test/ls_test_sample22222.png" },
-  //           },
-  //         ]
-  //       );
-  //     });
-  //   wrapper.find(".pc-selects-set").vm.$emit("sortBy", ["サントリー"]);
-  //   searchBy();
-  //   await flushPromises();
-  //   expect(wrapper.findAll(".pc-sours-index-items-item")).toHaveLength(1);
-  //   expect(wrapper.find(".pc-sours-index-items-item-image").attributes("src")).toBe("@/assets/test/ls_test_sample2222.png");
-  // });
-
-  // it("存在しないデータについて検索するとき、エラーメッセージが返ってくる", async () => {
-  //   const searchBy = jest
-  //     .spyOn(LemonSoursIndex.methods, "searchBy")
-  //     .mockImplementation(() => {
-  //       Promise.resolve(
-  //         wrapper.vm.lemonSours = null,
-  //         wrapper.vm.noContentsError = "お探しのデータはありません。"
-  //       );
-  //     });
-  //   wrapper.find(".pc-selects-set").vm.$emit("sortBy", ["宝酒造"]);
-  //   searchBy();
-  //   await flushPromises();
-  //   console.log(wrapper.html())
-  //   expect(wrapper.findAll(".pc-sours-index-items-item")).toHaveLength(0);
-  //   expect(wrapper.find(".pc-sours-index-items-error").text()).toBe("お探しのデータはありません。");
-  // });
+    it("データが存在しないとき、エラーメッセージが返ってくる", async () => {
+      wrapper.find(".pc-input-select").findAll("option").at(2).setSelected();
+      await wrapper.find(".pc-selects-form").trigger("submit");
+      await flushPromises();
+      expect(wrapper.findAll(".pc-sours-index-items-item")).toHaveLength(0);
+      expect(wrapper.find(".pc-sours-index-items-error").text()).toBe(
+        "そんなデータあらへん"
+      );
+    });
+  });
 });
 
 describe("(sp display) LemonSoursIndex component test", () => {
@@ -130,8 +275,8 @@ describe("(sp display) LemonSoursIndex component test", () => {
 
   describe("初期描画時", () => {
     it("レモンサワーのデータを全件取得して表示する", async () => {
-      expect(wrapper.findAll(".sour-name").at(0).text()).toBe("テストサワー");
       expect(wrapper.findAll(".sour-name")).toHaveLength(2);
+      expect(wrapper.findAll(".sour-name").at(0).text()).toBe("テストサワー");
     });
 
     it("何も選択しないまま検索ボタンを押すと、エラーメッセージが表示される", async () => {
@@ -143,24 +288,26 @@ describe("(sp display) LemonSoursIndex component test", () => {
     });
   });
 
-  // it("存在するデータについて検索するとき、該当するレモンサワーのデータが返ってくる", async () => {
-  //   const searchBy = jest
-  //     .spyOn(LemonSoursIndex.methods, "searchBy")
-  //     .mockImplementation(() => {
-  //       Promise.resolve(
-  //         wrapper.vm.lemonSours = [
-  //           {
-  //             name: "テストチューハイ",
-  //             manufacturer: "サントリー",
-  //             sour_image: { url: "@/assets/test/ls_test_sample2222.png" },
-  //           },
-  //         ]
-  //       );
-  //     });
-  //   wrapper.find(".sp-selects-set").vm.$emit("sortBy", ["サントリー"]);
-  //   searchBy();
-  //   await flushPromises();
-  //   expect(wrapper.findAll(".sp-sours-index-items-item")).toHaveLength(1);
-  //   expect(wrapper.find(".sp-sours-index-items-item-image").attributes("src")).toBe("@/assets/test/ls_test_sample2222.png");
-  // });
+  describe("レモンサワーのデータを検索するとき、", () => {
+    it("存在するデータについて検索するとき、該当するレモンサワーのデータが返ってくる", async () => {
+      wrapper.find(".sp-input-select").findAll("option").at(7).setSelected();
+      await wrapper.find(".sp-selects-form").trigger("submit");
+      await flushPromises();
+      expect(wrapper.findAll(".sp-sours-index-items-item")).toHaveLength(1);
+      expect(wrapper.find(".sour-name-line").text()).toBe("テストチューハイ");
+      expect(wrapper.find(".sour-image").attributes("src")).toBe(
+        "@/assets/test/ls_test_sample2.png"
+      );
+    });
+
+    it("データが存在しないとき、エラーメッセージが返ってくる", async () => {
+      wrapper.find(".sp-input-select").findAll("option").at(2).setSelected();
+      await wrapper.find(".sp-selects-form").trigger("submit");
+      await flushPromises();
+      expect(wrapper.findAll(".sp-sours-index-items-item")).toHaveLength(0);
+      expect(wrapper.find(".sp-sours-index-items-error").text()).toBe(
+        "そんなデータあらへん"
+      );
+    });
+  });
 });

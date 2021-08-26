@@ -27,6 +27,15 @@
               @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
+          <template v-slot:modal-record-confirmation>
+            <modal-record-confirmation
+              :modal-record-confirmation-contents="recordConfirmationContents"
+              :drinking-date="drinkingDate"
+              v-if="showRecordConfirmationModal"
+              @modal="closeModal"
+              @submitZeroRecord="recordDrinking"
+            ></modal-record-confirmation>
+          </template>
         </the-modal>
       </template>
       <!-- SIDEBAR -->
@@ -82,9 +91,17 @@
               :lemon-sours="lemonSoursData"
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
-              :calc-button="calcButtonText"
+              :record-buttons="recordButtonsTexts"
               :todaySour="lemonSour"
+              @noticeAuth="
+                guideToAuth(
+                  '結果を記録するには、ユーザー登録・ログインが必要です。'
+                )
+              "
               @submitRecord="recordDrinking"
+              @submitZeroRecord="recordDrinking"
+              @passDate="takeDown"
+              @modal="openModal"
             ></calculate-alcohol>
           </template>
         </calculation-container>
@@ -120,13 +137,14 @@
               @resetPassword="sendResetPasswordEmail"
             ></modal-user>
           </template>
-          <template v-slot:modal-user-delete>
-            <modal-delete-user
-              :modal-delete-user-contents="userDeleteContents"
-              v-if="showUserDeleteModal"
+          <template v-slot:modal-record-confirmation>
+            <modal-record-confirmation
+              :modal-record-confirmation-contents="recordConfirmationContents"
+              :drinking-date="drinkingDate"
+              v-if="showRecordConfirmationModal"
               @modal="closeModal"
-              @submitUser="deleteUser"
-            ></modal-delete-user>
+              @submitZeroRecord="recordDrinking"
+            ></modal-record-confirmation>
           </template>
         </the-modal>
       </template>
@@ -175,9 +193,17 @@
               :lemon-sours="lemonSoursData"
               :alcohol-inputs="alcoholInputContents"
               :icon-texts="calculationIcons"
-              :calc-button="calcButtonText"
+              :record-buttons="recordButtonsTexts"
               :todaySour="lemonSour"
+              @noticeAuth="
+                guideToAuth(
+                  '結果を記録するには、ユーザー登録・ログインが必要です。'
+                )
+              "
               @submitRecord="recordDrinking"
+              @submitZeroRecord="recordDrinking"
+              @passDate="takeDown"
+              @modal="openModal"
             ></calculate-alcohol>
           </template>
         </calculation-container>
@@ -210,6 +236,7 @@ import TheHeader from "@/components/organisms/TheHeader";
 import CalculationContainer from "@/components/organisms/CalculationContainer";
 import TheFooter from "@/components/organisms/TheFooter";
 import ModalUser from "@/components/molecules/ModalUser";
+import ModalRecordConfirmation from "@/components/molecules/ModalRecordConfirmation";
 import AppTitle from "@/components/molecules/AppTitle";
 import SidebarMenusAuthenticated from "@/components/molecules/SidebarMenusAuthenticated";
 import SidebarMenusUnauthenticated from "@/components/molecules/SidebarMenusUnauthenticated";
@@ -233,6 +260,7 @@ export default {
     CalculationContainer,
     TheFooter,
     ModalUser,
+    ModalRecordConfirmation,
     SidebarMenusAuthenticated,
     SidebarMenusUnauthenticated,
     HeaderIconsAuthenticated,
@@ -248,6 +276,12 @@ export default {
   props: ["lemonSour"],
   data() {
     return {
+      recordConfirmationContents: [
+        "記録の確認",
+        "純アルコール量0g、飲酒量0mlとして記録します。よろしいですか？",
+        "記録する",
+      ],
+      drinkingDate: "",
       heading: "アルコール摂取量計算",
       mainExplanation:
         "飲んだ銘柄と飲んだ量から、摂取アルコール量を計算できます。飲んだ日付を選択すると、結果を記録することができます。",
@@ -270,10 +304,10 @@ export default {
           sortValues: ["容量", 350, 400, 500, 334, 633, 135, 250],
           initValue: "容量",
         },
-        drinkingCounts: ["", 1, 0, 99],
+        drinkingCounts: ["", 1, 1, 99],
       },
-      calculationIcons: ["times", "plus-circle", "arrow-right"],
-      calcButtonText: "結果を記録する（登録ユーザーのみ）",
+      calculationIcons: ["times", "plus-circle", "minus-circle", "arrow-right"],
+      recordButtonsTexts: ["結果を記録する", "飲まなかった日として記録する"],
     };
   },
   methods: {
@@ -315,30 +349,28 @@ export default {
       }
     },
     recordDrinking(data) {
-      if (this.$cookies.isKey("auth-header")) {
-        data.drinking_record.user_id = this.userId;
-        this.decryptHeaders();
-        axios
-          .post("/api/v1/drinking_records", data, {
-            headers: this.authHeader,
-          })
-          .then(() => {
-            this.noticeMessage =
-              "記録が作成されました！記録カレンダーへ移動します。";
-            setTimeout(() => {
-              this.noticeMessage = "";
-              this.$router.push(`/drinking_records/${this.userId}`);
-            }, 3000);
-          })
-          .catch((err) => {
-            console.log(err.response);
-            this.calculationRecordErrors = err.response.data;
-          });
-      } else {
-        this.guideToAuth(
-          "結果を記録するには、ユーザー登録・ログインが必要です。"
-        );
-      }
+      data.drinking_record.user_id = this.userId;
+      this.decryptHeaders();
+      axios
+        .post("/api/v1/drinking_records", data, {
+          headers: this.authHeader,
+        })
+        .then(() => {
+          this.noticeMessage =
+            "記録が作成されました！記録カレンダーへ移動します。";
+          setTimeout(() => {
+            this.noticeMessage = "";
+            this.calculationRecordErrors = [];
+            this.$router.push(`/drinking_records/${this.userId}`);
+          }, 3000);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          this.calculationRecordErrors = err.response.data;
+        });
+    },
+    takeDown(date) {
+      this.drinkingDate = date;
     },
   },
   created() {

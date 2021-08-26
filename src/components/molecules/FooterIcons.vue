@@ -6,7 +6,7 @@
       :key="index"
       @click="$emit('link', footerIcon[0])"
     >
-      <icon :icon-text="footerIcon[0]" class="footer-icon"></icon>
+      <icon class="footer-icon" :icon-text="footerIcon[0]"></icon>
       <span class="footer-icon-title">{{ footerIcon[1] }}</span>
     </div>
   </div>
@@ -48,11 +48,11 @@ export default {
   box-shadow: 0 -1px 3px $silver;
   .footer-icons-set {
     .footer-icon {
-      font-size: 4.5rem;
-      margin-bottom: 6px;
+      font-size: 4rem;
+      margin-bottom: 3px;
     }
     .footer-icon-title {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
   }
   .isCurrentPage {

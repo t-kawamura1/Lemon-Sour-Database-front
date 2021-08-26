@@ -37,7 +37,6 @@ export default {
   },
   created() {
     this.generateUrl();
-    console.log(location.origin);
   },
 };
 </script>
@@ -49,7 +48,8 @@ export default {
   color: white;
   border: 1px solid $twitter;
   border-radius: 15px;
-  padding: 6px 12px;
+  padding: 9px 12px;
+  width: 250px;
   &:hover {
     background-color: white;
     border: 1px solid $twitter;

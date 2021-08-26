@@ -18,7 +18,7 @@
   flex-direction: column;
   align-items: center;
   .calculation-container-heading {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
   .calculation-container-text-calculation-main {
     margin-bottom: 30px;

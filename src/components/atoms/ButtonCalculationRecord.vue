@@ -1,13 +1,13 @@
 <template>
   <div class="button-calculation-record" @click="$emit('record')">
-    {{ buttonCalcRecText }}
+    {{ buttonCalcRecordText }}
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    buttonCalcRecText: String,
+    buttonCalcRecordText: String,
   },
 };
 </script>
@@ -20,6 +20,7 @@ export default {
   border: 1px solid $aged-yellow;
   border-radius: 15px;
   padding: 9px 12px;
+  width: 250px;
   &:hover {
     background-color: $lightest-yellow;
     border: 1px solid $aged-yellow;

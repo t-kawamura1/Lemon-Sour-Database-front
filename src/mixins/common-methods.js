@@ -10,6 +10,8 @@ export default {
         this.showUserLoginModal = true;
       } else if (type == "ユーザーアカウント削除") {
         this.showUserDeleteModal = true;
+      } else if (type == "記録の確認") {
+        this.showRecordConfirmationModal = true;
       }
     },
     closeModal(type) {
@@ -22,6 +24,8 @@ export default {
       } else if (type == "ユーザーアカウント削除") {
         this.showUserDeleteModal = false;
         this.userModalErrors = [];
+      } else if (type == "記録の確認") {
+        this.showRecordConfirmationModal = false;
       }
     },
     replaceModal() {
@@ -152,7 +156,9 @@ export default {
       axios
         .post("/api/v1/auth/password", {
           email: inputData,
-          redirect_url: process.env.VUE_APP_RESET_REDIRECT_URL || "https://lsdb-front-v1.herokuapp.com/user/password_reset",
+          redirect_url:
+            process.env.VUE_APP_RESET_REDIRECT_URL ||
+            "https://lsdb-front-v1.herokuapp.com/user/password_reset",
         })
         .then(() => {
           this.showUserLoginModal = false;
@@ -195,7 +201,7 @@ export default {
         this.currentPageName = "データベース";
       } else if (this.$route.name.includes("calculation")) {
         this.currentPageName = "計算";
-      } else if (this.$route.name.includes("records")) {
+      } else if (this.$route.name.includes("drinking")) {
         this.currentPageName = "記録";
       } else if (this.$route.name.includes("user")) {
         this.currentPageName = "ユーザー";

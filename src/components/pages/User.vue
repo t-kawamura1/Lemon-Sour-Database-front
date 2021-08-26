@@ -93,6 +93,7 @@
             <header-icons-authenticated
               :header-icons="headerIcons"
               :dropdown-functions="authenticatedUserFunctions"
+              :current-page="currentPageName"
               @link="toPageView"
               @submitUser="logout"
             ></header-icons-authenticated>
@@ -279,8 +280,7 @@ export default {
         .put("/api/v1/auth", inputData, {
           headers: this.authHeader,
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           this.userEditErrors = [];
           this.authHeader = { "access-token": "", client: "", uid: "" };
           this.noticeMessage = "変更を受け付けました。";

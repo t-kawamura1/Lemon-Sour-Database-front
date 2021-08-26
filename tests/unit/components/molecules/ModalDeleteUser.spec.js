@@ -35,7 +35,7 @@ describe("ModalDeleteUser component test", () => {
 
   it("submitボタンを押すとsubmitUserイベントがemitされる", async () => {
     await wrapper.find(".modal-delete-user-button-submit").trigger("click");
-    wrapper.vm.$emit("submitUser");
+    await wrapper.find(".modal-delete-user-form").trigger("submit");
     expect(wrapper.emitted().submitUser).toBeTruthy();
   });
 });

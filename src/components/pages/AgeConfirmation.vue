@@ -86,7 +86,7 @@ export default {
     rememberAge(answer) {
       if (answer == this.answerButtons[0]) {
         const encryptedAnswer = crypto.AES.encrypt(
-          this.answerButtons[0],
+          answer,
           this.$encryptKey
         ).toString();
         this.$cookies.set("age-confirmation", encryptedAnswer);

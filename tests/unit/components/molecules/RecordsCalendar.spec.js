@@ -6,6 +6,18 @@ describe("RecordsCalendar component test", () => {
   beforeEach(() => {
     wrapper = mount(RecordsCalendar, {
       propsData: {
+        recordsZero: [
+          {
+            drinking_date: "2021-08-08",
+            total_pure_alcohol: 0,
+            total_drinking: 0,
+          },
+          {
+            drinking_date: "2021-08-14",
+            total_pure_alcohol: 0,
+            total_drinking: 0,
+          },
+        ],
         recordsLessThanTwenty: [
           {
             drinking_date: "2021-08-09",
@@ -47,9 +59,10 @@ describe("RecordsCalendar component test", () => {
           { drinking_date: "2021-08-16", name: "テスサワストロング" },
         ],
         colorsAndTexts: [
-          ["green", "オールグリーン"],
-          ["red", "危険水域"],
-          ["yellow", "警告！"],
+          ["cec-zero", "聖人君主！"],
+          ["cec-safety", "オールグリーン！"],
+          ["cec-warning", "警告！"],
+          ["cec-dangerous", "危険！"],
         ],
       },
       stubs: ["v-calendar"],
@@ -57,15 +70,18 @@ describe("RecordsCalendar component test", () => {
   });
 
   it("colorsAndTexts propsの要素の数だけ、リストレンダリングし、各テキストを表示する", () => {
-    expect(wrapper.findAll(".records-calendar-explanation")).toHaveLength(3);
+    expect(wrapper.findAll(".records-calendar-explanation")).toHaveLength(4);
     expect(wrapper.findAll(".records-calendar-explanation").at(0).text()).toBe(
-      "オールグリーン"
+      "聖人君主！"
     );
     expect(wrapper.findAll(".records-calendar-explanation").at(1).text()).toBe(
-      "危険水域"
+      "オールグリーン！"
     );
     expect(wrapper.findAll(".records-calendar-explanation").at(2).text()).toBe(
       "警告！"
+    );
+    expect(wrapper.findAll(".records-calendar-explanation").at(3).text()).toBe(
+      "危険！"
     );
   });
 });
