@@ -62,7 +62,7 @@
           </template>
           <template v-slot:drinking-record-records-delete>
             <records-delete
-              :error-message="drinkingRecordErrors[0]"
+              :error-message="drinkingRecordError"
               :button-delete="buttonTexts[1]"
               @submit="deleteRecord"
             ></records-delete>
@@ -129,7 +129,7 @@
           </template>
           <template v-slot:drinking-record-records-delete>
             <records-delete
-              :error-message="drinkingRecordErrors[0]"
+              :error-message="drinkingRecordError"
               :button-delete="buttonTexts[1]"
               @submit="deleteRecord"
             ></records-delete>
@@ -203,7 +203,7 @@ export default {
   data() {
     return {
       heading: `${this.currentUser.name}さんの飲酒記録`,
-      drinkingRecordErrors: [],
+      drinkingRecordError: "",
       amountByDateZero: [],
       amountByDateLessThan20: [],
       amountByDateFrom20To39: [],
@@ -253,7 +253,7 @@ export default {
         })
         .then((res) => {
           this.drinkingRecordErrors = "";
-        this.amountByDateZero = res.data[0];
+          this.amountByDateZero = res.data[0];
           this.amountByDateLessThan20 = res.data[1];
           this.amountByDateFrom20To39 = res.data[2];
           this.amountByDate40OrMore = res.data[3];
@@ -264,7 +264,7 @@ export default {
         })
         .catch((err) => {
           console.log(err.response);
-          this.drinkingRecordErrors.push(err.response.data.error_message);
+          this.drinkingRecordError = err.response.data.error_message;
         });
     },
   },
