@@ -1,5 +1,5 @@
 <template>
-  <div class="page-calculation">
+  <div class="page-calculation" ref="top">
     <!-- DISPLAY PC -->
     <pc-calculation v-if="$mq === 'pc'">
       <!-- MODAL -->
@@ -327,12 +327,14 @@ export default {
         case this.footerIcons[1][0]:
           break;
         case this.unauthenticatedSidebarMenus[2].name:
+          this.scrollToAnchorPoint("top");
           this.guideToAuth(
             "記録の閲覧には、ユーザー登録・ログインが必要です。"
           );
           break;
         case this.footerIcons[2][0]:
           if (this.userId == "") {
+            this.scrollToAnchorPoint("top");
             this.guideToAuth(
               "記録の閲覧には、ユーザー登録・ログインが必要です。"
             );
@@ -356,6 +358,7 @@ export default {
           headers: this.authHeader,
         })
         .then(() => {
+          this.scrollToAnchorPoint("top");
           this.noticeMessage =
             "記録が作成されました！記録カレンダーへ移動します。";
           setTimeout(() => {

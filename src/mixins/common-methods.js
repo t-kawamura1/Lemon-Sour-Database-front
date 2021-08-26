@@ -3,6 +3,10 @@ import crypto from "crypto-js";
 
 export default {
   methods: {
+    scrollToAnchorPoint(refName) {
+      const element = this.$refs[refName];
+      element.scrollIntoView({ behavior: 'smooth'});
+    },
     openModal(type) {
       if (type == "ユーザー登録") {
         this.showUserRegistrationModal = true;

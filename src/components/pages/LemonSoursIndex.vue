@@ -1,5 +1,5 @@
 <template>
-  <div class="page-lemon-sours-index">
+  <div class="page-lemon-sours-index" ref="top">
     <!-- DISPLAY PC-->
     <pc-lemon-sours-index v-if="$mq === 'pc'">
       <!-- MODAL -->
@@ -290,12 +290,14 @@ export default {
           this.$router.push("/calculation");
           break;
         case this.unauthenticatedSidebarMenus[2].name:
+          this.scrollToAnchorPoint("top");
           this.guideToAuth(
             "記録の閲覧には、ユーザー登録・ログインが必要です。"
           );
           break;
         case this.authenticatedSidebarMenus[2].name:
           if (this.userId == "") {
+            this.scrollToAnchorPoint("top");
             this.guideToAuth(
               "記録の閲覧には、ユーザー登録・ログインが必要です。"
             );
@@ -305,6 +307,7 @@ export default {
           break;
         case this.footerIcons[2][0]:
           if (this.userId == "") {
+            this.scrollToAnchorPoint("top");
             this.guideToAuth(
               "記録の閲覧には、ユーザー登録・ログインが必要です。"
             );
@@ -369,6 +372,7 @@ export default {
         vm.authRequiredRoutes.includes(from.name)
       ) {
         vm.isAuthenticated = false;
+        vm.scrollToAnchorPoint("top");
         vm.noticeMessage =
           "ログアウトしました。ログインなしでも楽しめるコンテンツがあります！";
         setTimeout(() => {

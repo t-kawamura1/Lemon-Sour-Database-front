@@ -1,5 +1,5 @@
 <template>
-  <div class="page-drinking-record">
+  <div class="page-drinking-record" ref="top">
     <!-- DISPLAY PC -->
     <pc-drinking-record v-if="$mq === 'pc'">
       <!-- SIDEBAR -->
@@ -257,6 +257,7 @@ export default {
           this.amountByDateLessThan20 = res.data[1];
           this.amountByDateFrom20To39 = res.data[2];
           this.amountByDate40OrMore = res.data[3];
+          this.scrollToAnchorPoint("top");
           this.noticeMessage = "該当する記録を削除しました。";
           setTimeout(() => {
             this.noticeMessage = "";

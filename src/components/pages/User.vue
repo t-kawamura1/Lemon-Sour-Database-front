@@ -1,5 +1,5 @@
 <template>
-  <div class="page-user">
+  <div class="page-user" ref="top">
     <!-- DISPLAY PC -->
     <pc-user v-if="$mq === 'pc'">
       <!-- MODAL -->
@@ -264,6 +264,7 @@ export default {
           this.userImageEditErrors = [];
           this.authHeader = { "access-token": "", client: "", uid: "" };
           this.userImageEditContents.image_url = res.data.data.user_image;
+          this.scrollToAnchorPoint("top");
           this.noticeMessage = "画像の変更を受け付けました。";
           setTimeout(() => {
             this.noticeMessage = "";
@@ -283,6 +284,7 @@ export default {
         .then(() => {
           this.userEditErrors = [];
           this.authHeader = { "access-token": "", client: "", uid: "" };
+          this.scrollToAnchorPoint("top");
           this.noticeMessage = "変更を受け付けました。";
           setTimeout(() => {
             this.noticeMessage = "";
