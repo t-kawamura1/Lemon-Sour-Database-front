@@ -27,7 +27,7 @@
     margin-bottom: 30px;
   }
   .sour-container-sour-attributes {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
 }
 </style>
