@@ -21,7 +21,7 @@
   flex-direction: column;
   align-items: center;
   .sour-container-sour-display {
-    margin-bottom: 30px;
+    margin-bottom: 6px;
   }
   .sour-container-sour-flags {
     margin-bottom: 30px;

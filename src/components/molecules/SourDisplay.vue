@@ -29,5 +29,9 @@ export default {
   .sour-display-name {
     font-size: 2rem;
   }
+  .sour-display-image {
+    width: 300px;
+    height: 300px;
+  }
 }
 </style>
