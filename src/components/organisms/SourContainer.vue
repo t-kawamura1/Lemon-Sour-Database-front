@@ -21,13 +21,13 @@
   flex-direction: column;
   align-items: center;
   .sour-container-sour-display {
-    margin-bottom: 30px;
+    margin-bottom: 6px;
   }
   .sour-container-sour-flags {
     margin-bottom: 30px;
   }
   .sour-container-sour-attributes {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
 }
 </style>

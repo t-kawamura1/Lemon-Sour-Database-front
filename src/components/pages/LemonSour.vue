@@ -82,6 +82,7 @@
           <template v-slot:sour-attributes>
             <sour-attributes
               :table-attributes="sourTableAttributes"
+              :sour-attribute-notes="sourAttributeNoteTexts"
             ></sour-attributes>
           </template>
           <template v-slot:button-drink-today>
@@ -169,6 +170,7 @@
           <template v-slot:sour-attributes>
             <sour-attributes
               :table-attributes="sourTableAttributes"
+              :sour-attribute-notes="sourAttributeNoteTexts"
             ></sour-attributes>
           </template>
           <template v-slot:button-drink-today>
@@ -251,10 +253,11 @@ export default {
       sourTableAttributes: [
         ["メーカー"],
         ["アルコール度数 (%)"],
-        ["純アルコール量 (g)"],
-        ["カロリー (kcal)"],
+        ["純アルコール量 (g) *"],
+        ["カロリー (kcal) **"],
         ["果汁 (%)"],
       ],
+      sourAttributeNoteTexts: ["* 350mlあたり", "** 100mlあたり"],
       buttonDrinkToday: "今日はこれを飲む！",
     };
   },
