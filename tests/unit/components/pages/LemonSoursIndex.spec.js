@@ -14,12 +14,12 @@ jest.mock("axios", () => ({
             {
               name: "テストサワー",
               manufacturer: "サッポロ",
-              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+              sour_image: "@/assets/test/ls_test_sample1.png",
             },
             {
               name: "テストチューハイ",
               manufacturer: "サントリー",
-              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+              sour_image: "@/assets/test/ls_test_sample2.png",
             },
           ],
         })
@@ -32,12 +32,12 @@ jest.mock("axios", () => ({
             {
               name: "テストサワー",
               manufacturer: "サッポロ",
-              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+              sour_image: "@/assets/test/ls_test_sample1.png",
             },
             {
               name: "テストチューハイ",
               manufacturer: "サントリー",
-              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+              sour_image: "@/assets/test/ls_test_sample2.png",
             },
           ],
         })
@@ -50,12 +50,12 @@ jest.mock("axios", () => ({
             {
               name: "テストサワー",
               manufacturer: "サッポロ",
-              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+              sour_image: "@/assets/test/ls_test_sample1.png",
             },
             {
               name: "テストチューハイ",
               manufacturer: "サントリー",
-              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+              sour_image: "@/assets/test/ls_test_sample2.png",
             },
           ],
         })
@@ -68,7 +68,7 @@ jest.mock("axios", () => ({
             {
               name: "テストチューハイ",
               manufacturer: "サントリー",
-              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+              sour_image: "@/assets/test/ls_test_sample2.png",
             },
           ],
         })
@@ -81,12 +81,12 @@ jest.mock("axios", () => ({
             {
               name: "テストサワー",
               manufacturer: "サッポロ",
-              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+              sour_image: "@/assets/test/ls_test_sample1.png",
             },
             {
               name: "テストチューハイ",
               manufacturer: "サントリー",
-              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+              sour_image: "@/assets/test/ls_test_sample2.png",
             },
           ],
         })
@@ -110,12 +110,12 @@ jest.mock("axios", () => ({
             {
               name: "テストサワー",
               manufacturer: "サッポロ",
-              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+              sour_image: "@/assets/test/ls_test_sample1.png",
             },
             {
               name: "テストチューハイ",
               manufacturer: "サントリー",
-              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+              sour_image: "@/assets/test/ls_test_sample2.png",
             },
           ],
         })
@@ -128,12 +128,12 @@ jest.mock("axios", () => ({
             {
               name: "テストサワー",
               manufacturer: "サッポロ",
-              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+              sour_image: "@/assets/test/ls_test_sample1.png",
             },
             {
               name: "テストチューハイ",
               manufacturer: "サントリー",
-              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+              sour_image: "@/assets/test/ls_test_sample2.png",
             },
           ],
         })
@@ -146,12 +146,12 @@ jest.mock("axios", () => ({
             {
               name: "テストサワー",
               manufacturer: "サッポロ",
-              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+              sour_image: "@/assets/test/ls_test_sample1.png",
             },
             {
               name: "テストチューハイ",
               manufacturer: "サントリー",
-              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+              sour_image: "@/assets/test/ls_test_sample2.png",
             },
           ],
         })
@@ -164,7 +164,7 @@ jest.mock("axios", () => ({
             {
               name: "テストチューハイ",
               manufacturer: "サントリー",
-              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+              sour_image: "@/assets/test/ls_test_sample2.png",
             },
           ],
         })
@@ -177,12 +177,12 @@ jest.mock("axios", () => ({
             {
               name: "テストサワー",
               manufacturer: "サッポロ",
-              sour_image: { url: "@/assets/test/ls_test_sample1.png" },
+              sour_image: "@/assets/test/ls_test_sample1.png",
             },
             {
               name: "テストチューハイ",
               manufacturer: "サントリー",
-              sour_image: { url: "@/assets/test/ls_test_sample2.png" },
+              sour_image: "@/assets/test/ls_test_sample2.png",
             },
           ],
         })

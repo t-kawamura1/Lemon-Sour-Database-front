@@ -12,7 +12,7 @@
       ></sour-name>
       <sour-image
         class="sp-sours-index-items-item-image"
-        :sour-image-url="lemonSour.sour_image.url"
+        :sour-image-url="lemonSour.sour_image"
       ></sour-image>
     </div>
     <loading class="sp-sours-index-items-loading" v-show="loading"></loading>
