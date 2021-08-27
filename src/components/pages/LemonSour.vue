@@ -73,7 +73,7 @@
             <sour-display
               v-if="lemonSour.sour_image"
               :sour-name="lemonSour.name"
-              :sour-image="lemonSour.sour_image.url"
+              :sour-image="lemonSour.sour_image"
             ></sour-display>
           </template>
           <template v-slot:sour-flags>
@@ -160,7 +160,7 @@
             <sour-display
               v-if="lemonSour.sour_image"
               :sour-name="lemonSour.name"
-              :sour-image="lemonSour.sour_image.url"
+              :sour-image="lemonSour.sour_image"
             ></sour-display>
           </template>
           <template v-slot:sour-flags>

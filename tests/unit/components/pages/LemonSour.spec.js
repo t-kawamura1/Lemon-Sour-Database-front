@@ -15,7 +15,7 @@ jest.mock("axios", () => ({
         fruit_juice: 4.5,
         zero_sugar: true,
         zero_sweetener: false,
-        sour_image: { url: "@/assets/test/ls_test_sample.png" },
+        sour_image: "@/assets/test/ls_test_sample.png",
       },
     })
   ),
@@ -68,7 +68,9 @@ describe("(pc display) LemonSour component test", () => {
   it("レモンサワーのデータを１件取得して表示する", async () => {
     await flushPromises();
     expect(wrapper.find(".sour-name").text()).toBe("テストサワー");
-    expect(wrapper.find(".sour-image")).toBeTruthy();
+    expect(wrapper.find(".sour-image").attributes("src")).toBe(
+      "@/assets/test/ls_test_sample.png"
+    );
     expect(wrapper.findAll(".zero-flag")).toHaveLength(1);
     expect(wrapper.find(".zero-flag").text()).toBe("糖類ゼロ");
     expect(wrapper.findAll(".sour-attribute")).toHaveLength(5);
@@ -114,7 +116,9 @@ describe("(sp display) LemonSour component test", () => {
   it("レモンサワーのデータを１件取得して表示する", async () => {
     await flushPromises();
     expect(wrapper.find(".sour-name").text()).toBe("テストサワー");
-    expect(wrapper.find(".sour-image")).toBeTruthy();
+    expect(wrapper.find(".sour-image").attributes("src")).toBe(
+      "@/assets/test/ls_test_sample.png"
+    );
     expect(wrapper.findAll(".zero-flag")).toHaveLength(1);
     expect(wrapper.find(".zero-flag").text()).toBe("糖類ゼロ");
     expect(wrapper.findAll(".sour-attribute")).toHaveLength(5);
