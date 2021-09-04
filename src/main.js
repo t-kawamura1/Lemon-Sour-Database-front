@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 // Vue.prototype.$axios = axios; 及び
 // コンポーネント中で this.$axios とすると、テストでモック化が機能しないので、ここでは記述しない。
 axios.defaults.baseURL =
-  process.env.VUE_APP_API_ENDPOINT || "https://lsdb-api-v1.herokuapp.com";
+  process.env.VUE_APP_API_ENDPOINT || "https://lsdb-back.work";
 Vue.prototype.$encryptKey = process.env.VUE_APP_CRYPTO_KEY;
 Vue.config.productionTip = false;
 Vue.use(VueI18n);

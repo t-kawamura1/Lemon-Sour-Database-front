@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/components/pages/Home";
-import AgeConfirmation from "@/components/pages/AgeConfirmation";
+// import AgeConfirmation from "@/components/pages/AgeConfirmation";
 import LemonSoursIndex from "@/components/pages/LemonSoursIndex";
 import LemonSour from "@/components/pages/LemonSour";
 import User from "@/components/pages/User";
@@ -21,12 +21,12 @@ const routes = [
       desc: "お気に入りのレモンサワーをみつけて健康に楽しく飲もう！アルコール摂取量は健康のバロメーターです。好きなレモンサワーを選んで、アルコール摂取量を計算してみましょう！",
     },
   },
-  {
-    path: "/age_confirmation",
-    name: "ageConfirmation",
-    component: AgeConfirmation,
-    meta: { title: "年齢確認" },
-  },
+  // {
+  //   path: "/age_confirmation",
+  //   name: "ageConfirmation",
+  //   component: AgeConfirmation,
+  //   meta: { title: "年齢確認" },
+  // },
   {
     path: "/lemon_sours",
     name: "lemonSoursIndex",
@@ -80,28 +80,28 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (
-    Vue.$cookies.isKey("age-confirmation") &&
-    to.path !== "/age_confirmation"
-  ) {
-    next();
-  } else if (
-    Vue.$cookies.isKey("age-confirmation") &&
-    to.path == "/age_confirmation"
-  ) {
-    next(from);
-  } else if (
-    !Vue.$cookies.isKey("age-confirmation") &&
-    to.path !== "/age_confirmation"
-  ) {
-    next("/age_confirmation");
-  } else if (
-    !Vue.$cookies.isKey("age-confirmation") &&
-    to.path == "/age_confirmation"
-  ) {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   if (
+//     Vue.$cookies.isKey("age-confirmation") &&
+//     to.path !== "/age_confirmation"
+//   ) {
+//     next();
+//   } else if (
+//     Vue.$cookies.isKey("age-confirmation") &&
+//     to.path == "/age_confirmation"
+//   ) {
+//     next(from);
+//   } else if (
+//     !Vue.$cookies.isKey("age-confirmation") &&
+//     to.path !== "/age_confirmation"
+//   ) {
+//     next("/age_confirmation");
+//   } else if (
+//     !Vue.$cookies.isKey("age-confirmation") &&
+//     to.path == "/age_confirmation"
+//   ) {
+//     next();
+//   }
+// });
 
 export default router;

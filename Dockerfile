@@ -3,10 +3,7 @@ FROM node:14-slim
 
 ENV LANG=C.UTF-8 \
     TZ=Asia/Tokyo \
-    HOST=0.0.0.0 \
-    VUE_APP_API_ENDPOINT=${VUE_APP_API_ENDPOINT} \
-    VUE_APP_RESET_REDIRECT_URL=${VUE_APP_RESET_REDIRECT_URL} \
-    VUE_APP_CRYPTO_KEY=${VUE_APP_CRYPTO_KEY}
+    HOST=0.0.0.0
 
 WORKDIR /app
 
@@ -31,3 +28,5 @@ COPY . ./
 RUN npm run build
 
 EXPOSE 8080
+
+CMD ["npm", "run", "start"]
