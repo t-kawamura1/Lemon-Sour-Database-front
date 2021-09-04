@@ -58,6 +58,7 @@ export default {
     margin: 0 10px 20px 0;
     .pc-sours-index-items-item-name {
       font-size: 1.5rem;
+      height: 36px;
     }
     .pc-sours-index-items-item-image {
       width: 180px;

@@ -31,7 +31,6 @@ export default {
   font-weight: 700;
   color: $font-color-bg-white;
   letter-spacing: 1px;
-  height: 26px;
   .sour-name-line {
     margin-bottom: 6px;
   }
