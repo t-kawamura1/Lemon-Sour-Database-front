@@ -1,29 +1,32 @@
-# app
+# Lemon Sour DB
+Thanks for visiting!
 
-## Project setup
-```
-npm install
-```
+The source code of the following site is placed here.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+→ [Lemon Sour DB](https://lemonsourdb.net)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Please visit the above site and play with it!
 
-### Run your unit tests
-```
-npm run test:unit
-```
+The following test user has been registered.
 
-### Lints and fixes files
-```
-npm run lint
-```
+Contents that requires login can also be logged in as that user.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+→ test user
+
+email: lsdb@sample.com
+
+password: password
+
+## Features to implement down the road
+- [ ] A Lemon sour suggestion that suits the mood of the day
+- [ ] Pagination
+- [ ] Word-of-mouths
+- [ ] Reviews
+- [ ] Addition to favorites
+- [ ] Tasting charts  Cooperation with the map
+- [ ] Cooperation with the map
+- [ ] OmniAuth
+- [ ] Switching display mode
+
+## Author
+Tomoyuki Kawamura
