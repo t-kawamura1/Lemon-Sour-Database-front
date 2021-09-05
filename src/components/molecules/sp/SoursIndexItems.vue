@@ -59,6 +59,7 @@ export default {
     margin-bottom: 15px;
     .sp-sours-index-items-item-name {
       font-size: 1rem;
+      height: 26px;
     }
     .sp-sours-index-items-item-image {
       width: 100px;

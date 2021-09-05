@@ -72,7 +72,6 @@ export default {
       this.authHeader["uid"] = decryptedUid;
     },
     registrateUser(inputData) {
-      console.log(inputData);
       axios
         .post("/api/v1/auth", inputData)
         .then((res) => {

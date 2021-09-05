@@ -90,7 +90,9 @@ export default {
           this.$encryptKey
         ).toString();
         this.$cookies.set("age-confirmation", encryptedAnswer);
-        this.$router.push("/");
+        this.$router.push("/").catch((err) => {
+          console.log(err);
+        });
       } else {
         history.back();
       }

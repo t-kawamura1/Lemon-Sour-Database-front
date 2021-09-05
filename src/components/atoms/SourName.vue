@@ -21,7 +21,7 @@ export default {
     };
   },
   created() {
-    this.sourNameArray = this.sourNameText.split(" ");
+    this.sourNameArray = this.sourNameText.split("　");
   },
 };
 </script>
