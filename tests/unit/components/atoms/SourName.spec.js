@@ -19,7 +19,7 @@ describe("SourName component test", () => {
   describe("sourNameTextに空白がある場合", () => {
     const wrapper = mount(SourName, {
       propsData: {
-        sourNameText: "テスト堂 カミソリレモン",
+        sourNameText: "テスト堂　カミソリレモン",
       },
     });
     it("空白でテキストが改行されて表示される", () => {
