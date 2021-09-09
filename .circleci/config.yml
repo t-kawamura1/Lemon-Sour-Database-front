@@ -1,7 +1,9 @@
 version: 2.1
 orbs:
   node: circleci/node@4.5.0
-  heroku: circleci/heroku@1.2.6
+  aws-ecr: circleci/aws-ecr@7.2.0
+  aws-ecs: circleci/aws-ecs@02.2.1
+  # heroku: circleci/heroku@1.2.6
 
 jobs:
   test:
@@ -16,12 +18,23 @@ jobs:
           name: Unit test
           command: npm run test:unit
 
-  deploy:
-    executor: heroku/default
+  build_and_push_image:
+    machine:
+      image: ubuntu-2004:202008-01
     steps:
       - checkout
-      - heroku/install
-      - heroku/deploy-via-git
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ACCOUNT_URL
+          repo: "lsdb-front"
+          tag: "${CIRCLE_SHA1}"
+          region: AWS_REGION
+
+  # deploy:
+  #   executor: heroku/default
+  #   steps:
+  #     - checkout
+  #     - heroku/install
+  #     - heroku/deploy-via-git
 
 workflows:
   test_and_deploy:
@@ -31,6 +44,14 @@ workflows:
             branches:
               only:
                 - master
-      - deploy:
+      - build_and_push_image:
           requires:
             - test
+      - aws-ecs/deploy-service-update:
+          requires:
+            - build_and_push_image
+          family: "lsdb-task-front"
+          service-name: "lsdb-service-front"
+          cluster-name: "lsdb-cluster-front"
+          container-image-name-updates: "container=lsdb-container-front,tag=${CIRCLE_SHA1}"
+          aws-region: AWS_REGION
