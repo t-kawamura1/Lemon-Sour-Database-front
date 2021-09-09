@@ -161,7 +161,7 @@ export default {
           email: inputData,
           redirect_url:
             process.env.VUE_APP_RESET_REDIRECT_URL ||
-            "https://lsdb-front-v1.herokuapp.com/user/password_reset",
+            "https://lemonsourdb.net/user/password_reset",
         })
         .then(() => {
           this.showUserLoginModal = false;
